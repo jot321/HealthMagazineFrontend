@@ -43,6 +43,7 @@
     "react-image": "^2.2.1",
     "react-intl": "^3.11.0",
     "react-multi-carousel": "^2.5.0",
+    "react-player": "^1.15.2",
     "react-reveal": "^1.2.2",
     "react-select": "^3.0.8",
     "react-spring": "^8.0.27",

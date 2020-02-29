@@ -7,7 +7,10 @@ import ShortArticleFrontCard from "components/ProductCard/ShortArticleFrontCard"
 import { InfoCard } from "components/InformationCard/InfoCard";
 import { DesignCard } from "components/InformationCard/DesignCard";
 import { SimpleUserCard } from "components/InformationCard/SimpleUserCard";
-import { FactCard } from "components/InformationCard/FactCard";
+import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
+import { TipCard } from "components/InformationCard/TipCard";
+import { QuoteCard } from "components/InformationCard/QuoteCard";
+import { StoryCard } from "components/InformationCard/StoryCard";
 
 import {
   ProductsRow,
@@ -168,33 +171,45 @@ export const Information: React.FC<ProductsProps> = ({
         <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
-              <SimpleUserCard />
-            </Fade>
-          </ProductCardWrapper>
-        </ProductsCol>
-
-        <ProductsCol>
-          <ProductCardWrapper>
-            <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
-              <FactCard />
-            </Fade>
-          </ProductCardWrapper>
-        </ProductsCol>
-
-        <ProductsCol>
-          <ProductCardWrapper>
-            <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
-              <InfoCard
-                title={data.shortArticles[0].Title}
-                description={data.shortArticles[0].Description}
-                longText={data.shortArticles[0].LongText}
-                imageUrl={data.shortArticles[0].AttachedImage[0].url}
+              <TipCard
+                title={"Tea Tree Oil in Acne"}
+                description={
+                  "According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area"
+                }
               />
             </Fade>
           </ProductCardWrapper>
         </ProductsCol>
 
-        {/* {data.shortArticles.map((article: any, index: number) => {
+        <ProductsCol>
+          <ProductCardWrapper>
+            <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
+              <QuoteCard
+                title={"Tea Tree Oil in Acne"}
+                description={
+                  "According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area"
+                }
+              />
+            </Fade>
+          </ProductCardWrapper>
+        </ProductsCol>
+
+
+        <ProductsCol>
+          <ProductCardWrapper>
+            <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
+              <StoryCard
+                title={"Battling Diabetes"}
+                description={
+                  "According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area"
+                }
+              />
+            </Fade>
+          </ProductCardWrapper>
+        </ProductsCol>
+
+
+        {data.shortArticles.map((article: any, index: number) => {
           return (
             <ProductsCol key={index}>
               <ProductCardWrapper>
@@ -203,32 +218,17 @@ export const Information: React.FC<ProductsProps> = ({
                   delay={index * 10}
                   style={{ height: "100%" }}
                 >
-                  <ShortArticleFrontCard
-                  title={article.Title}
-                  description={article.Description}
-                  // tags={article.Topics}
-                  data={article}
-                  deviceType={deviceType}
-                  // onClick={() =>
-                  //   handleQuickViewModal(article, deviceType, handleModalClose)
-                  // }
-                />
-
-                  <InfoCard
+                  <SimpleCardWithCollapse
                     title={article.Title}
                     description={article.Description}
                     longText={article.LongText}
                     imageUrl={article.AttachedImage[0].url}
                   />
-
-                  <DesignCard/>
-                  <SimpleUserCard />
-
                 </Fade>
               </ProductCardWrapper>
             </ProductsCol>
           );
-        })} */}
+        })}
       </ProductsRow>
       {/* {loadMore && data.products.hasMore && (
         <ButtonWrapper>

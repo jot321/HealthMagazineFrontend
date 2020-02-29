@@ -3,9 +3,9 @@ import Document, {
   Head,
   Main,
   NextScript,
-  DocumentContext,
-} from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+  DocumentContext
+} from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -15,7 +15,7 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -26,7 +26,7 @@ export default class CustomDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        ),
+        )
       };
     } finally {
       sheet.seal();
@@ -37,18 +37,30 @@ export default class CustomDocument extends Document {
       <Html>
         <Head>
           <link
-            href='https://fonts.googleapis.com/css?family=Lato:400,700%7CPoppins:700&display=swap'
-            rel='stylesheet'
+            href="https://fonts.googleapis.com/css?family=Lato:400,700%7CPoppins:700&display=swap"
+            rel="stylesheet"
           ></link>
           <link
-            href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
-            rel='stylesheet'
+            href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+            rel="stylesheet"
           ></link>
         </Head>
         <body>
           <Main />
           <NextScript />
-          <script src='https://js.stripe.com/v3/' />
+          <script src="https://js.stripe.com/v3/" />
         </body>
       </Html>
     );

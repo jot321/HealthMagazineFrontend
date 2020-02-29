@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
 
 export const ProductsRow = styled.div`
   display: flex;
@@ -8,7 +8,6 @@ export const ProductsRow = styled.div`
   background-color: #f4f4f4;
   position: relative;
   z-index: 1;
-
 
   @media (max-width: 768px) {
     margin-left: -7.5px;
@@ -23,8 +22,8 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const ProductsCol = styled.div`
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 30px;
@@ -35,13 +34,8 @@ export const ProductsCol = styled.div`
   }
 
   @media (min-width: 768px) and (max-width: 1300px) {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-  @media (max-width: 1199px) and (min-width: 991px) {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 20px;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
   }
   @media (max-width: 768px) {
     padding-left: 15px;
@@ -49,6 +43,11 @@ export const ProductsCol = styled.div`
     margin-bottom: 15px;
     flex: 0 0 100%;
     max-width: 100%;
+  }
+  @media (max-width: 1199px) and (min-width: 991px) {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -58,10 +57,10 @@ export const NoResult = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: ${themeGet('fontFamily.0', 'sans-serif')};
-  font-size: ${themeGet('fontSizes.4', '21')}px;
-  font-weight: ${themeGet('fontWeights.6', '700')};
-  color: ${themeGet('colors.darkBold', '#0D1136')};
+  font-family: ${themeGet("fontFamily.0", "sans-serif")};
+  font-size: ${themeGet("fontSizes.4", "21")}px;
+  font-weight: ${themeGet("fontWeights.6", "700")};
+  color: ${themeGet("colors.darkBold", "#0D1136")};
 `;
 
 export const LoaderWrapper = styled.div`

@@ -62,7 +62,7 @@ const SidebarSection = styled.div`
 `;
 
 const ContentSection = styled.div`
-  width: calc(100% - 320px);
+  // width: calc(100% - 320px);
   height: auto;
   min-height: 100vh;
   padding: 30px 45px 50px;
@@ -80,11 +80,11 @@ const ContentSection = styled.div`
   }
 
   @media (max-width: 1500px) {
-    width: calc(100% - 320px);
+    // width: calc(100% - 320px);
   }
 
   @media (max-width: 1199px) {
-    width: calc(100% - 280px);
+    // width: calc(100% - 280px);
   }
 
   @media (max-width: 990px) {

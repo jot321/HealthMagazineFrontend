@@ -54,15 +54,15 @@ function HomePage({ deviceType }) {
               <StoreNav items={storeType} />
               {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             </MobileCarouselDropdown>
-            <OfferSection>
+            {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>
                 <Carousel deviceType={deviceType} data={OFFERS} />
               </div>
-            </OfferSection>
+            </OfferSection> */}
             <MainContentArea>
-              <SidebarSection>
+              {/* <SidebarSection>
                 <Sidebar type={PAGE_TYPE} deviceType={deviceType} />
-              </SidebarSection>
+              </SidebarSection> */}
               <ContentSection>
                 <div ref={targetRef}>
                   <Information
