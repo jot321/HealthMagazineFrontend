@@ -161,7 +161,7 @@ const Container = styled.div`
   }
 
   .card__readmore {
-    color: cadetblue;
+    color: black;
   }
 
   .card__factchecked {
@@ -193,11 +193,11 @@ const LoveButton = styled.div`
   background-size: 70% 70%;
 
   .love-number {
-    display: flex;
-    justify-content: center;
     position: absolute;
     width: 50px;
-    margin-top: 48px;
+    height: 50px;
+    padding: 17px;
+    margin-top: 30px;
     font-size: 0.8em;
     color: #505050;
   }
@@ -220,11 +220,11 @@ const LoveButtonActivated = styled.div`
   //   transform: scale(1.2);
 
   .love-number {
-    display: flex;
-    justify-content: center;
     position: absolute;
     width: 50px;
-    margin-top: 48px;
+    height: 50px;
+    padding: 17px;
+    margin-top: 30px;
     font-size: 0.8em;
     color: #505050;
   }
@@ -240,12 +240,12 @@ const ShareButton = styled.div`
     no-repeat center;
   background-size: 70% 70%;
 
-  .share-number {
-    display: flex;
-    justify-content: center;
+  .love-number {
     position: absolute;
     width: 50px;
-    margin-top: 48px;
+    height: 50px;
+    padding: 17px;
+    margin-top: 30px;
     font-size: 0.8em;
     color: #505050;
   }
@@ -267,12 +267,12 @@ const ShareButtonActivated = styled.div`
   //   -o-transform: scale(1.2);
   //   transform: scale(1.2);
 
-  .share-number {
-    display: flex;
-    justify-content: center;
+  .love-number {
     position: absolute;
     width: 50px;
-    margin-top: 48px;
+    height: 50px;
+    padding: 17px;
+    margin-top: 30px;
     font-size: 0.8em;
     color: #505050;
   }
@@ -293,14 +293,13 @@ const ExpandedLongText = styled.p``;
 
 export const SimpleCardWithCollapse = ({
   title,
-  byline,
   description,
+  longText,
   category,
   tags,
-  imageUrl,
-  likes,
-  shares
+  imageUrl
 }) => {
+  
   // Loves Section
   const [loveClicked, setLoveClicked] = useState(false);
 
@@ -332,10 +331,10 @@ export const SimpleCardWithCollapse = ({
 
   return (
     <Container>
-      <div className="wrapper">
-        <div className="card">
+      <div class="wrapper">
+        <div class="card">
           <div class="card__image">
-            <img src={imageUrl} alt="image" />
+            <img src={"http://localhost:1337" + imageUrl} alt="image" />
           </div>
 
           <div class="card__content">
@@ -351,18 +350,18 @@ export const SimpleCardWithCollapse = ({
                   {tags.map(tag => {
                     return (
                       <div class="card__meta">
-                        <a href="#">{tag}</a>
+                        <a href="#">{tag.Topic}</a>
                       </div>
                     );
                   })}
                 </div>
               )}
 
-              <p class="description">{byline}</p>
+              <p class="description">{description}</p>
               <br></br>
 
               {longTextExpanded && (
-                <ExpandedLongText>{description}</ExpandedLongText>
+                <ExpandedLongText>{longText}</ExpandedLongText>
               )}
 
               {!longTextExpanded && (
@@ -392,14 +391,14 @@ export const SimpleCardWithCollapse = ({
                   className="share-icon"
                   onClick={onShareButtonActivatedClick}
                 >
-                  {<div class="share-number">{shares + 1}</div>}
+                  {<div class="love-number">12</div>}
                 </ShareButtonActivated>
               ) : (
                 <ShareButton
                   className="heart-icon"
                   onClick={onShareButtonClick}
                 >
-                  {<div class="share-number">{shares}</div>}
+                  {<div class="love-number">11</div>}
                 </ShareButton>
               )}
 
@@ -409,11 +408,11 @@ export const SimpleCardWithCollapse = ({
                   className="heart-icon"
                   onClick={onLoveButtonActivatedClick}
                 >
-                  {<div class="love-number">{likes + 1}</div>}
+                  {<div class="love-number">24</div>}
                 </LoveButtonActivated>
               ) : (
                 <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
-                  {<div class="love-number">{likes}</div>}
+                  {<div class="love-number">23</div>}
                 </LoveButton>
               )}
             </div>

@@ -32,6 +32,14 @@ const Container = styled.div`
     background-color: #FFDA89;
 
     border-left: 10px solid #34bc88;
+
+    h2,
+    p,
+    a,
+    h4 {
+      font-family: Quicksand;
+      font-weight: 600;
+    }
   }
 
   .card__content {
@@ -104,6 +112,7 @@ const Container = styled.div`
 
   .fact-title {
     padding: 6px;
+    font-family: Quicksand;
     font-weight: 300;
     font-size: 1.5em;
     color: #2ea97a;

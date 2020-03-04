@@ -7,7 +7,7 @@ const withCSS = require('@zeit/next-css');
 const nextConfig = {
   env: {
     STRIPE_PUBLIC_KEY: 'your_stripe_public_key_here',
-    API_URL: 'http://localhost:1337/graphql',
+    API_URL: 'https://90ionm52bc.execute-api.us-east-1.amazonaws.com/dev/graphql',
   },
   webpack: config => {
     config.resolve.modules.push(__dirname);

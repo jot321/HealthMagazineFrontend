@@ -31,6 +31,14 @@ const Container = styled.div`
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
 
     border-left: 10px solid #fc0390;
+
+    h2,
+    p,
+    a,
+    h4 {
+      font-family: Quicksand;
+      font-weight: 600;
+    }
   }
 
   .card__content {
@@ -97,13 +105,14 @@ const Container = styled.div`
     display: inline-block;
     width: 40px;
     height: 40px;
-    background: url("https://img.icons8.com/dusk/30/000000/star.png") no-repeat
+    background: url("https://img.icons8.com/dusk/30/000000/accessibility2.png") no-repeat
       center;
   }
 
   .fact-title {
     padding: 6px;
     font-weight: 300;
+    font-family: Quicksand;
     font-size: 1.5em;
     color: #fc0390;
   }

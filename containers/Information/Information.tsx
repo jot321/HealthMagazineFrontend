@@ -31,16 +31,16 @@ const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_SHORT_ARTICLES = gql`
   query {
-    shortArticles {
-      Title
-      Description
-      LongText
-      Topics {
-        Topic
-      }
-      AttachedImage {
-        url
-      }
+    getShortArticles {
+      _id
+      title
+      byline
+      description
+      attachedImage
+      category_name
+      tags_name
+      likes
+      shares
     }
   }
 `;
@@ -75,6 +75,7 @@ export const Information: React.FC<ProductsProps> = ({
   // });
 
   const { data, error, loading, fetchMore } = useQuery(GET_SHORT_ARTICLES);
+  console.log(data.getShortArticles);
 
   // Quick View Modal
   const handleModalClose = () => {
@@ -139,7 +140,7 @@ export const Information: React.FC<ProductsProps> = ({
   }
 
   if (error) return <div>{error.message}</div>;
-  if (!data || !data.shortArticles || data.shortArticles.length === 0) {
+  if (!data || !data.getShortArticles || data.getShortArticles.length === 0) {
     return <NoResultFound />;
   }
   // const handleLoadMore = () => {
@@ -168,7 +169,7 @@ export const Information: React.FC<ProductsProps> = ({
   return (
     <>
       <ProductsRow>
-        <ProductsCol>
+        {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <TipCard
@@ -194,7 +195,6 @@ export const Information: React.FC<ProductsProps> = ({
           </ProductCardWrapper>
         </ProductsCol>
 
-
         <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
@@ -206,10 +206,16 @@ export const Information: React.FC<ProductsProps> = ({
               />
             </Fade>
           </ProductCardWrapper>
-        </ProductsCol>
+        </ProductsCol> */}
+        {data.getShortArticles.map((article: any, index: number) => {
+          // Setting default values for the category in case its not set in the backend
+          // TODO: Ideally this should be done somewhere in the backend
+          console.log(article);
+          let categoryName =
+            article.category_name == null
+              ? "Health"
+              : article.category_name;
 
-
-        {data.shortArticles.map((article: any, index: number) => {
           return (
             <ProductsCol key={index}>
               <ProductCardWrapper>
@@ -219,10 +225,14 @@ export const Information: React.FC<ProductsProps> = ({
                   style={{ height: "100%" }}
                 >
                   <SimpleCardWithCollapse
-                    title={article.Title}
-                    description={article.Description}
-                    longText={article.LongText}
-                    imageUrl={article.AttachedImage[0].url}
+                    title={article.title}
+                    byline={article.byline}
+                    description={article.description}
+                    category={categoryName}
+                    tags={article.tags_name}
+                    imageUrl={article.attachedImage}
+                    likes={article.likes}
+                    shares={article.shares}
                   />
                 </Fade>
               </ProductCardWrapper>

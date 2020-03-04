@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  a {
-    text-decoration: none;
-    color: #3498db;
-  }
-  a:hover {
-    color: #2980b9;
-  }
+  // a {
+  //   text-decoration: none;
+  //   color: #3498db;
+  // }
+  // a:hover {
+  //   color: #2980b9;
+  // }
 
   .wrapper {
     width: 100%;
@@ -31,6 +31,14 @@ const Container = styled.div`
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
 
     border-left: 10px solid #34bc88;
+
+    h2,
+    p,
+    a,
+    h4 {
+      font-family: Quicksand;
+      font-weight: 600;
+    }
   }
 
   .card__content {
@@ -104,6 +112,7 @@ const Container = styled.div`
   .fact-title {
     padding: 6px;
     font-weight: 300;
+    font-family: Quicksand;
     font-size: 1.5em;
     color: #2ea97a;
   }
@@ -161,14 +170,14 @@ const LoveButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   background: url("https://img.icons8.com/dusk/30/000000/like.png") no-repeat
-  center;
-  
+    center;
+
   // -webkit-transform: scale(1.2);
   // -moz-transform: scale(1.2);
   // -ms-transform: scale(1.2);
   // -o-transform: scale(1.2);
   // transform: scale(1.2);
-  
+
   .love-number {
     position: absolute;
     width: 50px;
