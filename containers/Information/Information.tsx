@@ -32,7 +32,7 @@ const QuickView = dynamic(() => import("../QuickView/QuickView"));
 const GET_SHORT_ARTICLES = gql`
   query {
     getShortArticles {
-      _id
+      CMS_ID
       title
       byline
       description
@@ -75,7 +75,7 @@ export const Information: React.FC<ProductsProps> = ({
   // });
 
   const { data, error, loading, fetchMore } = useQuery(GET_SHORT_ARTICLES);
-  console.log(data.getShortArticles);
+  // console.log(data.getShortArticles);
 
   // Quick View Modal
   const handleModalClose = () => {
@@ -212,9 +212,7 @@ export const Information: React.FC<ProductsProps> = ({
           // TODO: Ideally this should be done somewhere in the backend
           console.log(article);
           let categoryName =
-            article.category_name == null
-              ? "Health"
-              : article.category_name;
+            article.category_name == null ? "Health" : article.category_name;
 
           return (
             <ProductsCol key={index}>
@@ -225,6 +223,7 @@ export const Information: React.FC<ProductsProps> = ({
                   style={{ height: "100%" }}
                 >
                   <SimpleCardWithCollapse
+                    CMS_ID={article.CMS_ID}
                     title={article.title}
                     byline={article.byline}
                     description={article.description}

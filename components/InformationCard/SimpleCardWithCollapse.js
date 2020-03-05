@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 const Container = styled.div`
   a {
@@ -292,6 +294,7 @@ const CardArticleArea = styled.article`
 const ExpandedLongText = styled.p``;
 
 export const SimpleCardWithCollapse = ({
+  CMS_ID,
   title,
   byline,
   description,
@@ -301,22 +304,44 @@ export const SimpleCardWithCollapse = ({
   likes,
   shares
 }) => {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
   const [loveClicked, setLoveClicked] = useState(false);
+  const INCREMENT_LIKES = gql`
+    mutation incrementLikes($CMS_ID: ID!) {
+      incrementLikesForShortArticles(id: $CMS_ID) {
+        _id
+        likes
+      }
+    }
+  `;
+  const [incrementLikes] = useMutation(INCREMENT_LIKES);
 
   const onLoveButtonClick = () => {
     setLoveClicked(true);
+    incrementLikes({ variables: { CMS_ID } });
   };
 
   const onLoveButtonActivatedClick = () => {
     setLoveClicked(false);
   };
 
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Shares Section
   const [shareClicked, setShareClicked] = useState(false);
+  const INCREMENT_SHARES = gql`
+    mutation incrementShares($CMS_ID: ID!) {
+      incrementSharesForShortArticles(id: $CMS_ID) {
+        _id
+        likes
+      }
+    }
+  `;
+  const [incrementShares] = useMutation(INCREMENT_SHARES);
 
   const onShareButtonClick = () => {
     setShareClicked(true);
+    incrementShares({ variables: { CMS_ID } });
   };
 
   const onShareButtonActivatedClick = () => {
