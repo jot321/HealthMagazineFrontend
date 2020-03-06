@@ -78,11 +78,11 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <StoreNav items={storeType} />
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            {/* <OfferSection>
+            <OfferSection>
               <div style={{ margin: '0 -10px' }}>
                 <Carousel deviceType={deviceType} data={OFFERS} />
               </div>
-            </OfferSection> */}
+            </OfferSection>
             <ContentSection style={{ width: '100%' }}>
               <Information
                 type={PAGE_TYPE}

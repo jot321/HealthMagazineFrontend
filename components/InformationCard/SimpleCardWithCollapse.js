@@ -60,7 +60,7 @@ const Container = styled.div`
 
   .card__content {
     position: relative;
-    padding: 1.6rem;
+    padding: 1rem;
   }
 
   .long-summary {
@@ -78,7 +78,12 @@ const Container = styled.div`
   .card__category {
     display: inline-block;
     margin-bottom: 1rem;
-    border-bottom: 2px solid #ffcb00;
+
+    .card__meta {
+      display: inline-block;
+      float: left;
+      margin-right: 10px;
+      border-bottom: 2px solid #ffcb00;
 
     a {
       color: #15131d;
@@ -86,11 +91,11 @@ const Container = styled.div`
       padding: 0 5px;
       font-size: 0.85rem;
       letter-spacing: 1px;
-    }
+    }}
   }
 
   .card__tags {
-    display: flex;
+    display: inline-block;
     width: 100%;
     margin-bottom: 1rem;
 
@@ -120,7 +125,8 @@ const Container = styled.div`
     overflow: hidden;
     padding-right: 1.6rem;
     padding-left: 1.6rem;
-    padding-bottom: 1.6rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   .card__author {
@@ -298,8 +304,8 @@ export const SimpleCardWithCollapse = ({
   title,
   byline,
   description,
-  category,
-  tags,
+  categories,
+  visibleTags,
   imageUrl,
   likes,
   shares
@@ -315,7 +321,16 @@ export const SimpleCardWithCollapse = ({
       }
     }
   `;
+  const DECREMENT_LIKES = gql`
+    mutation decrementLikes($CMS_ID: ID!) {
+      decrementLikesForShortArticles(id: $CMS_ID) {
+        _id
+        likes
+      }
+    }
+  `;
   const [incrementLikes] = useMutation(INCREMENT_LIKES);
+  const [decrementLikes] = useMutation(DECREMENT_LIKES);
 
   const onLoveButtonClick = () => {
     setLoveClicked(true);
@@ -324,6 +339,7 @@ export const SimpleCardWithCollapse = ({
 
   const onLoveButtonActivatedClick = () => {
     setLoveClicked(false);
+    decrementLikes({ variables: { CMS_ID } });
   };
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -337,7 +353,16 @@ export const SimpleCardWithCollapse = ({
       }
     }
   `;
+  const DECREMENT_SHARES = gql`
+    mutation decrementShares($CMS_ID: ID!) {
+      decrementSharesForShortArticles(id: $CMS_ID) {
+        _id
+        likes
+      }
+    }
+  `;
   const [incrementShares] = useMutation(INCREMENT_SHARES);
+  const [decrementShares] = useMutation(DECREMENT_SHARES);
 
   const onShareButtonClick = () => {
     setShareClicked(true);
@@ -346,6 +371,7 @@ export const SimpleCardWithCollapse = ({
 
   const onShareButtonActivatedClick = () => {
     setShareClicked(false);
+    decrementShares({ variables: { CMS_ID } });
   };
 
   // Long Text Expansion
@@ -365,15 +391,25 @@ export const SimpleCardWithCollapse = ({
 
           <div class="card__content">
             <CardArticleArea onClick={onClickExpand}>
-              <div class="card__category">
-                <a>{category}</a>
-              </div>
+              {/* CATEGORIES */}
+              {categories.length > 0 && (
+                <div class="card__category">
+                  {categories.map(category => {
+                    return (
+                      <div class="card__meta">
+                        <a href="#">{category}</a>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
 
               <h2>{title}</h2>
-
-              {tags.length > 0 && (
+              
+              {/* TAGS */}
+              {visibleTags.length > 0 && (
                 <div class="card__tags">
-                  {tags.map(tag => {
+                  {visibleTags.map(tag => {
                     return (
                       <div class="card__meta">
                         <a href="#">{tag}</a>

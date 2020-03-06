@@ -37,8 +37,8 @@ const GET_SHORT_ARTICLES = gql`
       byline
       description
       attachedImage
-      category_name
-      tags_name
+      sub_category_names
+      visible_tags_names
       likes
       shares
     }
@@ -211,8 +211,8 @@ export const Information: React.FC<ProductsProps> = ({
           // Setting default values for the category in case its not set in the backend
           // TODO: Ideally this should be done somewhere in the backend
           console.log(article);
-          let categoryName =
-            article.category_name == null ? "Health" : article.category_name;
+          // let categoryName =
+          //   article.sub_category_names == null ? "Health" : article.sub_category_names;
 
           return (
             <ProductsCol key={index}>
@@ -227,8 +227,8 @@ export const Information: React.FC<ProductsProps> = ({
                     title={article.title}
                     byline={article.byline}
                     description={article.description}
-                    category={categoryName}
-                    tags={article.tags_name}
+                    categories={article.sub_category_names}
+                    visibleTags={article.visible_tags_names}
                     imageUrl={article.attachedImage}
                     likes={article.likes}
                     shares={article.shares}
