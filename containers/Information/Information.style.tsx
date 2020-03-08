@@ -22,8 +22,8 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const ProductsCol = styled.div`
-  flex: 0 0 25%;
-  max-width: 25%;
+  flex: 0 0 33.33333%;
+  max-width: 33.33333%;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 30px;
@@ -34,8 +34,8 @@ export const ProductsCol = styled.div`
   }
 
   @media (min-width: 768px) and (max-width: 1300px) {
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
+    flex: 0 0 50%;
+    max-width: 50%;
   }
   @media (max-width: 768px) {
     padding-left: 15px;

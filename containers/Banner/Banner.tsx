@@ -72,7 +72,8 @@ const Banner: React.FC<BannerProps> = ({
   return (
     <BannerWrapper
       style={{
-        backgroundImage: `url(${imageUrl})`,
+        // backgroundImage: `url(${imageUrl})`,
+        'min-height': '300px'
       }}
     >
       <BannerComponent>
@@ -91,7 +92,7 @@ const Banner: React.FC<BannerProps> = ({
 
         <SearchBox
           style={{
-            width: 700,
+            // width: 200,
             boxShadow: '0 21px 36px rgba(0,0,0,0.05)',
             borderRadius: '6px',
             overflow: 'hidden',

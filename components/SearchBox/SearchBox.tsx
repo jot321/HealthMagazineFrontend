@@ -103,11 +103,11 @@ const Search: React.FC<SearchBoxProps> = ({
           expand === true ? (toggleSearch ? 'expanded' : 'collapsed') : ''
         } ${minimal === true ? 'minimal' : ''}`}
       >
-        {pathname && pathname !== '/' ? (
+        {/* {pathname && pathname !== '/' ? (
           <CurrentType>{ucwords(pathname)}</CurrentType>
         ) : (
           <CurrentType>Grocery</CurrentType>
-        )}
+        )} */}
 
         <InputSearch
           type='text'

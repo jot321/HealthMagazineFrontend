@@ -3,7 +3,7 @@ import { themeGet } from '@styled-system/theme-get';
 
 const BannerWrapper = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -14,15 +14,15 @@ const BannerWrapper = styled.div`
   background-size: cover;
 
   @media (max-width: 1400px) {
-    min-height: 100vh;
+    min-height: 50vh;
   }
 
   @media (max-width: 1200px) {
-    min-height: 70vh;
+    min-height: 35vh;
   }
 
   @media (max-width: 1050px) {
-    min-height: 50vh;
+    min-height: 25vh;
   }
 
   @media (max-width: 990px) {
@@ -44,7 +44,7 @@ const BannerComponent = styled('div')`
 
   .banner-search {
     @media (max-width: 990px) {
-      display: none;
+      // display: none;      
     }
   }
 `;
@@ -55,6 +55,7 @@ const BannerHeading = styled('h1')`
   font-weight: 700;
   color: ${themeGet('colors.darkBold', '#0D1136')};
   margin-bottom: 15px;
+  margin-top : 20px;
   text-align: center;
 
   @media (max-width: 1400px) {

@@ -385,7 +385,7 @@ export const MobileHeaderInnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
+  padding: 8px;
   position: fixed;
   width: 100%;
   top: 0;
@@ -692,6 +692,7 @@ export const LanguageItem = styled.button`
 
 export const LangSwithcer = styled.div`
   margin-right: 20px;
+  display:none;
 
   .popover-wrapper.right {
     .popover-content {

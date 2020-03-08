@@ -12,10 +12,10 @@ const StoreNav: React.FunctionComponent<StoreNavProps> = ({
   className,
   items = [],
 }) => {
-  return (
+  return (    
     <StoreNavWrapper className={className}>
       <StoreNavLinks>
-        {items.map((item, index) => (
+        {items.map((item, index) => (          
           <NavLink
             className='store-nav-link'
             href={item.link}

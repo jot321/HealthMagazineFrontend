@@ -85,13 +85,14 @@ const Container = styled.div`
       margin-right: 10px;
       border-bottom: 2px solid #ffcb00;
 
-    a {
-      color: #15131d;
-      text-transform: uppercase;
-      padding: 0 5px;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-    }}
+      a {
+        color: #15131d;
+        text-transform: uppercase;
+        padding: 0 5px;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+      }
+    }
   }
 
   .card__tags {
@@ -147,13 +148,15 @@ const Container = styled.div`
     .card__author-content_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/cotton/100/000000/pen.png")
+      // background: url("https://img.icons8.com/cotton/100/000000/pen.png")
+      background: url("https://img.icons8.com/color/100/000000/pen.png")
         no-repeat center;
       background-size: 100% 100%;
     }
 
     a {
       padding: 8px;
+      color:black;
     }
   }
 
@@ -179,7 +182,8 @@ const Container = styled.div`
     .card__factchecked_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/plasticine/100/000000/double-tick.png")
+      background: url("https://img.icons8.com/color/100/000000/warranty.png")
+      // background: url("https://img.icons8.com/plasticine/100/000000/double-tick.png")
         no-repeat center;
       background-size: 100% 100%;
     }
@@ -196,7 +200,11 @@ const LoveButton = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/wired/100/000000/like.png") no-repeat
+  // background: url("https://img.icons8.com/officel/100/000000/filled-like.png") no-repeat
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
+  // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
+  // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
+  // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
     center;
   background-size: 70% 70%;
 
@@ -207,7 +215,8 @@ const LoveButton = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: #505050;
+    // color: #505050;
+    color: 	#FE4540;
   }
 `;
 
@@ -217,7 +226,8 @@ const LoveButtonActivated = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
+  // background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
     center;
   background-size: 70% 70%;
 
@@ -234,17 +244,17 @@ const LoveButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: #505050;
+    color: 	#FE4540;
   }
 `;
 
-const ShareButton = styled.div`
+const ShareButton = styled.a`
   float: right;
   position: relative;
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
+  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
     no-repeat center;
   background-size: 70% 70%;
 
@@ -255,7 +265,8 @@ const ShareButton = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: #505050;
+    // color: #505050;
+    color: #74B980;
   }
 `;
 
@@ -265,7 +276,8 @@ const ShareButtonActivated = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
+  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
+  // background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
     no-repeat center;
   background-size: 70% 70%;
 
@@ -282,7 +294,7 @@ const ShareButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: #505050;
+    color: #74B980;
   }
 `;
 
@@ -392,7 +404,7 @@ export const SimpleCardWithCollapse = ({
           <div class="card__content">
             <CardArticleArea onClick={onClickExpand}>
               {/* CATEGORIES */}
-              {categories.length > 0 && (
+              {/* {categories.length > 0 && (
                 <div class="card__category">
                   {categories.map(category => {
                     return (
@@ -402,13 +414,20 @@ export const SimpleCardWithCollapse = ({
                     );
                   })}
                 </div>
-              )}
+              )} */}
 
               <h2>{title}</h2>
-              
+
               {/* TAGS */}
               {visibleTags.length > 0 && (
                 <div class="card__tags">
+                  {categories.map(category => {
+                    return (
+                      <div class="card__meta">
+                        <a href="#">{category}</a>
+                      </div>
+                    );
+                  })}
                   {visibleTags.map(tag => {
                     return (
                       <div class="card__meta">
@@ -436,10 +455,10 @@ export const SimpleCardWithCollapse = ({
 
           <div class="card__action">
             <div class="card__author">
-              <div class="card__author-content">
+              {/* <div class="card__author-content">
                 <div class="card__author-content_image"></div>
                 <a href="#">John Doe</a>
-              </div>
+              </div> */}
               <div class="card__factchecked">
                 <div class="card__factchecked_image"></div>
                 <h4>Fact Checked</h4>
@@ -459,6 +478,8 @@ export const SimpleCardWithCollapse = ({
                 <ShareButton
                   className="heart-icon"
                   onClick={onShareButtonClick}
+                  href={"whatsapp://send?images=https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/35f34f4485a74da9be12266c521ac6fc.jpg"}
+                  data-action={"share/whatsapp/share"}
                 >
                   {<div class="share-number">{shares}</div>}
                 </ShareButton>

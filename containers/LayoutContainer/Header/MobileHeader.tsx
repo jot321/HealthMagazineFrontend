@@ -23,7 +23,8 @@ import { FormattedMessage } from 'react-intl';
 import SearchBox from 'components/SearchBox/SearchBox';
 import { SearchContext } from 'contexts/search/search.context';
 import Logoimage from 'image/logo.svg';
-import NewLogo from 'image/health_matters.png';
+// const NewLogo = require( 'image/Urban_Nuskha_logo.jpeg');
+const NewLogo = require( 'image/New_Logo_2.png');
 import {
   HOME_PAGE,
   GROCERY_PAGE,
@@ -184,7 +185,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
             <Logo>
               <Link href={HOME_PAGE}>
                 <a>
-                  <img src={Logoimage} alt='pickbazar-admin' />
+                  <img style={{width:'40px', height:'40px' }} src={NewLogo} alt='pickbazar-admin' />
                 </a>
               </Link>
             </Logo>

@@ -42,7 +42,6 @@ import HeaderWrapper, {
   TypeIcon,
 } from './Header.style';
 import Logoimage from 'image/logo.svg';
-import NewLogo from 'image/health_matters.png';
 import UserImage from 'image/user.jpg';
 import {
   HOME_PAGE,
@@ -264,7 +263,7 @@ const Header: React.FC<HeaderProps> = ({
         >
           <Link href={HOME_PAGE}>
             <a>
-              <img src={Logoimage} alt='pickbazar-admin' />
+              {/* <img src={Logoimage} alt='pickbazar-admin' /> */}
             </a>
           </Link>
         </Logo>

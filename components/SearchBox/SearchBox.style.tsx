@@ -125,6 +125,7 @@ export const SearchBox = styled.input`
 
 export const SearchInputWrapper = styled.div`
   width: 100%;
+  padding: 10px;
 
   form {
     display: flex;

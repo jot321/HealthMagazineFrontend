@@ -175,14 +175,14 @@ export const Information: React.FC<ProductsProps> = ({
               <TipCard
                 title={"Tea Tree Oil in Acne"}
                 description={
-                  "According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area. According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area"
+                  "According to the Mayo Clinic, it may “reduce the number of inflamed and non-inflamed lesions. To use tea tree oil for pimples, apply a couple drops to the inflamed area." 
                 }
               />
             </Fade>
           </ProductCardWrapper>
-        </ProductsCol>
+        </ProductsCol> */}
 
-        <ProductsCol>
+        {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <QuoteCard
@@ -193,9 +193,9 @@ export const Information: React.FC<ProductsProps> = ({
               />
             </Fade>
           </ProductCardWrapper>
-        </ProductsCol>
+        </ProductsCol> */}
 
-        <ProductsCol>
+        {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <StoryCard
@@ -207,13 +207,8 @@ export const Information: React.FC<ProductsProps> = ({
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
+        
         {data.getShortArticles.map((article: any, index: number) => {
-          // Setting default values for the category in case its not set in the backend
-          // TODO: Ideally this should be done somewhere in the backend
-          console.log(article);
-          // let categoryName =
-          //   article.sub_category_names == null ? "Health" : article.sub_category_names;
-
           return (
             <ProductsCol key={index}>
               <ProductCardWrapper>

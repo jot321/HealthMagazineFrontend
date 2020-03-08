@@ -20,6 +20,8 @@ const MobileHeader = dynamic(() => import('./Header/MobileHeader'), {
 });
 const LayoutWrapper = styled.div`
   background-color: #f7f7f7;
+  padding-left: calc(50% - 37.5rem);
+  padding-right: calc(50% - 37.5rem);
 
   .reuseModalHolder {
     padding: 0;
