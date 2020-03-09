@@ -13,3 +13,7 @@ export const YOUR_ORDER = '/order';
 export const ORDER_RECEIVED = '/order-recived';
 export const OFFER_PAGE = '/offer';
 export const HELP_PAGE = '/help';
+
+export const CHRONIC_PAGE = '/chronic'
+export const SKIN_HAIR_PAGE = '/skinhair'
+export const WEIGHT_PAGE = '/weight'

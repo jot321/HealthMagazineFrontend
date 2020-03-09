@@ -1,16 +1,16 @@
-import React, { useContext, useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { Waypoint } from 'react-waypoint';
-import SearchBox from 'components/SearchBox/SearchBox';
-import { SearchContext } from 'contexts/search/search.context';
-import { useStickyDispatch } from 'contexts/app/app.provider';
-import { FormattedMessage } from 'react-intl';
+import React, { useContext, useCallback } from "react";
+import { useRouter } from "next/router";
+import { Waypoint } from "react-waypoint";
+import SearchBox from "components/SearchBox/SearchBox";
+import { SearchContext } from "contexts/search/search.context";
+import { useStickyDispatch } from "contexts/app/app.provider";
+import { FormattedMessage } from "react-intl";
 import {
   BannerWrapper,
   BannerHeading,
   BannerSubHeading,
-  BannerComponent,
-} from './Banner.style';
+  BannerComponent
+} from "./Banner.style";
 
 type BannerProps = {
   imageUrl: string;
@@ -21,7 +21,7 @@ type BannerProps = {
 const Banner: React.FC<BannerProps> = ({
   imageUrl,
   intlTitleId,
-  intlDescriptionId,
+  intlDescriptionId
 }) => {
   const { state, dispatch } = useContext(SearchContext);
   const router = useRouter();
@@ -31,11 +31,11 @@ const Banner: React.FC<BannerProps> = ({
 
   const handleSearchInput = (text: string) => {
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: {
         ...state,
-        text,
-      },
+        text
+      }
     });
   };
 
@@ -45,26 +45,26 @@ const Banner: React.FC<BannerProps> = ({
     router.push(
       {
         pathname: pathname,
-        query: { ...urlState, text },
+        query: { ...urlState, text }
       },
       {
-        pathname: pathname === '/' ? `${pathname}grocery` : pathname,
-        query: { ...urlState, text },
+        pathname: pathname === "/" ? `${pathname}grocery` : pathname,
+        query: { ...urlState, text }
       },
       { shallow: true }
     );
   }
   const useDispatch = useStickyDispatch();
-  const setSticky = useCallback(() => useDispatch({ type: 'SET_STICKY' }), [
-    useDispatch,
+  const setSticky = useCallback(() => useDispatch({ type: "SET_STICKY" }), [
+    useDispatch
   ]);
   const removeSticky = useCallback(
-    () => useDispatch({ type: 'REMOVE_STICKY' }),
+    () => useDispatch({ type: "REMOVE_STICKY" }),
     [useDispatch]
   );
 
   const onWaypointPositionChange = ({ currentPosition }) => {
-    if (!currentPosition || currentPosition === 'above') {
+    if (!currentPosition || currentPosition === "above") {
       setSticky();
     }
   };
@@ -73,7 +73,7 @@ const Banner: React.FC<BannerProps> = ({
     <BannerWrapper
       style={{
         // backgroundImage: `url(${imageUrl})`,
-        'min-height': '300px'
+        "min-height": "300px"
       }}
     >
       <BannerComponent>
@@ -93,12 +93,12 @@ const Banner: React.FC<BannerProps> = ({
         <SearchBox
           style={{
             // width: 200,
-            boxShadow: '0 21px 36px rgba(0,0,0,0.05)',
-            borderRadius: '6px',
-            overflow: 'hidden',
+            boxShadow: "0 21px 36px rgba(0,0,0,0.05)",
+            borderRadius: "6px",
+            overflow: "hidden"
           }}
           handleSearch={(value: string) => handleSearchInput(value)}
-          value={state.text || ''}
+          value={state.text || ""}
           onClick={handleClickSearchButton}
           className="banner-search"
           pathname={pathname}

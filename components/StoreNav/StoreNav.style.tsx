@@ -5,9 +5,12 @@ const StoreNavWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   z-index: 1;
-  position: relative;
+  position: sticky;
   background-color: #fff;
   height: 55px;
+  z-index: 1001;
+  top: 56px;
+  left: 0px;
 `;
 
 export const StoreNavLinks = styled.div`

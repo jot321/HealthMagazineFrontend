@@ -1,40 +1,96 @@
 import {
-  GROCERY_PAGE,
-  CLOTHING,
-  MAKEUP_PAGE,
-  BAGS_PAGE,
-  FURNITURE_PAGE,
-  BOOK_PAGE,
-} from './navigation';
-export default [
-  {
-    link: GROCERY_PAGE,
-    icon: '',
-    label: 'Grocery',
-  },
-  {
-    link: MAKEUP_PAGE,
-    icon: '',
-    label: 'Makeup',
-  },
-  {
-    link: BAGS_PAGE,
-    icon: '',
-    label: 'Bags',
-  },
-  {
-    link: CLOTHING,
-    icon: '',
-    label: 'Clothing',
-  },
-  {
-    link: BOOK_PAGE,
-    icon: '',
-    label: 'Book',
-  },
-  {
-    link: FURNITURE_PAGE,
-    icon: '',
-    label: 'Furniture',
-  },
-];
+  HOME_PAGE,
+  CHRONIC_PAGE,
+  WEIGHT_PAGE,
+  SKIN_HAIR_PAGE
+} from "./navigation";
+export default {
+  HomePage: [
+    {
+      link: HOME_PAGE,
+      icon: "",
+      label: "Home"
+    },
+    {
+      link: "/?sortByLikes=true&identifier=1",
+      icon: "",
+      label: "Most Liked",
+      identifier: "1"
+    },
+    {
+      link: CHRONIC_PAGE,
+      icon: "",
+      label: "Chronic Conditions"
+    },
+    {
+      link: SKIN_HAIR_PAGE,
+      icon: "",
+      label: "Skin & Hair Care"
+    },
+    {
+      link: WEIGHT_PAGE,
+      icon: "",
+      label: "Weight Management"
+    }
+  ],
+  ChronicPage: [
+    {
+      link: HOME_PAGE,
+      icon: "",
+      label: "Home"
+    },
+    {
+      link: CHRONIC_PAGE,
+      icon: "",
+      label: "Chronic Conditions",
+    },
+    {
+      link: CHRONIC_PAGE + "?identifier=2",
+      icon: "",
+      label: "Diabetes",
+      identifier: "2"
+    },
+    {
+      link: CHRONIC_PAGE + "?identifier=3",
+      icon: "",
+      label: "Blood Pressure",
+      identifier: "3"
+    }
+  ],
+  SkinHairCarePage: [
+    {
+      link: HOME_PAGE,
+      icon: "",
+      label: "Home"
+    },
+    {
+      link: SKIN_HAIR_PAGE,
+      icon: "",
+      label: "Skin & Hair Care"
+    },
+    {
+      link: SKIN_HAIR_PAGE + "?identifier=4",
+      icon: "",
+      label: "Acne",
+      identifier: "4"
+    },
+    {
+      link: SKIN_HAIR_PAGE + "?identifier=5",
+      icon: "",
+      label: "Hair Fall",
+      identifier: "5"
+    }
+  ],
+  WeightManagementPage: [
+    {
+      link: HOME_PAGE,
+      icon: "",
+      label: "Home"
+    },
+    {
+      link: WEIGHT_PAGE,
+      icon: "",
+      label: "Weight Mgt."
+    }
+  ]
+};

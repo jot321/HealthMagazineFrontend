@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { themeGet } from '@styled-system/theme-get';
 
 export const MobileCarouselDropdown = styled.div`
-  @media (min-width: 990px) {
-    display: none;
-  }
+  // @media (min-width: 990px) {
+  //   display: none;
+  // }
 `;
 
 const OfferPageWrapper = styled.div`

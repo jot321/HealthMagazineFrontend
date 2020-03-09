@@ -22,6 +22,7 @@ const StoreNav: React.FunctionComponent<StoreNavProps> = ({
             label={item.label}
             icon={item.icon}
             key={index}
+            identifier={item.identifier}
           />
         ))}
       </StoreNavLinks>

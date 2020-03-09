@@ -20,9 +20,9 @@ import {
 import OFFERS from "data/offers";
 import BannerImg from "image/wellness_banner.png";
 import NavBarItems from "constants/storeType";
-import LocationModal from "containers/LocationModal/LocationModal";
-import { getCookie } from "components/helpers/session";
-import { openModal, Modal } from "@redq/reuse-modal";
+import LocationModal from 'containers/LocationModal/LocationModal';
+import { getCookie } from 'components/helpers/session';
+import { openModal, Modal } from '@redq/reuse-modal';
 
 const PAGE_TYPE = "grocery";
 
@@ -30,22 +30,23 @@ function HomePage({ deviceType }) {
   const { query } = useRouter();
   const targetRef = React.useRef(null);
 
+
   React.useEffect(() => {
     const modalTimer = setTimeout(() => {
-      if (!getCookie("zip_code") && !getCookie("first_visit")) {
+      if (!getCookie('zip_code') && !getCookie('first_visit')) {
         openModal({
           show: true,
-          overlayClassName: "quick-view-overlay",
+          overlayClassName: 'quick-view-overlay',
           closeOnClickOutside: true,
           component: LocationModal,
           // closeComponent: "div",
           config: {
             enableResizing: false,
             disableDragging: true,
-            className: "quick-view-modal",
+            className: 'quick-view-modal',
             width: 458,
-            height: "auto"
-          }
+            height: 'auto',
+          },
         });
       }
     }, 1800);
@@ -53,7 +54,7 @@ function HomePage({ deviceType }) {
       clearTimeout(modalTimer);
     };
   }, []);
-
+  
   // Scroll the top of the content area any time we search or click a tag
   React.useEffect(() => {
     if ((query.text || query.category) && targetRef.current) {
@@ -81,7 +82,7 @@ function HomePage({ deviceType }) {
         {deviceType.desktop ? (
           <>
             <MobileCarouselDropdown>
-              <StoreNav items={NavBarItems.HomePage} />
+              <StoreNav items={NavBarItems.SkinHairCarePage} />
               {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             </MobileCarouselDropdown>
             {/* <OfferSection>
@@ -106,7 +107,7 @@ function HomePage({ deviceType }) {
           </>
         ) : (
           <MainContentArea>
-            <StoreNav items={NavBarItems.HomePage} />
+            <StoreNav items={NavBarItems.SkinHairCarePage} />
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>

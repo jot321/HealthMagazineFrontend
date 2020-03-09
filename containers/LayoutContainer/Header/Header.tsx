@@ -267,7 +267,7 @@ const Header: React.FC<HeaderProps> = ({
             </a>
           </Link>
         </Logo>
-        <MainMenu>
+        {/* <MainMenu>
           <Popover
             className='right'
             handler={
@@ -283,7 +283,7 @@ const Header: React.FC<HeaderProps> = ({
             }
             content={<>{MenuArray.map(NavItem)}</>}
           />
-        </MainMenu>
+        </MainMenu> */}
       </HeaderLeftSide>
       {isHomePage ? (
         <SearchBox

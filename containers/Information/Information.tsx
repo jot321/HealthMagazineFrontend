@@ -45,6 +45,22 @@ const GET_SHORT_ARTICLES = gql`
   }
 `;
 
+const GET_SHORT_ARTICLES_SORTED_BY_LIKES = gql`
+  query {
+    getShortArticles(sortByLikes: true) {
+      CMS_ID
+      title
+      byline
+      description
+      attachedImage
+      sub_category_names
+      visible_tags_names
+      likes
+      shares
+    }
+  }
+`;
+
 type ProductsProps = {
   deviceType?: {
     mobile: boolean;
@@ -54,16 +70,19 @@ type ProductsProps = {
   type: string;
   fetchLimit?: number;
   loadMore?: boolean;
+  sortByLikes?: boolean;
 };
 
 export const Information: React.FC<ProductsProps> = ({
   deviceType,
   type,
   fetchLimit = 8,
-  loadMore = true
+  loadMore = true,
+  sortByLikes = false
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
+
   // const { data, error, loading, fetchMore } = useQuery(GET_PRODUCTS, {
   //   variables: {
   //     type: type,
@@ -74,51 +93,55 @@ export const Information: React.FC<ProductsProps> = ({
   //   }
   // });
 
-  const { data, error, loading, fetchMore } = useQuery(GET_SHORT_ARTICLES);
-  // console.log(data.getShortArticles);
+  let queryToExecute = GET_SHORT_ARTICLES;
+  if (sortByLikes) {
+    queryToExecute = GET_SHORT_ARTICLES_SORTED_BY_LIKES;
+  }
+
+  const { data, error, loading, fetchMore } = useQuery(queryToExecute);
 
   // Quick View Modal
-  const handleModalClose = () => {
-    const href = `${router.pathname}`;
-    const as = "/";
-    router.push(href, as, { shallow: true });
-    closeModal();
-  };
+  // const handleModalClose = () => {
+  //   const href = `${router.pathname}`;
+  //   const as = "/";
+  //   router.push(href, as, { shallow: true });
+  //   closeModal();
+  // };
 
-  const handleQuickViewModal = React.useCallback(
-    (modalProps: any, deviceType: any, onModalClose: any) => {
-      if (router.pathname === "/product/[slug]") {
-        const as = `/product/${modalProps.slug}`;
-        router.push(router.pathname, as);
-        return;
-      }
-      openModal({
-        show: true,
-        overlayClassName: "quick-view-overlay",
-        closeOnClickOutside: false,
-        component: QuickView,
-        componentProps: { modalProps, deviceType, onModalClose },
-        closeComponent: "div",
-        config: {
-          enableResizing: false,
-          disableDragging: true,
-          className: "quick-view-modal",
-          width: 900,
-          y: 30,
-          height: "auto",
-          transition: {
-            mass: 1,
-            tension: 0,
-            friction: 0
-          }
-        }
-      });
-      const href = `${router.pathname}?${modalProps.slug}`;
-      const as = `/product/${modalProps.slug}`;
-      router.push(href, as, { shallow: true });
-    },
-    []
-  );
+  // const handleQuickViewModal = React.useCallback(
+  //   (modalProps: any, deviceType: any, onModalClose: any) => {
+  //     if (router.pathname === "/product/[slug]") {
+  //       const as = `/product/${modalProps.slug}`;
+  //       router.push(router.pathname, as);
+  //       return;
+  //     }
+  //     openModal({
+  //       show: true,
+  //       overlayClassName: "quick-view-overlay",
+  //       closeOnClickOutside: false,
+  //       component: QuickView,
+  //       componentProps: { modalProps, deviceType, onModalClose },
+  //       closeComponent: "div",
+  //       config: {
+  //         enableResizing: false,
+  //         disableDragging: true,
+  //         className: "quick-view-modal",
+  //         width: 900,
+  //         y: 30,
+  //         height: "auto",
+  //         transition: {
+  //           mass: 1,
+  //           tension: 0,
+  //           friction: 0
+  //         }
+  //       }
+  //     });
+  //     const href = `${router.pathname}?${modalProps.slug}`;
+  //     const as = `/product/${modalProps.slug}`;
+  //     router.push(href, as, { shallow: true });
+  //   },
+  //   []
+  // );
 
   if (loading) {
     return (
@@ -207,7 +230,7 @@ export const Information: React.FC<ProductsProps> = ({
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-        
+
         {data.getShortArticles.map((article: any, index: number) => {
           return (
             <ProductsCol key={index}>

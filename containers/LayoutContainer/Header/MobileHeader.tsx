@@ -23,16 +23,11 @@ import { FormattedMessage } from 'react-intl';
 import SearchBox from 'components/SearchBox/SearchBox';
 import { SearchContext } from 'contexts/search/search.context';
 import Logoimage from 'image/logo.svg';
-// const NewLogo = require( 'image/Urban_Nuskha_logo.jpeg');
 const NewLogo = require( 'image/New_Logo_2.png');
 import {
   HOME_PAGE,
-  GROCERY_PAGE,
-  MAKEUP_PAGE,
-  CLOTHING,
-  BAGS_PAGE,
-  FURNITURE_PAGE,
-  BOOK_PAGE,
+  CHRONIC_PAGE,
+  SKIN_HAIR_PAGE
 } from 'constants/navigation';
 import LanguageContext from 'contexts/language/language.context';
 
@@ -166,12 +161,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
 
   const isHomePage =
     pathname === HOME_PAGE ||
-    pathname === GROCERY_PAGE ||
-    pathname === CLOTHING ||
-    pathname === MAKEUP_PAGE ||
-    pathname === BOOK_PAGE ||
-    pathname === FURNITURE_PAGE ||
-    pathname === BAGS_PAGE;
+    pathname === CHRONIC_PAGE ||
+    pathname === SKIN_HAIR_PAGE;
 
   return (
     <DrawerProvider>
