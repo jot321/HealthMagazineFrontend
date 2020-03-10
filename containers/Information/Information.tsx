@@ -45,6 +45,26 @@ const GET_SHORT_ARTICLES = gql`
   }
 `;
 
+const GET_LISTICLES = gql`
+  query {
+    getListicles {
+      CMS_ID
+      title
+      byline
+      description
+      attachedImage
+      listicleItems {
+        listicleItemHeader
+        listicleItemDescription
+      }
+      sub_category_names
+      visible_tags_names
+      likes
+      shares
+    }
+  }
+`;
+
 const GET_SHORT_ARTICLES_SORTED_BY_LIKES = gql`
   query {
     getShortArticles(sortByLikes: true) {
@@ -93,6 +113,9 @@ export const Information: React.FC<ProductsProps> = ({
   //   }
   // });
 
+  // -----------------------------------------------------------
+  // DATA FETCHING - QUERY SECTION 
+  // -----------------------------------------------------------
   let queryToExecute = GET_SHORT_ARTICLES;
   if (sortByLikes) {
     queryToExecute = GET_SHORT_ARTICLES_SORTED_BY_LIKES;
@@ -100,7 +123,9 @@ export const Information: React.FC<ProductsProps> = ({
 
   const { data, error, loading, fetchMore } = useQuery(queryToExecute);
 
-  // Quick View Modal
+  // -----------------------------------------------------------
+  // QUICK VIEW MODAL SECTION
+  // -----------------------------------------------------------
   // const handleModalClose = () => {
   //   const href = `${router.pathname}`;
   //   const as = "/";
@@ -143,6 +168,9 @@ export const Information: React.FC<ProductsProps> = ({
   //   []
   // );
 
+  // -----------------------------------------------------------
+  // LOADING AND ERROR SECTION
+  // -----------------------------------------------------------
   if (loading) {
     return (
       <LoaderWrapper>
@@ -166,6 +194,10 @@ export const Information: React.FC<ProductsProps> = ({
   if (!data || !data.getShortArticles || data.getShortArticles.length === 0) {
     return <NoResultFound />;
   }
+
+  // -----------------------------------------------------------
+  // LOAD MORE SECTION
+  // -----------------------------------------------------------
   // const handleLoadMore = () => {
   //   toggleLoading(true);
   //   fetchMore({

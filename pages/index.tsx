@@ -29,40 +29,44 @@ const PAGE_TYPE = "grocery";
 function HomePage({ deviceType }) {
   const { query } = useRouter();
   const targetRef = React.useRef(null);
-
-  React.useEffect(() => {
-    const modalTimer = setTimeout(() => {
-      if (!getCookie("zip_code") && !getCookie("first_visit")) {
-        openModal({
-          show: true,
-          overlayClassName: "quick-view-overlay",
-          closeOnClickOutside: true,
-          component: LocationModal,
-          // closeComponent: "div",
-          config: {
-            enableResizing: false,
-            disableDragging: true,
-            className: "quick-view-modal",
-            width: 458,
-            height: "auto"
-          }
-        });
-      }
-    }, 1800);
-    return () => {
-      clearTimeout(modalTimer);
-    };
-  }, []);
+  
+  // React.useEffect(() => {
+  //   const modalTimer = setTimeout(() => {
+  //     if (!getCookie("zip_code") && !getCookie("first_visit")) {
+  //       openModal({
+  //         show: true,
+  //         overlayClassName: "quick-view-overlay",
+  //         closeOnClickOutside: true,
+  //         component: LocationModal,
+  //         // closeComponent: "div",
+  //         config: {
+  //           enableResizing: false,
+  //           disableDragging: true,
+  //           className: "quick-view-modal",
+  //           width: 458,
+  //           height: "auto"
+  //         }
+  //       });
+  //     }
+  //   }, 1800);
+  //   return () => {
+  //     clearTimeout(modalTimer);
+  //   };
+  // }, []);
 
   // Scroll the top of the content area any time we search or click a tag
-  React.useEffect(() => {
-    if ((query.text || query.category) && targetRef.current) {
-      window.scrollTo({
-        top: targetRef.current.offsetTop - 110,
-        behavior: "smooth"
-      });
-    }
-  }, [query]);
+  // React.useEffect(() => {
+  //   if (
+  //     (query.text || query.category || query.sortByLikes === "true") &&
+  //     targetRef.current
+  //   ) {
+  //     console.log(targetRef.current.offsetTop);
+  //     window.scrollTo({
+  //       top: targetRef.current.offsetTop - 110,
+  //       behavior: "smooth"
+  //     });
+  //   }
+  // }, [query]);
 
   const sortByLikes_ = query.sortByLikes == "true" ? true : false;
 
@@ -114,12 +118,14 @@ function HomePage({ deviceType }) {
               </div>
             </OfferSection> */}
             <ContentSection style={{ width: "100%" }}>
-              <Information
-                type={PAGE_TYPE}
-                deviceType={deviceType}
-                fetchLimit={16}
-                sortByLikes={sortByLikes_}
-              />
+              <div ref={targetRef}>
+                <Information
+                  type={PAGE_TYPE}
+                  deviceType={deviceType}
+                  fetchLimit={16}
+                  sortByLikes={sortByLikes_}
+                />
+              </div>
             </ContentSection>
           </MainContentArea>
         )}

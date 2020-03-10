@@ -478,7 +478,7 @@ export const SimpleCardWithCollapse = ({
                 <ShareButton
                   className="heart-icon"
                   onClick={onShareButtonClick}
-                  href={"whatsapp://send?images=https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/35f34f4485a74da9be12266c521ac6fc.jpg"}
+                  href={"whatsapp://send?text=Hello"}
                   data-action={"share/whatsapp/share"}
                 >
                   {<div class="share-number">{shares}</div>}
