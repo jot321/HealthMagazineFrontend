@@ -41,6 +41,7 @@ const GET_SHORT_ARTICLES = gql`
       visible_tags_names
       likes
       shares
+      importance
     }
   }
 `;
@@ -61,6 +62,7 @@ const GET_LISTICLES = gql`
       visible_tags_names
       likes
       shares
+      importance
     }
   }
 `;
@@ -114,14 +116,85 @@ export const Information: React.FC<ProductsProps> = ({
   // });
 
   // -----------------------------------------------------------
-  // DATA FETCHING - QUERY SECTION 
   // -----------------------------------------------------------
-  let queryToExecute = GET_SHORT_ARTICLES;
-  if (sortByLikes) {
-    queryToExecute = GET_SHORT_ARTICLES_SORTED_BY_LIKES;
+  // DATA FETCHING - QUERY SECTION
+  // -----------------------------------------------------------
+  // -----------------------------------------------------------
+  // let queryToExecute = GET_SHORT_ARTICLES;
+  // if (sortByLikes) {
+  //   queryToExecute = GET_SHORT_ARTICLES_SORTED_BY_LIKES;
+  // }
+
+  // const { data, error, loading, fetchMore } = useQuery(queryToExecute);
+
+  const shortArticles = useQuery(GET_SHORT_ARTICLES);
+  const listicles = useQuery(GET_LISTICLES);
+
+  // -----------------------------------------------------------
+  // LOADING AND ERROR SECTION
+  // -----------------------------------------------------------
+  if (listicles.loading || shortArticles.loading) {
+    return (
+      <LoaderWrapper>
+        <LoaderItem>
+          <Placeholder />
+        </LoaderItem>
+        <LoaderItem>
+          <Placeholder />
+        </LoaderItem>
+        <LoaderItem>
+          <Placeholder />
+        </LoaderItem>
+        <LoaderItem>
+          <Placeholder />
+        </LoaderItem>
+      </LoaderWrapper>
+    );
   }
 
-  const { data, error, loading, fetchMore } = useQuery(queryToExecute);
+  if (listicles.error) return <div>{listicles.error.message}</div>;
+  if (shortArticles.error) return <div>{shortArticles.error.message}</div>;
+
+  if (
+    !listicles.data ||
+    !listicles.data.getListicles ||
+    listicles.data.getListicles.length === 0
+  ) {
+    return <NoResultFound />;
+  }
+  if (
+    !shortArticles.data ||
+    !shortArticles.data.getShortArticles ||
+    shortArticles.data.getShortArticles.length === 0
+  ) {
+    return <NoResultFound />;
+  }
+
+  const INFO_TYPE = {
+    LISTICLE: 1,
+    SHORT_ARTICLE: 2,
+    IMAGE_ARTICLE: 3
+  };
+
+  let feedItems = [];
+
+  listicles.data.getListicles.map((element: any) => {
+    feedItems.push({
+      type: INFO_TYPE.LISTICLE,
+      data: element,
+      importance: element.importance ? element.importance : 0
+    });
+  });
+
+  shortArticles.data.getShortArticles.map((element: any) => {
+    feedItems.push({
+      type: INFO_TYPE.SHORT_ARTICLE,
+      data: element,
+      importance: element.importance
+    });
+  });
+
+  feedItems.sort((a, b) => b.importance - a.importance);
 
   // -----------------------------------------------------------
   // QUICK VIEW MODAL SECTION
@@ -169,33 +242,6 @@ export const Information: React.FC<ProductsProps> = ({
   // );
 
   // -----------------------------------------------------------
-  // LOADING AND ERROR SECTION
-  // -----------------------------------------------------------
-  if (loading) {
-    return (
-      <LoaderWrapper>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-      </LoaderWrapper>
-    );
-  }
-
-  if (error) return <div>{error.message}</div>;
-  if (!data || !data.getShortArticles || data.getShortArticles.length === 0) {
-    return <NoResultFound />;
-  }
-
-  // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
   // const handleLoadMore = () => {
@@ -236,7 +282,6 @@ export const Information: React.FC<ProductsProps> = ({
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-
         {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
@@ -249,7 +294,6 @@ export const Information: React.FC<ProductsProps> = ({
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-
         {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
@@ -262,8 +306,7 @@ export const Information: React.FC<ProductsProps> = ({
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-
-        {data.getShortArticles.map((article: any, index: number) => {
+        {/* {data.getShortArticles.map((article: any, index: number) => {
           return (
             <ProductsCol key={index}>
               <ProductCardWrapper>
@@ -287,6 +330,63 @@ export const Information: React.FC<ProductsProps> = ({
               </ProductCardWrapper>
             </ProductsCol>
           );
+        })} */}
+        {feedItems.map((element: any, index: number) => {
+          switch (element.type) {
+            case INFO_TYPE.LISTICLE:
+              const listicle = element.data;
+              return (
+                <ProductsCol key={index}>
+                  <ProductCardWrapper>
+                    <Fade
+                      duration={800}
+                      delay={index * 10}
+                      style={{ height: "100%" }}
+                    >
+                      <SimpleCardWithCollapse
+                        CMS_ID={listicle.CMS_ID}
+                        title={listicle.title}
+                        byline={listicle.byline}
+                        description={listicle.description}
+                        listicles={listicle.listicleItems}
+                        categories={listicle.sub_category_names}                        
+                        visibleTags={listicle.visible_tags_names}
+                        imageUrl={listicle.attachedImage}
+                        likes={listicle.likes}
+                        shares={listicle.shares}
+                      />
+                    </Fade>
+                  </ProductCardWrapper>
+                </ProductsCol>
+              );
+              break;
+            case INFO_TYPE.SHORT_ARTICLE:
+              const article = element.data;
+              return (
+                <ProductsCol key={index}>
+                  <ProductCardWrapper>
+                    <Fade
+                      duration={800}
+                      delay={index * 10}
+                      style={{ height: "100%" }}
+                    >
+                      <SimpleCardWithCollapse
+                        CMS_ID={article.CMS_ID}
+                        title={article.title}
+                        byline={article.byline}
+                        description={article.description}
+                        categories={article.sub_category_names}
+                        visibleTags={article.visible_tags_names}
+                        imageUrl={article.attachedImage}
+                        likes={article.likes}
+                        shares={article.shares}
+                      />
+                    </Fade>
+                  </ProductCardWrapper>
+                </ProductsCol>
+              );
+              break;
+          }
         })}
       </ProductsRow>
       {/* {loadMore && data.products.hasMore && (

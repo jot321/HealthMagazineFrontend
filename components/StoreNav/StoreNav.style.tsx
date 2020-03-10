@@ -9,7 +9,7 @@ const StoreNavWrapper = styled.div`
   background-color: #fff;
   height: 55px;
   z-index: 1001;
-  top: 45px;
+  top: 48px;
   left: 0px;
 `;
 

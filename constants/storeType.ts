@@ -12,10 +12,16 @@ export default {
       label: "Home"
     },
     {
-      link: "/?sortByLikes=true&identifier=1",
+      link: "/?sortByLikes=true&identifier=top-picks",
       icon: "",
-      label: "Most Liked",
-      identifier: "1"
+      label: "Daily Picks",
+      identifier: "top-picks"
+    },
+    {
+      link: "/?sortByLikes=true&identifier=popular",
+      icon: "",
+      label: "Popular",
+      identifier: "popular"
     },
     {
       link: CHRONIC_PAGE,

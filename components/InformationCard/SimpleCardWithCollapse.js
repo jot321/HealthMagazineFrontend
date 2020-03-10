@@ -156,7 +156,7 @@ const Container = styled.div`
 
     a {
       padding: 8px;
-      color:black;
+      color: black;
     }
   }
 
@@ -183,7 +183,7 @@ const Container = styled.div`
       width: 30px;
       height: 30px;
       background: url("https://img.icons8.com/color/100/000000/warranty.png")
-      // background: url("https://img.icons8.com/plasticine/100/000000/double-tick.png")
+        // background: url("https://img.icons8.com/plasticine/100/000000/double-tick.png")
         no-repeat center;
       background-size: 100% 100%;
     }
@@ -201,10 +201,11 @@ const LoveButton = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/officel/100/000000/filled-like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
-  // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
-  // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
-  // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat
+    // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
+    // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
+    // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
     center;
   background-size: 70% 70%;
 
@@ -216,7 +217,7 @@ const LoveButton = styled.div`
     margin-top: 48px;
     font-size: 0.8em;
     // color: #505050;
-    color: 	#FE4540;
+    color: #fe4540;
   }
 `;
 
@@ -227,8 +228,8 @@ const LoveButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
-    center;
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   //   -webkit-transform: scale(1.2);
@@ -244,7 +245,7 @@ const LoveButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: 	#FE4540;
+    color: #fe4540;
   }
 `;
 
@@ -266,7 +267,7 @@ const ShareButton = styled.a`
     margin-top: 48px;
     font-size: 0.8em;
     // color: #505050;
-    color: #74B980;
+    color: #74b980;
   }
 `;
 
@@ -277,7 +278,7 @@ const ShareButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-  // background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
+    // background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
     no-repeat center;
   background-size: 70% 70%;
 
@@ -294,7 +295,7 @@ const ShareButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
-    color: #74B980;
+    color: #74b980;
   }
 `;
 
@@ -306,16 +307,36 @@ const CardArticleArea = styled.article`
 
   p.description {
     color: #777;
+    font-size: 15px;
   }
 `;
 
-const ExpandedLongText = styled.p``;
+const ExpandedLongText = styled.p`
+  font-size: 15px;
+`;
+
+const ExpandedListicles = styled.p`
+  margin-top: 5px;
+  font-size: 15px;
+
+  h3 {
+    display: inline;
+    font-family: Quicksand;
+    border-bottom: 2px solid #e23e21;
+  }
+
+  p{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+`;
 
 export const SimpleCardWithCollapse = ({
   CMS_ID,
   title,
   byline,
   description,
+  listicles = [],
   categories,
   visibleTags,
   imageUrl,
@@ -388,6 +409,7 @@ export const SimpleCardWithCollapse = ({
 
   // Long Text Expansion
   const [longTextExpanded, setLongTextExpanded] = useState(false);
+  const showListicles = longTextExpanded && listicles.length > 0;
 
   const onClickExpand = () => {
     setLongTextExpanded(!longTextExpanded);
@@ -443,6 +465,19 @@ export const SimpleCardWithCollapse = ({
 
               {longTextExpanded && (
                 <ExpandedLongText>{description}</ExpandedLongText>
+              )}
+
+              {showListicles && (
+                <ExpandedListicles>
+                  {listicles.map(listicle => {
+                    return (
+                      <div>
+                        <h3>{listicle.listicleItemHeader}</h3>
+                        <p>{listicle.listicleItemDescription}</p>
+                      </div>
+                    );
+                  })}
+                </ExpandedListicles>
               )}
 
               {!longTextExpanded && (
