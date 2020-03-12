@@ -361,18 +361,12 @@ export const SimpleCardWithCollapse = ({
   const [loveClicked, setLoveClicked] = useState(false);
   const INCREMENT_LIKES = gql`
     mutation incrementLikes($CMS_ID: ID!) {
-      incrementLikesForShortArticles(id: $CMS_ID) {
-        _id
-        likes
-      }
+      incrementLikes(id: $CMS_ID)
     }
   `;
   const DECREMENT_LIKES = gql`
     mutation decrementLikes($CMS_ID: ID!) {
-      decrementLikesForShortArticles(id: $CMS_ID) {
-        _id
-        likes
-      }
+      decrementLikes(id: $CMS_ID)
     }
   `;
   const [incrementLikes] = useMutation(INCREMENT_LIKES);
@@ -393,18 +387,12 @@ export const SimpleCardWithCollapse = ({
   const [shareClicked, setShareClicked] = useState(false);
   const INCREMENT_SHARES = gql`
     mutation incrementShares($CMS_ID: ID!) {
-      incrementSharesForShortArticles(id: $CMS_ID) {
-        _id
-        likes
-      }
+      incrementShares(id: $CMS_ID)
     }
   `;
   const DECREMENT_SHARES = gql`
     mutation decrementShares($CMS_ID: ID!) {
-      decrementSharesForShortArticles(id: $CMS_ID) {
-        _id
-        likes
-      }
+      decrementShares(id: $CMS_ID)
     }
   `;
   const [incrementShares] = useMutation(INCREMENT_SHARES);

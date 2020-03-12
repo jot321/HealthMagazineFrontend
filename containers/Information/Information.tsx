@@ -19,8 +19,8 @@ import NoResultFound from "components/NoResult/NoResult";
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_HOME_FEED = gql`
-  query {
-    getHomeFeed {
+  query getFeed($sortByLikes: Boolean, $dailyPicks: Boolean) {
+    getHomeFeed(sortByLikes: $sortByLikes, dailyPicks: $dailyPicks) {
       message
       properties
     }
@@ -34,12 +34,10 @@ type ProductsProps = {
     desktop: boolean;
   };
   type: string;
-  fetchLimit?: number;
   loadMore?: boolean;
-  sortByLikes?: boolean;
 };
 
-export const Information: React.FC<ProductsProps> = ({ deviceType, type, fetchLimit = 8, loadMore = true, sortByLikes = false }) => {
+export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMore = true }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
 
@@ -48,7 +46,23 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, fetchLi
   // DATA FETCHING - QUERY SECTION
   // -----------------------------------------------------------
   // -----------------------------------------------------------
-  const homeFeed = useQuery(GET_HOME_FEED);
+
+  let sortByLikes_ = false;
+  let dailyPicks_ = false;
+
+  if (router.query.sortByLikes === "true") {
+    sortByLikes_ = true;
+  }
+  if (router.query.dailyPicks === "true") {
+    dailyPicks_ = true;
+  }
+
+  const homeFeed = useQuery(GET_HOME_FEED, {
+    variables: {
+      sortByLikes: sortByLikes_,
+      dailyPicks: dailyPicks_
+    }
+  });
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
@@ -226,8 +240,6 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, fetchLi
 
           switch (properties_.type) {
             case InformationType.LISTICLE:
-              console.log(data_);
-
               return (
                 <ProductsCol key={index}>
                   <ProductCardWrapper>

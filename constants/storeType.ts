@@ -12,7 +12,7 @@ export default {
       label: "Home"
     },
     {
-      link: "/?sortByLikes=true&identifier=top-picks",
+      link: "/?dailyPicks=true&identifier=top-picks",
       icon: "",
       label: "Daily Picks",
       identifier: "top-picks"

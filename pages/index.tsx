@@ -102,7 +102,6 @@ function HomePage({ deviceType }) {
                   <Information
                     type={PAGE_TYPE}
                     deviceType={deviceType}
-                    fetchLimit={16}
                   />
                 </div>
               </ContentSection>
@@ -122,8 +121,6 @@ function HomePage({ deviceType }) {
                 <Information
                   type={PAGE_TYPE}
                   deviceType={deviceType}
-                  fetchLimit={16}
-                  sortByLikes={sortByLikes_}
                 />
               </div>
             </ContentSection>
