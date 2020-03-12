@@ -3,23 +3,12 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import gql from "graphql-tag";
 import { openModal, closeModal } from "@redq/reuse-modal";
-import ShortArticleFrontCard from "components/ProductCard/ShortArticleFrontCard";
-import { InfoCard } from "components/InformationCard/InfoCard";
-import { DesignCard } from "components/InformationCard/DesignCard";
-import { SimpleUserCard } from "components/InformationCard/SimpleUserCard";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
 import { QuoteCard } from "components/InformationCard/QuoteCard";
 import { StoryCard } from "components/InformationCard/StoryCard";
 
-import {
-  ProductsRow,
-  ProductsCol,
-  ButtonWrapper,
-  LoaderWrapper,
-  LoaderItem,
-  ProductCardWrapper
-} from "./Information.style";
+import { ProductsRow, ProductsCol, ButtonWrapper, LoaderWrapper, LoaderItem, ProductCardWrapper } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -29,56 +18,11 @@ import NoResultFound from "components/NoResult/NoResult";
 
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
-const GET_SHORT_ARTICLES = gql`
+const GET_HOME_FEED = gql`
   query {
-    getShortArticles {
-      CMS_ID
-      title
-      byline
-      description
-      attachedImage
-      sub_category_names
-      visible_tags_names
-      likes
-      shares
-      importance
-    }
-  }
-`;
-
-const GET_LISTICLES = gql`
-  query {
-    getListicles {
-      CMS_ID
-      title
-      byline
-      description
-      attachedImage
-      listicleItems {
-        listicleItemHeader
-        listicleItemDescription
-      }
-      sub_category_names
-      visible_tags_names
-      likes
-      shares
-      importance
-    }
-  }
-`;
-
-const GET_SHORT_ARTICLES_SORTED_BY_LIKES = gql`
-  query {
-    getShortArticles(sortByLikes: true) {
-      CMS_ID
-      title
-      byline
-      description
-      attachedImage
-      sub_category_names
-      visible_tags_names
-      likes
-      shares
+    getHomeFeed {
+      message
+      properties
     }
   }
 `;
@@ -95,45 +39,21 @@ type ProductsProps = {
   sortByLikes?: boolean;
 };
 
-export const Information: React.FC<ProductsProps> = ({
-  deviceType,
-  type,
-  fetchLimit = 8,
-  loadMore = true,
-  sortByLikes = false
-}) => {
+export const Information: React.FC<ProductsProps> = ({ deviceType, type, fetchLimit = 8, loadMore = true, sortByLikes = false }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-
-  // const { data, error, loading, fetchMore } = useQuery(GET_PRODUCTS, {
-  //   variables: {
-  //     type: type,
-  //     text: router.query.text,
-  //     category: router.query.category,
-  //     offset: 0,
-  //     limit: fetchLimit
-  //   }
-  // });
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
   // -----------------------------------------------------------
   // -----------------------------------------------------------
-  // let queryToExecute = GET_SHORT_ARTICLES;
-  // if (sortByLikes) {
-  //   queryToExecute = GET_SHORT_ARTICLES_SORTED_BY_LIKES;
-  // }
-
-  // const { data, error, loading, fetchMore } = useQuery(queryToExecute);
-
-  const shortArticles = useQuery(GET_SHORT_ARTICLES);
-  const listicles = useQuery(GET_LISTICLES);
+  const homeFeed = useQuery(GET_HOME_FEED);
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
   // -----------------------------------------------------------
-  if (listicles.loading || shortArticles.loading) {
+  if (homeFeed.loading) {
     return (
       <LoaderWrapper>
         <LoaderItem>
@@ -152,49 +72,18 @@ export const Information: React.FC<ProductsProps> = ({
     );
   }
 
-  if (listicles.error) return <div>{listicles.error.message}</div>;
-  if (shortArticles.error) return <div>{shortArticles.error.message}</div>;
+  if (homeFeed.error) return <div>{homeFeed.error.message}</div>;
 
-  if (
-    !listicles.data ||
-    !listicles.data.getListicles ||
-    listicles.data.getListicles.length === 0
-  ) {
-    return <NoResultFound />;
-  }
-  if (
-    !shortArticles.data ||
-    !shortArticles.data.getShortArticles ||
-    shortArticles.data.getShortArticles.length === 0
-  ) {
+  if (!homeFeed.data || !homeFeed.data.getHomeFeed || homeFeed.data.getHomeFeed.length === 0) {
     return <NoResultFound />;
   }
 
-  const INFO_TYPE = {
+  const InformationType = {
     LISTICLE: 1,
     SHORT_ARTICLE: 2,
-    IMAGE_ARTICLE: 3
+    IMAGE_ARTICLE: 3,
+    TIP: 4
   };
-
-  let feedItems = [];
-
-  listicles.data.getListicles.map((element: any) => {
-    feedItems.push({
-      type: INFO_TYPE.LISTICLE,
-      data: element,
-      importance: element.importance ? element.importance : 0
-    });
-  });
-
-  shortArticles.data.getShortArticles.map((element: any) => {
-    feedItems.push({
-      type: INFO_TYPE.SHORT_ARTICLE,
-      data: element,
-      importance: element.importance
-    });
-  });
-
-  feedItems.sort((a, b) => b.importance - a.importance);
 
   // -----------------------------------------------------------
   // QUICK VIEW MODAL SECTION
@@ -331,55 +220,50 @@ export const Information: React.FC<ProductsProps> = ({
             </ProductsCol>
           );
         })} */}
-        {feedItems.map((element: any, index: number) => {
-          switch (element.type) {
-            case INFO_TYPE.LISTICLE:
-              const listicle = element.data;
+        {homeFeed.data.getHomeFeed.map((element: any, index: number) => {
+          const data_ = JSON.parse(element.message);
+          const properties_ = JSON.parse(element.properties);
+
+          switch (properties_.type) {
+            case InformationType.LISTICLE:
+              console.log(data_);
+
               return (
                 <ProductsCol key={index}>
                   <ProductCardWrapper>
-                    <Fade
-                      duration={800}
-                      delay={index * 10}
-                      style={{ height: "100%" }}
-                    >
+                    <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
                       <SimpleCardWithCollapse
-                        CMS_ID={listicle.CMS_ID}
-                        title={listicle.title}
-                        byline={listicle.byline}
-                        description={listicle.description}
-                        listicles={listicle.listicleItems}
-                        categories={listicle.sub_category_names}                        
-                        visibleTags={listicle.visible_tags_names}
-                        imageUrl={listicle.attachedImage}
-                        likes={listicle.likes}
-                        shares={listicle.shares}
+                        CMS_ID={data_.CMS_ID}
+                        title={data_.title}
+                        byline={data_.byline}
+                        description={data_.description}
+                        listicles={data_.listicleItems}
+                        categories={data_.sub_category_names}
+                        visibleTags={data_.visible_tags_names}
+                        imageUrl={data_.attachedImage}
+                        likes={properties_.likes}
+                        shares={properties_.shares}
                       />
                     </Fade>
                   </ProductCardWrapper>
                 </ProductsCol>
               );
               break;
-            case INFO_TYPE.SHORT_ARTICLE:
-              const article = element.data;
+            case InformationType.SHORT_ARTICLE:
               return (
                 <ProductsCol key={index}>
                   <ProductCardWrapper>
-                    <Fade
-                      duration={800}
-                      delay={index * 10}
-                      style={{ height: "100%" }}
-                    >
+                    <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
                       <SimpleCardWithCollapse
-                        CMS_ID={article.CMS_ID}
-                        title={article.title}
-                        byline={article.byline}
-                        description={article.description}
-                        categories={article.sub_category_names}
-                        visibleTags={article.visible_tags_names}
-                        imageUrl={article.attachedImage}
-                        likes={article.likes}
-                        shares={article.shares}
+                        CMS_ID={data_.CMS_ID}
+                        title={data_.title}
+                        byline={data_.byline}
+                        description={data_.description}
+                        categories={data_.sub_category_names}
+                        visibleTags={data_.visible_tags_names}
+                        imageUrl={data_.attachedImage}
+                        likes={properties_.likes}
+                        shares={properties_.shares}
                       />
                     </Fade>
                   </ProductCardWrapper>

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
+import { Waypoint } from "react-waypoint";
+
 const Container = styled.div`
   a {
     text-decoration: none;
@@ -41,7 +43,7 @@ const Container = styled.div`
     a,
     h4 {
       font-family: Quicksand;
-      font-weight: 600;
+      // font-weight: 600;
     }
   }
 
@@ -104,7 +106,7 @@ const Container = styled.div`
       display: inline-block;
       float: left;
       margin-right: 10px;
-      border-bottom: 2px solid #e23e21;
+      border-bottom: 2px solid #ea9085;
 
       a {
         color: #15131d;
@@ -169,10 +171,6 @@ const Container = styled.div`
     float: right;
     position: relative;
     padding-left: 1em;
-  }
-
-  .card__readmore {
-    color: cadetblue;
   }
 
   .card__factchecked {
@@ -306,28 +304,41 @@ const CardArticleArea = styled.article`
   }
 
   p.description {
-    color: #777;
-    font-size: 15px;
+    color: #444;
+    font-size: 16px;
+  }
+`;
+
+const ActionButton = styled.div`
+  a {
+    color: #ea9085;
+    display: flex;
+    justify-content: left;
   }
 `;
 
 const ExpandedLongText = styled.p`
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 15px;
 `;
 
-const ExpandedListicles = styled.p`
-  margin-top: 5px;
-  font-size: 15px;
+const ExpandedListicles = styled.div`
+  margin-top: 20px;
+  font-size: 16px;
+  margin-bottom: 15px;
 
   h3 {
     display: inline;
     font-family: Quicksand;
-    border-bottom: 2px solid #e23e21;
+    border-bottom: 2px solid #ea9085;
+    font-weight: 600;
   }
 
-  p{
+  p {
     padding-top: 10px;
     padding-bottom: 10px;
+    font-weight: 400;
   }
 `;
 
@@ -343,6 +354,8 @@ export const SimpleCardWithCollapse = ({
   likes,
   shares
 }) => {
+  const targetRef = React.useRef(null);
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
   const [loveClicked, setLoveClicked] = useState(false);
@@ -409,24 +422,29 @@ export const SimpleCardWithCollapse = ({
 
   // Long Text Expansion
   const [longTextExpanded, setLongTextExpanded] = useState(false);
-  const showListicles = longTextExpanded && listicles.length > 0;
 
   const onClickExpand = () => {
     setLongTextExpanded(!longTextExpanded);
   };
 
-  return (
-    <Container>
-      <div className="wrapper">
-        <div className="card">
-          <div class="card__image">
-            <img src={imageUrl} alt="image" />
-          </div>
+  const onClickContract = () => {
+    setLongTextExpanded(!longTextExpanded);
+    targetRef.current.scrollIntoView()
+  };
 
-          <div class="card__content">
-            <CardArticleArea onClick={onClickExpand}>
-              {/* CATEGORIES */}
-              {/* {categories.length > 0 && (
+  return (
+    <div ref={targetRef}>
+      <Container>
+        <div className="wrapper">
+          <div className="card">
+            <div class="card__image">
+              <img src={imageUrl} alt="image" />
+            </div>
+
+            <div class="card__content">
+              <CardArticleArea>
+                {/* CATEGORIES */}
+                {/* {categories.length > 0 && (
                 <div class="card__category">
                   {categories.map(category => {
                     return (
@@ -438,105 +456,131 @@ export const SimpleCardWithCollapse = ({
                 </div>
               )} */}
 
-              <h2>{title}</h2>
+                <h2>{title}</h2>
 
-              {/* TAGS */}
-              {visibleTags.length > 0 && (
+                {/* ---------------------------------------------------------------- */}
+                {/* CATEGORIES && TAGS */}
                 <div class="card__tags">
-                  {categories.map(category => {
-                    return (
-                      <div class="card__meta">
-                        <a href="#">{category}</a>
-                      </div>
-                    );
-                  })}
-                  {visibleTags.map(tag => {
-                    return (
-                      <div class="card__meta">
-                        <a href="#">{tag}</a>
-                      </div>
-                    );
-                  })}
+                  {categories.length > 0 &&
+                    categories.map(category => {
+                      return (
+                        <div class="card__meta">
+                          <a href="#">{category}</a>
+                        </div>
+                      );
+                    })}
+                  {visibleTags.length > 0 &&
+                    visibleTags.map(tag => {
+                      return (
+                        <div class="card__meta">
+                          <a href="#">{tag}</a>
+                        </div>
+                      );
+                    })}
                 </div>
+
+                {/* ---------------------------------------------------------------- */}
+                {/* DESCRIPTION */}
+
+                <p class="description">{byline}</p>
+                <br></br>
+
+                {/* ---------------------------------------------------------------- */}
+                {/* LONGTEST && LISTICLES */}
+                {longTextExpanded && (
+                  <ExpandedLongText>{description}</ExpandedLongText>
+                )}
+
+                {longTextExpanded && listicles.length > 0 && (
+                  <ExpandedListicles>
+                    {listicles.map(listicle => {
+                      return (
+                        <div>
+                          <h3>{listicle.listicleItemHeader}</h3>
+                          <p>{listicle.listicleItemDescription}</p>
+                        </div>
+                      );
+                    })}
+                  </ExpandedListicles>
+                )}
+
+                {/* {longTextExpanded && (
+                  <Waypoint
+                    // onEnter={removeSticky}
+                    onLeave={onLeaveWaypoint}
+                    // onPositionChange={onWaypointPositionChange}
+                  />
+                )} */}
+
+                {longTextExpanded && (
+                <ActionButton onClick={onClickContract}>
+                  <a class="card__readmore">CLOSE</a>
+                </ActionButton>
               )}
 
-              <p class="description">{byline}</p>
-              <br></br>
+                {!longTextExpanded && (
+                  <ActionButton onClick={onClickExpand}>
+                    <a class="card__readmore">READ MORE</a>
+                  </ActionButton>
+                )}
+              </CardArticleArea>
+            </div>
 
-              {longTextExpanded && (
-                <ExpandedLongText>{description}</ExpandedLongText>
-              )}
-
-              {showListicles && (
-                <ExpandedListicles>
-                  {listicles.map(listicle => {
-                    return (
-                      <div>
-                        <h3>{listicle.listicleItemHeader}</h3>
-                        <p>{listicle.listicleItemDescription}</p>
-                      </div>
-                    );
-                  })}
-                </ExpandedListicles>
-              )}
-
-              {!longTextExpanded && (
-                <p>
-                  <a class="card__readmore">READ MORE</a>
-                </p>
-              )}
-            </CardArticleArea>
-          </div>
-
-          <div class="card__action">
-            <div class="card__author">
-              {/* <div class="card__author-content">
+            {/* ---------------------------------------------------------------- */}
+            {/* ACTION BUTTONS */}
+            <div class="card__action">
+              <div class="card__author">
+                {/* <div class="card__author-content">
                 <div class="card__author-content_image"></div>
                 <a href="#">John Doe</a>
               </div> */}
-              <div class="card__factchecked">
-                <div class="card__factchecked_image"></div>
-                <h4>Fact Checked</h4>
+                <div class="card__factchecked">
+                  <div class="card__factchecked_image"></div>
+                  <h4>Fact Checked</h4>
+                </div>
               </div>
-            </div>
 
-            <div class="card__metrics">
-              {/* Shares Section */}
-              {shareClicked ? (
-                <ShareButtonActivated
-                  className="share-icon"
-                  onClick={onShareButtonActivatedClick}
-                >
-                  {<div class="share-number">{shares + 1}</div>}
-                </ShareButtonActivated>
-              ) : (
-                <ShareButton
-                  className="heart-icon"
-                  onClick={onShareButtonClick}
-                  href={"whatsapp://send?text=Hello"}
-                  data-action={"share/whatsapp/share"}
-                >
-                  {<div class="share-number">{shares}</div>}
-                </ShareButton>
-              )}
+              <div class="card__metrics">
+                {/* Shares Section */}
+                {shareClicked ? (
+                  <ShareButtonActivated
+                    className="share-icon"
+                    onClick={onShareButtonActivatedClick}
+                  >
+                    {<div class="share-number">{shares + 1}</div>}
+                  </ShareButtonActivated>
+                ) : (
+                  <ShareButton
+                    className="heart-icon"
+                    onClick={onShareButtonClick}
+                    href={"whatsapp://send?text=Hello"}
+                    data-action={"share/whatsapp/share"}
+                  >
+                    {<div class="share-number">{shares}</div>}
+                  </ShareButton>
+                )}
 
-              {/* Loves Section */}
-              {loveClicked ? (
-                <LoveButtonActivated
-                  className="heart-icon"
-                  onClick={onLoveButtonActivatedClick}
-                >
-                  {<div class="love-number">{likes + 1}</div>}
-                </LoveButtonActivated>
-              ) : (
-                <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
-                  {<div class="love-number">{likes}</div>}
-                </LoveButton>
-              )}
+                {/* Loves Section */}
+                {loveClicked ? (
+                  <LoveButtonActivated
+                    className="heart-icon"
+                    onClick={onLoveButtonActivatedClick}
+                  >
+                    {<div class="love-number">{likes + 1}</div>}
+                  </LoveButtonActivated>
+                ) : (
+                  <LoveButton
+                    className="heart-icon"
+                    onClick={onLoveButtonClick}
+                  >
+                    {<div class="love-number">{likes}</div>}
+                  </LoveButton>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
