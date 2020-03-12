@@ -19,10 +19,13 @@ import NoResultFound from "components/NoResult/NoResult";
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_HOME_FEED = gql`
-  query getFeed($sortByLikes: Boolean, $dailyPicks: Boolean) {
-    getHomeFeed(sortByLikes: $sortByLikes, dailyPicks: $dailyPicks) {
-      message
-      properties
+  query getFeed($sortByLikes: Boolean, $dailyPicks: Boolean, $offset: Int, $fetchLimit: Int) {
+    getHomeFeed(sortByLikes: $sortByLikes, dailyPicks: $dailyPicks, offset: $offset, fetchLimit: $fetchLimit) {
+      messages {
+        message
+        properties
+      }
+      hasMore
     }
   }
 `;
@@ -147,28 +150,28 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
-  // const handleLoadMore = () => {
-  //   toggleLoading(true);
-  //   fetchMore({
-  //     variables: {
-  //       offset: Number(data.products.items.length),
-  //       limit: fetchLimit
-  //     },
-  //     updateQuery: (prev, { fetchMoreResult }) => {
-  //       toggleLoading(false);
-  //       if (!fetchMoreResult) {
-  //         return prev;
-  //       }
-  //       return {
-  //         products: {
-  //           __typename: prev.products.__typename,
-  //           items: [...prev.products.items, ...fetchMoreResult.products.items],
-  //           hasMore: fetchMoreResult.products.hasMore
-  //         }
-  //       };
-  //     }
-  //   });
-  // };
+  const handleLoadMore = () => {
+    toggleLoading(true);
+    homeFeed.fetchMore({
+      variables: {
+        offset: Number(homeFeed.data.getHomeFeed.messages.length),
+        fetchLimit: 10
+      },
+      updateQuery: (prev: any, { fetchMoreResult }) => {
+        toggleLoading(false);
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return {
+          getHomeFeed: {
+            __typename: prev.getHomeFeed.__typename,
+            messages: [...prev.getHomeFeed.messages, ...fetchMoreResult.getHomeFeed.messages],
+            hasMore: fetchMoreResult.getHomeFeed.hasMore
+          }
+        };
+      }
+    });
+  };
 
   return (
     <>
@@ -234,7 +237,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             </ProductsCol>
           );
         })} */}
-        {homeFeed.data.getHomeFeed.map((element: any, index: number) => {
+        {homeFeed.data.getHomeFeed.messages.map((element: any, index: number) => {
           const data_ = JSON.parse(element.message);
           const properties_ = JSON.parse(element.properties);
 
@@ -285,7 +288,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
           }
         })}
       </ProductsRow>
-      {/* {loadMore && data.products.hasMore && (
+      {loadMore && homeFeed.data.getHomeFeed.hasMore && (
         <ButtonWrapper>
           <Button
             onClick={handleLoadMore}
@@ -293,16 +296,16 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             intlButtonId="loadMoreBtn"
             size="small"
             isLoading={loadingMore}
-            loader={<Loader color="#009E7F" />}
+            loader={<Loader color="#ea9085" />}
             style={{
               minWidth: 135,
               backgroundColor: "#ffffff",
               border: "1px solid #f1f1f1",
-              color: "#009E7F"
+              color: "#ea9085"
             }}
           />
         </ButtonWrapper>
-      )} */}
+      )}
     </>
   );
 };
