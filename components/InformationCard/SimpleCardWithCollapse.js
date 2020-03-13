@@ -3,8 +3,6 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-import { Waypoint } from "react-waypoint";
-
 const Container = styled.div`
   a {
     text-decoration: none;
@@ -491,14 +489,6 @@ export const SimpleCardWithCollapse = ({
                     })}
                   </ExpandedListicles>
                 )}
-
-                {/* {longTextExpanded && (
-                  <Waypoint
-                    // onEnter={removeSticky}
-                    onLeave={onLeaveWaypoint}
-                    // onPositionChange={onWaypointPositionChange}
-                  />
-                )} */}
 
                 {longTextExpanded && (
                 <ActionButton onClick={onClickContract}>

@@ -8,13 +8,22 @@ import { TipCard } from "components/InformationCard/TipCard";
 import { QuoteCard } from "components/InformationCard/QuoteCard";
 import { StoryCard } from "components/InformationCard/StoryCard";
 
-import { ProductsRow, ProductsCol, ButtonWrapper, LoaderWrapper, LoaderItem, ProductCardWrapper } from "./Information.style";
+import {
+  ProductsRow,
+  ProductsCol,
+  ButtonWrapper,
+  LoaderWrapper,
+  LoaderItem,
+  ProductCardWrapper
+} from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
 import Placeholder from "components/Placeholder/Placeholder";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
+
+import { Waypoint } from "react-waypoint";
 
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
@@ -155,7 +164,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
     homeFeed.fetchMore({
       variables: {
         offset: Number(homeFeed.data.getHomeFeed.messages.length),
-        fetchLimit: 10
+        fetchLimit: 5
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
@@ -288,24 +297,8 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
           }
         })}
       </ProductsRow>
-      {loadMore && homeFeed.data.getHomeFeed.hasMore && (
-        <ButtonWrapper>
-          <Button
-            onClick={handleLoadMore}
-            title="Load More"
-            intlButtonId="loadMoreBtn"
-            size="small"
-            isLoading={loadingMore}
-            loader={<Loader color="#ea9085" />}
-            style={{
-              minWidth: 135,
-              backgroundColor: "#ffffff",
-              border: "1px solid #f1f1f1",
-              color: "#ea9085"
-            }}
-          />
-        </ButtonWrapper>
-      )}
+
+      {loadMore && homeFeed.data.getHomeFeed.hasMore && <Waypoint onEnter={handleLoadMore} />}
     </>
   );
 };

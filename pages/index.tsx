@@ -50,7 +50,7 @@ function HomePage({ deviceType }) {
 
   // Scroll the top of the content area any time we search or click a tag
   React.useEffect(() => {
-    if ((query.sortByLikes === "true" || query.dailyPicks === "true" || pathname === "/") && targetRef.current) {
+    if ((query.sortByLikes === "true" || query.dailyPicks === "true" ) && targetRef.current) {
       window.scrollTo({
         top: targetRef.current.offsetTop - 110,
         behavior: "smooth"
