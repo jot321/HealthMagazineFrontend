@@ -104,9 +104,8 @@ const Container = styled.div`
       display: inline-block;
       float: left;
       margin-right: 10px;
-      // border-bottom: 2px solid #ea9085;
       background-color: #f4dada;
-      
+
       padding: 1px;
       margin-bottom: 5px;
       font-weight: 500;
@@ -123,12 +122,6 @@ const Container = styled.div`
         text-transform: capitalize;
       }
     }
-  }
-
-  .card__meta time {
-    font-size: 1.5rem;
-    color: #bbb;
-    margin-left: 0.8rem;
   }
 
   .card__action {
@@ -361,10 +354,10 @@ export const SimpleCardWithCollapse = ({
   shares
 }) => {
   const targetRef = React.useRef(null);
-
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
   const [loveClicked, setLoveClicked] = useState(false);
+  const [love_, setLove] = useState(likes);
   const INCREMENT_LIKES = gql`
     mutation incrementLikes($CMS_ID: ID!) {
       incrementLikes(id: $CMS_ID)
@@ -379,6 +372,7 @@ export const SimpleCardWithCollapse = ({
   const [decrementLikes] = useMutation(DECREMENT_LIKES);
 
   const onLoveButtonClick = () => {
+    setLove(love_ + 1);
     setLoveClicked(true);
     incrementLikes({ variables: { CMS_ID } });
   };
@@ -391,6 +385,7 @@ export const SimpleCardWithCollapse = ({
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Shares Section
   const [shareClicked, setShareClicked] = useState(false);
+  const [shares_, setShares] = useState(shares);
   const INCREMENT_SHARES = gql`
     mutation incrementShares($CMS_ID: ID!) {
       incrementShares(id: $CMS_ID)
@@ -405,6 +400,7 @@ export const SimpleCardWithCollapse = ({
   const [decrementShares] = useMutation(DECREMENT_SHARES);
 
   const onShareButtonClick = () => {
+    setShares(shares_ + 1);
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
 
@@ -452,19 +448,6 @@ export const SimpleCardWithCollapse = ({
 
             <div class="card__content">
               <CardArticleArea>
-                {/* CATEGORIES */}
-                {/* {categories.length > 0 && (
-                <div class="card__category">
-                  {categories.map(category => {
-                    return (
-                      <div class="card__meta">
-                        <a href="#">{category}</a>
-                      </div>
-                    );
-                  })}
-                </div>
-              )} */}
-
                 <h2>{title}</h2>
 
                 {/* ---------------------------------------------------------------- */}
@@ -474,7 +457,7 @@ export const SimpleCardWithCollapse = ({
                     categories.map(category => {
                       return (
                         <div class="card__meta">
-                          <a href="#">{category}</a>
+                          <a href={"/?category=" + category}>{category}</a>
                         </div>
                       );
                     })}
@@ -482,7 +465,7 @@ export const SimpleCardWithCollapse = ({
                     visibleTags.map(tag => {
                       return (
                         <div class="card__meta">
-                          <a href="#">{tag}</a>
+                          <a href={"/?tag=" + tag}>{tag}</a>
                         </div>
                       );
                     })}
@@ -542,8 +525,8 @@ export const SimpleCardWithCollapse = ({
               <div class="card__metrics">
                 {/* Shares Section */}
                 {shareClicked ? (
-                  <ShareButtonActivated className="share-icon" onClick={onShareButtonActivatedClick}>
-                    {<div class="share-number">{shares + 1}</div>}
+                  <ShareButtonActivated className="share-icon" onClick={onShareButtonClick}>
+                    {<div class="share-number">{shares_}</div>}
                   </ShareButtonActivated>
                 ) : (
                   <ShareButton
@@ -552,18 +535,18 @@ export const SimpleCardWithCollapse = ({
                     // href={"whatsapp://send?text=Hello"}
                     // data-action={"share/whatsapp/share"}
                   >
-                    {<div class="share-number">{shares}</div>}
+                    {<div class="share-number">{shares_}</div>}
                   </ShareButton>
                 )}
 
                 {/* Loves Section */}
                 {loveClicked ? (
-                  <LoveButtonActivated className="heart-icon" onClick={onLoveButtonActivatedClick}>
-                    {<div class="love-number">{likes + 1}</div>}
+                  <LoveButtonActivated className="heart-icon" onClick={onLoveButtonClick}>
+                    {<div class="love-number">{love_}</div>}
                   </LoveButtonActivated>
                 ) : (
                   <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
-                    {<div class="love-number">{likes}</div>}
+                    {<div class="love-number">{love_}</div>}
                   </LoveButton>
                 )}
               </div>

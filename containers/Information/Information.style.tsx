@@ -67,15 +67,14 @@ export const LoaderWrapper = styled.div`
   width: 100%;
   padding-left: 45%;
   padding-right: 45%;
+  margin-top: 30px;
   height: 10vh;
-  // padding: 10px;
   display: flex;
   flex-wrap: wrap;
 `;
 
 export const LoaderItem = styled.div`
   width: 100%;
-  // padding: 0 165px;
   margin-bottom: 0px;
 `;
 

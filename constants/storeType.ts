@@ -23,21 +23,21 @@ export default {
       label: "Popular",
       identifier: "popular"
     },
-    {
-      link: CHRONIC_PAGE,
-      icon: "",
-      label: "Chronic Conditions"
-    },
-    {
-      link: SKIN_HAIR_PAGE,
-      icon: "",
-      label: "Skin & Hair Care"
-    },
-    {
-      link: WEIGHT_PAGE,
-      icon: "",
-      label: "Weight Management"
-    }
+    // {
+    //   link: CHRONIC_PAGE,
+    //   icon: "",
+    //   label: "Chronic Conditions"
+    // },
+    // {
+    //   link: SKIN_HAIR_PAGE,
+    //   icon: "",
+    //   label: "Skin & Hair Care"
+    // },
+    // {
+    //   link: WEIGHT_PAGE,
+    //   icon: "",
+    //   label: "Weight Management"
+    // }
   ],
   ChronicPage: [
     {

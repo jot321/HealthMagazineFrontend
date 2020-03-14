@@ -30,8 +30,22 @@ import { Waypoint } from "react-waypoint";
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_HOME_FEED = gql`
-  query getFeed($sortByLikes: Boolean, $dailyPicks: Boolean, $offset: Int, $fetchLimit: Int) {
-    getHomeFeed(sortByLikes: $sortByLikes, dailyPicks: $dailyPicks, offset: $offset, fetchLimit: $fetchLimit) {
+  query getFeed(
+    $sortByLikes: Boolean
+    $dailyPicks: Boolean
+    $offset: Int
+    $fetchLimit: Int
+    $category: String
+    $tag: String
+  ) {
+    getHomeFeed(
+      sortByLikes: $sortByLikes
+      dailyPicks: $dailyPicks
+      offset: $offset
+      fetchLimit: $fetchLimit
+      category: $category
+      tag: $tag
+    ) {
       messages {
         message
         properties
@@ -61,9 +75,17 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
+  let category_ = null;
+  let tag_ = null;
   let sortByLikes_ = false;
   let dailyPicks_ = false;
 
+  if (router.query.category) {
+    category_ = String(router.query.category);
+  }
+  if (router.query.tag) {
+    tag_ = String(router.query.tag);
+  }
   if (router.query.sortByLikes === "true") {
     sortByLikes_ = true;
   }
@@ -73,8 +95,11 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
 
   const homeFeed = useQuery(GET_HOME_FEED, {
     variables: {
+      category: category_,
+      tag: tag_,
       sortByLikes: sortByLikes_,
-      dailyPicks: dailyPicks_
+      dailyPicks: dailyPicks_,
+      fetchLimit: 6
     }
   });
 
@@ -157,7 +182,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
     homeFeed.fetchMore({
       variables: {
         offset: Number(homeFeed.data.getHomeFeed.messages.length),
-        fetchLimit: 5
+        fetchLimit: 6
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);

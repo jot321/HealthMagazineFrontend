@@ -35,10 +35,11 @@ const NavLink: React.SFC<NavLinkProps> = ({
   onClick,
   iconClass
 }) => {
-
   let highlightNavLink = false;
 
-  if (query.identifier) {
+  if (query.category || query.tag) {
+    highlightNavLink = false;
+  } else if (query.identifier) {
     if (query.identifier === identifier) {
       highlightNavLink = true;
     }
@@ -49,21 +50,11 @@ const NavLink: React.SFC<NavLinkProps> = ({
   return (
     <div onClick={onClick} className={className ? className : ""}>
       <Link href={href}>
-        <a
-          className={highlightNavLink ? " current-page" : ""}
-          style={{ display: "flex", alignItems: "center" }}
-        >
+        <a className={highlightNavLink ? " current-page" : ""} style={{ display: "flex", alignItems: "center" }}>
           {icon ? <Icon className={iconClass}>{icon}</Icon> : ""}
 
           <span className="label">
-            {intlId ? (
-              <FormattedMessage
-                id={intlId ? intlId : "defaultNavLinkId"}
-                defaultMessage={label}
-              />
-            ) : (
-              label
-            )}
+            {intlId ? <FormattedMessage id={intlId ? intlId : "defaultNavLinkId"} defaultMessage={label} /> : label}
           </span>
         </a>
       </Link>
