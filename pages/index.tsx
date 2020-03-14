@@ -53,7 +53,7 @@ function HomePage({ deviceType }) {
     if ((query.sortByLikes === "true" || query.dailyPicks === "true" ) && targetRef.current) {
       window.scrollTo({
         top: targetRef.current.offsetTop - 110,
-        behavior: "smooth"
+        // behavior: "smooth"
       });
     }
   }, [query]);

@@ -6,7 +6,7 @@ const PostLoader = props => (
     height={350}
     width={245}
     speed={2}
-    primaryColor='#f3f3f3'
+    primaryColor='#f6e7e6'
     secondaryColor='#ecebeb'
   >
     <rect x='2' y='2' rx='0' ry='0' width='240' height='197' />

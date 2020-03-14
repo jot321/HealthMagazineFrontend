@@ -1,10 +1,4 @@
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext
-} from "next/document";
+import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class CustomDocument extends Document {
@@ -40,14 +34,8 @@ export default class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Lato:400,700%7CPoppins:700&display=swap"
             rel="stylesheet"
           ></link>
-          <link
-            href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap"
-            rel="stylesheet"
-          ></link>
-          <link
-            href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
-            rel="stylesheet"
-          ></link>
+          <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"></link>
           <link
             href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
             rel="stylesheet"

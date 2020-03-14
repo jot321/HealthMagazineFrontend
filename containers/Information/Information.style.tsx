@@ -65,15 +65,18 @@ export const NoResult = styled.div`
 
 export const LoaderWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  padding-left: 45%;
+  padding-right: 45%;
+  height: 10vh;
+  // padding: 10px;
   display: flex;
   flex-wrap: wrap;
 `;
 
 export const LoaderItem = styled.div`
-  width: 25%;
-  padding: 0 15px;
-  margin-bottom: 30px;
+  width: 100%;
+  // padding: 0 165px;
+  margin-bottom: 0px;
 `;
 
 export const ProductCardWrapper = styled.div`

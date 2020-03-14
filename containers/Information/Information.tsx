@@ -8,6 +8,8 @@ import { TipCard } from "components/InformationCard/TipCard";
 import { QuoteCard } from "components/InformationCard/QuoteCard";
 import { StoryCard } from "components/InformationCard/StoryCard";
 
+import BounceLoader from "react-spinners/HashLoader";
+
 import {
   ProductsRow,
   ProductsCol,
@@ -83,16 +85,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
     return (
       <LoaderWrapper>
         <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
-        </LoaderItem>
-        <LoaderItem>
-          <Placeholder />
+          <BounceLoader size={50} color={"#ea9085"} />
         </LoaderItem>
       </LoaderWrapper>
     );
@@ -299,6 +292,13 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
       </ProductsRow>
 
       {loadMore && homeFeed.data.getHomeFeed.hasMore && <Waypoint onEnter={handleLoadMore} />}
+      {loadingMore && (
+        <LoaderWrapper>
+          <LoaderItem>
+            <BounceLoader size={50} color={"#ea9085"} />
+          </LoaderItem>
+        </LoaderWrapper>
+      )}
     </>
   );
 };

@@ -10,9 +10,10 @@ const Container = styled.div`
   h2 {
     line-height: 1.2;
     margin-bottom: 1rem;
+    font-weight: 500;
 
     color: #000;
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   .wrapper {
@@ -32,8 +33,7 @@ const Container = styled.div`
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
-      0 5px 15px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
 
     h2,
@@ -104,14 +104,23 @@ const Container = styled.div`
       display: inline-block;
       float: left;
       margin-right: 10px;
-      border-bottom: 2px solid #ea9085;
+      // border-bottom: 2px solid #ea9085;
+      background-color: #f4dada;
+      
+      padding: 1px;
+      margin-bottom: 5px;
+      font-weight: 500;
+      font-size: x-small;
+      font-weight: 500;
+      line-height: 1.5;
 
       a {
         color: #15131d;
         text-transform: uppercase;
         padding: 0 5px;
         letter-spacing: 1px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        text-transform: capitalize;
       }
     }
   }
@@ -149,8 +158,7 @@ const Container = styled.div`
       width: 30px;
       height: 30px;
       // background: url("https://img.icons8.com/cotton/100/000000/pen.png")
-      background: url("https://img.icons8.com/color/100/000000/pen.png")
-        no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/pen.png") no-repeat center;
       background-size: 100% 100%;
     }
 
@@ -197,8 +205,7 @@ const LoveButton = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/officel/100/000000/filled-like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
     // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
     // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
     // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
@@ -224,8 +231,7 @@ const LoveButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat center;
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat center;
   background-size: 70% 70%;
 
   //   -webkit-transform: scale(1.2);
@@ -251,8 +257,7 @@ const ShareButton = styled.a`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    no-repeat center;
+  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png") no-repeat center;
   background-size: 70% 70%;
 
   .share-number {
@@ -302,7 +307,7 @@ const CardArticleArea = styled.article`
   }
 
   p.description {
-    color: #444;
+    color: #888;
     font-size: 16px;
   }
 `;
@@ -317,14 +322,16 @@ const ActionButton = styled.div`
 
 const ExpandedLongText = styled.p`
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 15px;
+  white-space: pre-line;
 `;
 
 const ExpandedListicles = styled.div`
   margin-top: 20px;
   font-size: 16px;
   margin-bottom: 15px;
+  white-space: pre-line;
 
   h3 {
     display: inline;
@@ -337,6 +344,7 @@ const ExpandedListicles = styled.div`
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: 400;
+    white-space: pre-line;
   }
 `;
 
@@ -399,6 +407,21 @@ export const SimpleCardWithCollapse = ({
   const onShareButtonClick = () => {
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "WebShare API Demo",
+          text: "Sharing this",
+          url: "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/a65334b72b004ff4a679894f40efff2d.jpg"
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
+        .catch(console.error);
+    } else {
+      console.log("Share not enabled");
+    }
   };
 
   const onShareButtonActivatedClick = () => {
@@ -415,7 +438,7 @@ export const SimpleCardWithCollapse = ({
 
   const onClickContract = () => {
     setLongTextExpanded(!longTextExpanded);
-    targetRef.current.scrollIntoView()
+    targetRef.current.scrollIntoView();
   };
 
   return (
@@ -473,9 +496,7 @@ export const SimpleCardWithCollapse = ({
 
                 {/* ---------------------------------------------------------------- */}
                 {/* LONGTEST && LISTICLES */}
-                {longTextExpanded && (
-                  <ExpandedLongText>{description}</ExpandedLongText>
-                )}
+                {longTextExpanded && <ExpandedLongText>{description}</ExpandedLongText>}
 
                 {longTextExpanded && listicles.length > 0 && (
                   <ExpandedListicles>
@@ -491,10 +512,10 @@ export const SimpleCardWithCollapse = ({
                 )}
 
                 {longTextExpanded && (
-                <ActionButton onClick={onClickContract}>
-                  <a class="card__readmore">CLOSE</a>
-                </ActionButton>
-              )}
+                  <ActionButton onClick={onClickContract}>
+                    <a class="card__readmore">CLOSE</a>
+                  </ActionButton>
+                )}
 
                 {!longTextExpanded && (
                   <ActionButton onClick={onClickExpand}>
@@ -521,18 +542,15 @@ export const SimpleCardWithCollapse = ({
               <div class="card__metrics">
                 {/* Shares Section */}
                 {shareClicked ? (
-                  <ShareButtonActivated
-                    className="share-icon"
-                    onClick={onShareButtonActivatedClick}
-                  >
+                  <ShareButtonActivated className="share-icon" onClick={onShareButtonActivatedClick}>
                     {<div class="share-number">{shares + 1}</div>}
                   </ShareButtonActivated>
                 ) : (
                   <ShareButton
                     className="heart-icon"
                     onClick={onShareButtonClick}
-                    href={"whatsapp://send?text=Hello"}
-                    data-action={"share/whatsapp/share"}
+                    // href={"whatsapp://send?text=Hello"}
+                    // data-action={"share/whatsapp/share"}
                   >
                     {<div class="share-number">{shares}</div>}
                   </ShareButton>
@@ -540,17 +558,11 @@ export const SimpleCardWithCollapse = ({
 
                 {/* Loves Section */}
                 {loveClicked ? (
-                  <LoveButtonActivated
-                    className="heart-icon"
-                    onClick={onLoveButtonActivatedClick}
-                  >
+                  <LoveButtonActivated className="heart-icon" onClick={onLoveButtonActivatedClick}>
                     {<div class="love-number">{likes + 1}</div>}
                   </LoveButtonActivated>
                 ) : (
-                  <LoveButton
-                    className="heart-icon"
-                    onClick={onLoveButtonClick}
-                  >
+                  <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
                     {<div class="love-number">{likes}</div>}
                   </LoveButton>
                 )}
