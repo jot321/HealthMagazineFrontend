@@ -8,7 +8,7 @@ import { TipCard } from "components/InformationCard/TipCard";
 import { QuoteCard } from "components/InformationCard/QuoteCard";
 import { StoryCard } from "components/InformationCard/StoryCard";
 
-import BounceLoader from "react-spinners/HashLoader";
+import HashLoader from "react-spinners/HashLoader";
 
 import {
   ProductsRow,
@@ -37,6 +37,7 @@ const GET_HOME_FEED = gql`
     $fetchLimit: Int
     $category: String
     $tag: String
+    $articleId: String
   ) {
     getHomeFeed(
       sortByLikes: $sortByLikes
@@ -45,6 +46,7 @@ const GET_HOME_FEED = gql`
       fetchLimit: $fetchLimit
       category: $category
       tag: $tag
+      articleId: $articleId
     ) {
       messages {
         message
@@ -77,15 +79,18 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
 
   let category_ = null;
   let tag_ = null;
+  let articleId_ = null;
   let sortByLikes_ = false;
   let dailyPicks_ = false;
 
   if (router.query.category) {
     category_ = String(router.query.category);
-  }
-  if (router.query.tag) {
+  } else if (router.query.tag) {
     tag_ = String(router.query.tag);
+  } else if (router.query.articleId) {
+    articleId_ = String(router.query.articleId);
   }
+
   if (router.query.sortByLikes === "true") {
     sortByLikes_ = true;
   }
@@ -95,6 +100,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
 
   const homeFeed = useQuery(GET_HOME_FEED, {
     variables: {
+      articleId: articleId_,
       category: category_,
       tag: tag_,
       sortByLikes: sortByLikes_,
@@ -110,7 +116,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
     return (
       <LoaderWrapper>
         <LoaderItem>
-          <BounceLoader size={50} color={"#ea9085"} />
+          <HashLoader size={50} color={"#ea9085"} />
         </LoaderItem>
       </LoaderWrapper>
     );
@@ -320,7 +326,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
       {loadingMore && (
         <LoaderWrapper>
           <LoaderItem>
-            <BounceLoader size={50} color={"#ea9085"} />
+            <HashLoader size={50} color={"#ea9085"} />
           </LoaderItem>
         </LoaderWrapper>
       )}
