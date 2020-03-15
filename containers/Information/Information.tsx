@@ -70,6 +70,20 @@ type ProductsProps = {
 export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMore = true }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
+  const [scroll, setScroll] = useState(false);
+  const targetRef = React.useRef(null);
+
+  // Scroll the top of the content area any time we search or click a tag
+  React.useEffect(() => {
+    if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
+      if (targetRef.current) {
+        window.scrollTo({
+          top: targetRef.current.offsetTop - 110,
+          behavior: "smooth"
+        });
+      }
+    }
+  }, [router.query]);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -113,6 +127,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // LOADING AND ERROR SECTION
   // -----------------------------------------------------------
   if (homeFeed.loading) {
+  // if (true) {
     return (
       <LoaderWrapper>
         <LoaderItem>
@@ -208,8 +223,9 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
 
   return (
     <>
-      <ProductsRow>
-        {/* <ProductsCol>
+      <div ref={targetRef}>
+        <ProductsRow>
+          {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <TipCard
@@ -221,7 +237,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-        {/* <ProductsCol>
+          {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <QuoteCard
@@ -233,7 +249,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-        {/* <ProductsCol>
+          {/* <ProductsCol>
           <ProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
               <StoryCard
@@ -245,7 +261,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             </Fade>
           </ProductCardWrapper>
         </ProductsCol> */}
-        {/* {data.getShortArticles.map((article: any, index: number) => {
+          {/* {data.getShortArticles.map((article: any, index: number) => {
           return (
             <ProductsCol key={index}>
               <ProductCardWrapper>
@@ -270,57 +286,58 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
             </ProductsCol>
           );
         })} */}
-        {homeFeed.data.getHomeFeed.messages.map((element: any, index: number) => {
-          const data_ = JSON.parse(element.message);
-          const properties_ = JSON.parse(element.properties);
+          {homeFeed.data.getHomeFeed.messages.map((element: any, index: number) => {
+            const data_ = JSON.parse(element.message);
+            const properties_ = JSON.parse(element.properties);
 
-          switch (properties_.type) {
-            case InformationType.LISTICLE:
-              return (
-                <ProductsCol key={index}>
-                  <ProductCardWrapper>
-                    <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
-                      <SimpleCardWithCollapse
-                        CMS_ID={data_.CMS_ID}
-                        title={data_.title}
-                        byline={data_.byline}
-                        description={data_.description}
-                        listicles={data_.listicleItems}
-                        categories={data_.sub_category_names}
-                        visibleTags={data_.visible_tags_names}
-                        imageUrl={data_.attachedImage}
-                        likes={properties_.likes}
-                        shares={properties_.shares}
-                      />
-                    </Fade>
-                  </ProductCardWrapper>
-                </ProductsCol>
-              );
-              break;
-            case InformationType.SHORT_ARTICLE:
-              return (
-                <ProductsCol key={index}>
-                  <ProductCardWrapper>
-                    <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
-                      <SimpleCardWithCollapse
-                        CMS_ID={data_.CMS_ID}
-                        title={data_.title}
-                        byline={data_.byline}
-                        description={data_.description}
-                        categories={data_.sub_category_names}
-                        visibleTags={data_.visible_tags_names}
-                        imageUrl={data_.attachedImage}
-                        likes={properties_.likes}
-                        shares={properties_.shares}
-                      />
-                    </Fade>
-                  </ProductCardWrapper>
-                </ProductsCol>
-              );
-              break;
-          }
-        })}
-      </ProductsRow>
+            switch (properties_.type) {
+              case InformationType.LISTICLE:
+                return (
+                  <ProductsCol key={index}>
+                    <ProductCardWrapper>
+                      <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
+                        <SimpleCardWithCollapse
+                          CMS_ID={data_.CMS_ID}
+                          title={data_.title}
+                          byline={data_.byline}
+                          description={data_.description}
+                          listicles={data_.listicleItems}
+                          categories={data_.sub_category_names}
+                          visibleTags={data_.visible_tags_names}
+                          imageUrl={data_.attachedImage}
+                          likes={properties_.likes}
+                          shares={properties_.shares}
+                        />
+                      </Fade>
+                    </ProductCardWrapper>
+                  </ProductsCol>
+                );
+                break;
+              case InformationType.SHORT_ARTICLE:
+                return (
+                  <ProductsCol key={index}>
+                    <ProductCardWrapper>
+                      <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
+                        <SimpleCardWithCollapse
+                          CMS_ID={data_.CMS_ID}
+                          title={data_.title}
+                          byline={data_.byline}
+                          description={data_.description}
+                          categories={data_.sub_category_names}
+                          visibleTags={data_.visible_tags_names}
+                          imageUrl={data_.attachedImage}
+                          likes={properties_.likes}
+                          shares={properties_.shares}
+                        />
+                      </Fade>
+                    </ProductCardWrapper>
+                  </ProductsCol>
+                );
+                break;
+            }
+          })}
+        </ProductsRow>
+      </div>
 
       {loadMore && homeFeed.data.getHomeFeed.hasMore && <Waypoint onEnter={handleLoadMore} />}
       {loadingMore && (

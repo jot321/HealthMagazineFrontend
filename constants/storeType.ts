@@ -14,7 +14,7 @@ export default {
     {
       link: "/?dailyPicks=true&identifier=top-picks",
       icon: "",
-      label: "Daily Picks",
+      label: "Featured",
       identifier: "top-picks"
     },
     {

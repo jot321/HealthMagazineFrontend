@@ -3,6 +3,8 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
+const cardFont = "'Nunito Sans'";
+
 const Container = styled.div`
   a {
     text-decoration: none;
@@ -35,13 +37,13 @@ const Container = styled.div`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
+    font-family: ${cardFont};
 
     h2,
     p,
     a,
     h4 {
-      font-family: Quicksand;
-      // font-weight: 600;
+      font-family: ${cardFont};
     }
   }
 
@@ -302,6 +304,7 @@ const CardArticleArea = styled.article`
   p.description {
     color: #888;
     font-size: 16px;
+    font-weight: 300px;
   }
 `;
 
@@ -328,9 +331,9 @@ const ExpandedListicles = styled.div`
 
   h3 {
     display: inline;
-    font-family: Quicksand;
     border-bottom: 2px solid #ea9085;
     font-weight: 600;
+    font-family: ${cardFont};
   }
 
   p {

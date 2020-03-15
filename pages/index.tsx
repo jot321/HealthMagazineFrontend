@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { withApollo } from "helper/apollo";
@@ -28,8 +28,14 @@ import { openModal, Modal } from "@redq/reuse-modal";
 const PAGE_TYPE = "grocery";
 
 function HomePage({ deviceType }) {
-  const { pathname, query } = useRouter();
+  const { query } = useRouter();
   const targetRef = React.useRef(null);
+
+  const [showCategories, setShowCategories] = useState(true);
+
+  // if (Object.keys(query).length !== 0) {
+  //   setShowCategories(false);
+  // }
 
   // React.useEffect(() => {
   //   const modalTimer = setTimeout(() => {
@@ -55,29 +61,23 @@ function HomePage({ deviceType }) {
   //   };
   // }, []);
 
-  // Scroll the top of the content area any time we search or click a tag
-  React.useEffect(() => {
-    if ((query.sortByLikes === "true" || query.dailyPicks === "true") && targetRef.current) {
-      window.scrollTo({
-        top: targetRef.current.offsetTop - 110
-        // behavior: "smooth"
-      });
-    }
-  }, [query]);
-
   return (
     <>
       <Head>
         <title>Nuskha</title>
       </Head>
       <Modal>
-        <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
-        <Categories />
+        <StoreNav items={NavBarItems.HomePage} />
+
+        {Object.keys(query).length == 0 && (
+          <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
+        )}
+        {Object.keys(query).length == 0 && <Categories />}
 
         {deviceType.desktop ? (
           <>
             <MobileCarouselDropdown>
-              <StoreNav items={NavBarItems.HomePage} />
+              {/* <StoreNav items={NavBarItems.HomePage} /> */}
               {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             </MobileCarouselDropdown>
             {/* <OfferSection>
@@ -98,7 +98,7 @@ function HomePage({ deviceType }) {
           </>
         ) : (
           <MainContentArea>
-            <StoreNav items={NavBarItems.HomePage} />
+            {/* <StoreNav items={NavBarItems.HomePage} /> */}
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>

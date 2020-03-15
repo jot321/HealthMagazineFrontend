@@ -30,11 +30,7 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css?family=Lato:400,700%7CPoppins:700&display=swap"
-            rel="stylesheet"
-          ></link>
-          <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet"></link>
           <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"></link>
           <link
             href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
@@ -44,6 +40,26 @@ export default class CustomDocument extends Document {
             href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
             rel="stylesheet"
           ></link>
+          <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,500,600,700&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Proza+Libre:400,500,600,700&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900|Scope+One&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,500,600,700&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700|Raleway:300,400,500,600&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates:200,300,400,500,600&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,300,400,500,600,700&display=swap" rel="stylesheet"></link>
+          <link rel="stylesheet" href="https://use.typekit.net/wlu2qmv.css"></link>
+          <link rel="stylesheet" href="https://use.typekit.net/wlu2qmv.css"></link>
         </Head>
         <body>
           <Main />

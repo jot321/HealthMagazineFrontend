@@ -393,7 +393,12 @@ export const MobileHeaderInnerWrapper = styled.div`
   z-index: 999;
   transition: 0.25s ease-in-out;
 
-  &.unSticky:not(.home) {
+  // &.unSticky:not(.home) {
+  //   background-color: #fff;
+  //   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  // }
+
+  &.unSticky {
     background-color: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   }

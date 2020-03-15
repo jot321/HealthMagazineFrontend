@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { themeGet } from '@styled-system/theme-get';
 
 const ChronicIcon = require("image/categories/chronic.png");
 const FitnesIcon = require("image/categories/fitness.png");
@@ -15,6 +16,8 @@ const CategoryWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: -60px;
+  margin-top: 20px;
 `;
 
 const CategoryItem = styled.div`
@@ -28,7 +31,7 @@ const CategoryItem = styled.div`
     
   }
   p {
-    font-family: Quicksand;
+    font-family: ${themeGet('fontFamily.0', 'sans-serif')};
     width: 80%;
     margin: auto;
   }

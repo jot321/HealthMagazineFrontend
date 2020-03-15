@@ -73,7 +73,7 @@ const Banner: React.FC<BannerProps> = ({
     <BannerWrapper
       style={{
         // backgroundImage: `url(${imageUrl})`,
-        "min-height": "300px"
+        "min-height": "200px"
       }}
     >
       <BannerComponent>
@@ -83,12 +83,12 @@ const Banner: React.FC<BannerProps> = ({
             defaultMessage="Set Your Title Through Language File"
           />
         </BannerHeading>
-        <BannerSubHeading>
+        {/* <BannerSubHeading>
           <FormattedMessage
             id={intlDescriptionId}
             defaultMessage="Set Your Description Through Language File"
           />
-        </BannerSubHeading>
+        </BannerSubHeading> */}
 
         <SearchBox
           style={{

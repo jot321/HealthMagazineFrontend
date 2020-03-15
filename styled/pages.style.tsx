@@ -41,6 +41,7 @@ const MainContentArea = styled.main`
   flex-wrap: wrap;
   background-color: #f7f7f7;
   padding-right: 0;
+  margin-top: 50px;
   transition: padding-right 0.35s ease-in-out;
 `;
 

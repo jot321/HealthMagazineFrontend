@@ -154,7 +154,7 @@ export const SearchButton = styled.button`
   background-color: ${themeGet('colors.primary', '#009E7F')};
   font-size: ${themeGet('fontSizes.2', '15')}px;
   font-family: ${themeGet('fontFamily.0', 'sans-serif')};
-  font-weight: 700;
+  font-weight: 500;
   color: #ffffff;
   display: flex;
   height: 48px;
