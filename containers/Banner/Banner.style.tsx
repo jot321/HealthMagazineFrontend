@@ -50,7 +50,7 @@ const BannerComponent = styled('div')`
 `;
 
 const BannerHeading = styled('h1')`
-  font-family: ${themeGet('fontFamily.1', 'sans-serif')};
+  font-family: ${themeGet('fontFamily.0', 'sans-serif')};
   font-size: ${themeGet('fontSizes.6', '45')}px;
   font-weight: 700;
   color: ${themeGet('colors.darkBold', '#0D1136')};

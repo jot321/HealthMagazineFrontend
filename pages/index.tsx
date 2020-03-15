@@ -98,7 +98,7 @@ function HomePage({ deviceType }) {
           </>
         ) : (
           <MainContentArea>
-            {/* <StoreNav items={NavBarItems.HomePage} /> */}
+        <StoreNav items={NavBarItems.HomePage} />
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>

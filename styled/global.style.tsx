@@ -23,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1,h2,h3,h4,h5,h6  {
-    font-family: ${themeGet('fontFamily.1', 'sans-serif')};
+    font-family: ${themeGet('fontFamily.0', 'sans-serif')};
     margin: 0;
   }
 
