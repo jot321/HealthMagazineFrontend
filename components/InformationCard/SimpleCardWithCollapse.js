@@ -3,7 +3,10 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-const cardFont = "'Nunito Sans'";
+import { createWhatsappTextMessage, createWhatsappLinkMessage } from "./helpers";
+
+const cardFont = "'IBM Plex Sans'";
+const veryLightGray = "#222";
 
 const Container = styled.div`
   a {
@@ -302,9 +305,9 @@ const CardArticleArea = styled.article`
   }
 
   p.description {
-    color: #888;
+    color: #222;
     font-size: 16px;
-    font-weight: 300px;
+    font-weight: 400px;
   }
 `;
 
@@ -321,6 +324,7 @@ const ExpandedLongText = styled.p`
   font-weight: 400;
   margin-bottom: 15px;
   white-space: pre-line;
+  color: ${veryLightGray};
 `;
 
 const ExpandedListicles = styled.div`
@@ -338,6 +342,7 @@ const ExpandedListicles = styled.div`
 
   p {
     padding-top: 10px;
+    color: ${veryLightGray};
     padding-bottom: 10px;
     font-weight: 400;
     white-space: pre-line;
@@ -410,9 +415,9 @@ export const SimpleCardWithCollapse = ({
     if (navigator.share) {
       navigator
         .share({
-          title: "WebShare API Demo",
-          text: "Sharing this",
-          url: "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/a65334b72b004ff4a679894f40efff2d.jpg"
+          title: "Urban Nuskha",
+          text: createWhatsappTextMessage(title, byline),
+          url: createWhatsappLinkMessage(CMS_ID)
         })
         .then(() => {
           console.log("Thanks for sharing!");

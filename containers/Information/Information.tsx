@@ -35,6 +35,8 @@ const GET_HOME_FEED = gql`
     $dailyPicks: Boolean
     $offset: Int
     $fetchLimit: Int
+    $searchKey: String
+    $toplevelcategory: String
     $category: String
     $tag: String
     $articleId: String
@@ -44,6 +46,8 @@ const GET_HOME_FEED = gql`
       dailyPicks: $dailyPicks
       offset: $offset
       fetchLimit: $fetchLimit
+      searchKey: $searchKey
+      toplevelcategory: $toplevelcategory
       category: $category
       tag: $tag
       articleId: $articleId
@@ -70,20 +74,19 @@ type ProductsProps = {
 export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMore = true }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const [scroll, setScroll] = useState(false);
   const targetRef = React.useRef(null);
 
   // Scroll the top of the content area any time we search or click a tag
-  React.useEffect(() => {
-    if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
-      if (targetRef.current) {
-        window.scrollTo({
-          top: targetRef.current.offsetTop - 110,
-          behavior: "smooth"
-        });
-      }
-    }
-  }, [router.query]);
+  // React.useEffect(() => {
+  //   if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
+  //     if (targetRef.current) {
+  //       window.scrollTo({
+  //         top: targetRef.current.offsetTop - 110,
+  //         behavior: "smooth"
+  //       });
+  //     }
+  //   }
+  // }, [router.query]);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -91,13 +94,19 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
+  let searchKey_ = null;
+  let toplevelcategory_ = null;
   let category_ = null;
   let tag_ = null;
   let articleId_ = null;
   let sortByLikes_ = false;
   let dailyPicks_ = false;
-
-  if (router.query.category) {
+  if (router.query.searchKey) {
+    searchKey_ = String(router.query.searchKey);
+  }
+  else if (router.query.toplevelcategory) {
+    toplevelcategory_ = String(router.query.toplevelcategory);
+  } else if (router.query.category) {
     category_ = String(router.query.category);
   } else if (router.query.tag) {
     tag_ = String(router.query.tag);
@@ -115,6 +124,8 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   const homeFeed = useQuery(GET_HOME_FEED, {
     variables: {
       articleId: articleId_,
+      searchKey: searchKey_,
+      toplevelcategory: toplevelcategory_,
       category: category_,
       tag: tag_,
       sortByLikes: sortByLikes_,
@@ -127,7 +138,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // LOADING AND ERROR SECTION
   // -----------------------------------------------------------
   if (homeFeed.loading) {
-  // if (true) {
+    // if (true) {
     return (
       <LoaderWrapper>
         <LoaderItem>

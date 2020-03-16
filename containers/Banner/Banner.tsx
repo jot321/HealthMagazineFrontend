@@ -5,12 +5,7 @@ import SearchBox from "components/SearchBox/SearchBox";
 import { SearchContext } from "contexts/search/search.context";
 import { useStickyDispatch } from "contexts/app/app.provider";
 import { FormattedMessage } from "react-intl";
-import {
-  BannerWrapper,
-  BannerHeading,
-  BannerSubHeading,
-  BannerComponent
-} from "./Banner.style";
+import { BannerWrapper, BannerHeading, BannerSubHeading, BannerComponent } from "./Banner.style";
 
 type BannerProps = {
   imageUrl: string;
@@ -18,11 +13,7 @@ type BannerProps = {
   intlDescriptionId: string;
 };
 
-const Banner: React.FC<BannerProps> = ({
-  imageUrl,
-  intlTitleId,
-  intlDescriptionId
-}) => {
+const Banner: React.FC<BannerProps> = ({ imageUrl, intlTitleId, intlDescriptionId }) => {
   const { state, dispatch } = useContext(SearchContext);
   const router = useRouter();
   const { text } = state;
@@ -40,28 +31,14 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   function handleClickSearchButton() {
-    const { page, ...urlState } = state;
-
-    router.push(
-      {
-        pathname: pathname,
-        query: { ...urlState, text }
-      },
-      {
-        pathname: pathname === "/" ? `${pathname}grocery` : pathname,
-        query: { ...urlState, text }
-      },
-      { shallow: true }
-    );
+    router.push({
+      pathname: "/",
+      query: { searchKey: text }
+    });
   }
   const useDispatch = useStickyDispatch();
-  const setSticky = useCallback(() => useDispatch({ type: "SET_STICKY" }), [
-    useDispatch
-  ]);
-  const removeSticky = useCallback(
-    () => useDispatch({ type: "REMOVE_STICKY" }),
-    [useDispatch]
-  );
+  const setSticky = useCallback(() => useDispatch({ type: "SET_STICKY" }), [useDispatch]);
+  const removeSticky = useCallback(() => useDispatch({ type: "REMOVE_STICKY" }), [useDispatch]);
 
   const onWaypointPositionChange = ({ currentPosition }) => {
     if (!currentPosition || currentPosition === "above") {
@@ -78,10 +55,7 @@ const Banner: React.FC<BannerProps> = ({
     >
       <BannerComponent>
         <BannerHeading>
-          <FormattedMessage
-            id={intlTitleId}
-            defaultMessage="Set Your Title Through Language File"
-          />
+          <FormattedMessage id={intlTitleId} defaultMessage="Set Your Title Through Language File" />
         </BannerHeading>
         {/* <BannerSubHeading>
           <FormattedMessage
@@ -103,11 +77,7 @@ const Banner: React.FC<BannerProps> = ({
           className="banner-search"
           pathname={pathname}
         />
-        <Waypoint
-          onEnter={removeSticky}
-          onLeave={setSticky}
-          onPositionChange={onWaypointPositionChange}
-        />
+        <Waypoint onEnter={removeSticky} onLeave={setSticky} onPositionChange={onWaypointPositionChange} />
       </BannerComponent>
     </BannerWrapper>
   );
