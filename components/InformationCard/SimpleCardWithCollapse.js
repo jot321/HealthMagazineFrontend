@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
+import { useRouter } from "next/router";
 
-import { createWhatsappTextMessage, createWhatsappLinkMessage } from "./helpers";
+import { createWhatsappTextMessage, createWhatsappLinkMessage, createWhatsappCombinedMessage } from "./helpers";
 
 const cardFont = "'IBM Plex Sans'";
 const veryLightGray = "#222";
@@ -361,6 +362,7 @@ export const SimpleCardWithCollapse = ({
   likes,
   shares
 }) => {
+  const router = useRouter();
   const targetRef = React.useRef(null);
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
@@ -422,9 +424,17 @@ export const SimpleCardWithCollapse = ({
         .then(() => {
           console.log("Thanks for sharing!");
         })
-        .catch(console.error);
+        .catch(() => {
+          console.log("Navigator Share available not working.");
+        });
     } else {
-      console.log("Share not enabled");
+      try {
+        console.log("Whatsapp App share")
+        window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+      } catch {
+        window.location.href =
+          "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+      }
     }
   };
 
