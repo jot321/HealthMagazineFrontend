@@ -9,7 +9,7 @@ const nextConfig = {
     STRIPE_PUBLIC_KEY: 'your_stripe_public_key_here',
     API_URL: 'https://90ionm52bc.execute-api.us-east-1.amazonaws.com/dev/graphql',
     // API_URL: 'http://localhost:4000/',
-    DOMAIN_NAME: 'http://ec2-35-154-158-99.ap-south-1.compute.amazonaws.com:3000'
+    DOMAIN_NAME: 'urbannuskha.in'
   },
   webpack: config => {
     config.resolve.modules.push(__dirname);

@@ -414,6 +414,7 @@ export const SimpleCardWithCollapse = ({
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
 
+
     if (navigator.share) {
       navigator
         .share({
@@ -430,7 +431,7 @@ export const SimpleCardWithCollapse = ({
     } else {
       try {
         console.log("Whatsapp App share")
-        window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+        window.location.href = "whatsapp://send?text='" + createWhatsappCombinedMessage(title, byline, CMS_ID) + "'";
       } catch {
         window.location.href =
           "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
