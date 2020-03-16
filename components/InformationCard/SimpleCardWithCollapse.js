@@ -4,7 +4,11 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
 
-import { createWhatsappTextMessage, createWhatsappLinkMessage, createWhatsappCombinedMessage } from "./helpers";
+import {
+  createWhatsappTextMessage,
+  createWhatsappLinkMessageWebAPIShare,
+  createWhatsappCombinedMessage
+} from "./helpers";
 
 const cardFont = "'IBM Plex Sans'";
 const veryLightGray = "#222";
@@ -414,13 +418,12 @@ export const SimpleCardWithCollapse = ({
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
 
-
     if (navigator.share) {
       navigator
         .share({
           title: "Urban Nuskha",
           text: createWhatsappTextMessage(title, byline),
-          url: createWhatsappLinkMessage(CMS_ID)
+          url: createWhatsappLinkMessageWebAPIShare(CMS_ID)
         })
         .then(() => {
           console.log("Thanks for sharing!");
@@ -430,8 +433,8 @@ export const SimpleCardWithCollapse = ({
         });
     } else {
       try {
-        console.log("Whatsapp App share")
-        window.location.href = "whatsapp://send?text='" + createWhatsappCombinedMessage(title, byline, CMS_ID) + "'";
+        console.log("Whatsapp App share");
+        window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
       } catch {
         window.location.href =
           "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);

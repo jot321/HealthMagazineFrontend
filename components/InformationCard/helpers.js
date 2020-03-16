@@ -9,3 +9,8 @@ export const createWhatsappLinkMessage = CMS_ID => {
 export const createWhatsappCombinedMessage = (title, byline, CMS_ID) => {
   return createWhatsappTextMessage(title, byline) + createWhatsappLinkMessage(CMS_ID);
 };
+
+
+export const createWhatsappLinkMessageWebAPIShare = CMS_ID => {
+  return "?articleId=" + CMS_ID;
+};
