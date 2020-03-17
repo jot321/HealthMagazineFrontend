@@ -423,13 +423,14 @@ export const SimpleCardWithCollapse = ({
         .share({
           title: "Urban Nuskha",
           text: createWhatsappTextMessage(title, byline),
-          url: createWhatsappLinkMessageWebAPIShare(CMS_ID)
+          url: createWhatsappLinkMessageWebAPIShare(CMS_ID),
         })
         .then(() => {
           console.log("Thanks for sharing!");
         })
         .catch(() => {
           console.log("Navigator Share available not working.");
+          window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
         });
     } else {
       try {

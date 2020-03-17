@@ -25,6 +25,8 @@ import LocationModal from "containers/LocationModal/LocationModal";
 import { getCookie } from "components/helpers/session";
 import { openModal, Modal } from "@redq/reuse-modal";
 
+// import Masonry from "react-masonry-css";
+
 const PAGE_TYPE = "grocery";
 
 function HomePage({ deviceType }) {
@@ -76,10 +78,10 @@ function HomePage({ deviceType }) {
 
         {deviceType.desktop ? (
           <>
-            <MobileCarouselDropdown>
-              {/* <StoreNav items={NavBarItems.HomePage} /> */}
-              {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            </MobileCarouselDropdown>
+            {/* <MobileCarouselDropdown> */}
+            {/* <StoreNav items={NavBarItems.HomePage} /> */}
+            {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
+            {/* </MobileCarouselDropdown> */}
             {/* <OfferSection>
               <div style={{ margin: '0 -10px' }}>
                 <Carousel deviceType={deviceType} data={OFFERS} />
@@ -91,7 +93,10 @@ function HomePage({ deviceType }) {
               </SidebarSection> */}
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information type={PAGE_TYPE} deviceType={deviceType} />
+                  {/* <Masonry breakpointCols={3} className="my-masonry-grid" columnClassName="my-masonry-grid_column"> */}
+                    {/* array of JSX items */}
+                    <Information type={PAGE_TYPE} deviceType={deviceType} />
+                  {/* </Masonry> */}
                 </div>
               </ContentSection>
             </MainContentArea>

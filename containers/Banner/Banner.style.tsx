@@ -1,28 +1,32 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
 
 const BannerWrapper = styled.div`
   width: 100%;
-  min-height: 50vh;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-size: 100%;
+  // background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-color: #f7f7f7;
   background-size: cover;
+  padding-top: 50px;
+  min-height: 300px;
 
   @media (max-width: 1400px) {
-    min-height: 50vh;
+    padding-top: 50px;
+    min-height: 300px;
   }
 
   @media (max-width: 1200px) {
-    min-height: 35vh;
+    min-height: 300px;
+    padding-top: 50px;
   }
 
   @media (max-width: 1050px) {
-    min-height: 25vh;
+    min-height: 300px;
+    padding-top: 50px;
   }
 
   @media (max-width: 990px) {
@@ -36,7 +40,7 @@ const BannerWrapper = styled.div`
   }
 `;
 
-const BannerComponent = styled('div')`
+const BannerComponent = styled("div")`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -44,41 +48,41 @@ const BannerComponent = styled('div')`
 
   .banner-search {
     @media (max-width: 990px) {
-      // display: none;      
+      // display: none;
     }
   }
 `;
 
-const BannerHeading = styled('h1')`
-  font-family: ${themeGet('fontFamily.0', 'sans-serif')};
-  font-size: ${themeGet('fontSizes.6', '45')}px;
+const BannerHeading = styled("h1")`
+  font-family: ${themeGet("fontFamily.0", "sans-serif")};
+  font-size: ${themeGet("fontSizes.6", "45")}px;
   font-weight: 700;
-  color: ${themeGet('colors.darkBold', '#0D1136')};
+  color: ${themeGet("colors.darkBold", "#0D1136")};
   margin-bottom: 15px;
-  margin-top : 20px;
+  margin-top: 20px;
   text-align: center;
 
   @media (max-width: 1400px) {
-    font-size: ${themeGet('fontSizes.6', '45')}px;
+    font-size: ${themeGet("fontSizes.6", "45")}px;
   }
   @media (max-width: 990px) {
-    font-size: ${themeGet('fontSizes.5', '30')}px;
+    font-size: ${themeGet("fontSizes.5", "30")}px;
   }
   @media (max-width: 767px) {
-    font-size: 17px;
+    font-size: 22px;
   }
 `;
 
-const BannerSubHeading = styled('span')`
-  font-family: ${themeGet('fontFamily.0', 'sans-serif')};
-  font-size: ${themeGet('fontSizes.3', '19')}px;
+const BannerSubHeading = styled("span")`
+  font-family: ${themeGet("fontFamily.0", "sans-serif")};
+  font-size: ${themeGet("fontSizes.3", "19")}px;
   font-weight: 400;
-  color: ${themeGet('colors.darkRegular', '#77798C')};
+  color: ${themeGet("colors.darkRegular", "#77798C")};
   margin-bottom: 60px;
   text-align: center;
 
   @media (max-width: 1400px) {
-    font-size: ${themeGet('fontSizes.2', '15')}px;
+    font-size: ${themeGet("fontSizes.2", "15")}px;
   }
   @media (max-width: 990px) {
     display: none;

@@ -48,10 +48,6 @@ const Banner: React.FC<BannerProps> = ({ imageUrl, intlTitleId, intlDescriptionI
 
   return (
     <BannerWrapper
-      style={{
-        // backgroundImage: `url(${imageUrl})`,
-        "min-height": "200px"
-      }}
     >
       <BannerComponent>
         <BannerHeading>

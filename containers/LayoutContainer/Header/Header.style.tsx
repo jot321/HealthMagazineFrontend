@@ -310,11 +310,11 @@ export const MainMenu = styled.div`
 `;
 
 export const MobileHeaderWrapper = styled.div`
-  @media (min-width: 991px) {
-    .desktop {
-      display: none;
-    }
-  }
+  // @media (min-width: 991px) {
+  //   .desktop {
+  //     display: none;
+  //   }
+  // }
 `;
 
 export const SelectedType = styled.button`

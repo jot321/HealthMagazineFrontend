@@ -74,13 +74,13 @@ const Layout: FunctionComponent<LayoutProps> = ({
             } desktop`}
             pathname={pathname}
           />
-          <Header
+          {/* <Header
             className={`${isSticky ? "sticky" : "unSticky"} ${
               isHomePage ? "home" : ""
             }`}
             token={token}
             pathname={pathname}
-          />
+          /> */}
         </Sticky>
       )}
       {children}

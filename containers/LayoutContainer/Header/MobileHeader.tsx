@@ -168,9 +168,9 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
     <DrawerProvider>
       <MobileHeaderWrapper>
         <MobileHeaderInnerWrapper className={className}>
-          <DrawerWrapper>
+          {/* <DrawerWrapper>
             <MobileDrawer />
-          </DrawerWrapper>
+          </DrawerWrapper> */}
 
           <LogoWrapper>
             <Logo>
@@ -197,12 +197,13 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
           </LangSwithcer>
 
           {isHomePage ? (
-            <SearchWrapper
-              onClick={handleSearchModal}
-              className='searchIconWrapper'
-            >
-              <SearchIcon />
-            </SearchWrapper>
+            <div></div>
+            // <SearchWrapper
+            //   onClick={handleSearchModal}
+            //   className='searchIconWrapper'
+            // >
+            //   <SearchIcon />
+            // </SearchWrapper>
           ) : null}
         </MobileHeaderInnerWrapper>
       </MobileHeaderWrapper>

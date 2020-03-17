@@ -138,7 +138,7 @@ export const Information: React.FC<ProductsProps> = ({ deviceType, type, loadMor
   // LOADING AND ERROR SECTION
   // -----------------------------------------------------------
   if (homeFeed.loading) {
-    // if (true) {
+    // // if (true) {
     return (
       <LoaderWrapper>
         <LoaderItem>
