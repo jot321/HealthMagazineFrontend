@@ -6,7 +6,7 @@ module.exports = function(api) {
     [
       'styled-components',
       {
-        ssr: false,
+        ssr: true,
         displayName: true,
         preprocess: true,
       },
