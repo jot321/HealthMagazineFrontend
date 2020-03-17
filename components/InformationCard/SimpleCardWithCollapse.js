@@ -190,13 +190,13 @@ const Container = styled.div`
       width: 30px;
       height: 30px;
       background: url("https://img.icons8.com/color/100/000000/warranty.png")
-        // background: url("https://img.icons8.com/plasticine/100/000000/double-tick.png")
         no-repeat center;
       background-size: 100% 100%;
     }
 
     h4 {
       padding: 8px;
+    font-weight: 400;
     }
   }
 `;
@@ -316,6 +316,12 @@ const CardArticleArea = styled.article`
   }
 `;
 
+const Description = styled.p`
+  color: #222;
+  font-size: 16px;
+  font-weight: 400px;
+`;
+
 const ActionButton = styled.div`
   a {
     color: #ea9085;
@@ -423,7 +429,7 @@ export const SimpleCardWithCollapse = ({
         .share({
           title: "Urban Nuskha",
           text: createWhatsappTextMessage(title, byline),
-          url: createWhatsappLinkMessageWebAPIShare(CMS_ID),
+          url: createWhatsappLinkMessageWebAPIShare(CMS_ID)
         })
         .then(() => {
           console.log("Thanks for sharing!");
@@ -497,7 +503,8 @@ export const SimpleCardWithCollapse = ({
                 {/* ---------------------------------------------------------------- */}
                 {/* DESCRIPTION */}
 
-                <p class="description">{byline}</p>
+                {/* <p class="description">{byline}</p> */}
+                <Description onClick={onClickExpand}>{byline}</Description>
                 <br></br>
 
                 {/* ---------------------------------------------------------------- */}
@@ -555,8 +562,6 @@ export const SimpleCardWithCollapse = ({
                   <ShareButton
                     className="heart-icon"
                     onClick={onShareButtonClick}
-                    // href={"whatsapp://send?text=Hello"}
-                    // data-action={"share/whatsapp/share"}
                   >
                     {<div class="share-number">{shares_}</div>}
                   </ShareButton>
