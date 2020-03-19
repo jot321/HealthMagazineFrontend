@@ -7,7 +7,7 @@ import { MainContentArea, ContentSection } from "styled/pages.style";
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 
-import { SKIN_HAIR_TOP_CATEGORY } from "constants/categories";
+import { MENTAL_TOP_CATEGORY } from "constants/categories";
 
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
@@ -15,7 +15,7 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Mental Wellness - Urban Nuskha</title>
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -25,7 +25,7 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={SKIN_HAIR_TOP_CATEGORY} />
+                  <Information deviceType={deviceType} topLevelCategory={MENTAL_TOP_CATEGORY} />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,7 +34,7 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={SKIN_HAIR_TOP_CATEGORY} />
+                <Information deviceType={deviceType} topLevelCategory={MENTAL_TOP_CATEGORY} />
               </div>
             </ContentSection>
           </MainContentArea>

@@ -3,6 +3,18 @@ import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 import { useRouter } from "next/router";
 
+import {
+  CHRONIC_PAGE,
+  WEIGHT_PAGE,
+  SKIN_HAIR_PAGE,
+  FITNESS_PAGE,
+  DIET_PAGE,
+  MENTAL_PAGE,
+  SEXUAL_PAGE,
+  GENERAL_PAGE,
+  PAIN_PAGE
+} from "constants/navigation";
+
 const ChronicIcon = require("image/categories/chronic.png");
 const FitnessIcon = require("image/categories/fitness.png");
 const NutritionIcon = require("image/categories/nutrition.png");
@@ -42,10 +54,9 @@ type CategoryProps = {};
 const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
   const router = useRouter();
 
-  const onClickCategory = category => {
+  const onClickCategory = categoryLink => {
     router.push({
-      pathname: "/",
-      query: { toplevelcategory: category }
+      pathname: categoryLink
     });
   };
 
@@ -53,7 +64,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
     <CategoryWrapper>
       <CategoryItem
         onClick={() => {
-          onClickCategory("chronic conditions");
+          onClickCategory(CHRONIC_PAGE);
         }}
       >
         <img src={ChronicIcon} alt="pickbazar-admin" />
@@ -61,7 +72,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("fitness & exercise");
+          onClickCategory(FITNESS_PAGE);
         }}
       >
         <img src={FitnessIcon} alt="pickbazar-admin" />
@@ -69,7 +80,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("nutrition & diet");
+          onClickCategory(DIET_PAGE);
         }}
       >
         <img src={NutritionIcon} alt="pickbazar-admin" />
@@ -77,7 +88,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("mental well being");
+          onClickCategory(MENTAL_PAGE);
         }}
       >
         <img src={MentalIcon} alt="pickbazar-admin" />
@@ -85,7 +96,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("sexual health");
+          onClickCategory(SEXUAL_PAGE);
         }}
       >
         <img src={SexualIcon} alt="pickbazar-admin" />
@@ -93,7 +104,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("weight management");
+          onClickCategory(WEIGHT_PAGE);
         }}
       >
         <img src={WeightIcon} alt="pickbazar-admin" />
@@ -101,7 +112,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("general health");
+          onClickCategory(GENERAL_PAGE);
         }}
       >
         <img src={GeneralIcon} alt="pickbazar-admin" />
@@ -109,7 +120,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("pain management");
+          onClickCategory(PAIN_PAGE);
         }}
       >
         <img src={PainIcon} alt="pickbazar-admin" />
@@ -117,7 +128,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
       </CategoryItem>
       <CategoryItem
         onClick={() => {
-          onClickCategory("skin & hair care");
+          onClickCategory(SKIN_HAIR_PAGE);
         }}
       >
         <img src={SkinHairIcon} alt="pickbazar-admin" />

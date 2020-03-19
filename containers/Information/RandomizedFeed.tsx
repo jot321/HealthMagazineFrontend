@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import gql from "graphql-tag";
 import { openModal, closeModal } from "@redq/reuse-modal";
@@ -19,34 +18,17 @@ import { Waypoint } from "react-waypoint";
 
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
-const GET_HOME_FEED = gql`
-  query getFeed(
-    $sortByLikes: Boolean
-    $dailyPicks: Boolean
-    $offset: Int
-    $fetchLimit: Int
-    $searchKey: String
-    $toplevelcategory: String
-    $category: String
-    $tag: String
-    $articleId: String
-  ) {
-    getHomeFeed(
-      sortByLikes: $sortByLikes
-      dailyPicks: $dailyPicks
-      offset: $offset
-      fetchLimit: $fetchLimit
-      searchKey: $searchKey
-      toplevelcategory: $toplevelcategory
-      category: $category
-      tag: $tag
-      articleId: $articleId
-    ) {
-      messages {
-        message
-        properties
-      }
-      hasMore
+const GET_RANDOM_ARTICLEIDS = gql`
+  query getArticleIds {
+    getRandomSampledArticleIds
+  }
+`;
+
+const GET_ARTICLE_INFO_FROM_ARR = gql`
+  query getArticleDetails($inputIds: [String]) {
+    getArticleInformationFromArrayofIds(inputIds: $inputIds) {
+      message
+      properties
     }
   }
 `;
@@ -58,33 +40,11 @@ type ProductsProps = {
     desktop: boolean;
   };
   loadMore?: boolean;
-  loadPopular?: boolean;
-  loadFeatured?: boolean;
-  topLevelCategory?: string;
 };
 
-export const Information: React.FC<ProductsProps> = ({
-  deviceType,
-  loadMore = true,
-  loadPopular = false,
-  loadFeatured = false,
-  topLevelCategory = ""
-}) => {
-  const router = useRouter();
+export const RandomizedFeed: React.FC<ProductsProps> = ({ deviceType, loadMore = true }) => {
   const [loadingMore, toggleLoading] = useState(false);
   const targetRef = React.useRef(null);
-
-  // Scroll the top of the content area any time we search or click a tag
-  // React.useEffect(() => {
-  //   if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
-  //     if (targetRef.current) {
-  //       window.scrollTo({
-  //         top: targetRef.current.offsetTop - 110,
-  //         behavior: "smooth"
-  //       });
-  //     }
-  //   }
-  // }, [router.query]);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -92,52 +52,24 @@ export const Information: React.FC<ProductsProps> = ({
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
-  let searchKey_ = null;
-  let toplevelcategory_ = null;
-  let category_ = null;
-  let tag_ = null;
-  let articleId_ = null;
-  let sortByLikes_ = false;
-  let dailyPicks_ = false;
+  const [iteration, setIteration] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const STEP = 5;
 
-  if (router.query.searchKey) {
-    searchKey_ = String(router.query.searchKey);
-  } else if (router.query.category) {
-    category_ = String(router.query.category);
-  } else if (router.query.tag) {
-    tag_ = String(router.query.tag);
-  } else if (router.query.articleId) {
-    articleId_ = String(router.query.articleId);
-  }
-
-  if (topLevelCategory) {
-    toplevelcategory_ = topLevelCategory;
-  }
-
-  if (loadPopular) {
-    sortByLikes_ = true;
-  }
-  if (loadFeatured) {
-    dailyPicks_ = true;
-  }
-
-  const homeFeed = useQuery(GET_HOME_FEED, {
+  const articleIds = useQuery(GET_RANDOM_ARTICLEIDS);
+  const articlesData = useQuery(GET_ARTICLE_INFO_FROM_ARR, {
     variables: {
-      articleId: articleId_,
-      searchKey: searchKey_,
-      toplevelcategory: toplevelcategory_,
-      category: category_,
-      tag: tag_,
-      sortByLikes: sortByLikes_,
-      dailyPicks: dailyPicks_,
-      fetchLimit: 6
+      inputIds:
+        articleIds.data.getRandomSampledArticleIds == undefined
+          ? undefined
+          : articleIds.data.getRandomSampledArticleIds.slice(0, STEP)
     }
   });
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
   // -----------------------------------------------------------
-  if (homeFeed.loading) {
+  if (articleIds.loading || articlesData.loading) {
     return (
       <LoaderWrapper>
         <LoaderItem>
@@ -147,9 +79,14 @@ export const Information: React.FC<ProductsProps> = ({
     );
   }
 
-  if (homeFeed.error) return <div>{homeFeed.error.message}</div>;
+  if (articleIds.error) return <div>{articleIds.error.message}</div>;
+  if (articlesData.error) return <div>{articlesData.error.message}</div>;
 
-  if (!homeFeed.data || !homeFeed.data.getHomeFeed || homeFeed.data.getHomeFeed.length === 0) {
+  if (
+    !articlesData.data ||
+    !articlesData.data.getArticleInformationFromArrayofIds ||
+    articlesData.data.getArticleInformationFromArrayofIds.length === 0
+  ) {
     return <NoResultFound />;
   }
 
@@ -161,81 +98,39 @@ export const Information: React.FC<ProductsProps> = ({
   };
 
   // -----------------------------------------------------------
-  // QUICK VIEW MODAL SECTION
-  // -----------------------------------------------------------
-  // const handleModalClose = () => {
-  //   const href = `${router.pathname}`;
-  //   const as = "/";
-  //   router.push(href, as, { shallow: true });
-  //   closeModal();
-  // };
-
-  // const handleQuickViewModal = React.useCallback(
-  //   (modalProps: any, deviceType: any, onModalClose: any) => {
-  //     if (router.pathname === "/product/[slug]") {
-  //       const as = `/product/${modalProps.slug}`;
-  //       router.push(router.pathname, as);
-  //       return;
-  //     }
-  //     openModal({
-  //       show: true,
-  //       overlayClassName: "quick-view-overlay",
-  //       closeOnClickOutside: false,
-  //       component: QuickView,
-  //       componentProps: { modalProps, deviceType, onModalClose },
-  //       closeComponent: "div",
-  //       config: {
-  //         enableResizing: false,
-  //         disableDragging: true,
-  //         className: "quick-view-modal",
-  //         width: 900,
-  //         y: 30,
-  //         height: "auto",
-  //         transition: {
-  //           mass: 1,
-  //           tension: 0,
-  //           friction: 0
-  //         }
-  //       }
-  //     });
-  //     const href = `${router.pathname}?${modalProps.slug}`;
-  //     const as = `/product/${modalProps.slug}`;
-  //     router.push(href, as, { shallow: true });
-  //   },
-  //   []
-  // );
-
-  // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
   const handleLoadMore = () => {
+    setOffset(iteration * STEP);
+    setIteration(iteration + 1);
     toggleLoading(true);
-    homeFeed.fetchMore({
+
+    // TODO - Can cleanup the offset and iteration logic to be less cryptic and error prone
+    articlesData.fetchMore({
       variables: {
-        offset: Number(homeFeed.data.getHomeFeed.messages.length),
-        fetchLimit: 6
+        inputIds: articleIds.data.getRandomSampledArticleIds.slice(offset + STEP, (iteration + 1) * STEP)
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
         if (!fetchMoreResult) {
           return prev;
         }
+
         return {
-          getHomeFeed: {
-            __typename: prev.getHomeFeed.__typename,
-            messages: [...prev.getHomeFeed.messages, ...fetchMoreResult.getHomeFeed.messages],
-            hasMore: fetchMoreResult.getHomeFeed.hasMore
-          }
+          getArticleInformationFromArrayofIds: [
+            ...prev.getArticleInformationFromArrayofIds,
+            ...fetchMoreResult.getArticleInformationFromArrayofIds
+          ]
         };
       }
     });
   };
-  
+
   return (
     <>
       <div ref={targetRef}>
         <ProductsRow>
-          {homeFeed.data.getHomeFeed.messages.map((element: any, index: number) => {
+          {articlesData.data.getArticleInformationFromArrayofIds.map((element: any, index: number) => {
             const data_ = JSON.parse(element.message);
             const properties_ = JSON.parse(element.properties);
 
@@ -288,7 +183,7 @@ export const Information: React.FC<ProductsProps> = ({
         </ProductsRow>
       </div>
 
-      {loadMore && homeFeed.data.getHomeFeed.hasMore && <Waypoint onEnter={handleLoadMore} />}
+      {loadMore && <Waypoint onEnter={handleLoadMore} />}
       {loadingMore && (
         <LoaderWrapper>
           <LoaderItem>
@@ -299,4 +194,4 @@ export const Information: React.FC<ProductsProps> = ({
     </>
   );
 };
-export default Information;
+export default RandomizedFeed;

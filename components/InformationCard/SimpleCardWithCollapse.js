@@ -189,14 +189,13 @@ const Container = styled.div`
     .card__factchecked_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/warranty.png")
-        no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/warranty.png") no-repeat center;
       background-size: 100% 100%;
     }
 
     h4 {
       padding: 8px;
-    font-weight: 400;
+      font-weight: 400;
     }
   }
 `;
@@ -559,10 +558,7 @@ export const SimpleCardWithCollapse = ({
                     {<div class="share-number">{shares_}</div>}
                   </ShareButtonActivated>
                 ) : (
-                  <ShareButton
-                    className="heart-icon"
-                    onClick={onShareButtonClick}
-                  >
+                  <ShareButton className="heart-icon" onClick={onShareButtonClick}>
                     {<div class="share-number">{shares_}</div>}
                   </ShareButton>
                 )}

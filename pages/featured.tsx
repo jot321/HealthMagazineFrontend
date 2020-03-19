@@ -2,11 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
-import Categories from "components/Categories/Categories";
-import Carousel from "components/Carousel/Carousel";
-import Banner from "containers/Banner/Banner";
 import Information from "containers/Information/Information";
-import RandomizedFeed from "containers/Information/RandomizedFeed";
 import {
   MainContentArea,
   SidebarSection,
@@ -15,39 +11,12 @@ import {
   MobileCarouselDropdown
 } from "styled/pages.style";
 // Static Data Import Here
-import OFFERS from "data/offers";
-import BannerImg from "image/wellness_banner.png";
 import NavBarItems from "constants/storeType";
-import LocationModal from "containers/LocationModal/LocationModal";
-import { getCookie } from "components/helpers/session";
-import { openModal, Modal } from "@redq/reuse-modal";
+import { Modal } from "@redq/reuse-modal";
 
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
 
-  // React.useEffect(() => {
-  //   const modalTimer = setTimeout(() => {
-  //     if (!getCookie("zip_code") && !getCookie("first_visit")) {
-  //       openModal({
-  //         show: true,
-  //         overlayClassName: "quick-view-overlay",
-  //         closeOnClickOutside: true,
-  //         component: LocationModal,
-  //         // closeComponent: "div",
-  //         config: {
-  //           enableResizing: false,
-  //           disableDragging: true,
-  //           className: "quick-view-modal",
-  //           width: 458,
-  //           height: "auto"
-  //         }
-  //       });
-  //     }
-  //   }, 1800);
-  //   return () => {
-  //     clearTimeout(modalTimer);
-  //   };
-  // }, []);
   return (
     <>
       <Head>
@@ -55,9 +24,6 @@ function HomePage({ deviceType }) {
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
-        <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
-        <Categories />
-
         {deviceType.desktop ? (
           <>
             {/* <MobileCarouselDropdown> */}
@@ -77,7 +43,7 @@ function HomePage({ deviceType }) {
                 <div ref={targetRef}>
                   {/* <Masonry breakpointCols={3} className="my-masonry-grid" columnClassName="my-masonry-grid_column"> */}
                   {/* array of JSX items */}
-                  <Information deviceType={deviceType} />
+                  <Information deviceType={deviceType} loadFeatured={true} />
                   {/* </Masonry> */}
                 </div>
               </ContentSection>
@@ -94,12 +60,11 @@ function HomePage({ deviceType }) {
             </OfferSection> */}
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <RandomizedFeed deviceType={deviceType} />
+                <Information deviceType={deviceType} loadFeatured={true} />
               </div>
             </ContentSection>
           </MainContentArea>
         )}
-        {/* <CartPopUp deviceType={deviceType} /> */}
       </Modal>
     </>
   );

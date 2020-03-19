@@ -12,13 +12,13 @@ export default {
       label: "Home"
     },
     {
-      link: "/?dailyPicks=true&identifier=top-picks",
+      link: "/featured",
       icon: "",
       label: "Featured",
       identifier: "top-picks"
     },
     {
-      link: "/?sortByLikes=true&identifier=popular",
+      link: "/popular",
       icon: "",
       label: "Popular",
       identifier: "popular"

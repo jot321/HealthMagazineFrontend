@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react';
-import Link from 'next/link';
-import Router from 'next/router';
-import { openModal } from '@redq/reuse-modal';
-import NavLink from 'components/NavLink/NavLink';
-import Popover from 'components/Popover/Popover';
-import SearchBox from 'components/SearchBox/SearchBox';
-import { SearchContext } from 'contexts/search/search.context';
-import { AuthContext } from 'contexts/auth/auth.context';
-import AuthenticationForm from '../../SignInOutForm/Form';
-import { FormattedMessage } from 'react-intl';
-import Button from 'components/Button/Button';
-import LanguageContext from 'contexts/language/language.context';
+import React, { useContext, useState } from "react";
+import Link from "next/link";
+import Router from "next/router";
+import { openModal } from "@redq/reuse-modal";
+import NavLink from "components/NavLink/NavLink";
+import Popover from "components/Popover/Popover";
+import SearchBox from "components/SearchBox/SearchBox";
+import { SearchContext } from "contexts/search/search.context";
+import { AuthContext } from "contexts/auth/auth.context";
+import AuthenticationForm from "../../SignInOutForm/Form";
+import { FormattedMessage } from "react-intl";
+import Button from "components/Button/Button";
+import LanguageContext from "contexts/language/language.context";
 
 import {
   FruitsVegetable,
@@ -26,8 +26,8 @@ import {
   USFlag,
   ILFlag,
   ESFlag,
-  SAFlag,
-} from 'components/AllSvgIcon';
+  SAFlag
+} from "components/AllSvgIcon";
 import HeaderWrapper, {
   HeaderLeftSide,
   HeaderRightSide,
@@ -39,25 +39,20 @@ import HeaderWrapper, {
   LanguageItem,
   LangSwithcer,
   Flag,
-  TypeIcon,
-} from './Header.style';
-import Logoimage from 'image/logo.svg';
-import UserImage from 'image/user.jpg';
+  TypeIcon
+} from "./Header.style";
+import Logoimage from "image/logo.svg";
+import UserImage from "image/user.jpg";
 import {
   HOME_PAGE,
-  GROCERY_PAGE,
-  CLOTHING,
-  MAKEUP_PAGE,
-  BAGS_PAGE,
-  FURNITURE_PAGE,
-  BOOK_PAGE,
+  CHRONIC_PAGE,
   PROCEED_TO_CHECKOUT_PAGE,
   PROFILE_PAGE,
   ORDER_RECEIVED,
   YOUR_ORDER,
   OFFER_PAGE,
-  HELP_PAGE,
-} from 'constants/navigation';
+  HELP_PAGE
+} from "constants/navigation";
 type HeaderProps = {
   style?: any;
   className?: string;
@@ -67,78 +62,48 @@ type HeaderProps = {
 
 const MenuArray = [
   {
-    link: GROCERY_PAGE,
+    link: CHRONIC_PAGE,
     icon: <FruitsVegetable />,
-    label: 'Grocery',
-  },
-  {
-    link: MAKEUP_PAGE,
-    label: 'Makeup',
-    icon: <FacialCare />,
-  },
-  {
-    link: BAGS_PAGE,
-    label: 'Bags',
-    icon: <Handbag />,
-  },
-  {
-    link: CLOTHING,
-    label: 'Clothing',
-    icon: <DressIcon />,
-  },
-  {
-    link: FURNITURE_PAGE,
-    label: 'Furniture',
-    icon: <FurnitureIcon width='15px' height='13px' />,
-  },
-  {
-    link: BOOK_PAGE,
-    label: 'Book',
-    icon: <BookIcon width='15px' height='13px' />,
-  },
+    label: "Grocery"
+  }
 ];
 
 const DropDownMenuArray = [
   {
     link: PROFILE_PAGE,
-    label: 'Profile',
-    intlId: 'navlinkProfile',
+    label: "Profile",
+    intlId: "navlinkProfile"
   },
   {
     link: PROCEED_TO_CHECKOUT_PAGE,
-    label: 'Checkout',
-    intlId: 'navlinkCheckout',
+    label: "Checkout",
+    intlId: "navlinkCheckout"
   },
   {
     link: YOUR_ORDER,
-    label: 'Order',
-    intlId: 'sidebarYourOrder',
+    label: "Order",
+    intlId: "sidebarYourOrder"
   },
   {
     link: ORDER_RECEIVED,
-    label: 'Order invoice',
-    intlId: 'navlinkOrderReceived',
-  },
+    label: "Order invoice",
+    intlId: "navlinkOrderReceived"
+  }
 ];
 
 const LanguageArray = [
-  { id: 'ar', label: 'Arabic', intlLangName: 'intlArabic', icon: <SAFlag /> },
-  { id: 'zh', label: 'Chinese', intlLangName: 'intlChinese', icon: <CNFlag /> },
-  { id: 'en', label: 'English', intlLangName: 'intlEnglish', icon: <USFlag /> },
-  { id: 'de', label: 'German', intlLangName: 'intlGerman', icon: <DEFlag /> },
-  { id: 'he', label: 'Hebrew', intlLangName: 'intlHebrew', icon: <ILFlag /> },
-  { id: 'es', label: 'Spanish', intlLangName: 'intlSpanish', icon: <ESFlag /> },
+  { id: "ar", label: "Arabic", intlLangName: "intlArabic", icon: <SAFlag /> },
+  { id: "zh", label: "Chinese", intlLangName: "intlChinese", icon: <CNFlag /> },
+  { id: "en", label: "English", intlLangName: "intlEnglish", icon: <USFlag /> },
+  { id: "de", label: "German", intlLangName: "intlGerman", icon: <DEFlag /> },
+  { id: "he", label: "Hebrew", intlLangName: "intlHebrew", icon: <ILFlag /> },
+  { id: "es", label: "Spanish", intlLangName: "intlSpanish", icon: <ESFlag /> }
 ];
 
-const Header: React.FC<HeaderProps> = ({
-  style,
-  className,
-  token,
-  pathname,
-}) => {
+const Header: React.FC<HeaderProps> = ({ style, className, token, pathname }) => {
   const {
     state: { lang },
-    toggleLanguage,
+    toggleLanguage
   } = useContext<any>(LanguageContext);
 
   const activeMenuItem = MenuArray.find(item => item.link === pathname);
@@ -147,45 +112,45 @@ const Header: React.FC<HeaderProps> = ({
 
   const {
     authState: { isAuthenticated },
-    authDispatch,
+    authDispatch
   } = useContext<any>(AuthContext);
   const { state, dispatch } = useContext(SearchContext);
   const [activeMenu, setActiveMenu] = useState(
     activeMenuItem || {
-      link: GROCERY_PAGE,
+      link: CHRONIC_PAGE,
       icon: <FruitsVegetable />,
-      label: 'Grocery',
+      label: "Grocery"
     }
   );
 
   const { text } = state;
   const handleSearch = (text: any) => {
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: {
         ...state,
-        text,
-      },
+        text
+      }
     });
   };
   const { page, ...urlState } = state;
   const handleClickSearchButton = () => {
     Router.push({
-      pathname: pathname === '/' ? '/grocery' : pathname,
-      query: { ...urlState, text },
+      pathname: pathname === "/" ? "/grocery" : pathname,
+      query: { ...urlState, text }
     });
   };
   const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
-      authDispatch({ type: 'SIGN_OUT' });
-      Router.push('/');
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("access_token");
+      authDispatch({ type: "SIGN_OUT" });
+      Router.push("/");
     }
   };
   const resetSearch = (selectedMenu: any) => {
     setActiveMenu(selectedMenu);
     dispatch({
-      type: 'RESET',
+      type: "RESET"
     });
   };
   const NavItem = (item: any) => {
@@ -193,11 +158,11 @@ const Header: React.FC<HeaderProps> = ({
       <NavLink
         key={item.link}
         onClick={() => resetSearch(item)}
-        className='menu-item'
+        className="menu-item"
         href={item.link}
         label={item.label}
         icon={item.icon}
-        iconClass='menu-item-icon'
+        iconClass="menu-item-icon"
       />
     );
   };
@@ -208,11 +173,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const LanguageMenu = (item: any) => {
     return (
-      <LanguageItem
-        onClick={handleToggleLanguage}
-        key={item.id}
-        value={item.id}
-      >
+      <LanguageItem onClick={handleToggleLanguage} key={item.id} value={item.id}>
         <span>{item.icon}</span>
         <FormattedMessage id={item.intlLangName} defaultMessage={item.label} />
       </LanguageItem>
@@ -221,33 +182,26 @@ const Header: React.FC<HeaderProps> = ({
 
   const signInOutForm = () => {
     authDispatch({
-      type: 'SIGNIN',
+      type: "SIGNIN"
     });
 
     openModal({
       show: true,
-      overlayClassName: 'quick-view-overlay',
+      overlayClassName: "quick-view-overlay",
       closeOnClickOutside: true,
       component: AuthenticationForm,
-      closeComponent: '',
+      closeComponent: "",
       config: {
         enableResizing: false,
         disableDragging: true,
-        className: 'quick-view-modal',
+        className: "quick-view-modal",
         width: 458,
-        height: 'auto',
-      },
+        height: "auto"
+      }
     });
   };
 
-  const isHomePage =
-    pathname === HOME_PAGE ||
-    pathname === GROCERY_PAGE ||
-    pathname === CLOTHING ||
-    pathname === MAKEUP_PAGE ||
-    pathname === BOOK_PAGE ||
-    pathname === FURNITURE_PAGE ||
-    pathname === BAGS_PAGE;
+  const isHomePage = pathname === HOME_PAGE;
 
   return (
     <HeaderWrapper style={style} className={className}>
@@ -255,67 +209,43 @@ const Header: React.FC<HeaderProps> = ({
         <Logo
           onClick={() =>
             resetSearch({
-              link: GROCERY_PAGE,
+              link: CHRONIC_PAGE,
               icon: <FruitsVegetable />,
-              label: 'Grocery',
+              label: "Grocery"
             })
           }
         >
           <Link href={HOME_PAGE}>
-            <a>
-              {/* <img src={Logoimage} alt='pickbazar-admin' /> */}
-            </a>
+            <a>{/* <img src={Logoimage} alt='pickbazar-admin' /> */}</a>
           </Link>
         </Logo>
-        {/* <MainMenu>
-          <Popover
-            className='right'
-            handler={
-              <SelectedType>
-                <span>
-                  <TypeIcon>{activeMenu.icon}</TypeIcon>
-                  <span>{activeMenu.label}</span>
-                </span>
-                <DropDownArrow>
-                  <MenuDown />
-                </DropDownArrow>
-              </SelectedType>
-            }
-            content={<>{MenuArray.map(NavItem)}</>}
-          />
-        </MainMenu> */}
       </HeaderLeftSide>
       {isHomePage ? (
         <SearchBox
-          className='headerSearch'
+          className="headerSearch"
           handleSearch={(value: any) => handleSearch(value)}
           onClick={handleClickSearchButton}
-          placeholder='Search anything...'
+          placeholder="Search anything..."
           hideType={true}
           minimal={true}
           showSvg={true}
-          style={{ width: '100%' }}
-          value={text || ''}
+          style={{ width: "100%" }}
+          value={text || ""}
         />
       ) : null}
       <HeaderRightSide>
+        <NavLink className="menu-item" href={OFFER_PAGE} label="Offer" intlId="navlinkOffer" />
         <NavLink
-          className='menu-item'
-          href={OFFER_PAGE}
-          label='Offer'
-          intlId='navlinkOffer'
-        />
-        <NavLink
-          className='menu-item'
+          className="menu-item"
           href={HELP_PAGE}
-          label='Need Help'
-          intlId='navlinkHelp'
-          iconClass='menu-icon'
+          label="Need Help"
+          intlId="navlinkHelp"
+          iconClass="menu-icon"
           icon={<HelpIcon />}
         />
         <LangSwithcer>
           <Popover
-            className='right'
+            className="right"
             handler={
               <SelectedLang>
                 <Flag>{LanguageArray[selectedLangindex].icon}</Flag>
@@ -334,34 +264,25 @@ const Header: React.FC<HeaderProps> = ({
         {!isAuthenticated ? (
           <Button
             onClick={signInOutForm}
-            size='small'
-            title='Join'
-            style={{ fontSize: 15, color: '#fff' }}
-            intlButtonId='joinButton'
+            size="small"
+            title="Join"
+            style={{ fontSize: 15, color: "#fff" }}
+            intlButtonId="joinButton"
           />
         ) : (
           <Popover
-            direction='right'
-            className='user-pages-dropdown'
-            handler={<img src={UserImage} alt='user' />}
+            direction="right"
+            className="user-pages-dropdown"
+            handler={<img src={UserImage} alt="user" />}
             content={
               <>
                 {DropDownMenuArray.map((item, idx) => (
-                  <NavLink
-                    key={idx}
-                    className='menu-item'
-                    href={item.link}
-                    label={item.label}
-                    intlId={item.intlId}
-                  />
+                  <NavLink key={idx} className="menu-item" href={item.link} label={item.label} intlId={item.intlId} />
                 ))}
-                <div className='menu-item' onClick={handleLogout}>
+                <div className="menu-item" onClick={handleLogout}>
                   <a>
                     <span>
-                      <FormattedMessage
-                        id='navlinkLogout'
-                        defaultMessage='Logout'
-                      />
+                      <FormattedMessage id="navlinkLogout" defaultMessage="Logout" />
                     </span>
                   </a>
                 </div>

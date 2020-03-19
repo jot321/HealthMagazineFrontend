@@ -1,71 +1,16 @@
 import React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
-import Carousel from "components/Carousel/Carousel";
-import Banner from "containers/Banner/Banner";
-import Sidebar from "containers/Sidebar/Sidebar";
-import Products from "containers/Products/Products";
 import Information from "containers/Information/Information";
-import CartPopUp from "containers/Cart/CartPopUp";
-import {
-  MainContentArea,
-  SidebarSection,
-  ContentSection,
-  OfferSection,
-  MobileCarouselDropdown
-} from "styled/pages.style";
-// Static Data Import Here
-import OFFERS from "data/offers";
-import BannerImg from "image/wellness_banner.png";
+import { MainContentArea, ContentSection } from "styled/pages.style";
 import NavBarItems from "constants/storeType";
-import LocationModal from 'containers/LocationModal/LocationModal';
-import { getCookie } from 'components/helpers/session';
-import { openModal, Modal } from '@redq/reuse-modal';
+import { Modal } from "@redq/reuse-modal";
 
-const PAGE_TYPE = "grocery";
+import { WEIGHT_TOP_CATEGORY } from "constants/categories";
 
 function HomePage({ deviceType }) {
-  const { query } = useRouter();
   const targetRef = React.useRef(null);
-
-
-  React.useEffect(() => {
-    const modalTimer = setTimeout(() => {
-      if (!getCookie('zip_code') && !getCookie('first_visit')) {
-        openModal({
-          show: true,
-          overlayClassName: 'quick-view-overlay',
-          closeOnClickOutside: true,
-          component: LocationModal,
-          // closeComponent: "div",
-          config: {
-            enableResizing: false,
-            disableDragging: true,
-            className: 'quick-view-modal',
-            width: 458,
-            height: 'auto',
-          },
-        });
-      }
-    }, 1800);
-    return () => {
-      clearTimeout(modalTimer);
-    };
-  }, []);
-  
-  // Scroll the top of the content area any time we search or click a tag
-  React.useEffect(() => {
-    if ((query.text || query.category) && targetRef.current) {
-      window.scrollTo({
-        top: targetRef.current.offsetTop - 110,
-        behavior: "smooth"
-      });
-    }
-  }, [query]);
-
-  const sortByLikes_ = query.sortByLikes == "true" ? true : false;
 
   return (
     <>
@@ -73,58 +18,27 @@ function HomePage({ deviceType }) {
         <title>Nuskha</title>
       </Head>
       <Modal>
-        <Banner
-          intlTitleId="groceriesTitle"
-          intlDescriptionId="groceriesSubTitle"
-          imageUrl={BannerImg}
-        />
+        <StoreNav items={NavBarItems.HomePage} />
 
         {deviceType.desktop ? (
           <>
-            <MobileCarouselDropdown>
-              <StoreNav items={NavBarItems.WeightManagementPage} />
-              {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            </MobileCarouselDropdown>
-            {/* <OfferSection>
-              <div style={{ margin: '0 -10px' }}>
-                <Carousel deviceType={deviceType} data={OFFERS} />
-              </div>
-            </OfferSection> */}
             <MainContentArea>
-              {/* <SidebarSection>
-                <Sidebar type={PAGE_TYPE} deviceType={deviceType} />
-              </SidebarSection> */}
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information
-                    type={PAGE_TYPE}
-                    deviceType={deviceType}
-                    fetchLimit={16}
-                  />
+                  <Information deviceType={deviceType} topLevelCategory={WEIGHT_TOP_CATEGORY} />
                 </div>
               </ContentSection>
             </MainContentArea>
           </>
         ) : (
           <MainContentArea>
-            <StoreNav items={NavBarItems.WeightManagementPage} />
-            {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            {/* <OfferSection>
-              <div style={{ margin: '0 -10px' }}>
-                <Carousel deviceType={deviceType} data={OFFERS} />
-              </div>
-            </OfferSection> */}
             <ContentSection style={{ width: "100%" }}>
-              <Information
-                type={PAGE_TYPE}
-                deviceType={deviceType}
-                fetchLimit={16}
-                sortByLikes={sortByLikes_}
-              />
+              <div ref={targetRef}>
+                <Information deviceType={deviceType} topLevelCategory={WEIGHT_TOP_CATEGORY} />
+              </div>
             </ContentSection>
           </MainContentArea>
         )}
-        {/* <CartPopUp deviceType={deviceType} /> */}
       </Modal>
     </>
   );

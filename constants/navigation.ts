@@ -1,10 +1,4 @@
 export const HOME_PAGE = '/';
-export const GROCERY_PAGE = '/grocery';
-export const MAKEUP_PAGE = '/makeup';
-export const CLOTHING = '/clothing';
-export const BAGS_PAGE = '/bags';
-export const BOOK_PAGE = '/book';
-export const FURNITURE_PAGE = '/furniture';
 export const DETAILS_PAGE = '/detail';
 export const PROCEED_TO_CHECKOUT_PAGE = '/checkout';
 export const REQUEST_MEDICINE_PAGE = '/request-medicine';
@@ -17,3 +11,12 @@ export const HELP_PAGE = '/help';
 export const CHRONIC_PAGE = '/chronic'
 export const SKIN_HAIR_PAGE = '/skinhair'
 export const WEIGHT_PAGE = '/weight'
+export const MENTAL_PAGE = '/mental'
+export const SEXUAL_PAGE = '/sexual'
+export const FITNESS_PAGE = '/fitness'
+export const DIET_PAGE = '/diet'
+export const PAIN_PAGE = '/pain'
+export const GENERAL_PAGE = '/general'
+export const POPULAR_PAGE = '/popular'
+export const FEATURED_PAGE = '/featured'
+
