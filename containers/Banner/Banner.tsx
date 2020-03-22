@@ -32,7 +32,7 @@ const Banner: React.FC<BannerProps> = ({ imageUrl, intlTitleId, intlDescriptionI
 
   function handleClickSearchButton() {
     router.push({
-      pathname: "/",
+      pathname: "/category",
       query: { searchKey: text }
     });
   }
