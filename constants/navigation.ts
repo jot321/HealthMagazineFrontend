@@ -20,3 +20,4 @@ export const GENERAL_PAGE = '/general'
 export const POPULAR_PAGE = '/popular'
 export const FEATURED_PAGE = '/featured'
 
+export const WRITERS_LANDING_PAGE = '/landing-pages/writers'

@@ -135,14 +135,16 @@ const Container = styled.div`
   }
 
   .card__action {
+    margin-top: -30px;
     overflow: hidden;
-    padding-right: 1.6rem;
-    padding-left: 1.6rem;
-    padding-bottom: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 1.3rem;
     padding-top: 1rem;
   }
 
   .card__author {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     float: left;
@@ -221,6 +223,7 @@ const LoveButton = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
+    font-weight: 500;
     // color: #505050;
     color: #fe4540;
   }
@@ -249,6 +252,7 @@ const LoveButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
+    font-weight: 500;
     color: #fe4540;
   }
 `;
@@ -269,6 +273,7 @@ const ShareButton = styled.a`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
+    font-weight: 500;
     // color: #505050;
     color: #74b980;
   }
@@ -298,6 +303,7 @@ const ShareButtonActivated = styled.div`
     width: 50px;
     margin-top: 48px;
     font-size: 0.8em;
+    font-weight: 500;
     color: #74b980;
   }
 `;

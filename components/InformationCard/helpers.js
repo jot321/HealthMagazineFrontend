@@ -3,7 +3,7 @@ export const createWhatsappTextMessage = (title, byline) => {
 };
 
 export const createWhatsappLinkMessage = CMS_ID => {
-  return process.env.DOMAIN_NAME + "/?articleId=" + CMS_ID;
+  return process.env.DOMAIN_NAME + "/article?articleId=" + CMS_ID;
 };
 
 export const createWhatsappCombinedMessage = (title, byline, CMS_ID) => {
@@ -12,5 +12,5 @@ export const createWhatsappCombinedMessage = (title, byline, CMS_ID) => {
 
 
 export const createWhatsappLinkMessageWebAPIShare = CMS_ID => {
-  return "?articleId=" + CMS_ID;
+  return "/article?articleId=" + CMS_ID;
 };

@@ -48,6 +48,7 @@ function HomePage({ deviceType }) {
   //     clearTimeout(modalTimer);
   //   };
   // }, []);
+
   return (
     <>
       <Head>
@@ -77,7 +78,7 @@ function HomePage({ deviceType }) {
                 <div ref={targetRef}>
                   {/* <Masonry breakpointCols={3} className="my-masonry-grid" columnClassName="my-masonry-grid_column"> */}
                   {/* array of JSX items */}
-                  <Information deviceType={deviceType} />
+                  <RandomizedFeed deviceType={deviceType} />
                   {/* </Masonry> */}
                 </div>
               </ContentSection>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import gql from "graphql-tag";
 import { openModal, closeModal } from "@redq/reuse-modal";
@@ -25,8 +26,8 @@ const GET_RANDOM_ARTICLEIDS = gql`
 `;
 
 const GET_ARTICLE_INFO_FROM_ARR = gql`
-  query getArticleDetails($inputIds: [String]) {
-    getArticleInformationFromArrayofIds(inputIds: $inputIds) {
+  query getArticleDetails($inputIds: [String], $articleId: String) {
+    getArticleInformationFromArrayofIds(inputIds: $inputIds, articleId: $articleId) {
       message
       properties
     }
@@ -43,6 +44,7 @@ type ProductsProps = {
 };
 
 export const RandomizedFeed: React.FC<ProductsProps> = ({ deviceType, loadMore = true }) => {
+  const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
   const targetRef = React.useRef(null);
 
@@ -57,8 +59,10 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({ deviceType, loadMore =
   const STEP = 5;
 
   const articleIds = useQuery(GET_RANDOM_ARTICLEIDS);
+
   const articlesData = useQuery(GET_ARTICLE_INFO_FROM_ARR, {
     variables: {
+      articleId: router.query.articleId,
       inputIds:
         articleIds.data.getRandomSampledArticleIds == undefined
           ? undefined

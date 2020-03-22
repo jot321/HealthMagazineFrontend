@@ -32,6 +32,7 @@ import {
   ORDER_RECEIVED,
   HELP_PAGE,
   OFFER_PAGE,
+  WRITERS_LANDING_PAGE
 } from 'constants/navigation';
 
 const DrawerMenuItems = [
@@ -43,40 +44,40 @@ const DrawerMenuItems = [
   },
   {
     id: 2,
-    intlLabelId: 'navlinkCheckout',
-    label: 'Checkout',
-    href: PROCEED_TO_CHECKOUT_PAGE,
+    intlLabelId: 'forWriters',
+    label: 'For Writers',
+    href: WRITERS_LANDING_PAGE,
   },
-  {
-    id: 3,
-    intlLabelId: 'navlinkProfile',
-    label: 'Profile',
-    href: PROFILE_PAGE,
-  },
-  {
-    id: 4,
-    intlLabelId: 'sidebarYourOrder',
-    label: 'Order',
-    href: YOUR_ORDER,
-  },
-  {
-    id: 5,
-    intlLabelId: 'navlinkOrderReceived',
-    label: 'Received',
-    href: ORDER_RECEIVED,
-  },
-  {
-    id: 6,
-    intlLabelId: 'navlinkHelp',
-    label: 'Help',
-    href: HELP_PAGE,
-  },
-  {
-    id: 7,
-    intlLabelId: 'navlinkOffer',
-    label: 'Offer',
-    href: OFFER_PAGE,
-  },
+  // {
+  //   id: 3,
+  //   intlLabelId: 'navlinkProfile',
+  //   label: 'Profile',
+  //   href: PROFILE_PAGE,
+  // },
+  // {
+  //   id: 4,
+  //   intlLabelId: 'sidebarYourOrder',
+  //   label: 'Order',
+  //   href: YOUR_ORDER,
+  // },
+  // {
+  //   id: 5,
+  //   intlLabelId: 'navlinkOrderReceived',
+  //   label: 'Received',
+  //   href: ORDER_RECEIVED,
+  // },
+  // {
+  //   id: 6,
+  //   intlLabelId: 'navlinkHelp',
+  //   label: 'Help',
+  //   href: HELP_PAGE,
+  // },
+  // {
+  //   id: 7,
+  //   intlLabelId: 'navlinkOffer',
+  //   label: 'Offer',
+  //   href: OFFER_PAGE,
+  // },
 ];
 
 const MobileDrawer: React.FunctionComponent = () => {
