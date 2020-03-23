@@ -441,7 +441,8 @@ export const SimpleCardWithCollapse = ({
         })
         .catch(() => {
           console.log("Navigator Share available not working.");
-          window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+          window.location.href =
+            "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
         });
     } else {
       try {
