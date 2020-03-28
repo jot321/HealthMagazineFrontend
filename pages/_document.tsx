@@ -1,4 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext
+} from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 export default class CustomDocument extends Document {
@@ -41,13 +47,16 @@ export default class CustomDocument extends Document {
           ></link>
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {process.env.NODE_ENV === "production" && (
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=UA-160862205-1`} />
-          )}
-          {process.env.NODE_ENV === "production" && (
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
+          {/* {process.env.NODE_ENV === "production" && ( */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=UA-160862205-1`}
+          />
+          {/* )} */}
+          {/* {process.env.NODE_ENV === "production" && ( */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -55,15 +64,15 @@ export default class CustomDocument extends Document {
               page_path: window.location.pathname,
             });
           `
-              }}
-            />
-          )}
+            }}
+          />
+          {/* )} */}
 
           {/* Facebook Pixel */}
-          {process.env.NODE_ENV === "production" && (
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
+          {/* {process.env.NODE_ENV === "production" && ( */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -75,14 +84,14 @@ export default class CustomDocument extends Document {
               fbq('init', '516055865704023');
               fbq('track', 'PageView');
           `
-              }}
-            />
-          )}
+            }}
+          />
+          {/* )} */}
 
-          {process.env.NODE_ENV === "production" && (
-            <noscript
-              dangerouslySetInnerHTML={{
-                __html: `
+          {/* {process.env.NODE_ENV === "production" && ( */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `
             <img 
               height="1"
               width="1"
@@ -90,9 +99,9 @@ export default class CustomDocument extends Document {
               src="https://www.facebook.com/tr?id=516055865704023&ev=PageView&noscript=1"
             />
           `
-              }}
-            />
-          )}
+            }}
+          />
+          {/* )} */}
         </Head>
         <body>
           <Main />
