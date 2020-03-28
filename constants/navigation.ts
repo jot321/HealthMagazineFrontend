@@ -17,7 +17,9 @@ export const FITNESS_PAGE = '/fitness'
 export const DIET_PAGE = '/diet'
 export const PAIN_PAGE = '/pain'
 export const GENERAL_PAGE = '/general'
+
 export const POPULAR_PAGE = '/popular'
 export const FEATURED_PAGE = '/featured'
+export const TIPS_PAGE = '/tips'
 
 export const WRITERS_LANDING_PAGE = '/landing-pages/writers'

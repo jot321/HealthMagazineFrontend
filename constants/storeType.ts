@@ -24,6 +24,18 @@ export default {
       identifier: "popular"
     },
     // {
+    //   link: "/tips",
+    //   icon: "",
+    //   label: "Tips",
+    //   identifier: "tips"
+    // },
+    // {
+    //   link: "/live",
+    //   icon: "",
+    //   label: "Live",
+    //   identifier: "live"
+    // },
+    // {
     //   link: CHRONIC_PAGE,
     //   icon: "",
     //   label: "Chronic Conditions"

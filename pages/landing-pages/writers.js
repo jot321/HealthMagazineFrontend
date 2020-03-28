@@ -124,6 +124,7 @@ const FeaturesItem = styled.div``;
 function CommunityLandingPage() {
   return (
     <Wrapper>
+      
       <HeadingSection>
         <h2>A place to publish your best work</h2>
         <br />

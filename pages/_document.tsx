@@ -30,6 +30,16 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="manifest" href="manifest.json"></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
+            rel="stylesheet"
+          ></link>
+          <link
+            href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,300,400,500,600,700&display=swap"
+            rel="stylesheet"
+          ></link>
+
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {process.env.NODE_ENV === "production" && (
             <script async src={`https://www.googletagmanager.com/gtag/js?id=UA-160862205-1`} />
@@ -48,16 +58,6 @@ export default class CustomDocument extends Document {
               }}
             />
           )}
-
-          <link rel="manifest" href="manifest.json"></link>
-          <link
-            href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
-            rel="stylesheet"
-          ></link>
-          <link
-            href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,300,400,500,600,700&display=swap"
-            rel="stylesheet"
-          ></link>
 
           {/* Facebook Pixel */}
           {process.env.NODE_ENV === "production" && (
