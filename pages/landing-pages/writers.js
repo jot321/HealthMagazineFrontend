@@ -130,7 +130,7 @@ function CommunityLandingPage() {
         <br />
         <h4>
           The internet should reward quality thinking, not clickbait. That's why we have created a new home for health
-          and wellness professionals. Connect to curious avid readers.
+          and wellness professionals. Connect to curious souls, who are looking for guidance from people like you
         </h4>
         <br />
         <img src={require("image/writer1.svg")}></img>
@@ -146,33 +146,29 @@ function CommunityLandingPage() {
       <FeaturesSection>
         <FeaturesList>
           <FeaturesItem>
-            <h2>Write something good on healthcare and wellness!</h2>
+            <h2>Create something good on healthcare and wellness!</h2>
             <br />
             <br />
             <h4>
-              Share your thinking about something that matters to you. It can be short or long, serious or funny,
-              reported or opinionated - it's the quality of your perspective that counts.
+              Share your thinking about something that matters to you. It can be  live, recorded, individual or gropu based or short or long, serious or funny - it's the quality of your perspective that counts.
             </h4>
             <br />
           </FeaturesItem>
           <FeaturesItem>
-            <h2>Writing is time consuming! We are here to help</h2>
+            <h2>Creation is time consuming! We are here to help</h2>
             <br />
             <br />
             <h4>
-              If you have the ideas, we have got the team, to help you with creating the best articles. Otherwise, you
-              can be part of our review team which ensures the authenticity of information on our portal
+              If you have the ideas, we have got the team, to help you with creating, distributing, marketing and monetizing. Our in house team is on a mission to make it easier for you to engage with the audience and build your own digital brand
             </h4>
             <br />
           </FeaturesItem>
           <FeaturesItem>
-            <h2>Get recommended to readers</h2>
+            <h2>Your Own Digital Space</h2>
             <br />
             <br />
             <h4>
-              Our editorial team reviews each story. When a story meets our editorial standards, a curator will
-              recommend it to readers interested in relevant topics, across the web, social media, WhatsApp and e-mail
-              digest.
+              Tell the world about the classes and about you and your practices, additionally, you can connect with users for One on One or group consultation, and create courses related to fitness, nutrition, other preventive measures.
             </h4>
             <br />
           </FeaturesItem>
