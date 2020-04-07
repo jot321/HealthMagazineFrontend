@@ -1,39 +1,45 @@
-import React, { useReducer } from 'react';
-import { AuthContext } from './auth.context';
-const isBrowser = typeof window !== 'undefined';
+import React, { useReducer } from "react";
+import { AuthContext } from "./auth.context";
+
+const isBrowser = typeof window !== "undefined";
 const INITIAL_STATE = {
-  isAuthenticated: isBrowser && !!localStorage.getItem('access_token'),
-  currentForm: 'signIn',
+  isAuthenticated: isBrowser && !!localStorage.getItem("user_id"),
+  currentForm: "signIn"
 };
 
 function reducer(state: any, action: any) {
-  console.log(state, 'auth');
+  console.log(state, "auth");
 
   switch (action.type) {
-    case 'SIGNIN':
+    case "SIGNIN_UN":
       return {
         ...state,
-        currentForm: 'signIn',
+        currentForm: "UNSignIn"
       };
-    case 'SIGNIN_SUCCESS':
+    case "SIGNIN":
       return {
         ...state,
-        isAuthenticated: true,
+        currentForm: "signIn"
       };
-    case 'SIGN_OUT':
+    case "SIGNIN_SUCCESS":
       return {
         ...state,
-        isAuthenticated: false,
+        isAuthenticated: true
       };
-    case 'SIGNUP':
+    case "SIGN_OUT":
       return {
         ...state,
-        currentForm: 'signUp',
+        isAuthenticated: false
       };
-    case 'FORGOTPASS':
+    case "SIGNUP":
       return {
         ...state,
-        currentForm: 'forgotPass',
+        currentForm: "signUp"
+      };
+    case "FORGOTPASS":
+      return {
+        ...state,
+        currentForm: "forgotPass"
       };
     default:
       return state;

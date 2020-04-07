@@ -2,27 +2,37 @@ import React from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
-import Information from "containers/Information/Information";
+import MediaInformation from "containers/Information/MediaInformation";
+import VideoListInformation from "containers/Information/VideoListInformation";
 import { MainContentArea, ContentSection } from "styled/pages.style";
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
+import { useRouter } from "next/router";
 
-function HomePage({ deviceType }) {
+function LiveListingsPage({ deviceType }) {
+  const router = useRouter();
   const targetRef = React.useRef(null);
+
+  const showVideosFromPlaylist = router.query.vpid != undefined;
 
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Live Fitness/Wellness sessions</title>
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
+
         {deviceType.desktop ? (
           <>
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} />
+                  {showVideosFromPlaylist ? (
+                    <VideoListInformation />
+                  ) : (
+                    <MediaInformation />
+                  )}
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -31,7 +41,11 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} />
+                {showVideosFromPlaylist ? (
+                  <VideoListInformation />
+                ) : (
+                  <MediaInformation />
+                )}
               </div>
             </ContentSection>
           </MainContentArea>
@@ -41,4 +55,4 @@ function HomePage({ deviceType }) {
   );
 }
 
-export default withApollo(HomePage);
+export default withApollo(LiveListingsPage);

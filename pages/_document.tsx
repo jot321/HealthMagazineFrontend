@@ -3,7 +3,7 @@ import Document, {
   Head,
   Main,
   NextScript,
-  DocumentContext
+  DocumentContext,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
@@ -15,7 +15,8 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -26,7 +27,7 @@ export default class CustomDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();
@@ -37,6 +38,11 @@ export default class CustomDocument extends Document {
       <Html>
         <Head>
           <link rel="manifest" href="manifest.json"></link>
+          <script
+            async
+            // src="https://kit.fontawesome.com/93a25677f4.js"
+            src="fontawesome.js"
+          ></script>
           <link
             href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
             rel="stylesheet"
@@ -47,32 +53,34 @@ export default class CustomDocument extends Document {
           ></link>
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          {/* {process.env.NODE_ENV === "production" && ( */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=UA-160862205-1`}
-          />
-          {/* )} */}
-          {/* {process.env.NODE_ENV === "production" && ( */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          {process.env.NODE_ENV === "production" && (
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=UA-160862205-1`}
+            />
+          )}
+          {process.env.NODE_ENV === "production" && (
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'UA-160862205-1', {
               page_path: window.location.pathname,
             });
-          `
-            }}
-          />
-          {/* )} */}
+          `,
+              }}
+            />
+          )}
 
           {/* Facebook Pixel */}
-          {/* {process.env.NODE_ENV === "production" && ( */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          {process.env.NODE_ENV === "production" && (
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                __html: `
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
               n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -83,30 +91,48 @@ export default class CustomDocument extends Document {
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '516055865704023');
               fbq('track', 'PageView');
-          `
-            }}
-          />
-          {/* )} */}
+          `,
+              }}
+            />
+          )}
 
-          {/* {process.env.NODE_ENV === "production" && ( */}
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `
+          {process.env.NODE_ENV === "production" && (
+            <noscript
+              dangerouslySetInnerHTML={{
+                __html: `
             <img 
               height="1"
               width="1"
               style={"display":"none"}
               src="https://www.facebook.com/tr?id=516055865704023&ev=PageView&noscript=1"
             />
-          `
-            }}
-          />
-          {/* )} */}
+          `,
+              }}
+            />
+          )}
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
+
+        <script
+          async
+          dangerouslySetInnerHTML={{
+            __html: `
+                if ('serviceWorker' in navigator) {
+                  console.log("Will the service worker register?");
+                  navigator.serviceWorker.register('service-worker.js')
+                    .then(function(reg){
+                      console.log("Yes, it did.");
+                    }).catch(function(err) {
+                      console.log("No it didn't. This happened: ", err)
+                    });
+                }
+          `,
+          }}
+        />
+        <script></script>
       </Html>
     );
   }

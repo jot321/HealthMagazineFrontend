@@ -4,6 +4,9 @@ import {
   WEIGHT_PAGE,
   SKIN_HAIR_PAGE
 } from "./navigation";
+
+import { FruitsVegetable } from "components/AllSvgIcon";
+
 export default {
   HomePage: [
     {
@@ -11,30 +14,39 @@ export default {
       icon: "",
       label: "Home"
     },
-    {
-      link: "/featured",
-      icon: "",
-      label: "Featured",
-      identifier: "top-picks"
-    },
+    // {
+    //   link: "/featured",
+    //   icon: "",
+    //   label: "Featured",
+    //   identifier: "top-picks"
+    // },
     {
       link: "/popular",
       icon: "",
       label: "Popular",
-      identifier: "popular"
+      identifier: "popular",
+      fontAwesomeIconClass: "fas fa-star"
     },
-    // {
-    //   link: "/tips",
-    //   icon: "",
-    //   label: "Tips",
-    //   identifier: "tips"
-    // },
+    {
+      link: "/videos",
+      icon: "",
+      label: "Videos",
+      identifier: "videos",
+      fontAwesomeIconClass: "fab fa-youtube"
+    },
+    {
+      link: "/tips",
+      icon: "",
+      label: "Tips",
+      identifier: "tips",
+      fontAwesomeIconClass: "fas fa-lightbulb"
+    }
     // {
     //   link: "/live",
     //   icon: "",
     //   label: "Live",
     //   identifier: "live"
-    // },
+    // }
     // {
     //   link: CHRONIC_PAGE,
     //   icon: "",
@@ -60,7 +72,7 @@ export default {
     {
       link: CHRONIC_PAGE,
       icon: "",
-      label: "Chronic Conditions",
+      label: "Chronic Conditions"
     },
     {
       link: CHRONIC_PAGE + "?identifier=2",

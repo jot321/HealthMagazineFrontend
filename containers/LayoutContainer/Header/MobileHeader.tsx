@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { openModal, closeModal } from '@redq/reuse-modal';
-import { DrawerProvider } from 'contexts/drawer/drawer.provider';
-import Popover from 'components/Popover/Popover';
-import MobileDrawer from './MobileDrawer';
+import React, { useState, useContext } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { openModal, closeModal } from "@redq/reuse-modal";
+import { DrawerProvider } from "contexts/drawer/drawer.provider";
+import Popover from "components/Popover/Popover";
+import MobileDrawer from "./MobileDrawer";
 import {
   MobileHeaderWrapper,
   MobileHeaderInnerWrapper,
@@ -17,19 +17,18 @@ import {
   SelectedLang,
   LanguageItem,
   LangSwithcer,
-  Flag,
-} from './Header.style';
-import { FormattedMessage } from 'react-intl';
-import SearchBox from 'components/SearchBox/SearchBox';
-import { SearchContext } from 'contexts/search/search.context';
-import Logoimage from 'image/logo.svg';
-const NewLogo = require( 'image/New_Logo_2.png');
-import {
-  HOME_PAGE,
-  CHRONIC_PAGE,
-  SKIN_HAIR_PAGE
-} from 'constants/navigation';
-import LanguageContext from 'contexts/language/language.context';
+  Flag
+} from "./Header.style";
+import { FormattedMessage } from "react-intl";
+import SearchBox from "components/SearchBox/SearchBox";
+import { SearchContext } from "contexts/search/search.context";
+import Logoimage from "image/logo.svg";
+
+const NewLogo = require("image/New_Logo_2.png");
+// const NewLogo = require("image/Final_Logo.jpg");
+
+import { HOME_PAGE, CHRONIC_PAGE, SKIN_HAIR_PAGE } from "constants/navigation";
+import LanguageContext from "contexts/language/language.context";
 
 import {
   SearchIcon,
@@ -39,8 +38,8 @@ import {
   USFlag,
   ILFlag,
   ESFlag,
-  SAFlag,
-} from 'components/AllSvgIcon';
+  SAFlag
+} from "components/AllSvgIcon";
 
 type MobileHeaderProps = {
   className?: string;
@@ -54,21 +53,21 @@ type SearchModalProps = {
 };
 
 const LanguageArray = [
-  { id: 'ar', label: 'Arabic', intlLangName: 'intlArabic', icon: <SAFlag /> },
-  { id: 'zh', label: 'Chinese', intlLangName: 'intlChinese', icon: <CNFlag /> },
-  { id: 'en', label: 'English', intlLangName: 'intlEnglish', icon: <USFlag /> },
-  { id: 'de', label: 'German', intlLangName: 'intlGerman', icon: <DEFlag /> },
-  { id: 'he', label: 'Hebrew', intlLangName: 'intlHebrew', icon: <ILFlag /> },
-  { id: 'es', label: 'Spanish', intlLangName: 'intlSpanish', icon: <ESFlag /> },
+  { id: "ar", label: "Arabic", intlLangName: "intlArabic", icon: <SAFlag /> },
+  { id: "zh", label: "Chinese", intlLangName: "intlChinese", icon: <CNFlag /> },
+  { id: "en", label: "English", intlLangName: "intlEnglish", icon: <USFlag /> },
+  { id: "de", label: "German", intlLangName: "intlGerman", icon: <DEFlag /> },
+  { id: "he", label: "Hebrew", intlLangName: "intlHebrew", icon: <ILFlag /> },
+  { id: "es", label: "Spanish", intlLangName: "intlSpanish", icon: <ESFlag /> }
 ];
 
 const SearchModal: React.FC<SearchModalProps> = ({
   state,
   pathname,
-  handleSearch,
+  handleSearch
 }) => {
   const router = useRouter();
-  const [text, setText] = useState(state.text || '');
+  const [text, setText] = useState(state.text || "");
   const handleSearchInput = (text: string) => {
     setText(text);
   };
@@ -77,25 +76,25 @@ const SearchModal: React.FC<SearchModalProps> = ({
   const handleClickSearchButton = () => {
     handleSearch(text);
     router.push({
-      pathname: pathname === '/' ? '/grocery' : pathname,
+      pathname: pathname === "/" ? "/grocery" : pathname,
       query: {
         ...urlState,
-        text,
-      },
+        text
+      }
     });
     closeModal();
   };
   return (
     <SearchModalWrapper>
-      <SearchModalClose type='submit' onClick={() => closeModal()}>
+      <SearchModalClose type="submit" onClick={() => closeModal()}>
         <LongArrowLeft />
       </SearchModalClose>
       <SearchBox
-        className='header-modal-search'
+        className="header-modal-search"
         bordered={false}
         inputStyle={{ height: 35 }}
-        buttonText=''
-        placeholder='Search'
+        buttonText=""
+        placeholder="Search"
         handleSearch={handleSearchInput}
         value={text}
         onClick={handleClickSearchButton}
@@ -107,7 +106,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 const MobileHeader: React.FC<MobileHeaderProps> = props => {
   const {
     state: { lang },
-    toggleLanguage,
+    toggleLanguage
   } = useContext<any>(LanguageContext);
 
   const { state, dispatch } = useContext(SearchContext);
@@ -117,11 +116,11 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
 
   const handleSearch = (text: string) => {
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: {
         ...state,
-        text,
-      },
+        text
+      }
     });
   };
   const handleSearchModal = () => {
@@ -130,20 +129,20 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
       config: {
         enableResizing: false,
         disableDragging: true,
-        className: 'search-modal-mobile',
-        width: '100%',
-        height: '100%',
+        className: "search-modal-mobile",
+        width: "100%",
+        height: "100%"
       },
       closeOnClickOutside: false,
       component: SearchModal,
       componentProps: { state, pathname, handleSearch },
-      closeComponent: () => <div />,
+      closeComponent: () => <div />
     });
   };
 
   const handleToggleLanguage = e => {
     toggleLanguage(e.target.value);
-    console.log(e.target.value, 'switcher');
+    console.log(e.target.value, "switcher");
   };
 
   const LanguageMenu = (item: any) => {
@@ -168,23 +167,26 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
     <DrawerProvider>
       <MobileHeaderWrapper>
         <MobileHeaderInnerWrapper className={className}>
-          {/* <DrawerWrapper>
+          <DrawerWrapper>
             <MobileDrawer />
-          </DrawerWrapper> */}
-
+          </DrawerWrapper>
           <LogoWrapper>
             <Logo>
               <Link href={HOME_PAGE}>
                 <a>
-                  <img style={{width:'40px', height:'40px' }} src={NewLogo} alt='pickbazar-admin' />
+                  <img
+                    style={{ width: "40px", height: "40px" }}
+                    src={NewLogo}
+                    alt="pickbazar-admin"
+                  />
                 </a>
               </Link>
             </Logo>
           </LogoWrapper>
 
-          <LangSwithcer>
+          {/* <LangSwithcer>
             <Popover
-              className='right'
+              className="right"
               handler={
                 <SelectedLang>
                   <Flag style={{ margin: 0 }}>
@@ -194,17 +196,18 @@ const MobileHeader: React.FC<MobileHeaderProps> = props => {
               }
               content={<>{LanguageArray.map(LanguageMenu)}</>}
             />
-          </LangSwithcer>
+          </LangSwithcer> */}
 
-          {isHomePage ? (
+          {/* {isHomePage ? (
             <div></div>
-            // <SearchWrapper
-            //   onClick={handleSearchModal}
-            //   className='searchIconWrapper'
-            // >
-            //   <SearchIcon />
-            // </SearchWrapper>
-          ) : null}
+          ) : ( */}
+          <SearchWrapper
+            onClick={handleSearchModal}
+            className="searchIconWrapper"
+          >
+            <SearchIcon />
+          </SearchWrapper>
+          {/* )} */}
         </MobileHeaderInnerWrapper>
       </MobileHeaderWrapper>
     </DrawerProvider>

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { useRouter } from "next/router";
 
 import {
   createWhatsappTipTextMessage,
   createWhatsappTipLinkMessageWebAPIShare,
   createWhatsappTipCombinedMessage
 } from "./helpers";
+
+import { convertToRichText } from "helper/textStyleDisplay";
 
 const cardFont = "'IBM Plex Sans'";
 
@@ -27,6 +28,8 @@ const Container = styled.div`
 
   .wrapper {
     width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -37,12 +40,14 @@ const Container = styled.div`
   }
 
   .card {
+    border-left: 4px solid #ea9085;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
+      0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
     font-family: ${cardFont};
 
@@ -134,7 +139,7 @@ const Container = styled.div`
   }
 
   .card__action {
-    margin-top: -70px;
+    margin-top: -50px;
     overflow: hidden;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -161,7 +166,8 @@ const Container = styled.div`
     .card__author-content_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/pen.png") no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/pen.png")
+        no-repeat center;
       background-size: 100% 100%;
     }
 
@@ -189,7 +195,8 @@ const Container = styled.div`
     .card__factchecked_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/warranty.png") no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/warranty.png")
+        no-repeat center;
       background-size: 100% 100%;
     }
 
@@ -206,8 +213,8 @@ const LoveButton = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
-    center;
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   .love-number {
@@ -229,7 +236,8 @@ const LoveButtonActivated = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat center;
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   .love-number {
@@ -250,7 +258,8 @@ const ShareButton = styled.a`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png") no-repeat center;
+  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   .share-number {
@@ -300,14 +309,26 @@ const CardArticleArea = styled.article`
     font-weight: 400px;
   }
 
-  h2{
+  h2 {
+    font-weight: 00;
+    font-size: 1.3rem;
+  }
+
+  h3 {
     font-weight: 400;
     font-size: 1rem;
   }
 `;
 
-export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }) => {
-  const router = useRouter();
+export const TipCard = ({
+  CMS_ID,
+  title,
+  text,
+  categories,
+  visibleTags,
+  likes,
+  shares
+}) => {
   const targetRef = React.useRef(null);
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
@@ -339,24 +360,16 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Shares Section
-  const [shareClicked, setShareClicked] = useState(false);
   const [shares_, setShares] = useState(shares);
   const INCREMENT_SHARES = gql`
     mutation incrementShares($CMS_ID: ID!) {
       incrementShares(id: $CMS_ID)
     }
   `;
-  const DECREMENT_SHARES = gql`
-    mutation decrementShares($CMS_ID: ID!) {
-      decrementShares(id: $CMS_ID)
-    }
-  `;
   const [incrementShares] = useMutation(INCREMENT_SHARES);
-  const [decrementShares] = useMutation(DECREMENT_SHARES);
 
   const onShareButtonClick = () => {
     setShares(shares_ + 1);
-    setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
 
     if (navigator.share) {
@@ -372,34 +385,20 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
         .catch(() => {
           console.log("Navigator Share available not working.");
           window.location.href =
-            "https://api.whatsapp.com/send?text=" + createWhatsappTipCombinedMessage(text);
+            "https://api.whatsapp.com/send?text=" +
+            createWhatsappTipCombinedMessage(text);
         });
     } else {
       try {
         console.log("Whatsapp App share");
-        window.location.href = "whatsapp://send?text=" + createWhatsappTipCombinedMessage(text);
+        window.location.href =
+          "whatsapp://send?text=" + createWhatsappTipCombinedMessage(text);
       } catch {
         window.location.href =
-          "https://api.whatsapp.com/send?text=" + createWhatsappTipCombinedMessage(text);
+          "https://api.whatsapp.com/send?text=" +
+          createWhatsappTipCombinedMessage(text);
       }
     }
-  };
-
-  const onShareButtonActivatedClick = () => {
-    setShareClicked(false);
-    decrementShares({ variables: { CMS_ID } });
-  };
-
-  // Long Text Expansion
-  const [longTextExpanded, setLongTextExpanded] = useState(false);
-
-  const onClickExpand = () => {
-    setLongTextExpanded(!longTextExpanded);
-  };
-
-  const onClickContract = () => {
-    setLongTextExpanded(!longTextExpanded);
-    targetRef.current.scrollIntoView();
   };
 
   return (
@@ -409,7 +408,11 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
           <div className="card">
             <div class="card__content">
               <CardArticleArea>
-                <h2>{text}</h2>
+                <h2>{title}</h2>
+                <h3
+                  dangerouslySetInnerHTML={{ __html: convertToRichText(text) }}
+                ></h3>
+                <br></br>
 
                 {/* ---------------------------------------------------------------- */}
                 {/* CATEGORIES && TAGS */}
@@ -418,7 +421,16 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
                     categories.map(category => {
                       return (
                         <div class="card__meta">
-                          <a href={"/category?category=" + category}>{category}</a>
+                          <a
+                            href={
+                              "/tipcategory/" +
+                              category +
+                              "?category=" +
+                              category
+                            }
+                          >
+                            {category}
+                          </a>
                         </div>
                       );
                     })}
@@ -426,7 +438,9 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
                     visibleTags.map(tag => {
                       return (
                         <div class="card__meta">
-                          <a href={"/category?tag=" + tag}>{tag}</a>
+                          <a href={"/tipcategory/" + tag + "?tag=" + tag}>
+                            {tag}
+                          </a>
                         </div>
                       );
                     })}
@@ -450,23 +464,26 @@ export const TipCard = ({ CMS_ID, text, categories, visibleTags, likes, shares }
 
               <div class="card__metrics">
                 {/* Shares Section */}
-                {shareClicked ? (
-                  <ShareButtonActivated className="share-icon" onClick={onShareButtonClick}>
-                    {<div class="share-number">{shares_}</div>}
-                  </ShareButtonActivated>
-                ) : (
-                  <ShareButton className="heart-icon" onClick={onShareButtonClick}>
-                    {<div class="share-number">{shares_}</div>}
-                  </ShareButton>
-                )}
+                <ShareButton
+                  className="heart-icon"
+                  onClick={onShareButtonClick}
+                >
+                  {<div class="share-number">{shares_}</div>}
+                </ShareButton>
 
                 {/* Loves Section */}
                 {loveClicked ? (
-                  <LoveButtonActivated className="heart-icon" onClick={onLoveButtonClick}>
+                  <LoveButtonActivated
+                    className="heart-icon"
+                    onClick={onLoveButtonClick}
+                  >
                     {<div class="love-number">{love_}</div>}
                   </LoveButtonActivated>
                 ) : (
-                  <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
+                  <LoveButton
+                    className="heart-icon"
+                    onClick={onLoveButtonClick}
+                  >
                     {<div class="love-number">{love_}</div>}
                   </LoveButton>
                 )}

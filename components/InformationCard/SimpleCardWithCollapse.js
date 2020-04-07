@@ -43,7 +43,8 @@ const Container = styled.div`
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
+      0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
     font-family: ${cardFont};
 
@@ -163,7 +164,8 @@ const Container = styled.div`
       width: 30px;
       height: 30px;
       // background: url("https://img.icons8.com/cotton/100/000000/pen.png")
-      background: url("https://img.icons8.com/color/100/000000/pen.png") no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/pen.png")
+        no-repeat center;
       background-size: 100% 100%;
     }
 
@@ -191,7 +193,8 @@ const Container = styled.div`
     .card__factchecked_image {
       width: 30px;
       height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/warranty.png") no-repeat center;
+      background: url("https://img.icons8.com/color/100/000000/warranty.png")
+        no-repeat center;
       background-size: 100% 100%;
     }
 
@@ -209,7 +212,8 @@ const LoveButton = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/officel/100/000000/filled-like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat
     // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
     // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
     // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
@@ -236,7 +240,8 @@ const LoveButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   // background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png") no-repeat center;
+  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   //   -webkit-transform: scale(1.2);
@@ -263,7 +268,8 @@ const ShareButton = styled.a`
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png") no-repeat center;
+  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
+    no-repeat center;
   background-size: 70% 70%;
 
   .share-number {
@@ -442,15 +448,19 @@ export const SimpleCardWithCollapse = ({
         .catch(() => {
           console.log("Navigator Share available not working.");
           window.location.href =
-            "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+            "https://api.whatsapp.com/send?text=" +
+            createWhatsappCombinedMessage(title, byline, CMS_ID);
         });
     } else {
       try {
         console.log("Whatsapp App share");
-        window.location.href = "whatsapp://send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+        window.location.href =
+          "whatsapp://send?text=" +
+          createWhatsappCombinedMessage(title, byline, CMS_ID);
       } catch {
         window.location.href =
-          "https://api.whatsapp.com/send?text=" + createWhatsappCombinedMessage(title, byline, CMS_ID);
+          "https://api.whatsapp.com/send?text=" +
+          createWhatsappCombinedMessage(title, byline, CMS_ID);
       }
     }
   };
@@ -492,7 +502,13 @@ export const SimpleCardWithCollapse = ({
                     categories.map(category => {
                       return (
                         <div class="card__meta">
-                          <a href={"/category?category=" + category}>{category}</a>
+                          <a
+                            href={
+                              "/category/" + category + "?category=" + category
+                            }
+                          >
+                            {category}
+                          </a>
                         </div>
                       );
                     })}
@@ -500,7 +516,7 @@ export const SimpleCardWithCollapse = ({
                     visibleTags.map(tag => {
                       return (
                         <div class="card__meta">
-                          <a href={"/category?tag=" + tag}>{tag}</a>
+                          <a href={"/category/" + tag + "?tag=" + tag}>{tag}</a>
                         </div>
                       );
                     })}
@@ -509,13 +525,14 @@ export const SimpleCardWithCollapse = ({
                 {/* ---------------------------------------------------------------- */}
                 {/* DESCRIPTION */}
 
-                {/* <p class="description">{byline}</p> */}
                 <Description onClick={onClickExpand}>{byline}</Description>
                 <br></br>
 
                 {/* ---------------------------------------------------------------- */}
                 {/* LONGTEST && LISTICLES */}
-                {longTextExpanded && <ExpandedLongText>{description}</ExpandedLongText>}
+                {longTextExpanded && (
+                  <ExpandedLongText>{description}</ExpandedLongText>
+                )}
 
                 {longTextExpanded && listicles.length > 0 && (
                   <ExpandedListicles>
@@ -561,22 +578,34 @@ export const SimpleCardWithCollapse = ({
               <div class="card__metrics">
                 {/* Shares Section */}
                 {shareClicked ? (
-                  <ShareButtonActivated className="share-icon" onClick={onShareButtonClick}>
+                  <ShareButtonActivated
+                    className="share-icon"
+                    onClick={onShareButtonClick}
+                  >
                     {<div class="share-number">{shares_}</div>}
                   </ShareButtonActivated>
                 ) : (
-                  <ShareButton className="heart-icon" onClick={onShareButtonClick}>
+                  <ShareButton
+                    className="heart-icon"
+                    onClick={onShareButtonClick}
+                  >
                     {<div class="share-number">{shares_}</div>}
                   </ShareButton>
                 )}
 
                 {/* Loves Section */}
                 {loveClicked ? (
-                  <LoveButtonActivated className="heart-icon" onClick={onLoveButtonClick}>
+                  <LoveButtonActivated
+                    className="heart-icon"
+                    onClick={onLoveButtonClick}
+                  >
                     {<div class="love-number">{love_}</div>}
                   </LoveButtonActivated>
                 ) : (
-                  <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
+                  <LoveButton
+                    className="heart-icon"
+                    onClick={onLoveButtonClick}
+                  >
                     {<div class="love-number">{love_}</div>}
                   </LoveButton>
                 )}

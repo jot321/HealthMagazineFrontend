@@ -10,7 +10,13 @@ import { StoryCard } from "components/InformationCard/StoryCard";
 
 import HashLoader from "react-spinners/HashLoader";
 
-import { ProductsRow, ProductsCol, LoaderWrapper, LoaderItem, ProductCardWrapper } from "./Information.style";
+import {
+  ProductsRow,
+  ProductsCol,
+  LoaderWrapper,
+  LoaderItem,
+  ProductCardWrapper
+} from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
@@ -20,8 +26,13 @@ import { Waypoint } from "react-waypoint";
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_TIPS = gql`
-  query {
-    getTips {
+  query($offset: Int, $fetchLimit: Int, $category: String, $tag: String) {
+    getTips(
+      offset: $offset
+      fetchLimit: $fetchLimit
+      category: $category
+      tag: $tag
+    ) {
       messages {
         message
         properties
@@ -89,7 +100,12 @@ export const TipsFeed: React.FC<ProductsProps> = ({
     dailyPicks_ = true;
   }
 
-  const tipsFeed = useQuery(GET_TIPS);
+  const tipsFeed = useQuery(GET_TIPS, {
+    variables: {
+      category: category_,
+      tag: tag_
+    }
+  });
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
@@ -106,7 +122,11 @@ export const TipsFeed: React.FC<ProductsProps> = ({
 
   if (tipsFeed.error) return <div>{tipsFeed.error.message}</div>;
 
-  if (!tipsFeed.data || !tipsFeed.data.getTips || tipsFeed.data.getTips.length === 0) {
+  if (
+    !tipsFeed.data ||
+    !tipsFeed.data.getTips ||
+    tipsFeed.data.getTips.length === 0
+  ) {
     return <NoResultFound />;
   }
 
@@ -135,7 +155,10 @@ export const TipsFeed: React.FC<ProductsProps> = ({
         return {
           getTips: {
             __typename: prev.getTips.__typename,
-            messages: [...prev.getTips.messages, ...fetchMoreResult.getTips.messages],
+            messages: [
+              ...prev.getTips.messages,
+              ...fetchMoreResult.getTips.messages
+            ],
             hasMore: fetchMoreResult.getTips.hasMore
           }
         };
@@ -156,9 +179,14 @@ export const TipsFeed: React.FC<ProductsProps> = ({
                 return (
                   <ProductsCol key={index}>
                     <ProductCardWrapper>
-                      <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
+                      <Fade
+                        duration={800}
+                        delay={index * 10}
+                        style={{ height: "100%" }}
+                      >
                         <TipCard
                           CMS_ID={data_.CMS_ID}
+                          title={data_.title}
                           text={data_.text}
                           categories={data_.sub_category_names}
                           visibleTags={data_.visible_tags_names}
@@ -175,7 +203,9 @@ export const TipsFeed: React.FC<ProductsProps> = ({
         </ProductsRow>
       </div>
 
-      {loadMore && tipsFeed.data.getTips.hasMore && <Waypoint onEnter={handleLoadMore} />}
+      {loadMore && tipsFeed.data.getTips.hasMore && (
+        <Waypoint onEnter={handleLoadMore} />
+      )}
       {loadingMore && (
         <LoaderWrapper>
           <LoaderItem>

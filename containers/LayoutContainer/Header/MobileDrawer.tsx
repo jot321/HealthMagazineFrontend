@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { openModal } from '@redq/reuse-modal';
-import Router from 'next/router';
-import { Scrollbars } from 'react-custom-scrollbars';
-import Drawer from 'components/Drawer/Drawer';
-import Button from 'components/Button/Button';
-import NavLink from 'components/NavLink/NavLink';
-import { CloseIcon } from 'components/AllSvgIcon';
-import { DrawerContext } from 'contexts/drawer/drawer.context';
-import { AuthContext } from 'contexts/auth/auth.context';
-import AuthenticationForm from '../../SignInOutForm/Form';
-import { FormattedMessage } from 'react-intl';
+import React, { useContext } from "react";
+import { openModal } from "@redq/reuse-modal";
+import Router from "next/router";
+import { Scrollbars } from "react-custom-scrollbars";
+import Drawer from "components/Drawer/Drawer";
+import Button from "components/Button/Button";
+import NavLink from "components/NavLink/NavLink";
+import { CloseIcon } from "components/AllSvgIcon";
+import { DrawerContext } from "contexts/drawer/drawer.context";
+import { AuthContext } from "contexts/auth/auth.context";
+import AuthenticationForm from "../../SignInOutForm/Form";
+import { FormattedMessage } from "react-intl";
 import {
   HamburgerIcon,
   DrawerContentWrapper,
@@ -22,62 +22,23 @@ import {
   DrawerMenu,
   DrawerMenuItem,
   UesrOptionMenu,
-} from './Header.style';
-import UserImage from 'image/user.jpg';
+} from "./Header.style";
 
-import {
-  PROCEED_TO_CHECKOUT_PAGE,
-  PROFILE_PAGE,
-  YOUR_ORDER,
-  ORDER_RECEIVED,
-  HELP_PAGE,
-  OFFER_PAGE,
-  WRITERS_LANDING_PAGE
-} from 'constants/navigation';
+import { CREATORS_LANDING_PAGE } from "constants/navigation";
 
 const DrawerMenuItems = [
   {
     id: 1,
-    intlLabelId: 'navLinkHome',
-    label: 'Home',
-    href: '/',
+    intlLabelId: "navLinkHome",
+    label: "Home",
+    href: "/",
   },
   {
     id: 2,
-    intlLabelId: 'forWriters',
-    label: 'For Writers',
-    href: WRITERS_LANDING_PAGE,
+    intlLabelId: "forWriters",
+    label: "For Creators",
+    href: CREATORS_LANDING_PAGE,
   },
-  // {
-  //   id: 3,
-  //   intlLabelId: 'navlinkProfile',
-  //   label: 'Profile',
-  //   href: PROFILE_PAGE,
-  // },
-  // {
-  //   id: 4,
-  //   intlLabelId: 'sidebarYourOrder',
-  //   label: 'Order',
-  //   href: YOUR_ORDER,
-  // },
-  // {
-  //   id: 5,
-  //   intlLabelId: 'navlinkOrderReceived',
-  //   label: 'Received',
-  //   href: ORDER_RECEIVED,
-  // },
-  // {
-  //   id: 6,
-  //   intlLabelId: 'navlinkHelp',
-  //   label: 'Help',
-  //   href: HELP_PAGE,
-  // },
-  // {
-  //   id: 7,
-  //   intlLabelId: 'navlinkOffer',
-  //   label: 'Offer',
-  //   href: OFFER_PAGE,
-  // },
 ];
 
 const MobileDrawer: React.FunctionComponent = () => {
@@ -86,54 +47,64 @@ const MobileDrawer: React.FunctionComponent = () => {
     authState: { isAuthenticated },
     authDispatch,
   } = useContext<any>(AuthContext);
+
   // Toggle drawer
   const toggleHandler = React.useCallback(() => {
     dispatch({
-      type: 'TOGGLE',
+      type: "TOGGLE",
     });
   }, [dispatch]);
 
   const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
-      authDispatch({ type: 'SIGN_OUT' });
-      Router.push('/');
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("user_name");
+      localStorage.removeItem("user_email");
+      localStorage.removeItem("user_imageUrl");
+
+      authDispatch({ type: "SIGN_OUT" });
+
+      dispatch({
+        type: "TOGGLE",
+      });
+
+      Router.push("/");
     }
   };
   const resetSearch = () => {
     dispatch({
-      type: 'RESET',
+      type: "RESET",
     });
   };
 
   const signInOutForm = () => {
     dispatch({
-      type: 'TOGGLE',
+      type: "TOGGLE",
     });
 
     authDispatch({
-      type: 'SIGNIN',
+      type: "SIGNIN_UN",
     });
 
     openModal({
       show: true,
-      overlayClassName: 'quick-view-overlay',
+      overlayClassName: "quick-view-overlay",
       closeOnClickOutside: true,
       component: AuthenticationForm,
-      closeComponent: '',
+      closeComponent: "",
       config: {
         enableResizing: false,
         disableDragging: true,
-        className: 'quick-view-modal',
+        className: "quick-view-modal",
         width: 458,
-        height: 'auto',
+        height: "auto",
       },
     });
   };
 
   return (
     <Drawer
-      width='316px'
+      width="100%"
       drawerHandler={
         <HamburgerIcon>
           <span />
@@ -155,21 +126,23 @@ const MobileDrawer: React.FunctionComponent = () => {
             {isAuthenticated ? (
               <LoginView>
                 <UserAvatar>
-                  <img src={UserImage} alt='user_avatar' />
+                  <img
+                    src={localStorage.getItem("user_imageUrl")}
+                    alt="user_avatar"
+                  />
                 </UserAvatar>
                 <UserDetails>
-                  <h3>David Kinderson</h3>
-                  <span>+990 374 987</span>
+                  <h3>{localStorage.getItem("user_name")}</h3>
+                  <span>{localStorage.getItem("user_email")}</span>
                 </UserDetails>
               </LoginView>
             ) : (
               <LogoutView>
                 <Button
-                  intlButtonId='mobileSignInButtonText'
-                  title='Join In'
-                  size='small'
-                  className='sign_in'
-                  // variant="primary"
+                  intlButtonId="mobileSignInButtonText"
+                  title="Join In"
+                  size="small"
+                  className="sign_in"
                   onClick={signInOutForm}
                 />
               </LogoutView>
@@ -177,14 +150,14 @@ const MobileDrawer: React.FunctionComponent = () => {
           </DrawerProfile>
 
           <DrawerMenu>
-            {DrawerMenuItems.map(item => (
+            {DrawerMenuItems.map((item) => (
               <DrawerMenuItem key={item.id}>
                 <NavLink
                   onClick={toggleHandler}
                   href={item.href}
                   label={item.label}
                   intlId={item.intlLabelId}
-                  className='drawer_menu_item'
+                  className="drawer_menu_item"
                 />
               </DrawerMenuItem>
             ))}
@@ -194,18 +167,18 @@ const MobileDrawer: React.FunctionComponent = () => {
             <UesrOptionMenu>
               <DrawerMenuItem>
                 <NavLink
-                  href='/profile'
-                  label='Your Account Settings'
-                  className='drawer_menu_item'
-                  intlId='navlinkAccountSettings'
+                  href="/profile"
+                  label="Your Account Settings"
+                  className="drawer_menu_item"
+                  intlId="navlinkAccountSettings"
                 />
               </DrawerMenuItem>
               <DrawerMenuItem>
-                <div onClick={handleLogout} className='drawer_menu_item'>
-                  <span className='logoutBtn'>
+                <div onClick={handleLogout} className="drawer_menu_item">
+                  <span className="logoutBtn">
                     <FormattedMessage
-                      id='navlinkLogout'
-                      defaultMessage='Logout'
+                      id="navlinkLogout"
+                      defaultMessage="Logout"
                     />
                   </span>
                 </div>

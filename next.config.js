@@ -5,17 +5,20 @@ const withCSS = require("@zeit/next-css");
 
 const devConfig = {
   STRIPE_PUBLIC_KEY: "your_stripe_public_key_here",
-  // API_URL: "http://localhost:4000/",
-  API_URL: "https://90ionm52bc.execute-api.us-east-1.amazonaws.com/dev/graphql",
+  API_URL: "http://localhost:4000/",
   DOMAIN_NAME: "urbannuskha.in",
-  PHONE_NUMBER: "919606468504"
+  PHONE_NUMBER: "919606468504",
+  GOOGLE_APP_ID:
+    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com"
 };
 
 const prodConfig = {
   STRIPE_PUBLIC_KEY: "your_stripe_public_key_here",
   API_URL: "https://90ionm52bc.execute-api.us-east-1.amazonaws.com/dev/graphql",
   DOMAIN_NAME: "urbannuskha.in",
-  PHONE_NUMBER: "919606468504"
+  PHONE_NUMBER: "919606468504",
+  GOOGLE_APP_ID:
+    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com"
 };
 
 // next.js configuration
@@ -31,4 +34,7 @@ const nextConfig = {
   }
 };
 
-module.exports = withPlugins([withCSS, withOptimizedImages, withFonts], nextConfig);
+module.exports = withPlugins(
+  [withCSS, withOptimizedImages, withFonts],
+  nextConfig
+);

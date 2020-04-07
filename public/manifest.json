@@ -1,15 +1,25 @@
 {
-    "background_color": "purple",
-    "description": "Urban Nuskha",
-    "display": "fullscreen",
-    "icons": [
-      {
-        "src": "favicon.ico",
-        "sizes": "64x64",
-        "type": "image/png"
-      }
-    ],
-    "name": "Urban Nuskha",
-    "short_name": "UN",
-    "start_url": "/index.html"
-  }
+  "background_color": "purple",
+  "description": "Urban Nuskha",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "star.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "star_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "star_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "name": "Urban Nuskha",
+  "short_name": "UN",
+  "start_url": "/"
+}

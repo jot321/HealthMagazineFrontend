@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
-import Carousel from 'react-multi-carousel';
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
-import LanguageContext from 'contexts/language/language.context';
-import { ArrowNext, ArrowPrev } from '../AllSvgIcon';
+import React, { useContext } from "react";
+import Carousel from "react-multi-carousel";
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
+import LanguageContext from "contexts/language/language.context";
+import { ArrowNext, ArrowPrev } from "../AllSvgIcon";
 
 const PrevButton = ({ onClick, children }: any) => {
-  const ButtonPrev = styled('button')`
+  const ButtonPrev = styled("button")`
     height: 40px;
     width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    color: ${themeGet('colors.primary', '#009E7F')};
+    color: ${themeGet("colors.primary", "#009E7F")};
     padding: 0;
     border-radius: 20px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -33,21 +33,21 @@ const PrevButton = ({ onClick, children }: any) => {
         e.preventDefault();
         onClick();
       }}
-      className='prevButton'
+      className="prevButton"
     >
       {children}
     </ButtonPrev>
   );
 };
 const NextButton = ({ onClick, children }: any) => {
-  const ButtonNext = styled('button')`
+  const ButtonNext = styled("button")`
     height: 40px;
     width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    color: ${themeGet('colors.primary', '#009E7F')};
+    color: ${themeGet("colors.primary", "#009E7F")};
     padding: 0;
     border-radius: 20px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -67,7 +67,7 @@ const NextButton = ({ onClick, children }: any) => {
         e.preventDefault();
         onClick();
       }}
-      className='nextButton'
+      className="nextButton"
     >
       {children}
     </ButtonNext>
@@ -76,20 +76,20 @@ const NextButton = ({ onClick, children }: any) => {
 
 const ButtonGroup = ({ next, previous, isRtl = false }: any) => {
   const {
-    state: { lang },
+    state: { lang }
   }: any = useContext(LanguageContext);
-  const ButtonGroupWrapper = styled('div')``;
+  const ButtonGroupWrapper = styled("div")``;
 
   return (
     <ButtonGroupWrapper>
       {
-        (isRtl = (lang === 'ar' || lang === 'he' ? (
+        (isRtl = (lang === "ar" || lang === "he" ? (
           true
         ) : (
           false
         )) ? (
           <>
-            <NextButton onClick={() => next()} className='rtl'>
+            <NextButton onClick={() => next()} className="rtl">
               <ArrowPrev />
             </NextButton>
             <PrevButton onClick={() => previous()}>
@@ -132,16 +132,16 @@ type Props = {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 3
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 2
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
+    items: 1
+  }
 };
 export default function CustomCarousel({
   data,
@@ -155,23 +155,23 @@ export default function CustomCarousel({
   isRtl,
   ...props
 }: Props) {
-  let deviceType = 'desktop';
+  let deviceType = "desktop";
   if (mobile) {
-    deviceType = 'mobile';
+    deviceType = "mobile";
   }
   if (tablet) {
-    deviceType = 'tablet';
+    deviceType = "tablet";
   }
   return (
-    <div dir='ltr'>
+    <div dir="ltr">
       <Carousel
         arrows={false}
         responsive={responsive}
-        ssr={true}
+        ssr={false}
         showDots={false}
         slidesToSlide={1}
         infinite={infinite}
-        containerClass='container-with-dots'
+        containerClass="container-with-dots"
         itemClass={itemClass}
         deviceType={deviceType}
         autoPlay={autoPlay}
@@ -185,20 +185,20 @@ export default function CustomCarousel({
         {data.map((item: any, index: number) => {
           if (component) return component(item);
           return (
-            <div style={{ padding: '0 15px', overflow: 'hidden' }} key={index}>
+            <div style={{ padding: "0 15px", overflow: "hidden" }} key={index}>
               <a
                 href={item.link}
-                style={{ display: 'flex', cursor: 'pointer' }}
+                style={{ display: "flex", cursor: "pointer" }}
               >
                 <img
                   key={item.id}
                   src={item.imgSrc}
                   alt={item.alt}
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'block',
-                    position: 'relative',
+                    width: "100%",
+                    height: "100%",
+                    display: "block",
+                    position: "relative"
                   }}
                 />
               </a>

@@ -5,12 +5,16 @@ import gql from "graphql-tag";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
-import { QuoteCard } from "components/InformationCard/QuoteCard";
-import { StoryCard } from "components/InformationCard/StoryCard";
 
 import HashLoader from "react-spinners/HashLoader";
 
-import { ProductsRow, ProductsCol, LoaderWrapper, LoaderItem, ProductCardWrapper } from "./Information.style";
+import {
+  ProductsRow,
+  ProductsCol,
+  LoaderWrapper,
+  LoaderItem,
+  ProductCardWrapper
+} from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
@@ -74,19 +78,6 @@ export const Information: React.FC<ProductsProps> = ({
   const [loadingMore, toggleLoading] = useState(false);
   const targetRef = React.useRef(null);
 
-  // Scroll the top of the content area any time we search or click a tag
-  // React.useEffect(() => {
-  //   if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
-  //     if (targetRef.current) {
-  //       window.scrollTo({
-  //         top: targetRef.current.offsetTop - 110,
-  //         behavior: "smooth"
-  //       });
-  //     }
-  //   }
-  // }, [router.query]);
-
-  // -----------------------------------------------------------
   // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
   // -----------------------------------------------------------
@@ -149,7 +140,11 @@ export const Information: React.FC<ProductsProps> = ({
 
   if (homeFeed.error) return <div>{homeFeed.error.message}</div>;
 
-  if (!homeFeed.data || !homeFeed.data.getHomeFeed || homeFeed.data.getHomeFeed.length === 0) {
+  if (
+    !homeFeed.data ||
+    !homeFeed.data.getHomeFeed ||
+    homeFeed.data.getHomeFeed.length === 0
+  ) {
     return <NoResultFound />;
   }
 
@@ -223,72 +218,107 @@ export const Information: React.FC<ProductsProps> = ({
         return {
           getHomeFeed: {
             __typename: prev.getHomeFeed.__typename,
-            messages: [...prev.getHomeFeed.messages, ...fetchMoreResult.getHomeFeed.messages],
+            messages: [
+              ...prev.getHomeFeed.messages,
+              ...fetchMoreResult.getHomeFeed.messages
+            ],
             hasMore: fetchMoreResult.getHomeFeed.hasMore
           }
         };
       }
     });
   };
-  
+
   return (
     <>
       <div ref={targetRef}>
         <ProductsRow>
-          {homeFeed.data.getHomeFeed.messages.map((element: any, index: number) => {
-            const data_ = JSON.parse(element.message);
-            const properties_ = JSON.parse(element.properties);
+          {homeFeed.data.getHomeFeed.messages.map(
+            (element: any, index: number) => {
+              const data_ = JSON.parse(element.message);
+              const properties_ = JSON.parse(element.properties);
 
-            switch (properties_.type) {
-              case InformationType.LISTICLE:
-                return (
-                  <ProductsCol key={index}>
-                    <ProductCardWrapper>
-                      <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
-                        <SimpleCardWithCollapse
-                          CMS_ID={data_.CMS_ID}
-                          title={data_.title}
-                          byline={data_.byline}
-                          description={data_.description}
-                          listicles={data_.listicleItems}
-                          categories={data_.sub_category_names}
-                          visibleTags={data_.visible_tags_names}
-                          imageUrl={data_.attachedImage}
-                          likes={properties_.likes}
-                          shares={properties_.shares}
-                        />
-                      </Fade>
-                    </ProductCardWrapper>
-                  </ProductsCol>
-                );
-                break;
-              case InformationType.SHORT_ARTICLE:
-                return (
-                  <ProductsCol key={index}>
-                    <ProductCardWrapper>
-                      <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
-                        <SimpleCardWithCollapse
-                          CMS_ID={data_.CMS_ID}
-                          title={data_.title}
-                          byline={data_.byline}
-                          description={data_.description}
-                          categories={data_.sub_category_names}
-                          visibleTags={data_.visible_tags_names}
-                          imageUrl={data_.attachedImage}
-                          likes={properties_.likes}
-                          shares={properties_.shares}
-                        />
-                      </Fade>
-                    </ProductCardWrapper>
-                  </ProductsCol>
-                );
-                break;
+              switch (properties_.type) {
+                case InformationType.LISTICLE:
+                  return (
+                    <ProductsCol key={index}>
+                      <ProductCardWrapper>
+                        <Fade
+                          duration={800}
+                          delay={index * 10}
+                          style={{ height: "100%" }}
+                        >
+                          <SimpleCardWithCollapse
+                            CMS_ID={data_.CMS_ID}
+                            title={data_.title}
+                            byline={data_.byline}
+                            description={data_.description}
+                            listicles={data_.listicleItems}
+                            categories={data_.sub_category_names}
+                            visibleTags={data_.visible_tags_names}
+                            imageUrl={data_.attachedImage}
+                            likes={properties_.likes}
+                            shares={properties_.shares}
+                          />
+                        </Fade>
+                      </ProductCardWrapper>
+                    </ProductsCol>
+                  );
+                case InformationType.SHORT_ARTICLE:
+                  return (
+                    <ProductsCol key={index}>
+                      <ProductCardWrapper>
+                        <Fade
+                          duration={800}
+                          delay={index * 10}
+                          style={{ height: "100%" }}
+                        >
+                          <SimpleCardWithCollapse
+                            CMS_ID={data_.CMS_ID}
+                            title={data_.title}
+                            byline={data_.byline}
+                            description={data_.description}
+                            categories={data_.sub_category_names}
+                            visibleTags={data_.visible_tags_names}
+                            imageUrl={data_.attachedImage}
+                            likes={properties_.likes}
+                            shares={properties_.shares}
+                          />
+                        </Fade>
+                      </ProductCardWrapper>
+                    </ProductsCol>
+                  );
+                case InformationType.TIP:
+                  return (
+                    <ProductsCol key={index}>
+                      <ProductCardWrapper>
+                        <Fade
+                          duration={800}
+                          delay={index * 10}
+                          style={{ height: "100%" }}
+                        >
+                          <TipCard
+                            CMS_ID={data_.CMS_ID}
+                            title={data_.title}
+                            text={data_.text}
+                            categories={data_.sub_category_names}
+                            visibleTags={data_.visible_tags_names}
+                            likes={properties_.likes}
+                            shares={properties_.shares}
+                          />
+                        </Fade>
+                      </ProductCardWrapper>
+                    </ProductsCol>
+                  );
+              }
             }
-          })}
+          )}
         </ProductsRow>
       </div>
 
-      {loadMore && homeFeed.data.getHomeFeed.hasMore && <Waypoint onEnter={handleLoadMore} />}
+      {loadMore && homeFeed.data.getHomeFeed.hasMore && (
+        <Waypoint onEnter={handleLoadMore} />
+      )}
       {loadingMore && (
         <LoaderWrapper>
           <LoaderItem>

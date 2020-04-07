@@ -13,12 +13,22 @@ type NavLinkProps = {
   icon?: React.ReactNode;
   className?: string;
   iconClass?: string;
+  fontAwesomeIconClass?: string;
   onClick?: () => void;
 };
 
 const Icon = styled.span`
   min-width: 16px;
   margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const HeaderText = styled.span``;
+
+const FAIcon = styled.span`
+  margin-right: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +43,8 @@ const NavLink: React.SFC<NavLinkProps> = ({
   icon,
   className,
   onClick,
-  iconClass
+  iconClass,
+  fontAwesomeIconClass,
 }) => {
   let highlightNavLink = false;
 
@@ -50,12 +61,27 @@ const NavLink: React.SFC<NavLinkProps> = ({
   return (
     <div onClick={onClick} className={className ? className : ""}>
       <Link href={href}>
-        <a className={highlightNavLink ? " current-page" : ""} style={{ display: "flex", alignItems: "center" }}>
+        <a
+          className={highlightNavLink ? " current-page" : ""}
+          style={{ display: "flex", alignItems: "center" }}
+        >
           {icon ? <Icon className={iconClass}>{icon}</Icon> : ""}
+          {fontAwesomeIconClass ? (
+            <FAIcon className={fontAwesomeIconClass}> </FAIcon>
+          ) : (
+            ""
+          )}
 
-          <span className="label">
-            {intlId ? <FormattedMessage id={intlId ? intlId : "defaultNavLinkId"} defaultMessage={label} /> : label}
-          </span>
+          <HeaderText className="label">
+            {intlId ? (
+              <FormattedMessage
+                id={intlId ? intlId : "defaultNavLinkId"}
+                defaultMessage={label}
+              />
+            ) : (
+              label
+            )}
+          </HeaderText>
         </a>
       </Link>
     </div>
