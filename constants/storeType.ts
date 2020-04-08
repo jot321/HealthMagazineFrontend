@@ -2,7 +2,7 @@ import {
   HOME_PAGE,
   CHRONIC_PAGE,
   WEIGHT_PAGE,
-  SKIN_HAIR_PAGE
+  SKIN_HAIR_PAGE,
 } from "./navigation";
 
 import { FruitsVegetable } from "components/AllSvgIcon";
@@ -12,7 +12,7 @@ export default {
     {
       link: HOME_PAGE,
       icon: "",
-      label: "Home"
+      label: "Home",
     },
     // {
     //   link: "/featured",
@@ -25,28 +25,29 @@ export default {
       icon: "",
       label: "Popular",
       identifier: "popular",
-      fontAwesomeIconClass: "fas fa-star"
+      fontAwesomeIconClass: "fas fa-star",
     },
     {
       link: "/videos",
       icon: "",
       label: "Videos",
       identifier: "videos",
-      fontAwesomeIconClass: "fab fa-youtube"
+      fontAwesomeIconClass: "fab fa-youtube",
     },
     {
       link: "/tips",
       icon: "",
       label: "Tips",
       identifier: "tips",
-      fontAwesomeIconClass: "fas fa-lightbulb"
-    }
+      fontAwesomeIconClass: "fas fa-lightbulb",
+    },
     // {
     //   link: "/live",
     //   icon: "",
     //   label: "Live",
-    //   identifier: "live"
-    // }
+    //   identifier: "live",
+    //   fontAwesomeIconClass: "fas fa-tv",
+    // },
     // {
     //   link: CHRONIC_PAGE,
     //   icon: "",
@@ -67,60 +68,60 @@ export default {
     {
       link: HOME_PAGE,
       icon: "",
-      label: "Home"
+      label: "Home",
     },
     {
       link: CHRONIC_PAGE,
       icon: "",
-      label: "Chronic Conditions"
+      label: "Chronic Conditions",
     },
     {
       link: CHRONIC_PAGE + "?identifier=2",
       icon: "",
       label: "Diabetes",
-      identifier: "2"
+      identifier: "2",
     },
     {
       link: CHRONIC_PAGE + "?identifier=3",
       icon: "",
       label: "Blood Pressure",
-      identifier: "3"
-    }
+      identifier: "3",
+    },
   ],
   SkinHairCarePage: [
     {
       link: HOME_PAGE,
       icon: "",
-      label: "Home"
+      label: "Home",
     },
     {
       link: SKIN_HAIR_PAGE,
       icon: "",
-      label: "Skin & Hair Care"
+      label: "Skin & Hair Care",
     },
     {
       link: SKIN_HAIR_PAGE + "?identifier=4",
       icon: "",
       label: "Acne",
-      identifier: "4"
+      identifier: "4",
     },
     {
       link: SKIN_HAIR_PAGE + "?identifier=5",
       icon: "",
       label: "Hair Fall",
-      identifier: "5"
-    }
+      identifier: "5",
+    },
   ],
   WeightManagementPage: [
     {
       link: HOME_PAGE,
       icon: "",
-      label: "Home"
+      label: "Home",
     },
     {
       link: WEIGHT_PAGE,
       icon: "",
-      label: "Weight Mgt."
-    }
-  ]
+      label: "Weight Mgt.",
+    },
+  ],
 };

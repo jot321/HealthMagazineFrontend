@@ -10,7 +10,7 @@ import {
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  ProductCardWrapper,
 } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
@@ -21,8 +21,8 @@ import { Waypoint } from "react-waypoint";
 const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_VIDEO_PLAYLISTS = gql`
-  query {
-    getVideoPlaylistNames {
+  query($offset: Int, $fetchLimit: Int) {
+    getVideoPlaylistNames(offset: $offset, fetchLimit: $fetchLimit) {
       messages {
         message
         properties
@@ -75,7 +75,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   }
 
   const InformationType = {
-    VIDEOPLAYLIST: 5
+    VIDEOPLAYLIST: 5,
   };
 
   // -----------------------------------------------------------
@@ -88,7 +88,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
         offset: Number(
           videoPlaylistsFeed.data.getVideoPlaylistNames.messages.length
         ),
-        fetchLimit: 6
+        fetchLimit: 5,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
@@ -100,12 +100,12 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
             __typename: prev.getVideoPlaylistNames.__typename,
             messages: [
               ...prev.getVideoPlaylistNames.messages,
-              ...fetchMoreResult.getVideoPlaylistNames.messages
+              ...fetchMoreResult.getVideoPlaylistNames.messages,
             ],
-            hasMore: fetchMoreResult.getVideoPlaylistNames.hasMore
-          }
+            hasMore: fetchMoreResult.getVideoPlaylistNames.hasMore,
+          },
         };
-      }
+      },
     });
   };
 
