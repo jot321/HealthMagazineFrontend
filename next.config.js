@@ -9,7 +9,7 @@ const devConfig = {
   DOMAIN_NAME: "urbannuskha.in",
   PHONE_NUMBER: "919606468504",
   GOOGLE_APP_ID:
-    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com"
+    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com",
 };
 
 const prodConfig = {
@@ -18,20 +18,20 @@ const prodConfig = {
   DOMAIN_NAME: "urbannuskha.in",
   PHONE_NUMBER: "919606468504",
   GOOGLE_APP_ID:
-    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com"
+    "25089977771-srd1q9bis88ohovu4mgpfdm7bq39758a.apps.googleusercontent.com",
 };
 
 // next.js configuration
 const nextConfig = {
   env: process.env.NODE_ENV === "production" ? prodConfig : devConfig,
-  webpack: config => {
+  webpack: (config) => {
     config.resolve.modules.push(__dirname);
 
     config.resolve.alias = {
-      ...config.resolve.alias
+      ...config.resolve.alias,
     };
     return config;
-  }
+  },
 };
 
 module.exports = withPlugins(
