@@ -12,7 +12,7 @@ import {
   SidebarSection,
   ContentSection,
   OfferSection,
-  MobileCarouselDropdown
+  MobileCarouselDropdown,
 } from "styled/pages.style";
 // Static Data Import Here
 import OFFERS from "data/offers";
@@ -52,11 +52,19 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Urban Nuskha</title>
+        <meta
+          name="description"
+          content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting"
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
-        <Banner intlTitleId="groceriesTitle" intlDescriptionId="groceriesSubTitle" imageUrl={BannerImg} />
+        <Banner
+          intlTitleId="groceriesTitle"
+          intlDescriptionId="groceriesSubTitle"
+          imageUrl={BannerImg}
+        />
         <Categories />
 
         {deviceType.desktop ? (

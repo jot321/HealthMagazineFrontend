@@ -48,9 +48,9 @@ function HomePage({ deviceType }) {
           </MainContentArea>
         )}
       </Modal>
-      <SubmitTipButton>
+      {/* <SubmitTipButton>
         <img src="https://img.icons8.com/plasticine/60/000000/add.png" />
-      </SubmitTipButton>
+      </SubmitTipButton> */}
     </>
   );
 }
