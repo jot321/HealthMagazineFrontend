@@ -13,7 +13,7 @@ import {
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  ProductCardWrapper,
 } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
@@ -72,7 +72,7 @@ export const Information: React.FC<ProductsProps> = ({
   loadMore = true,
   loadPopular = false,
   loadFeatured = false,
-  topLevelCategory = ""
+  topLevelCategory = "",
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
@@ -121,8 +121,8 @@ export const Information: React.FC<ProductsProps> = ({
       tag: tag_,
       sortByLikes: sortByLikes_,
       dailyPicks: dailyPicks_,
-      fetchLimit: 6
-    }
+      fetchLimit: 6,
+    },
   });
 
   // -----------------------------------------------------------
@@ -152,7 +152,7 @@ export const Information: React.FC<ProductsProps> = ({
     LISTICLE: 1,
     SHORT_ARTICLE: 2,
     IMAGE_ARTICLE: 3,
-    TIP: 4
+    TIP: 4,
   };
 
   // -----------------------------------------------------------
@@ -208,7 +208,7 @@ export const Information: React.FC<ProductsProps> = ({
     homeFeed.fetchMore({
       variables: {
         offset: Number(homeFeed.data.getHomeFeed.messages.length),
-        fetchLimit: 6
+        fetchLimit: 6,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
@@ -220,12 +220,12 @@ export const Information: React.FC<ProductsProps> = ({
             __typename: prev.getHomeFeed.__typename,
             messages: [
               ...prev.getHomeFeed.messages,
-              ...fetchMoreResult.getHomeFeed.messages
+              ...fetchMoreResult.getHomeFeed.messages,
             ],
-            hasMore: fetchMoreResult.getHomeFeed.hasMore
-          }
+            hasMore: fetchMoreResult.getHomeFeed.hasMore,
+          },
         };
-      }
+      },
     });
   };
 
@@ -259,6 +259,7 @@ export const Information: React.FC<ProductsProps> = ({
                             imageUrl={data_.attachedImage}
                             likes={properties_.likes}
                             shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
                           />
                         </Fade>
                       </ProductCardWrapper>
@@ -283,6 +284,7 @@ export const Information: React.FC<ProductsProps> = ({
                             imageUrl={data_.attachedImage}
                             likes={properties_.likes}
                             shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
                           />
                         </Fade>
                       </ProductCardWrapper>
@@ -305,6 +307,7 @@ export const Information: React.FC<ProductsProps> = ({
                             visibleTags={data_.visible_tags_names}
                             likes={properties_.likes}
                             shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
                           />
                         </Fade>
                       </ProductCardWrapper>

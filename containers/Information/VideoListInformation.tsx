@@ -10,7 +10,7 @@ import {
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  VideoProductCardWrapper,
 } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
@@ -41,8 +41,8 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
 
   const videosList = useQuery(GET_VIDEOS_FROM_PLAYLIST, {
     variables: {
-      vpid: router.query.vpid
-    }
+      vpid: router.query.vpid,
+    },
   });
 
   // -----------------------------------------------------------
@@ -69,7 +69,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   }
 
   const InformationType = {
-    VIDEOPLAYLIST: 5
+    VIDEOPLAYLIST: 5,
   };
 
   // -----------------------------------------------------------
@@ -103,27 +103,23 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   //     });
   //   };
 
+  const data_ = JSON.parse(videosList.data.getVideosFromPlaylist);
+
   return (
     <>
       <div ref={targetRef}>
         <ProductsRow>
-          {JSON.parse(videosList.data.getVideosFromPlaylist).videoLinks.map(
-            (element: any, index: number) => {
-              return (
-                <ProductsCol key={index}>
-                  <ProductCardWrapper>
-                    <Fade
-                      duration={800}
-                      delay={index * 10}
-                      style={{ height: "100%" }}
-                    >
-                      <VideoCard videoUrl={element} />
-                    </Fade>
-                  </ProductCardWrapper>
-                </ProductsCol>
-              );
-            }
-          )}
+          {/* <ProductsCol key={1}> */}
+          <VideoProductCardWrapper>
+            <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
+              <VideoCard
+                title={data_.name}
+                byline={data_.byline}
+                videoLinks={data_.videoLinks}
+              />
+            </Fade>
+          </VideoProductCardWrapper>
+          {/* </ProductsCol> */}
         </ProductsRow>
       </div>
 

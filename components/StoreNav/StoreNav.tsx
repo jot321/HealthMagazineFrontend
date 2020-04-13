@@ -9,7 +9,7 @@ type StoreNavProps = {
 
 const StoreNav: React.FunctionComponent<StoreNavProps> = ({
   className,
-  items = []
+  items = [],
 }) => {
   return (
     <StoreNavWrapper className={className}>
@@ -22,7 +22,6 @@ const StoreNav: React.FunctionComponent<StoreNavProps> = ({
             icon={item.icon}
             key={index}
             identifier={item.identifier}
-            fontAwesomeIconClass={item.fontAwesomeIconClass}
           />
         ))}
       </StoreNavLinks>

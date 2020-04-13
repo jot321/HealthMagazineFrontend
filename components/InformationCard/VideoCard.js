@@ -7,21 +7,24 @@ import { useRouter } from "next/router";
 import {
   createWhatsappTextMessage,
   createWhatsappLinkMessageWebAPIShare,
-  createWhatsappCombinedMessage
+  createWhatsappCombinedMessage,
 } from "./helpers";
 
 import ReactPlayer from "react-player";
 
-const cardFont = "'IBM Plex Sans'";
+import { SocialPanel } from "./ParentCard";
 
+const cardFont = "'IBM Plex Sans'";
 const Container = styled.div`
   a {
     text-decoration: none;
   }
+
   h2 {
     line-height: 1.2;
     margin-bottom: 1rem;
     font-weight: 500;
+    font-size: 1.2rem;
 
     color: #000;
     text-transform: capitalize;
@@ -40,22 +43,49 @@ const Container = styled.div`
     user-select: none;
   }
 
+  .video__wrapper {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   .card {
-    background-color: #fff;
+    border-radius: 6px;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 70%,
+        #222 100%
+      ),
+      url(${(props) => props.image});
+
+    background-size: cover;
     margin-bottom: 1.6rem;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
     font-family: ${cardFont};
-    border-left: 4px solid #ea9085;
     h2,
     p,
     a,
     h4 {
       font-family: ${cardFont};
+    }
+    h2 {
+      line-height: 1.2;
+      font-weight: 500;
+      font-size: 1.1rem;
+
+      color: #fff;
+      text-transform: capitalize;
+      margin-bottom: -0.5rem;
     }
   }
 
@@ -97,8 +127,11 @@ const Container = styled.div`
   }
 
   .card__content {
+    display: flex;
+    flex-direction: column-reverse;
     position: relative;
     padding: 1rem;
+    min-height: 240px;
   }
 
   .long-summary {
@@ -110,26 +143,6 @@ const Container = styled.div`
     .long-summary {
       display: inline-block;
       transition: 0.4s all ease;
-    }
-  }
-
-  .card__category {
-    display: inline-block;
-    margin-bottom: 1rem;
-
-    .card__meta {
-      display: inline-block;
-      float: left;
-      margin-right: 10px;
-      border-bottom: 2px solid #ffcb00;
-
-      a {
-        color: #15131d;
-        text-transform: uppercase;
-        padding: 0 5px;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
-      }
     }
   }
 
@@ -163,6 +176,7 @@ const Container = styled.div`
   }
 
   .card__action {
+    display: none;
     margin-top: -30px;
     overflow: hidden;
     padding-right: 1rem;
@@ -190,7 +204,6 @@ const Container = styled.div`
     .card__author-content_image {
       width: 30px;
       height: 30px;
-      // background: url("https://img.icons8.com/cotton/100/000000/pen.png")
       background: url("https://img.icons8.com/color/100/000000/pen.png")
         no-repeat center;
       background-size: 100% 100%;
@@ -238,13 +251,8 @@ const LoveButton = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  // background: url("https://img.icons8.com/officel/100/000000/filled-like.png") no-repeat
   background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat
-    // background: url("https://img.icons8.com/officexs/48/000000/filled-like.png") no-repeat
-    // background: url("https://img.icons8.com/flat_round/48/000000/filled-like.png") no-repeat
-    // background: url("https://img.icons8.com/material-two-tone/48/000000/filled-like.png") no-repeat
-    center;
+    no-repeat center;
   background-size: 70% 70%;
 
   .love-number {
@@ -255,7 +263,6 @@ const LoveButton = styled.div`
     margin-top: 48px;
     font-size: 0.8em;
     font-weight: 500;
-    // color: #505050;
     color: #fe4540;
   }
 `;
@@ -266,16 +273,9 @@ const LoveButtonActivated = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  // background: url("https://img.icons8.com/dusk/100/000000/like.png") no-repeat
   background: url("https://img.icons8.com/color/48/000000/filled-like.png")
     no-repeat center;
   background-size: 70% 70%;
-
-  //   -webkit-transform: scale(1.2);
-  //   -moz-transform: scale(1.2);
-  //   -ms-transform: scale(1.2);
-  //   -o-transform: scale(1.2);
-  //   transform: scale(1.2);
 
   .love-number {
     display: flex;
@@ -307,7 +307,6 @@ const ShareButton = styled.a`
     margin-top: 48px;
     font-size: 0.8em;
     font-weight: 500;
-    // color: #505050;
     color: #74b980;
   }
 `;
@@ -319,15 +318,8 @@ const ShareButtonActivated = styled.div`
   width: 50px;
   height: 50px;
   background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    // background: url("https://img.icons8.com/dusk/100/000000/whatsapp.png")
     no-repeat center;
   background-size: 70% 70%;
-
-  //   -webkit-transform: scale(1.2);
-  //   -moz-transform: scale(1.2);
-  //   -ms-transform: scale(1.2);
-  //   -o-transform: scale(1.2);
-  //   transform: scale(1.2);
 
   .share-number {
     display: flex;
@@ -342,6 +334,11 @@ const ShareButtonActivated = styled.div`
 `;
 
 const CardArticleArea = styled.article`
+  ::before {
+    filter: blur(12px);
+    transform: scale(2) translateY(20px);
+  }
+
   a {
     text-decoration: none;
     transition: all 0.5s ease;
@@ -360,25 +357,45 @@ const Description = styled.p`
   font-weight: 400px;
 `;
 
-export const VideoCard = ({ videoUrl }) => {
-  const router = useRouter();
-  const targetRef = React.useRef(null);
+export const VideoCard = ({ title, byline, videoLinks }) => {
   return (
-    <div ref={targetRef}>
-      <Container>
-        <div className="wrapper">
-          <div className="video__card">
-            <div class="card__image">
-              <ReactPlayer url={videoUrl} width="100%" />
+    <div>
+      {videoLinks.map((videoLink) => {
+        return (
+          <Container>
+            <div className="video__wrapper">
+              <div className="video__card">
+                <div class="card__image">
+                  <ReactPlayer
+                    url={videoLink}
+                    width="100%"
+                    controls={true}
+                    playsinline={true}
+                    pip={true}
+                    config={{
+                      youtube: {
+                        playerVars: { showinfo: 0 },
+                      },
+                    }}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Container>
+          </Container>
+        );
+      })}
     </div>
   );
 };
 
-export const VideoPlaylistCard = ({ CMS_ID, title, byline, likes, shares }) => {
+export const VideoPlaylistCard = ({
+  CMS_ID,
+  title,
+  byline,
+  image,
+  likes,
+  shares,
+}) => {
   const router = useRouter();
   const targetRef = React.useRef(null);
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -436,7 +453,7 @@ export const VideoPlaylistCard = ({ CMS_ID, title, byline, likes, shares }) => {
         .share({
           title: "Urban Nuskha",
           text: createWhatsappTextMessage(title, byline),
-          url: createWhatsappLinkMessageWebAPIShare(CMS_ID)
+          url: createWhatsappLinkMessageWebAPIShare(CMS_ID),
         })
         .then(() => {
           console.log("Thanks for sharing!");
@@ -462,29 +479,17 @@ export const VideoPlaylistCard = ({ CMS_ID, title, byline, likes, shares }) => {
   };
 
   const viewVideosClick = () => {
-    console.log("Show me video");
     window.location.href = "?vpid=" + CMS_ID;
   };
 
   return (
     <div ref={targetRef}>
-      <Container>
+      <Container image={image}>
         <div className="wrapper">
-          <div className="card">
-            {/* <div class="card__image"></div> */}
-
+          <div className="card" onClick={viewVideosClick}>
             <div class="card__content">
-              <CardArticleArea onClick={viewVideosClick}>
+              <CardArticleArea>
                 <h2>{title}</h2>
-
-                {/* ---------------------------------------------------------------- */}
-                {/* DESCRIPTION */}
-
-                <Description>{byline}</Description>
-                <br></br>
-                <span class="card__readmore">SEE PLAYLIST</span>
-                {/* <Description>{"->"}</Description>
-                <br></br> */}
               </CardArticleArea>
             </div>
 

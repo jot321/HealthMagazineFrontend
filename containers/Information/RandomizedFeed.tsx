@@ -12,15 +12,14 @@ import {
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  ProductCardWrapper,
 } from "./Information.style";
+
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
 import { Waypoint } from "react-waypoint";
-
-const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_RANDOM_ARTICLEIDS = gql`
   query getArticleIds {
@@ -51,7 +50,7 @@ type ProductsProps = {
 
 export const RandomizedFeed: React.FC<ProductsProps> = ({
   deviceType,
-  loadMore = true
+  loadMore = true,
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
@@ -75,8 +74,8 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
       inputIds:
         articleIds.data.getRandomSampledArticleIds == undefined
           ? undefined
-          : articleIds.data.getRandomSampledArticleIds.slice(0, STEP)
-    }
+          : articleIds.data.getRandomSampledArticleIds.slice(0, STEP),
+    },
   });
 
   // -----------------------------------------------------------
@@ -107,7 +106,7 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
     LISTICLE: 1,
     SHORT_ARTICLE: 2,
     IMAGE_ARTICLE: 3,
-    TIP: 4
+    TIP: 4,
   };
 
   // -----------------------------------------------------------
@@ -124,7 +123,7 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
         inputIds: articleIds.data.getRandomSampledArticleIds.slice(
           offset + STEP,
           (iteration + 1) * STEP
-        )
+        ),
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
@@ -135,10 +134,10 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
         return {
           getArticleInformationFromArrayofIds: [
             ...prev.getArticleInformationFromArrayofIds,
-            ...fetchMoreResult.getArticleInformationFromArrayofIds
-          ]
+            ...fetchMoreResult.getArticleInformationFromArrayofIds,
+          ],
         };
-      }
+      },
     });
   };
 
@@ -172,12 +171,12 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
                             imageUrl={data_.attachedImage}
                             likes={properties_.likes}
                             shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
                           />
                         </Fade>
                       </ProductCardWrapper>
                     </ProductsCol>
                   );
-                  break;
                 case InformationType.SHORT_ARTICLE:
                   return (
                     <ProductsCol key={index}>
@@ -197,12 +196,35 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
                             imageUrl={data_.attachedImage}
                             likes={properties_.likes}
                             shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
                           />
                         </Fade>
                       </ProductCardWrapper>
                     </ProductsCol>
                   );
-                  break;
+                case InformationType.TIP:
+                  return (
+                    <ProductsCol key={index}>
+                      <ProductCardWrapper>
+                        <Fade
+                          duration={800}
+                          delay={index * 10}
+                          style={{ height: "100%" }}
+                        >
+                          <TipCard
+                            CMS_ID={data_.CMS_ID}
+                            title={data_.title}
+                            text={data_.text}
+                            categories={data_.sub_category_names}
+                            visibleTags={data_.visible_tags_names}
+                            likes={properties_.likes}
+                            shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
+                          />
+                        </Fade>
+                      </ProductCardWrapper>
+                    </ProductsCol>
+                  );
               }
             }
           )}

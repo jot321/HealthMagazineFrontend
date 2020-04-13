@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { themeGet } from '@styled-system/theme-get';
+import styled from "styled-components";
+import { themeGet } from "@styled-system/theme-get";
 
 export const MobileCarouselDropdown = styled.div`
   // @media (min-width: 990px) {
@@ -41,7 +41,6 @@ const MainContentArea = styled.main`
   flex-wrap: wrap;
   background-color: #f7f7f7;
   padding-right: 0;
-  margin-top: 50px;
   transition: padding-right 0.35s ease-in-out;
 `;
 
@@ -80,20 +79,8 @@ const ContentSection = styled.div`
     padding: 15px 30px 50px;
   }
 
-  @media (max-width: 1500px) {
-    // width: calc(100% - 320px);
-  }
-
-  @media (max-width: 1199px) {
-    // width: calc(100% - 280px);
-  }
-
-  @media (max-width: 990px) {
-    width: 100%;
-  }
-
   @media (max-width: 768px) {
-    padding-top: 15px;
+    padding-top: 0px;
     min-height: auto;
   }
 
@@ -108,7 +95,7 @@ const OfferSection = styled.div`
   padding: 60px;
   background-color: #ffffff;
   position: relative;
-  border-bottom: 1px solid ${themeGet('colors.borderColor', '#f1f1f1')};
+  border-bottom: 1px solid ${themeGet("colors.borderColor", "#f1f1f1")};
 
   @media (max-width: 1199px) and (min-width: 991px) {
     padding: 20px 15px;

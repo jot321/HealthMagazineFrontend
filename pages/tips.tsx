@@ -9,6 +9,7 @@ import { Modal } from "@redq/reuse-modal";
 import { AuthContext } from "contexts/auth/auth.context";
 import { openModal } from "@redq/reuse-modal";
 import AuthenticationForm from "containers/SignInOutForm/Form";
+import { useRouter } from "next/router";
 
 import styled from "styled-components";
 
@@ -21,6 +22,7 @@ const SubmitTipButton = styled.div`
 `;
 
 function HomePage({ deviceType }) {
+  const router = useRouter();
   const targetRef = React.useRef(null);
 
   const {
@@ -29,8 +31,10 @@ function HomePage({ deviceType }) {
   } = useContext<any>(AuthContext);
 
   const onClickSubmitTip = () => {
-    console.log("Adding a submit tip.");
     if (isAuthenticated) {
+      router.push({
+        pathname: "/addtip",
+      });
     } else {
       authDispatch({
         type: "SIGNIN_UN",
@@ -81,9 +85,9 @@ function HomePage({ deviceType }) {
           </MainContentArea>
         )}
       </Modal>
-      <SubmitTipButton onClick={onClickSubmitTip}>
-        <img src="https://img.icons8.com/plasticine/60/000000/add.png" />
-      </SubmitTipButton>
+      {/* <SubmitTipButton onClick={onClickSubmitTip}>
+        <img src="https://img.icons8.com/cotton/64/000000/add--v2.png" />
+      </SubmitTipButton> */}
     </>
   );
 }

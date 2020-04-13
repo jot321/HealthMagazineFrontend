@@ -7,7 +7,7 @@ import HashLoader from "react-spinners/HashLoader";
 
 import {
   ProductsRow,
-  ProductsCol,
+  ProductsColDivided,
   LoaderWrapper,
   LoaderItem,
   ProductCardWrapper,
@@ -17,8 +17,6 @@ import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
 import { Waypoint } from "react-waypoint";
-
-const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_VIDEO_PLAYLISTS = gql`
   query($offset: Int, $fetchLimit: Int) {
@@ -46,9 +44,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
-  let videoPlaylistsFeed;
-
-  videoPlaylistsFeed = useQuery(GET_VIDEO_PLAYLISTS);
+  const videoPlaylistsFeed = useQuery(GET_VIDEO_PLAYLISTS);
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
@@ -121,7 +117,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
               switch (properties_.type) {
                 case InformationType.VIDEOPLAYLIST:
                   return (
-                    <ProductsCol key={index}>
+                    <ProductsColDivided key={index}>
                       <ProductCardWrapper>
                         <Fade
                           duration={800}
@@ -132,12 +128,13 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
                             CMS_ID={data_.CMS_ID}
                             title={data_.name}
                             byline={data_.byline}
+                            image={data_.image}
                             likes={properties_.likes}
                             shares={properties_.shares}
                           />
                         </Fade>
                       </ProductCardWrapper>
-                    </ProductsCol>
+                    </ProductsColDivided>
                   );
                   break;
               }

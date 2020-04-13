@@ -259,13 +259,7 @@ export const Logo = styled.span`
     max-width: 150px;
   }
 
-  @media only screen and (min-width: 991px) and (max-width: 1200px) {
-    margin-right: 20px;
-  }
-
-  @media (max-width: 990px) {
-    margin-right: 0;
-  }
+  margin-right: 0;
 `;
 
 export const MainMenu = styled.div`
@@ -310,11 +304,11 @@ export const MainMenu = styled.div`
 `;
 
 export const MobileHeaderWrapper = styled.div`
-  // @media (min-width: 991px) {
-  //   .desktop {
-  //     display: none;
-  //   }
-  // }
+  @media (min-width: 991px) {
+    .desktop {
+      display: none;
+    }
+  }
 `;
 
 export const SelectedType = styled.button`
@@ -386,7 +380,8 @@ export const MobileHeaderInnerWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px;
-  position: fixed;
+  position: sticky;
+  height: 50px;
   width: 100%;
   top: 0;
   left: 0;
@@ -403,15 +398,15 @@ export const MobileHeaderInnerWrapper = styled.div`
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   }
 
-  &.sticky {
-    background-color: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  // &.sticky {
+  //   background-color: #fff;
+  //   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 
-    @media only screen and (min-width: 991px) and (max-width: 1366px) {
-      .searchIconWrapper {
-        opacity: 1;
-      }
-    }
+    //   @media only screen and (min-width: 991px) and (max-width: 1366px) {
+    //     .searchIconWrapper {
+    //       opacity: 1;
+    //     }
+    //   }
   }
 `;
 

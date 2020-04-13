@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
 
 import {
   createWhatsappTipTextMessage,
+  createWhatsappTipTextMessageWebShare,
   createWhatsappTipLinkMessageWebAPIShare,
-  createWhatsappTipCombinedMessage
 } from "./helpers";
 
 import { convertToRichText } from "helper/textStyleDisplay";
+
+import { SocialPanel } from "./ParentCard";
 
 const cardFont = "'IBM Plex Sans'";
 
@@ -89,32 +89,13 @@ const Container = styled.div`
     }
   }
 
-  .card__category {
-    display: inline-block;
-    margin-bottom: 1rem;
-
-    .card__meta {
-      display: inline-block;
-      float: left;
-      margin-right: 10px;
-      border-bottom: 2px solid #ffcb00;
-
-      a {
-        color: #15131d;
-        text-transform: uppercase;
-        padding: 0 5px;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
-      }
-    }
-  }
-
   .card__tags {
     display: inline-block;
     width: 100%;
     margin-bottom: 1rem;
 
     .card__meta {
+      border-radius: 6px;
       display: inline-block;
       float: left;
       margin-right: 10px;
@@ -129,10 +110,9 @@ const Container = styled.div`
 
       a {
         color: #15131d;
-        text-transform: uppercase;
         padding: 0 5px;
         letter-spacing: 1px;
-        font-size: 0.75rem;
+        font-size: 0.9rem;
         text-transform: capitalize;
       }
     }
@@ -207,96 +187,6 @@ const Container = styled.div`
   }
 `;
 
-const LoveButton = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    // color: #505050;
-    color: #fe4540;
-  }
-`;
-
-const LoveButtonActivated = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #fe4540;
-  }
-`;
-
-const ShareButton = styled.a`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    // color: #505050;
-    color: #74b980;
-  }
-`;
-
-const ShareButtonActivated = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #74b980;
-  }
-`;
-
 const CardArticleArea = styled.article`
   a {
     text-decoration: none;
@@ -327,82 +217,11 @@ export const TipCard = ({
   categories,
   visibleTags,
   likes,
-  shares
+  shares,
+  bookmarks,
 }) => {
-  const targetRef = React.useRef(null);
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // Loves Section
-  const [loveClicked, setLoveClicked] = useState(false);
-  const [love_, setLove] = useState(likes);
-  const INCREMENT_LIKES = gql`
-    mutation incrementLikes($CMS_ID: ID!) {
-      incrementLikes(id: $CMS_ID)
-    }
-  `;
-  const DECREMENT_LIKES = gql`
-    mutation decrementLikes($CMS_ID: ID!) {
-      decrementLikes(id: $CMS_ID)
-    }
-  `;
-  const [incrementLikes] = useMutation(INCREMENT_LIKES);
-  const [decrementLikes] = useMutation(DECREMENT_LIKES);
-
-  const onLoveButtonClick = () => {
-    setLove(love_ + 1);
-    setLoveClicked(true);
-    incrementLikes({ variables: { CMS_ID } });
-  };
-
-  const onLoveButtonActivatedClick = () => {
-    setLoveClicked(false);
-    decrementLikes({ variables: { CMS_ID } });
-  };
-
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // Shares Section
-  const [shares_, setShares] = useState(shares);
-  const INCREMENT_SHARES = gql`
-    mutation incrementShares($CMS_ID: ID!) {
-      incrementShares(id: $CMS_ID)
-    }
-  `;
-  const [incrementShares] = useMutation(INCREMENT_SHARES);
-
-  const onShareButtonClick = () => {
-    setShares(shares_ + 1);
-    incrementShares({ variables: { CMS_ID } });
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Urban Nuskha",
-          text: createWhatsappTipTextMessage(text),
-          url: createWhatsappTipLinkMessageWebAPIShare()
-        })
-        .then(() => {
-          console.log("Thanks for sharing!");
-        })
-        .catch(() => {
-          console.log("Navigator Share available not working.");
-          window.location.href =
-            "https://api.whatsapp.com/send?text=" +
-            createWhatsappTipCombinedMessage(text);
-        });
-    } else {
-      try {
-        console.log("Whatsapp App share");
-        window.location.href =
-          "whatsapp://send?text=" + createWhatsappTipCombinedMessage(text);
-      } catch {
-        window.location.href =
-          "https://api.whatsapp.com/send?text=" +
-          createWhatsappTipCombinedMessage(text);
-      }
-    }
-  };
-
   return (
-    <div ref={targetRef}>
+    <div>
       <Container>
         <div className="wrapper">
           <div className="card">
@@ -418,7 +237,7 @@ export const TipCard = ({
                 {/* CATEGORIES && TAGS */}
                 <div class="card__tags">
                   {categories.length > 0 &&
-                    categories.map(category => {
+                    categories.map((category) => {
                       return (
                         <div class="card__meta">
                           <a
@@ -435,7 +254,7 @@ export const TipCard = ({
                       );
                     })}
                   {visibleTags.length > 0 &&
-                    visibleTags.map(tag => {
+                    visibleTags.map((tag) => {
                       return (
                         <div class="card__meta">
                           <a href={"/tipcategory/" + tag + "?tag=" + tag}>
@@ -448,47 +267,18 @@ export const TipCard = ({
               </CardArticleArea>
             </div>
 
-            {/* ---------------------------------------------------------------- */}
-            {/* ACTION BUTTONS */}
-            <div class="card__action">
-              {/* <div class="card__author">
-                <div class="card__author-content">
-                <div class="card__author-content_image"></div>
-                <a href="#">John Doe</a>
-              </div>
-                <div class="card__factchecked">
-                  <div class="card__factchecked_image"></div>
-                  <h4>Fact Checked</h4>
-                </div>
-              </div> */}
-
-              <div class="card__metrics">
-                {/* Shares Section */}
-                <ShareButton
-                  className="heart-icon"
-                  onClick={onShareButtonClick}
-                >
-                  {<div class="share-number">{shares_}</div>}
-                </ShareButton>
-
-                {/* Loves Section */}
-                {loveClicked ? (
-                  <LoveButtonActivated
-                    className="heart-icon"
-                    onClick={onLoveButtonClick}
-                  >
-                    {<div class="love-number">{love_}</div>}
-                  </LoveButtonActivated>
-                ) : (
-                  <LoveButton
-                    className="heart-icon"
-                    onClick={onLoveButtonClick}
-                  >
-                    {<div class="love-number">{love_}</div>}
-                  </LoveButton>
-                )}
-              </div>
-            </div>
+            <SocialPanel
+              CMS_ID={CMS_ID}
+              likesFromParent={likes}
+              sharesFromParent={shares}
+              bookmarkFromParent={bookmarks}
+              webShareAPIShareText={createWhatsappTipTextMessageWebShare(
+                title,
+                text
+              )}
+              shareText={createWhatsappTipTextMessage(title, text)}
+              shareUrl={createWhatsappTipLinkMessageWebAPIShare()}
+            />
           </div>
         </div>
       </Container>

@@ -6,37 +6,30 @@ const BannerWrapper = styled.div`
   display: flex;
   align-items: center;
   overflow: hidden;
-  // background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-color: #f7f7f7;
   background-size: cover;
-  padding-top: 50px;
   min-height: 300px;
 
   @media (max-width: 1400px) {
-    padding-top: 50px;
     min-height: 300px;
   }
 
   @media (max-width: 1200px) {
     min-height: 300px;
-    padding-top: 50px;
   }
 
   @media (max-width: 1050px) {
     min-height: 300px;
-    padding-top: 50px;
   }
 
   @media (max-width: 990px) {
     min-height: 260px;
-    padding-top: 50px;
   }
 
   @media (max-width: 767px) {
     min-height: 160px;
-    padding-top: 45px;
   }
 `;
 

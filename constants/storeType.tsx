@@ -5,13 +5,18 @@ import {
   SKIN_HAIR_PAGE,
 } from "./navigation";
 
-import { FruitsVegetable } from "components/AllSvgIcon";
+import {
+  YoutubeVideoIcon,
+  TipsIcon,
+  PopularIcon,
+  HomeIcon,
+} from "components/AllSvgIcon";
 
 export default {
   HomePage: [
     {
       link: HOME_PAGE,
-      icon: "",
+      icon: <HomeIcon />,
       label: "Home",
     },
     // {
@@ -22,31 +27,27 @@ export default {
     // },
     {
       link: "/popular",
-      icon: "",
+      icon: <PopularIcon />,
       label: "Popular",
       identifier: "popular",
-      fontAwesomeIconClass: "fas fa-star",
     },
     {
       link: "/videos",
-      icon: "",
+      icon: <YoutubeVideoIcon />,
       label: "Videos",
       identifier: "videos",
-      fontAwesomeIconClass: "fab fa-youtube",
     },
     {
       link: "/tips",
-      icon: "",
+      icon: <TipsIcon />,
       label: "Tips",
       identifier: "tips",
-      fontAwesomeIconClass: "fas fa-lightbulb",
     },
     // {
     //   link: "/live",
     //   icon: "",
     //   label: "Live",
     //   identifier: "live",
-    //   fontAwesomeIconClass: "fas fa-tv",
     // },
     // {
     //   link: CHRONIC_PAGE,

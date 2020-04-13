@@ -21,12 +21,39 @@ export const ButtonWrapper = styled.div`
   margin-top: 30px;
 `;
 
+export const ProductsColDivided = styled.div`
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media (min-width: 1301px) and (max-width: 1500px) {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1300px) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  @media (max-width: 768px) {
+    padding-left: 0px;
+    padding-right: 0px;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  @media (max-width: 1199px) and (min-width: 991px) {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+  }
+`;
+
 export const ProductsCol = styled.div`
   flex: 0 0 33.33333%;
   max-width: 33.33333%;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 10px;
 
   @media (min-width: 1301px) and (max-width: 1500px) {
     flex: 0 0 33.3333333%;
@@ -40,14 +67,12 @@ export const ProductsCol = styled.div`
   @media (max-width: 768px) {
     padding-left: 0px;
     padding-right: 0px;
-    margin-bottom: 15px;
     flex: 0 0 100%;
     max-width: 100%;
   }
   @media (max-width: 1199px) and (min-width: 991px) {
     padding-left: 10px;
     padding-right: 10px;
-    margin-bottom: 20px;
   }
 `;
 
@@ -79,7 +104,14 @@ export const LoaderItem = styled.div`
 
 export const ProductCardWrapper = styled.div`
   height: 100%;
+  > div {
+    height: 100%;
+  }
+`;
 
+export const VideoProductCardWrapper = styled.div`
+  height: 100%;
+  width: 100%;
   > div {
     height: 100%;
   }

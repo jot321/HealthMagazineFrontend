@@ -12,7 +12,7 @@ import {
   MENTAL_PAGE,
   SEXUAL_PAGE,
   GENERAL_PAGE,
-  PAIN_PAGE
+  PAIN_PAGE,
 } from "constants/navigation";
 
 const ChronicIcon = require("image/categories/chronic.png");
@@ -29,7 +29,6 @@ const CategoryWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-bottom: -60px;
   margin-top: 20px;
 `;
 
@@ -54,9 +53,9 @@ type CategoryProps = {};
 const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
   const router = useRouter();
 
-  const onClickCategory = categoryLink => {
+  const onClickCategory = (categoryLink) => {
     router.push({
-      pathname: categoryLink
+      pathname: categoryLink,
     });
   };
 

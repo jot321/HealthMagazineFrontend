@@ -6,15 +6,11 @@ import styled from "styled-components";
 
 import Header from "./Header/Header";
 import { useStickyState } from "contexts/app/app.provider";
-import {
-  HOME_PAGE,
-  CHRONIC_PAGE,
-  SKIN_HAIR_PAGE,
-  WEIGHT_PAGE
-} from "constants/navigation";
+
 const MobileHeader = dynamic(() => import("./Header/MobileHeader"), {
-  ssr: false
+  ssr: false,
 });
+
 const LayoutWrapper = styled.div`
   background-color: #f7f7f7;
   padding-left: calc(50% - 37.5rem);
@@ -42,20 +38,18 @@ const Layout: FunctionComponent<LayoutProps> = ({
   className,
   children,
   deviceType: { mobile, tablet, desktop },
-  token
+  token,
 }) => {
   const isSticky = useStickyState("isSticky");
   const { pathname } = useRouter();
 
-  const isHomePage =
-    pathname === HOME_PAGE ||
-    pathname === CHRONIC_PAGE ||
-    pathname === WEIGHT_PAGE ||
-    pathname === SKIN_HAIR_PAGE;
-
   return (
     <LayoutWrapper className={`layoutWrapper ${className}`}>
-      {(mobile || tablet) && (
+      <MobileHeader
+        className={`${isSticky ? "sticky" : "unSticky"}`}
+        pathname={pathname}
+      />
+      {/* {(mobile || tablet) && (
         <Sticky enabled={isSticky} innerZ={1000}>
           <MobileHeader
             className={`${isSticky ? "sticky" : "unSticky"} ${
@@ -67,22 +61,22 @@ const Layout: FunctionComponent<LayoutProps> = ({
       )}
 
       {desktop && (
-        <Sticky enabled={isSticky} innerZ={1001}>
+        <Sticky enabled={isSticky} innerZ={1000}>
           <MobileHeader
             className={`${isSticky ? "sticky" : "unSticky"} ${
               isHomePage ? "home" : ""
             } desktop`}
             pathname={pathname}
           />
-          {/* <Header
+          <Header
             className={`${isSticky ? "sticky" : "unSticky"} ${
               isHomePage ? "home" : ""
             }`}
             token={token}
             pathname={pathname}
-          /> */}
+          />
         </Sticky>
-      )}
+      )} */}
       {children}
     </LayoutWrapper>
   );

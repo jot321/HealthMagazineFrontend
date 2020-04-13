@@ -13,13 +13,10 @@ type NavLinkProps = {
   icon?: React.ReactNode;
   className?: string;
   iconClass?: string;
-  fontAwesomeIconClass?: string;
   onClick?: () => void;
 };
 
 const Icon = styled.span`
-  min-width: 16px;
-  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +41,6 @@ const NavLink: React.SFC<NavLinkProps> = ({
   className,
   onClick,
   iconClass,
-  fontAwesomeIconClass,
 }) => {
   let highlightNavLink = false;
 
@@ -66,11 +62,6 @@ const NavLink: React.SFC<NavLinkProps> = ({
           style={{ display: "flex", alignItems: "center" }}
         >
           {icon ? <Icon className={iconClass}>{icon}</Icon> : ""}
-          {fontAwesomeIconClass ? (
-            <FAIcon className={fontAwesomeIconClass}> </FAIcon>
-          ) : (
-            ""
-          )}
 
           <HeaderText className="label">
             {intlId ? (

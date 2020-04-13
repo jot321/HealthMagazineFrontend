@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Wrapper, Container, Heading, SubHeading } from "./SignInOutForm.style";
 import { AuthContext } from "contexts/auth/auth.context";
 import { FormattedMessage } from "react-intl";
-import { closeModal } from "@redq/reuse-modal";
+import { openModal, closeModal } from "@redq/reuse-modal";
 import { GoogleLogin } from "react-google-login";
+import SignInSuccessModal from "./SignInSuccessModal";
 
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
@@ -30,7 +31,7 @@ export default function SignInModal() {
   `;
   const [addOrUpdateUser] = useMutation(ADD_OR_UPDATE_USER);
 
-  const loginCallback = details => {
+  const loginCallback = (details) => {
     if (typeof window !== "undefined") {
       const profileDetails = details.profileObj;
 
@@ -44,12 +45,27 @@ export default function SignInModal() {
           user_id: profileDetails.googleId,
           name: profileDetails.name,
           email: profileDetails.email,
-          image_url: profileDetails.imageUrl
-        }
+          image_url: profileDetails.imageUrl,
+        },
       });
 
       authDispatch({ type: "SIGNIN_SUCCESS" });
       closeModal();
+
+      openModal({
+        show: true,
+        overlayClassName: "quick-view-overlay",
+        closeOnClickOutside: true,
+        component: SignInSuccessModal,
+        closeComponent: "",
+        config: {
+          enableResizing: false,
+          disableDragging: true,
+          className: "quick-view-modal",
+          width: 458,
+          height: "auto",
+        },
+      });
     }
   };
 
@@ -62,8 +78,8 @@ export default function SignInModal() {
       <Container>
         <Heading>
           <FormattedMessage
-            id="signUpBtnText"
-            defaultMessage="Signup with Urban Nuskha"
+            id="loginBtnText"
+            defaultMessage="SignIn with Urban Nuskha"
           />
         </Heading>
         <SubHeading>

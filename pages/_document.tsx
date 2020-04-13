@@ -38,11 +38,6 @@ export default class CustomDocument extends Document {
       <Html>
         <Head>
           <link rel="manifest" href="manifest.json"></link>
-          <script
-            async
-            // src="https://kit.fontawesome.com/93a25677f4.js"
-            src="fontawesome.js"
-          ></script>
           <link
             href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
             rel="stylesheet"

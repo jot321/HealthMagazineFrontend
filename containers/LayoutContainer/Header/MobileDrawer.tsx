@@ -102,6 +102,14 @@ const MobileDrawer: React.FunctionComponent = () => {
     });
   };
 
+  const onClickUserProfile = () => {
+    Router.push("/profile", "/profile", { getInitialProps: true });
+
+    dispatch({
+      type: "TOGGLE",
+    });
+  };
+
   return (
     <Drawer
       width="100%"
@@ -124,7 +132,7 @@ const MobileDrawer: React.FunctionComponent = () => {
         <DrawerContentWrapper>
           <DrawerProfile>
             {isAuthenticated ? (
-              <LoginView>
+              <LoginView onClick={onClickUserProfile}>
                 <UserAvatar>
                   <img
                     src={localStorage.getItem("user_imageUrl")}

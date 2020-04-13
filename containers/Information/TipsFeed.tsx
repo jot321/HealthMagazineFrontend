@@ -3,10 +3,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import gql from "graphql-tag";
 import { openModal, closeModal } from "@redq/reuse-modal";
-import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
-import { QuoteCard } from "components/InformationCard/QuoteCard";
-import { StoryCard } from "components/InformationCard/StoryCard";
 
 import HashLoader from "react-spinners/HashLoader";
 
@@ -15,15 +12,13 @@ import {
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  ProductCardWrapper,
 } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
 import { Waypoint } from "react-waypoint";
-
-const QuickView = dynamic(() => import("../QuickView/QuickView"));
 
 const GET_TIPS = gql`
   query($offset: Int, $fetchLimit: Int, $category: String, $tag: String) {
@@ -59,7 +54,7 @@ export const TipsFeed: React.FC<ProductsProps> = ({
   loadMore = true,
   loadPopular = false,
   loadFeatured = false,
-  topLevelCategory = ""
+  topLevelCategory = "",
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
@@ -103,8 +98,8 @@ export const TipsFeed: React.FC<ProductsProps> = ({
   const tipsFeed = useQuery(GET_TIPS, {
     variables: {
       category: category_,
-      tag: tag_
-    }
+      tag: tag_,
+    },
   });
 
   // -----------------------------------------------------------
@@ -134,7 +129,7 @@ export const TipsFeed: React.FC<ProductsProps> = ({
     LISTICLE: 1,
     SHORT_ARTICLE: 2,
     IMAGE_ARTICLE: 3,
-    TIP: 4
+    TIP: 4,
   };
 
   // -----------------------------------------------------------
@@ -145,7 +140,7 @@ export const TipsFeed: React.FC<ProductsProps> = ({
     tipsFeed.fetchMore({
       variables: {
         offset: Number(tipsFeed.data.getTips.messages.length),
-        fetchLimit: 6
+        fetchLimit: 6,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
         toggleLoading(false);
@@ -157,12 +152,12 @@ export const TipsFeed: React.FC<ProductsProps> = ({
             __typename: prev.getTips.__typename,
             messages: [
               ...prev.getTips.messages,
-              ...fetchMoreResult.getTips.messages
+              ...fetchMoreResult.getTips.messages,
             ],
-            hasMore: fetchMoreResult.getTips.hasMore
-          }
+            hasMore: fetchMoreResult.getTips.hasMore,
+          },
         };
-      }
+      },
     });
   };
 
@@ -192,6 +187,7 @@ export const TipsFeed: React.FC<ProductsProps> = ({
                           visibleTags={data_.visible_tags_names}
                           likes={properties_.likes}
                           shares={properties_.shares}
+                          bookmarks={properties_.bookmarks}
                         />
                       </Fade>
                     </ProductCardWrapper>
