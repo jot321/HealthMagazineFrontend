@@ -15,7 +15,12 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Pain Management - Urban Nuskha</title>
+        <title>Body Pain relief - Home remedies</title>
+        I
+        <meta
+          name="description"
+          content="Get body pain relief home remedy at Urbannuskha. If you are suffering from body pain and are on a search for home body pain remedies, we have the best resource of expert verified tools and tips"
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -25,7 +30,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={PAIN_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={PAIN_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,7 +42,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={PAIN_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={PAIN_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

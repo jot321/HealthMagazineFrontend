@@ -16,7 +16,14 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>
+          Urban Nuskha | Home workouts for women | Fat burning exercises at home
+        </title>
+        <meta
+          name="description"
+          content="Looking for fat burning exercises at home, find it on our platform. At urbannuskha we have live session, video collection for at home workout for women and men and full home bodyweight workout for everyone. Now do not stress for weight loss issues"
+        />
+        const withTM = require("next-transpile-modules");
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -26,7 +33,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={FITNESS_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={FITNESS_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -35,7 +45,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={FITNESS_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={FITNESS_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

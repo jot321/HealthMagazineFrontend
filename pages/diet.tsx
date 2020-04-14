@@ -16,7 +16,11 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Indian Diet & Nutrition plan | Diet meal plan</title>
+        <meta
+          name="description"
+          content="Looking for best Indian diet & nutrition plan to lose weight. We provide best and easy to follow diet meal plan for you."
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -26,7 +30,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={DIET_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={DIET_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -35,7 +42,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={DIET_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={DIET_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

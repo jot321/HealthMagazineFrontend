@@ -15,7 +15,11 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Weight management | Weight loss yoga exercise</title>
+        <meta
+          name="description"
+          content="Weight gain is a big issue these days and need for weight management in our busy life is a necessity due to our lifestyle choice. We provide weight loss yoga exercise and other tools and tips to help you in your search for general wellbeing."
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -25,7 +29,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={WEIGHT_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={WEIGHT_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,7 +41,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={WEIGHT_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={WEIGHT_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

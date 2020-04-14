@@ -15,7 +15,11 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Mental Wellness - Urban Nuskha</title>
+        <title>Mental wellness | Mental Wellbeing</title>
+        <meta
+          name="description"
+          content="Mental wellness basics resource to assist and introduce concepts associated with psychological state and wellness. Mental wellbeing is difficult in today's busy life, also get many tips for your health and wellness at urbannuskha."
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -25,7 +29,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={MENTAL_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={MENTAL_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,7 +41,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={MENTAL_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={MENTAL_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

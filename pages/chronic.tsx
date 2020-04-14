@@ -15,7 +15,11 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Chronic conditions | Chronic alcoholism</title>
+        <meta
+          name="description"
+          content="Chronic conditions arise due to disorders related to lifestyle issues. We providing useful information on chronic alcoholism and other chronic issues."
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -24,7 +28,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={CHRONIC_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={CHRONIC_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -33,7 +40,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={CHRONIC_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={CHRONIC_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

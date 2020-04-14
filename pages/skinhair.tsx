@@ -15,7 +15,11 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Skin care and Hair care</title>
+        <meta
+          name="description"
+          content="Today we all are facing very common problem and that is skin care and hair care. Hair and skin problem can be caused due to diet and pollution. Get best tips for hair and skin care at urbannuskha."
+        />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -25,7 +29,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={SKIN_HAIR_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={SKIN_HAIR_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,7 +41,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={SKIN_HAIR_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={SKIN_HAIR_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

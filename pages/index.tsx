@@ -52,10 +52,12 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Urban Nuskha</title>
+        <title>
+          Urban Nuskha | Health information from experts and community in India
+        </title>
         <meta
           name="description"
-          content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting"
+          content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting | Diabetes | Blood Pressure | Thyroid | PCOD. Join a growing wellness communities in India and more information on your lifestyle needs."
         />
       </Head>
       <Modal>
