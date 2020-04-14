@@ -66,7 +66,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(CHRONIC_PAGE);
         }}
       >
-        <img src={ChronicIcon} alt="pickbazar-admin" />
+        <img src={ChronicIcon} alt="Urban Nuskha | Chronic Conditions" />
         <p>Chronic Conditions</p>
       </CategoryItem>
       <CategoryItem
@@ -74,7 +74,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(FITNESS_PAGE);
         }}
       >
-        <img src={FitnessIcon} alt="pickbazar-admin" />
+        <img src={FitnessIcon} alt="Urban Nuskha | Fitness | Home Workout" />
         <p>Fitness & Exercise</p>
       </CategoryItem>
       <CategoryItem
@@ -82,7 +82,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(DIET_PAGE);
         }}
       >
-        <img src={NutritionIcon} alt="pickbazar-admin" />
+        <img src={NutritionIcon} alt="Urban Nuskha | Diet & Nutrition" />
         <p>Diet & Nutrition</p>
       </CategoryItem>
       <CategoryItem
@@ -90,7 +90,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(MENTAL_PAGE);
         }}
       >
-        <img src={MentalIcon} alt="pickbazar-admin" />
+        <img src={MentalIcon} alt="Urban Nuskha | Mental Wellness" />
         <p>Mental Wellness</p>
       </CategoryItem>
       <CategoryItem
@@ -98,7 +98,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(SEXUAL_PAGE);
         }}
       >
-        <img src={SexualIcon} alt="pickbazar-admin" />
+        <img src={SexualIcon} alt="Urban Nuskha | Sexual Wellness" />
         <p>Sexual Wellness</p>
       </CategoryItem>
       <CategoryItem
@@ -106,7 +106,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(WEIGHT_PAGE);
         }}
       >
-        <img src={WeightIcon} alt="pickbazar-admin" />
+        <img src={WeightIcon} alt="Urban Nuskha | Weight Management" />
         <p>Weight Management</p>
       </CategoryItem>
       <CategoryItem
@@ -114,7 +114,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(GENERAL_PAGE);
         }}
       >
-        <img src={GeneralIcon} alt="pickbazar-admin" />
+        <img src={GeneralIcon} alt="Urban Nuskha | General Wellness" />
         <p>General Wellness</p>
       </CategoryItem>
       <CategoryItem
@@ -122,7 +122,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(PAIN_PAGE);
         }}
       >
-        <img src={PainIcon} alt="pickbazar-admin" />
+        <img src={PainIcon} alt="Urban Nuskha | Pain Management" />
         <p>Pain Management</p>
       </CategoryItem>
       <CategoryItem
@@ -130,7 +130,7 @@ const CategoryNav: React.FunctionComponent<CategoryProps> = ({}) => {
           onClickCategory(SKIN_HAIR_PAGE);
         }}
       >
-        <img src={SkinHairIcon} alt="pickbazar-admin" />
+        <img src={SkinHairIcon} alt="Urban Nuskha | Skin and Hair Care" />
         <p>Skin & Hair</p>
       </CategoryItem>
     </CategoryWrapper>

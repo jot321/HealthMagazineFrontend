@@ -20,6 +20,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Weight gain is a big issue these days and need for weight management in our busy life is a necessity due to our lifestyle choice. We provide weight loss yoga exercise and other tools and tips to help you in your search for general wellbeing."
         />
+        <link rel="canonical" href="https://urbannuskha.in/weight" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

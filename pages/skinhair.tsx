@@ -20,6 +20,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Today we all are facing very common problem and that is skin care and hair care. Hair and skin problem can be caused due to diet and pollution. Get best tips for hair and skin care at urbannuskha."
         />
+        <link rel="canonical" href="https://urbannuskha.in/skinhair" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

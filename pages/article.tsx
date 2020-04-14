@@ -17,7 +17,7 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Urban Nuskha</title>
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

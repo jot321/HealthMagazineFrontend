@@ -61,6 +61,7 @@ function HomePage({ deviceType }) {
     <>
       <Head>
         <title>Health Tips - Urban Nuskha</title>
+        <link rel="canonical" href="https://urbannuskha.in/tips" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

@@ -59,6 +59,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting | Diabetes | Blood Pressure | Thyroid | PCOD. Join a growing wellness communities in India and more information on your lifestyle needs."
         />
+        <link rel="canonical" href="https://urbannuskha.in" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

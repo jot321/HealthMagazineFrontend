@@ -8,7 +8,7 @@ import {
   SidebarSection,
   ContentSection,
   OfferSection,
-  MobileCarouselDropdown
+  MobileCarouselDropdown,
 } from "styled/pages.style";
 // Static Data Import Here
 import NavBarItems from "constants/storeType";
@@ -20,7 +20,8 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Nuskha</title>
+        <title>Featured Articles @ Urban Nuskha</title>
+        <link rel="canonical" href="https://urbannuskha.in/featured" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

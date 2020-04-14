@@ -178,7 +178,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
                 <img
                   style={{ width: "40px", height: "40px" }}
                   src={NewLogo}
-                  alt="pickbazar-admin"
+                  alt="urbannuskha"
                 />
               </a>
             </Link>

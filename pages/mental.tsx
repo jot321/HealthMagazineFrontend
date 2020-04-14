@@ -20,6 +20,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Mental wellness basics resource to assist and introduce concepts associated with psychological state and wellness. Mental wellbeing is difficult in today's busy life, also get many tips for your health and wellness at urbannuskha."
         />
+        <link rel="canonical" href="https://urbannuskha.in/mental" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

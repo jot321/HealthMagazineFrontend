@@ -21,6 +21,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Get body pain relief home remedy at Urbannuskha. If you are suffering from body pain and are on a search for home body pain remedies, we have the best resource of expert verified tools and tips"
         />
+        <link rel="canonical" href="https://urbannuskha.in/pain" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

@@ -15,6 +15,7 @@ function HomePage({ deviceType }) {
     <>
       <Head>
         <title>Nuskha</title>
+        <link rel="canonical" href="https://urbannuskha.in/general" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
@@ -24,7 +25,10 @@ function HomePage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  <Information deviceType={deviceType} topLevelCategory={GENERAL_TOP_CATEGORY} />
+                  <Information
+                    deviceType={deviceType}
+                    topLevelCategory={GENERAL_TOP_CATEGORY}
+                  />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -33,7 +37,10 @@ function HomePage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                <Information deviceType={deviceType} topLevelCategory={GENERAL_TOP_CATEGORY} />
+                <Information
+                  deviceType={deviceType}
+                  topLevelCategory={GENERAL_TOP_CATEGORY}
+                />
               </div>
             </ContentSection>
           </MainContentArea>

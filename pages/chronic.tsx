@@ -20,6 +20,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Chronic conditions arise due to disorders related to lifestyle issues. We providing useful information on chronic alcoholism and other chronic issues."
         />
+        <link rel="canonical" href="https://urbannuskha.in/chronic" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

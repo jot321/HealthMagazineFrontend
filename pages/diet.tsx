@@ -21,6 +21,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Looking for best Indian diet & nutrition plan to lose weight. We provide best and easy to follow diet meal plan for you."
         />
+        <link rel="canonical" href="https://urbannuskha.in/diet" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

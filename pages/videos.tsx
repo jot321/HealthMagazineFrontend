@@ -19,6 +19,7 @@ function LiveListingsPage({ deviceType }) {
     <>
       <Head>
         <title>Live Fitness/Wellness sessions</title>
+        <link rel="canonical" href="https://urbannuskha.in/videos" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />

@@ -23,7 +23,7 @@ function HomePage({ deviceType }) {
           name="description"
           content="Looking for fat burning exercises at home, find it on our platform. At urbannuskha we have live session, video collection for at home workout for women and men and full home bodyweight workout for everyone. Now do not stress for weight loss issues"
         />
-        const withTM = require("next-transpile-modules");
+        <link rel="canonical" href="https://urbannuskha.in/fitness" />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
