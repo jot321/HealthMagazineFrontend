@@ -18,7 +18,7 @@ function LiveListingsPage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Live Fitness/Wellness sessions</title>
+        <title>Curated Health Playlists/Videos</title>
         <link rel="canonical" href="https://urbannuskha.in/videos" />
       </Head>
       <Modal>

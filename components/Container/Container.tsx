@@ -1,8 +1,17 @@
-import React from 'react';
-import ContainerArea from './Container.styled';
+import React from "react";
+import {
+  ContainerArea,
+  CoachPageMobileOnlyContainer,
+} from "./Container.styled";
 
-const Container: React.FunctionComponent<{}> = ({ children }) => {
+export const Container: React.FunctionComponent<{}> = ({ children }) => {
   return <ContainerArea>{children}</ContainerArea>;
 };
 
-export default Container;
+export const MobileOnlyContainer: React.FunctionComponent<{}> = ({
+  children,
+}) => {
+  return (
+    <CoachPageMobileOnlyContainer>{children}</CoachPageMobileOnlyContainer>
+  );
+};

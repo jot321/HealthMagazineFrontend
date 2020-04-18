@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import { Avatar } from "baseui/avatar";
 import { Modal, ModalHeader, ModalBody } from "baseui/modal";
 import { Button } from "baseui/button";
-import Container from "components/Container/Container";
+import { Container } from "components/Container/Container";
 import {
   ProductsRow,
   ProductsCol,
@@ -14,6 +14,7 @@ import {
 } from "containers/Information/Information.style";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
+import { VideoPlayerCard } from "components/InformationCard/VideoCard";
 import Fade from "react-reveal/Fade";
 // import Posts from "../containers/Posts/Posts";
 import gql from "graphql-tag";
@@ -40,6 +41,7 @@ const InformationType = {
   SHORT_ARTICLE: 2,
   IMAGE_ARTICLE: 3,
   TIP: 4,
+  VIDEOLINK: 6,
 };
 
 const GET_BOOKMARKED_POSTS = gql`
@@ -53,9 +55,25 @@ const GET_BOOKMARKED_POSTS = gql`
 
 const Profile: NextPage<{}> = () => {
   const targetRef = React.useRef(null);
+  const [userDetails, setUserDetails] = useState({
+    id: null,
+    name: null,
+    role: null,
+    avatar: null,
+  });
+
+  useEffect(() => {
+    setUserDetails({
+      id: localStorage.getItem("user_id"),
+      name: localStorage.getItem("user_name"),
+      role: localStorage.getItem("user_email"),
+      avatar: localStorage.getItem("user_imageUrl"),
+    });
+  }, []);
+
   const { data, loading, error, fetchMore } = useQuery(GET_BOOKMARKED_POSTS, {
     variables: {
-      userId: localStorage.getItem("user_id"),
+      userId: userDetails.id,
     },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
@@ -64,9 +82,9 @@ const Profile: NextPage<{}> = () => {
   const [active, setActive] = useState("posts");
   const [visible, setVisible] = useState(false);
 
-  const name = localStorage.getItem("user_name");
-  const role = localStorage.getItem("user_email");
-  const avatar = localStorage.getItem("user_imageUrl");
+  const name = userDetails.name;
+  const role = userDetails.role;
+  const avatar = userDetails.avatar;
 
   let bookmarkedPosts = [];
   if (
@@ -217,6 +235,28 @@ const Profile: NextPage<{}> = () => {
                             likes={properties_.likes}
                             shares={properties_.shares}
                             bookmarks={properties_.bookmarks}
+                          />
+                        </Fade>
+                      </ProductCardWrapper>
+                    </ProductsCol>
+                  );
+                case InformationType.VIDEOLINK:
+                  return (
+                    <ProductsCol key={index}>
+                      <ProductCardWrapper>
+                        <Fade
+                          duration={800}
+                          delay={index * 10}
+                          style={{ height: "100%" }}
+                        >
+                          <VideoPlayerCard
+                            url={data_.videoLink}
+                            CMS_ID={data_.CMS_ID}
+                            likes={properties_.likes}
+                            shares={properties_.shares}
+                            bookmarks={properties_.bookmarks}
+                            playlistTitle={data_.playlistTitle}
+                            playlistId={data_.playlistId}
                           />
                         </Fade>
                       </ProductCardWrapper>

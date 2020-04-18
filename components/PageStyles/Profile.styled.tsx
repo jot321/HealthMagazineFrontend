@@ -44,6 +44,21 @@ export const UserAvatar = styled("img", {
   },
 });
 
+export const CoachAvatar = styled("img", {
+  width: "150px",
+  height: "150px",
+  borderRadius: "50%",
+  objectFit: "cover",
+  "@media only screen and (max-width: 991px)": {
+    width: "150px",
+    height: "150px",
+  },
+  "@media only screen and (max-width: 480px)": {
+    width: "150px",
+    height: "150px",
+  },
+});
+
 export const UserName = styled("h3", ({ $theme }) => ({
   ...$theme.typography.font450,
   color: $theme.colors.primaryA,

@@ -398,9 +398,14 @@ export const SocialPanel = ({
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Shares Section
 
+  const [userId, setUserId] = useState(null);
   const [shareClicked, setShareClicked] = useState(false);
   const [shares_, setShares] = useState(sharesFromParent);
   const [incrementShares] = useMutation(INCREMENT_SHARES);
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("user_id"));
+  }, []);
 
   const onShareButtonClick = () => {
     setShares(shares_ + 1);
@@ -445,7 +450,7 @@ export const SocialPanel = ({
     CHECK_IF_POST_BOOKMARKED,
     {
       variables: {
-        userId: localStorage.getItem("user_id"),
+        userId: userId,
         CMS_ID: CMS_ID,
       },
       notifyOnNetworkStatusChange: true,
@@ -494,7 +499,7 @@ export const SocialPanel = ({
       });
     } else {
       bookmarkPost({
-        variables: { userId: localStorage.getItem("user_id"), CMS_ID: CMS_ID },
+        variables: { userId: userId, CMS_ID: CMS_ID },
       });
       incrementBookmarks({ variables: { CMS_ID } });
       setBookmark(bookmark_ + 1);
@@ -504,7 +509,7 @@ export const SocialPanel = ({
 
   const onBookmarkButtonActivatedClick = () => {
     unBookmarkPost({
-      variables: { userId: localStorage.getItem("user_id"), CMS_ID: CMS_ID },
+      variables: { userId: userId, CMS_ID: CMS_ID },
     });
     decrementBookmarks({ variables: { CMS_ID } });
     setBookmark(bookmark_ - 1);

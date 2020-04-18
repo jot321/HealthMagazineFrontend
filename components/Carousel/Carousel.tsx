@@ -29,7 +29,7 @@ const PrevButton = ({ onClick, children }: any) => {
 
   return (
     <ButtonPrev
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         onClick();
       }}
@@ -63,7 +63,7 @@ const NextButton = ({ onClick, children }: any) => {
 
   return (
     <ButtonNext
-      onClick={e => {
+      onClick={(e) => {
         e.preventDefault();
         onClick();
       }}
@@ -76,18 +76,14 @@ const NextButton = ({ onClick, children }: any) => {
 
 const ButtonGroup = ({ next, previous, isRtl = false }: any) => {
   const {
-    state: { lang }
+    state: { lang },
   }: any = useContext(LanguageContext);
   const ButtonGroupWrapper = styled("div")``;
 
   return (
     <ButtonGroupWrapper>
       {
-        (isRtl = (lang === "ar" || lang === "he" ? (
-          true
-        ) : (
-          false
-        )) ? (
+        (isRtl = (lang === "ar" || lang === "he" ? true : false) ? (
           <>
             <NextButton onClick={() => next()} className="rtl">
               <ArrowPrev />
@@ -132,22 +128,22 @@ type Props = {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3
+    items: 3,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
-    items: 1
-  }
+    items: 1,
+  },
 };
 export default function CustomCarousel({
   data,
   deviceType: { mobile, tablet, desktop },
   component,
-  autoPlay = false,
+  autoPlay = true,
   infinite = true,
   customLeftArrow,
   customRightArrow,
@@ -178,14 +174,14 @@ export default function CustomCarousel({
         autoPlaySpeed={3000}
         renderButtonGroupOutside={true}
         additionalTransfrom={0}
-        customButtonGroup={<ButtonGroup />}
+        // customButtonGroup={<ButtonGroup />}
         {...props}
         // use dir ltr when rtl true
       >
         {data.map((item: any, index: number) => {
           if (component) return component(item);
           return (
-            <div style={{ padding: "0 15px", overflow: "hidden" }} key={index}>
+            <div style={{ paddingTop: "0 0", overflow: "hidden" }} key={index}>
               <a
                 href={item.link}
                 style={{ display: "flex", cursor: "pointer" }}
@@ -198,7 +194,7 @@ export default function CustomCarousel({
                     width: "100%",
                     height: "100%",
                     display: "block",
-                    position: "relative"
+                    position: "relative",
                   }}
                 />
               </a>

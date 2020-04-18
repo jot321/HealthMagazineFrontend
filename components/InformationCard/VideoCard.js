@@ -1,30 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
-import { useRouter } from "next/router";
 
 import {
-  createWhatsappTextMessage,
-  createWhatsappLinkMessageWebAPIShare,
-  createWhatsappCombinedMessage,
+  createVideosWhatsappLinkMessageWebAPIShare,
+  createVideosWhatsappTextMessage,
+  createVideosWhatsappTextMessageWebShare,
 } from "./helpers";
 
 import ReactPlayer from "react-player";
 
 import { SocialPanel } from "./ParentCard";
 
-const cardFont = "'IBM Plex Sans'";
 const Container = styled.div`
+  font-family: "'IBM Plex Sans'";
   a {
     text-decoration: none;
   }
 
   h2 {
+    border-left: 4px solid #ea9085;
+    padding: 1rem;
+    line-height: 1.2;
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-left: 1rem;
+
+    color: #000;
+    text-transform: capitalize;
+  }
+
+  h3 {
+    padding: 1rem;
+    line-height: 1.2;
+    font-weight: 400;
+    font-size: 1.2rem;
+
+    color: #000;
+    text-transform: capitalize;
+  }
+
+  h4 {
     line-height: 1.2;
     margin-bottom: 1rem;
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     color: #000;
     text-transform: capitalize;
@@ -45,8 +64,8 @@ const Container = styled.div`
 
   .video__wrapper {
     width: 100%;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -68,17 +87,13 @@ const Container = styled.div`
 
     background-size: cover;
     margin-bottom: 1.6rem;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
-      0 5px 15px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    font-family: ${cardFont};
     h2,
     p,
     a,
+    h2,
     h4 {
-      font-family: ${cardFont};
-    }
-    h2 {
       line-height: 1.2;
       font-weight: 500;
       font-size: 1.1rem;
@@ -93,18 +108,8 @@ const Container = styled.div`
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
-      0 5px 15px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    font-family: ${cardFont};
-    h2,
-    p,
-    a,
-    h4 {
-      font-family: ${cardFont};
-    }
   }
 
   .card__image {
@@ -112,6 +117,7 @@ const Container = styled.div`
     background-color: #eee;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    margin-bottom: 40px;
 
     img {
       width: 100%;
@@ -176,8 +182,7 @@ const Container = styled.div`
   }
 
   .card__action {
-    display: none;
-    margin-top: -30px;
+    // margin-top: -30px;
     overflow: hidden;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -245,94 +250,6 @@ const Container = styled.div`
   }
 `;
 
-const LoveButton = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #fe4540;
-  }
-`;
-
-const LoveButtonActivated = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/color/48/000000/filled-like.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #fe4540;
-  }
-`;
-
-const ShareButton = styled.a`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #74b980;
-  }
-`;
-
-const ShareButtonActivated = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url("https://img.icons8.com/officexs/100/000000/whatsapp.png")
-    no-repeat center;
-  background-size: 70% 70%;
-
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #74b980;
-  }
-`;
-
 const CardArticleArea = styled.article`
   ::before {
     filter: blur(12px);
@@ -351,132 +268,92 @@ const CardArticleArea = styled.article`
   }
 `;
 
-const Description = styled.p`
-  color: #222;
-  font-size: 16px;
-  font-weight: 400px;
+const PlaylistShareButton = styled.div`
+  height: 40px;
+  width: 200px;
+  background-color: #ea9085;
+  color: #fff;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  padding: 1rem;
+  margin-left: 1rem;
 `;
 
-export const VideoCard = ({ title, byline, videoLinks }) => {
+const onClickSharePlaylist = () => {
+  console.log("Share this playlist");
+};
+
+export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
   return (
     <div>
-      {videoLinks.map((videoLink) => {
-        return (
-          <Container>
-            <div className="video__wrapper">
-              <div className="video__card">
-                <div class="card__image">
-                  <ReactPlayer
-                    url={videoLink}
-                    width="100%"
-                    controls={true}
-                    playsinline={true}
-                    pip={true}
-                    config={{
-                      youtube: {
-                        playerVars: { showinfo: 0 },
-                      },
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </Container>
-        );
-      })}
+      <Container>
+        <h2>{title}</h2>
+        {byline && <h3>{byline}</h3>}
+        {/* <PlaylistShareButton>SHARE PLAYLIST</PlaylistShareButton> */}
+        <br></br>
+        {videoLinks.map((videoLink) => {
+          return (
+            <VideoPlayerCard
+              url={videoLink.videoLink}
+              CMS_ID={videoLink.properties.CMS_ID}
+              likes={videoLink.properties.likes}
+              shares={videoLink.properties.shares}
+              bookmarks={videoLink.properties.bookmarks}
+              playlistTitle={title}
+              playlistId={CMS_ID}
+            ></VideoPlayerCard>
+          );
+        })}
+      </Container>
     </div>
   );
 };
 
-export const VideoPlaylistCard = ({
+export const VideoPlayerCard = ({
+  url,
   CMS_ID,
-  title,
-  byline,
-  image,
   likes,
   shares,
+  bookmarks,
+  playlistTitle,
+  playlistId,
 }) => {
-  const router = useRouter();
+  return (
+    <div>
+      <Container>
+        <div className="video__wrapper">
+          <div className="video__card">
+            <div class="card__image">
+              <ReactPlayer
+                url={url}
+                width="100%"
+                controls={true}
+                playsinline={true}
+              />
+            </div>
+            <SocialPanel
+              CMS_ID={CMS_ID}
+              likesFromParent={likes}
+              sharesFromParent={shares}
+              bookmarkFromParent={bookmarks}
+              webShareAPIShareText={createVideosWhatsappTextMessageWebShare(
+                playlistTitle
+              )}
+              shareText={createVideosWhatsappTextMessage(playlistTitle)}
+              shareUrl={createVideosWhatsappLinkMessageWebAPIShare(playlistId)}
+            />
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export const VideoPlaylistCard = ({ CMS_ID, title, image }) => {
   const targetRef = React.useRef(null);
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // Loves Section
-  const [loveClicked, setLoveClicked] = useState(false);
-  const [love_, setLove] = useState(likes);
-  const INCREMENT_LIKES = gql`
-    mutation incrementLikes($CMS_ID: ID!) {
-      incrementLikes(id: $CMS_ID)
-    }
-  `;
-  const DECREMENT_LIKES = gql`
-    mutation decrementLikes($CMS_ID: ID!) {
-      decrementLikes(id: $CMS_ID)
-    }
-  `;
-  const [incrementLikes] = useMutation(INCREMENT_LIKES);
-  const [decrementLikes] = useMutation(DECREMENT_LIKES);
-
-  const onLoveButtonClick = () => {
-    setLove(love_ + 1);
-    setLoveClicked(true);
-    incrementLikes({ variables: { CMS_ID } });
-  };
-
-  const onLoveButtonActivatedClick = () => {
-    setLoveClicked(false);
-    decrementLikes({ variables: { CMS_ID } });
-  };
-
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // Shares Section
-  const [shareClicked, setShareClicked] = useState(false);
-  const [shares_, setShares] = useState(shares);
-  const INCREMENT_SHARES = gql`
-    mutation incrementShares($CMS_ID: ID!) {
-      incrementShares(id: $CMS_ID)
-    }
-  `;
-  const DECREMENT_SHARES = gql`
-    mutation decrementShares($CMS_ID: ID!) {
-      decrementShares(id: $CMS_ID)
-    }
-  `;
-  const [incrementShares] = useMutation(INCREMENT_SHARES);
-  const [decrementShares] = useMutation(DECREMENT_SHARES);
-
-  const onShareButtonClick = () => {
-    setShares(shares_ + 1);
-    setShareClicked(true);
-    incrementShares({ variables: { CMS_ID } });
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Urban Nuskha",
-          text: createWhatsappTextMessage(title, byline),
-          url: createWhatsappLinkMessageWebAPIShare(CMS_ID),
-        })
-        .then(() => {
-          console.log("Thanks for sharing!");
-        })
-        .catch(() => {
-          console.log("Navigator Share available not working.");
-          window.location.href =
-            "https://api.whatsapp.com/send?text=" +
-            createWhatsappCombinedMessage(title, byline, CMS_ID);
-        });
-    } else {
-      try {
-        console.log("Whatsapp App share");
-        window.location.href =
-          "whatsapp://send?text=" +
-          createWhatsappCombinedMessage(title, byline, CMS_ID);
-      } catch {
-        window.location.href =
-          "https://api.whatsapp.com/send?text=" +
-          createWhatsappCombinedMessage(title, byline, CMS_ID);
-      }
-    }
-  };
 
   const viewVideosClick = () => {
     window.location.href = "?vpid=" + CMS_ID;
@@ -489,39 +366,8 @@ export const VideoPlaylistCard = ({
           <div className="card" onClick={viewVideosClick}>
             <div class="card__content">
               <CardArticleArea>
-                <h2>{title}</h2>
+                <h4>{title}</h4>
               </CardArticleArea>
-            </div>
-
-            {/* ---------------------------------------------------------------- */}
-            {/* ACTION BUTTONS */}
-            <div class="card__action">
-              <div class="card__metrics">
-                {/* Shares Section */}
-                <ShareButton
-                  className="heart-icon"
-                  onClick={onShareButtonClick}
-                >
-                  {<div class="share-number">{shares_}</div>}
-                </ShareButton>
-
-                {/* Loves Section */}
-                {loveClicked ? (
-                  <LoveButtonActivated
-                    className="heart-icon"
-                    onClick={onLoveButtonClick}
-                  >
-                    {<div class="love-number">{love_}</div>}
-                  </LoveButtonActivated>
-                ) : (
-                  <LoveButton
-                    className="heart-icon"
-                    onClick={onLoveButtonClick}
-                  >
-                    {<div class="love-number">{love_}</div>}
-                  </LoveButton>
-                )}
-              </div>
             </div>
           </div>
         </div>

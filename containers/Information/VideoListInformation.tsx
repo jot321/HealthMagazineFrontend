@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import { VideoCard } from "components/InformationCard/VideoCard";
+import { VideoPageWrapper } from "components/InformationCard/VideoCard";
 import { useRouter } from "next/router";
 
 import HashLoader from "react-spinners/HashLoader";
@@ -112,7 +112,8 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
           {/* <ProductsCol key={1}> */}
           <VideoProductCardWrapper>
             <Fade duration={800} delay={1 * 10} style={{ height: "100%" }}>
-              <VideoCard
+              <VideoPageWrapper
+                CMS_ID={data_.CMS_ID}
                 title={data_.name}
                 byline={data_.byline}
                 videoLinks={data_.videoLinks}

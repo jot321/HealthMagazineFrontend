@@ -44,6 +44,7 @@
     "react-fast-compare": "^2.0.4",
     "react-google-login": "^5.1.2",
     "react-hook-form": "^5.4.0",
+    "react-icons": "^3.9.0",
     "react-image": "^2.2.1",
     "react-intl": "^3.11.0",
     "react-masonry-css": "^1.0.14",

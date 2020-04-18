@@ -127,10 +127,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
                           <VideoPlaylistCard
                             CMS_ID={data_.CMS_ID}
                             title={data_.name}
-                            byline={data_.byline}
                             image={data_.image}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
                           />
                         </Fade>
                       </ProductCardWrapper>

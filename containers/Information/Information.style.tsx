@@ -93,6 +93,7 @@ export const LoaderWrapper = styled.div`
   height: 10vh;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 10px;
 `;
 
 export const LoaderItem = styled.div`
