@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Row, Col } from "react-styled-flexboxgrid";
 import { Block } from "baseui/block";
 import { H4 } from "baseui/typography";
-import Container from "components/Container/Container";
+import { Container } from "components/Container/Container";
 import HookForm from "containers/HookForm/Form";
 
 const ExampleHookForm: NextPage<{}> = () => {
