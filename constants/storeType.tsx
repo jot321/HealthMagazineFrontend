@@ -26,16 +26,16 @@ export default {
     //   identifier: "top-picks"
     // },
     {
-      link: "/popular",
-      icon: <PopularIcon />,
-      label: "Popular",
-      identifier: "popular",
-    },
-    {
       link: "/videos",
       icon: <YoutubeVideoIcon />,
       label: "Videos",
       identifier: "videos",
+    },
+    {
+      link: "/popular",
+      icon: <PopularIcon />,
+      label: "Popular",
+      identifier: "popular",
     },
     {
       link: "/tips",
