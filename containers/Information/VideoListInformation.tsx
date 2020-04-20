@@ -31,7 +31,6 @@ type ProductsProps = {
 export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -107,7 +106,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
 
   return (
     <>
-      <div ref={targetRef}>
+      <div>
         <ProductsRow>
           {/* <ProductsCol key={1}> */}
           <VideoProductCardWrapper>

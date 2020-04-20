@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
 import gql from "graphql-tag";
+import styled from "styled-components";
 import { VideoPlaylistCard } from "components/InformationCard/VideoCard";
 
 import HashLoader from "react-spinners/HashLoader";
@@ -15,12 +15,25 @@ import {
 import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
+import {
+  DIET_TOP_CATEGORY,
+  FITNESS_TOP_CATEGORY,
+  MENTAL_TOP_CATEGORY,
+  WEIGHT_TOP_CATEGORY,
+  GENERAL_TOP_CATEGORY,
+  PAIN_TOP_CATEGORY,
+  CHRONIC_TOP_CATEGORY,
+} from "constants/categories";
 
 import { Waypoint } from "react-waypoint";
 
 const GET_VIDEO_PLAYLISTS = gql`
-  query($offset: Int, $fetchLimit: Int) {
-    getVideoPlaylistNames(offset: $offset, fetchLimit: $fetchLimit) {
+  query($toplevelcategory: String, $offset: Int, $fetchLimit: Int) {
+    getVideoPlaylistNames(
+      toplevelcategory: $toplevelcategory
+      offset: $offset
+      fetchLimit: $fetchLimit
+    ) {
       messages {
         message
         properties
@@ -30,13 +43,34 @@ const GET_VIDEO_PLAYLISTS = gql`
   }
 `;
 
+const TagWrapper = styled.div`
+  margin-top: 10px;
+`;
+
+const Tag = styled.div`
+  border-radius: 7px;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #ea9085;
+  color: #fff;
+
+  margin-bottom: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+`;
+
 type ProductsProps = {
   loadMore?: boolean;
 };
 
 export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
+  const [videoCategory, setVideoCategory] = useState(null);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -44,7 +78,9 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
-  const videoPlaylistsFeed = useQuery(GET_VIDEO_PLAYLISTS);
+  const videoPlaylistsFeed = useQuery(GET_VIDEO_PLAYLISTS, {
+    variables: { toplevelcategory: videoCategory },
+  });
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
@@ -59,8 +95,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
     );
   }
 
-  if (videoPlaylistsFeed.error)
-    return <div>{videoPlaylistsFeed.error.message}</div>;
+  if (videoPlaylistsFeed.error) return <div>{videoPlaylistsFeed.error.message}</div>;
 
   if (
     !videoPlaylistsFeed.data ||
@@ -81,9 +116,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
     toggleLoading(true);
     videoPlaylistsFeed.fetchMore({
       variables: {
-        offset: Number(
-          videoPlaylistsFeed.data.getVideoPlaylistNames.messages.length
-        ),
+        offset: Number(videoPlaylistsFeed.data.getVideoPlaylistNames.messages.length),
         fetchLimit: 5,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
@@ -105,9 +138,23 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
     });
   };
 
+  const onClickCategory = (category) => {
+    setVideoCategory(category);
+  };
+
   return (
     <>
-      <div ref={targetRef}>
+      <div>
+        <TagWrapper>
+          <Tag onClick={() => onClickCategory(DIET_TOP_CATEGORY)}>Diet & Nutrition</Tag>
+          <Tag onClick={() => onClickCategory(FITNESS_TOP_CATEGORY)}>Fitness</Tag>
+          <Tag onClick={() => onClickCategory(PAIN_TOP_CATEGORY)}>Relieve Pain</Tag>
+          <Tag onClick={() => onClickCategory(WEIGHT_TOP_CATEGORY)}>Weight Management</Tag>
+          <Tag onClick={() => onClickCategory(MENTAL_TOP_CATEGORY)}>Mental Wellness</Tag>
+          <Tag onClick={() => onClickCategory(GENERAL_TOP_CATEGORY)}>General Health</Tag>
+          <Tag onClick={() => onClickCategory(CHRONIC_TOP_CATEGORY)}>Diseases</Tag>
+        </TagWrapper>
+
         <ProductsRow>
           {videoPlaylistsFeed.data.getVideoPlaylistNames.messages.map(
             (element: any, index: number) => {
@@ -119,11 +166,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
                   return (
                     <ProductsColDivided key={index}>
                       <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
+                        <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
                           <VideoPlaylistCard
                             CMS_ID={data_.CMS_ID}
                             title={data_.name}

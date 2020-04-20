@@ -18,7 +18,7 @@ function LiveListingsPage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Curated Health Playlists/Videos</title>
+        <title>Curated Health Playlists</title>
         <link rel="canonical" href="https://urbannuskha.in/videos" />
       </Head>
       <Modal>
@@ -29,11 +29,7 @@ function LiveListingsPage({ deviceType }) {
             <MainContentArea>
               <ContentSection>
                 <div ref={targetRef}>
-                  {showVideosFromPlaylist ? (
-                    <VideoListInformation />
-                  ) : (
-                    <MediaInformation />
-                  )}
+                  {showVideosFromPlaylist ? <VideoListInformation /> : <MediaInformation />}
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -42,11 +38,7 @@ function LiveListingsPage({ deviceType }) {
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
-                {showVideosFromPlaylist ? (
-                  <VideoListInformation />
-                ) : (
-                  <MediaInformation />
-                )}
+                {showVideosFromPlaylist ? <VideoListInformation /> : <MediaInformation />}
               </div>
             </ContentSection>
           </MainContentArea>

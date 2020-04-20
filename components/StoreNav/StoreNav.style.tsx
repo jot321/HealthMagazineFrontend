@@ -32,7 +32,7 @@ export const StoreNavLinks = styled.div`
       align-items: center;
       font-size: 14px;
       font-weight: 500;
-      color: #77798C;
+      color: #666;
       padding: 5px 9px;
       border-radius: 6px;
       line-height: 1.2;

@@ -33,7 +33,7 @@ import {
 import Carousel from "components/Carousel/Carousel";
 import { Block } from "baseui/block";
 
-import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/Fa";
+import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/fa";
 
 const GET_BOOKMARKED_POSTS = gql`
   query($userId: ID!) {
