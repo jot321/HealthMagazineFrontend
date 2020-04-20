@@ -65,12 +65,16 @@ const Tag = styled.div`
 `;
 
 type ProductsProps = {
+  urlVideoCategory?: string;
   loadMore?: boolean;
 };
 
-export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
+export const Information: React.FC<ProductsProps> = ({
+  urlVideoCategory = "",
+  loadMore = true,
+}) => {
   const [loadingMore, toggleLoading] = useState(false);
-  const [videoCategory, setVideoCategory] = useState(null);
+  const [videoCategory, setVideoCategory] = useState(urlVideoCategory);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
