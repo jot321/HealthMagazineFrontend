@@ -12,10 +12,6 @@ export const ContainerArea = styled("div", {
   "@media screen and (max-width: 1200px)": {
     maxWidth: "970px",
   },
-
-  // '@media screen and (max-width: 991px)': {
-  //   maxWidth: '750px',
-  // },
 });
 
 export const CoachPageMobileOnlyContainer = styled("div", {

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import Router from 'next/router';
-import { closeModal } from '@redq/reuse-modal';
-import { Scrollbars } from 'react-custom-scrollbars';
-import Button from 'components/Button/Button';
-import InputIncDec from 'components/InputIncDec/InputIncDec';
+import React, { useContext } from "react";
+import Router from "next/router";
+import { closeModal } from "@redq/reuse-modal";
+import { Scrollbars } from "react-custom-scrollbars";
+import Button from "components/Button/Button";
+import InputIncDec from "components/InputIncDec/InputIncDec";
 import {
   QuickViewWrapper,
   ProductDetailsWrapper,
@@ -23,14 +23,14 @@ import {
   MetaSingle,
   MetaItem,
   ModalClose,
-} from './QuickView.style';
-import { CURRENCY } from 'helper/constant';
-import { CloseIcon, CartIcon } from 'components/AllSvgIcon';
-import { CartContext } from 'contexts/cart/cart.context';
-import { findProductIndex, getProductQuantity } from 'helper/utility';
-import ReadMore from 'components/Truncate/Truncate';
-import CarouselWithCustomDots from 'components/MultiCarousel/MultiCarousel';
-import LanguageContext from 'contexts/language/language.context';
+} from "./QuickView.style";
+import { CURRENCY } from "helper/constant";
+import { CloseIcon, CartIcon } from "components/AllSvgIcon";
+import { CartContext } from "contexts/cart/cart.context";
+import { findProductIndex, getProductQuantity } from "helper/utility";
+import ReadMore from "components/Truncate/Truncate";
+// import CarouselWithCustomDots from "components/MultiCarousel/MultiCarousel";
+import LanguageContext from "contexts/language/language.context";
 
 type QuickViewProps = {
   modalProps: any;
@@ -90,12 +90,12 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
         <CloseIcon />
       </ModalClose>
       <QuickViewWrapper>
-        <ProductDetailsWrapper className='product-card' dir='ltr'>
-          {lang === 'ar' || lang === 'he' ? (
-            ''
+        <ProductDetailsWrapper className="product-card" dir="ltr">
+          {lang === "ar" || lang === "he" ? (
+            ""
           ) : (
             <ProductPreview>
-              <CarouselWithCustomDots items={gallery} deviceType={deviceType} />
+              {/* <CarouselWithCustomDots items={gallery} deviceType={deviceType} /> */}
               {!!discountInPercent && (
                 <>
                   <DiscountPercent>{discountInPercent}%</DiscountPercent>
@@ -104,9 +104,9 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
             </ProductPreview>
           )}
           <ProductInfoWrapper
-            dir={lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr'}
+            dir={lang === "ar" || lang === "he" ? "rtl" : "ltr"}
           >
-            <Scrollbars universal autoHide autoHeight autoHeightMax='90vh'>
+            <Scrollbars universal autoHide autoHeight autoHeightMax="90vh">
               <ProductInfo>
                 <ProductTitle>{title}</ProductTitle>
                 <ProductWeight>{unit}</ProductWeight>
@@ -122,7 +122,7 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
                         {price}
                       </SalePrice>
                     ) : (
-                      ''
+                      ""
                     )}
 
                     <ProductPrice>
@@ -133,15 +133,15 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
                   <ProductCartBtn>
                     {quantity <= 0 ? (
                       <Button
-                        title='Cart'
-                        intlButtonId='addCartButton'
-                        iconPosition='left'
-                        colors='primary'
-                        size='small'
-                        variant='outlined'
-                        className='cart-button'
+                        title="Cart"
+                        intlButtonId="addCartButton"
+                        iconPosition="left"
+                        colors="primary"
+                        size="small"
+                        variant="outlined"
+                        className="cart-button"
                         icon={<CartIcon />}
-                        onClick={e => handleClick(e)}
+                        onClick={(e) => handleClick(e)}
                       />
                     ) : (
                       <InputIncDec
@@ -165,16 +165,16 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
                             {item.title}
                           </MetaItem>
                         ))
-                      : ''}
+                      : ""}
                   </MetaSingle>
                 </ProductMeta>
               </ProductInfo>
             </Scrollbars>
           </ProductInfoWrapper>
 
-          {lang === 'ar' || lang === 'he' ? (
+          {lang === "ar" || lang === "he" ? (
             <ProductPreview>
-              <CarouselWithCustomDots items={gallery} deviceType={deviceType} />
+              {/* <CarouselWithCustomDots items={gallery} deviceType={deviceType} /> */}
               {!!discountInPercent && (
                 <>
                   <DiscountPercent>{discountInPercent}%</DiscountPercent>
@@ -182,7 +182,7 @@ const QuickView: React.FunctionComponent<QuickViewProps> = ({
               )}
             </ProductPreview>
           ) : (
-            ''
+            ""
           )}
         </ProductDetailsWrapper>
       </QuickViewWrapper>

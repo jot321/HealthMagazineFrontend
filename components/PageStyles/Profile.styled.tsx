@@ -71,6 +71,7 @@ export const UserName = styled("h3", ({ $theme }) => ({
 export const UserRole = styled("p", ({ $theme }) => ({
   ...$theme.typography.font200,
   color: $theme.colors.contentSecondary,
+  textTransform: "capitalize",
 }));
 
 export const Menu = styled("ul", ({ $theme }) => ({

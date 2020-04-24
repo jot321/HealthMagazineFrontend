@@ -3,10 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import { DrawerProvider } from "contexts/drawer/drawer.provider";
-import Popover from "components/Popover/Popover";
 import MobileDrawer from "./MobileDrawer";
 import {
-  MobileHeaderWrapper,
   MobileHeaderInnerWrapper,
   DrawerWrapper,
   LogoWrapper,
@@ -22,12 +20,11 @@ import {
 import { FormattedMessage } from "react-intl";
 import SearchBox from "components/SearchBox/SearchBox";
 import { SearchContext } from "contexts/search/search.context";
-import Logoimage from "image/logo.svg";
+const NewLogoImage = require("image/logo/logo_no_bkg.svg");
 
-const NewLogo = require("image/New_Logo_2.png");
-
-import { HOME_PAGE, CHRONIC_PAGE, SKIN_HAIR_PAGE } from "constants/navigation";
+import { HOME_PAGE } from "constants/navigation";
 import LanguageContext from "contexts/language/language.context";
+import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/fa";
 
 import {
   SearchIcon,
@@ -159,14 +156,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
     );
   };
 
-  const isHomePage =
-    pathname === HOME_PAGE ||
-    pathname === CHRONIC_PAGE ||
-    pathname === SKIN_HAIR_PAGE;
-
   return (
     <DrawerProvider>
-      {/* <MobileHeaderWrapper> */}
       <MobileHeaderInnerWrapper className={className}>
         <DrawerWrapper>
           <MobileDrawer />
@@ -176,8 +167,13 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
             <Link href={HOME_PAGE}>
               <a>
                 <img
-                  style={{ width: "40px", height: "40px" }}
-                  src={NewLogo}
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                    padding: "10px",
+                    marginTop: "2px",
+                  }}
+                  src={NewLogoImage}
                   alt="urbannuskha"
                 />
               </a>
@@ -199,18 +195,19 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
             />
           </LangSwithcer> */}
 
-        {/* {isHomePage ? (
-            <div></div>
-          ) : ( */}
+        {/* <DrawerWrapper>
+          <FaInstagram size={24} />
+        </DrawerWrapper>
+        <DrawerWrapper>
+          <FaFacebook size={24} />
+        </DrawerWrapper> */}
         <SearchWrapper
           onClick={handleSearchModal}
           className="searchIconWrapper"
         >
           <SearchIcon />
         </SearchWrapper>
-        {/* )} */}
       </MobileHeaderInnerWrapper>
-      {/* </MobileHeaderWrapper> */}
     </DrawerProvider>
   );
 };

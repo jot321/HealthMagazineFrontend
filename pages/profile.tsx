@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Head from "next/head";
-import { Avatar } from "baseui/avatar";
-import { Modal, ModalHeader, ModalBody } from "baseui/modal";
-import { Button } from "baseui/button";
 import { Container } from "components/Container/Container";
 import {
   ProductsRow,
   ProductsCol,
-  LoaderWrapper,
-  LoaderItem,
   ProductCardWrapper,
 } from "containers/Information/Information.style";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
 import { VideoPlayerCard } from "components/InformationCard/VideoCard";
 import Fade from "react-reveal/Fade";
-// import Posts from "../containers/Posts/Posts";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { withApollo } from "helper/apollo";
@@ -29,12 +23,7 @@ import {
   Menu,
   MenuList,
   Strong,
-  AlignItems,
-  List,
-  ListItem,
 } from "components/PageStyles/Profile.styled";
-
-import { Block } from "baseui/block";
 
 const InformationType = {
   LISTICLE: 1,
@@ -80,7 +69,6 @@ const Profile: NextPage<{}> = () => {
   });
 
   const [active, setActive] = useState("posts");
-  const [visible, setVisible] = useState(false);
 
   const name = userDetails.name;
   const role = userDetails.role;
@@ -106,25 +94,15 @@ const Profile: NextPage<{}> = () => {
 
       <PageTitle>
         <Container>
-          <Block
-            overrides={{
-              Block: {
-                style: {
-                  "@media only screen and (max-width: 667px)": {
-                    textAlign: "center",
-                  },
-                },
-              },
-            }}
-          >
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <UserAvatar src={avatar} alt={name} />
-          </Block>
+          </div>
 
           <InfoBar>
-            <Block>
+            <div>
               <UserName>{name}</UserName>
               <UserRole>{role}</UserRole>
-            </Block>
+            </div>
 
             <Menu className="profile-menu">
               <MenuList
@@ -135,24 +113,6 @@ const Profile: NextPage<{}> = () => {
               >
                 Saved Posts <Strong>{bookmarkedPosts.length}</Strong>
               </MenuList>
-              {/* <MenuList
-                className={active === "followers" ? "active" : ""}
-                onClick={() => {
-                  setActive("followers");
-                  setVisible(true);
-                }}
-              >
-                Followers <Strong>{followers.length}</Strong>
-              </MenuList>
-              <MenuList
-                className={active === "following" ? "active" : ""}
-                onClick={() => {
-                  setActive("following");
-                  setVisible(true);
-                }}
-              >
-                Following <Strong>{following.length}</Strong>
-              </MenuList> */}
             </Menu>
           </InfoBar>
         </Container>
@@ -266,99 +226,6 @@ const Profile: NextPage<{}> = () => {
             })}
           </ProductsRow>
         </div>
-        {/* <Posts data={posts} avatar={avatar} username={name} /> */}
-
-        {/* <Modal
-          onClose={() => {
-            setVisible(false);
-            setActive("posts");
-          }}
-          closeable
-          isOpen={visible}
-          animate
-          size="default"
-          role="dialog"
-          unstable_ModalBackdropScroll={true}
-          overrides={{
-            Root: {
-              style: () => {
-                return { zIndex: 9999 };
-              },
-            },
-          }}
-        >
-          {active === "followers" && (
-            <>
-              <ModalHeader>Followers</ModalHeader>
-              <ModalBody style={{ overflow: "hidden" }}>
-                {followers.length > 0 ? (
-                  <List className="followers-list">
-                    {followers.map((follower: any) => (
-                      <ListItem key={`follower-key${follower.id}`}>
-                        <AlignItems>
-                          <Avatar
-                            name={follower.name}
-                            size="scale1400"
-                            src={follower.avatar}
-                          />
-                          <span style={{ margin: "0 10px" }}>
-                            {follower.name}
-                          </span>
-                        </AlignItems>
-                        <Button
-                          size="compact"
-                          kind="secondary"
-                          shape="pill"
-                          onClick={() => console.log("Follow", follower.id)}
-                        >
-                          Follow
-                        </Button>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  "0 Followers"
-                )}
-              </ModalBody>
-            </>
-          )}
-
-          {active === "following" && (
-            <>
-              <ModalHeader>Following</ModalHeader>
-              <ModalBody style={{ overflow: "hidden" }}>
-                {following.length > 0 ? (
-                  <List className="followers-list">
-                    {following.map((follower: any) => (
-                      <ListItem key={`following-key${follower.id}`}>
-                        <AlignItems>
-                          <Avatar
-                            name={follower.name}
-                            size="scale1400"
-                            src={follower.avatar}
-                          />
-                          <span style={{ margin: "0 10px" }}>
-                            {follower.name}
-                          </span>
-                        </AlignItems>
-                        <Button
-                          size="compact"
-                          kind="secondary"
-                          shape="pill"
-                          onClick={() => console.log("Unfollow", follower.id)}
-                        >
-                          Unfollow
-                        </Button>
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                  "0 Following"
-                )}
-              </ModalBody>
-            </>
-          )}
-        </Modal> */}
       </Container>
     </>
   );

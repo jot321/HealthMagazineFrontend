@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
-import { Avatar } from "baseui/avatar";
-import { Modal, ModalHeader, ModalBody } from "baseui/modal";
-import { Button } from "baseui/button";
 import { Container, MobileOnlyContainer } from "components/Container/Container";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -14,12 +11,6 @@ import {
   CoachAvatar,
   UserName,
   UserRole,
-  Menu,
-  MenuList,
-  Strong,
-  AlignItems,
-  List,
-  ListItem,
 } from "components/PageStyles/Profile.styled";
 
 import {
@@ -28,60 +19,72 @@ import {
   CoachCategoryTitle,
   CoachEvent,
   CoachSocialIcon,
+  CoachCover,
 } from "components/InformationCard/CoachCard";
 
-import Carousel from "components/Carousel/Carousel";
+import {
+  LoaderWrapper,
+  LoaderItem,
+} from "containers/Information/Information.style";
 import { Block } from "baseui/block";
 
+import Carousel from "nuka-carousel";
+import HashLoader from "react-spinners/HashLoader";
+import NoResultFound from "components/NoResult/NoResult";
 import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/fa";
+import { useRouter } from "next/router";
 
-const GET_BOOKMARKED_POSTS = gql`
-  query($userId: ID!) {
-    getBookmarkedPostsForAUser(userId: $userId) {
-      message
-      properties
+const GET_COACH_PROFILE = gql`
+  query($slug: String) {
+    getProfessionals(slug: $slug) {
+      messages
+      hasMore
     }
   }
 `;
 
-const PHOTOS = [
-  {
-    id: "1",
-    imgSrc:
-      "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/8c0908c3dc1242ca9644165262dcc039.jpg",
-    alt: "Offer 1",
-  },
-  {
-    id: "1",
-    imgSrc:
-      "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/b7a50adbf35d40978370edac92a4fff0.jpg",
-    alt: "Offer 1",
-  },
-  {
-    id: "3",
-    imgSrc:
-      "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/8782286e631c433f9173883319441aa8.jpg",
-    alt: "Offer 3",
-  },
-];
-
 const Profile: NextPage<{}> = () => {
-  const targetRef = React.useRef(null);
-  //   const { data, loading, error, fetchMore } = useQuery(GET_BOOKMARKED_POSTS, {
-  //     variables: {
-  //       userId: localStorage.getItem("user_id"),
-  //     },
-  //     notifyOnNetworkStatusChange: true,
-  //     fetchPolicy: "network-only",
-  //   });
+  const router = useRouter();
+  const { data, loading, error, fetchMore } = useQuery(GET_COACH_PROFILE, {
+    variables: {
+      slug: router.query.slug,
+    },
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: "network-only",
+  });
 
-  const [active, setActive] = useState("posts");
-  const [visible, setVisible] = useState(false);
+  if (loading) {
+    return (
+      <LoaderWrapper>
+        <LoaderItem>
+          <HashLoader size={50} color={"#ea9085"} />
+        </LoaderItem>
+      </LoaderWrapper>
+    );
+  }
 
-  const name = "Rajesh Jain";
-  const role = "Yoga Expert";
-  const avatar =
-    "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/f301c1e27d51488eb54404b051e5e5e6.jpg";
+  if (error) return <div>{error.message}</div>;
+
+  if (
+    !data ||
+    !data.getProfessionals ||
+    data.getProfessionals.messages.length === 2
+  ) {
+    return <NoResultFound />;
+  }
+
+  const coachProfileData = JSON.parse(data.getProfessionals.messages)[0];
+
+  const name = coachProfileData.firstName + " " + coachProfileData.lastName;
+  const role =
+    coachProfileData.length == 0 ? "" : coachProfileData.categories[0];
+  const avatar = coachProfileData.profilePhoto;
+  const description = coachProfileData.description;
+  const carouselPhotos = coachProfileData.carouselPhotos;
+  const facebookLink = coachProfileData.facebookLink;
+  const instagramLink = coachProfileData.instagramLink;
+  const classes = coachProfileData.classes;
+  const events = coachProfileData.events;
 
   return (
     <>
@@ -137,27 +140,50 @@ const Profile: NextPage<{}> = () => {
           </PageTitle>
 
           <Container>
-            <CoachDescription text="Thousands of people in New York City have died from the new coronavirus at home, but weren’t initially included in the official tally because they didn’t get tested or died before results came back. Here are a few of their stories."></CoachDescription>
+            <CoachDescription text={description}></CoachDescription>
 
             <Carousel
-              deviceType={{ mobile: true, desktop: false, tablet: false }}
-              data={PHOTOS}
-            />
+              autoplay={true}
+              heightMode={"current"}
+              defaultControlsConfig={{
+                nextButtonText: ">",
+                prevButtonText: "<",
+                pagingDotsStyle: {
+                  fill: "#ea9085",
+                },
+              }}
+            >
+              {carouselPhotos.map((photo) => {
+                return <img src={photo} />;
+              })}
+            </Carousel>
             <br></br>
 
-            <CoachCategoryTitle title="CLASSES" />
-            <CoachCourse
-              title="Oorja Pranayama"
-              text="China might be secretly conducting nuclear tests with very low explosive power despite Beijing’s assertions that it is strictly adhering to an international accord banning all nuclear tests, according to a new arms-control report to be made public by the State Department."
-              timing="Mon, Wed - 8PM"
-            ></CoachCourse>
-            <CoachCourse
-              title="Introduction to Breathing techniques"
-              text="China might be secretly conducting nuclear tests with very low explosive power despite Beijing’s assertions that it is strictly adhering to an international accord banning all nuclear tests"
-            ></CoachCourse>
+            {classes.length > 0 && <CoachCategoryTitle title="CLASSES" />}
+            {classes.map((class_, index) => {
+              return (
+                <CoachCourse
+                  key={index}
+                  title={class_.title}
+                  text={class_.description}
+                  timing={class_.timings}
+                ></CoachCourse>
+              );
+            })}
 
-            <CoachCategoryTitle title="UPCMOMING EVENTS" />
-            <CoachEvent title="Introduction to Pranayama"></CoachEvent>
+            {events.length > 0 && (
+              <CoachCategoryTitle title="UPCMOMING EVENTS" />
+            )}
+            {events.map((event, index) => {
+              return (
+                <CoachEvent
+                  key={index}
+                  title={event.title}
+                  imageUrl={event.eventPhoto}
+                  bookLink={event.detailsLink}
+                ></CoachEvent>
+              );
+            })}
           </Container>
         </MobileOnlyContainer>
       </div>

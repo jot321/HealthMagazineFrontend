@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
-import Link from 'next/link';
-import Router from 'next/router';
-import Button from 'components/Button/Button';
-import InputIncDec from 'components/InputIncDec/InputIncDec';
+import React, { useContext, useEffect } from "react";
+import Link from "next/link";
+import Router from "next/router";
+import Button from "components/Button/Button";
+import InputIncDec from "components/InputIncDec/InputIncDec";
 import {
   ProductDetailsWrapper,
   ProductPreview,
@@ -20,17 +20,17 @@ import {
   MetaSingle,
   MetaItem,
   RelatedItems,
-} from './ProductDetails.style';
-import { LongArrowLeft, CartIcon } from 'components/AllSvgIcon';
-import ReadMore from 'components/Truncate/Truncate';
-import CarouselWithCustomDots from 'components/MultiCarousel/MultiCarousel';
-import Products from 'containers/Products/Products';
-import { CartContext } from 'contexts/cart/cart.context';
-import { CURRENCY } from 'helper/constant';
-import { findProductIndex, getProductQuantity } from 'helper/utility';
-import { Product } from 'interfaces';
-import { FormattedMessage } from 'react-intl';
-import LanguageContext from 'contexts/language/language.context';
+} from "./ProductDetails.style";
+import { LongArrowLeft, CartIcon } from "components/AllSvgIcon";
+import ReadMore from "components/Truncate/Truncate";
+// import CarouselWithCustomDots from "components/MultiCarousel/MultiCarousel";
+import Products from "containers/Products/Products";
+import { CartContext } from "contexts/cart/cart.context";
+import { CURRENCY } from "helper/constant";
+import { findProductIndex, getProductQuantity } from "helper/utility";
+import { Product } from "interfaces";
+import { FormattedMessage } from "react-intl";
+import LanguageContext from "contexts/language/language.context";
 
 type ProdutDetailsProps = {
   product: Product | any;
@@ -53,7 +53,7 @@ const ProductDetails: React.FunctionComponent<ProdutDetailsProps> = ({
   const index = findProductIndex(products, data.id);
   const quantity = getProductQuantity(products, index);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.stopPropagation();
     add(e, data);
   };
@@ -74,35 +74,35 @@ const ProductDetails: React.FunctionComponent<ProdutDetailsProps> = ({
 
   return (
     <>
-      <ProductDetailsWrapper className='product-card' dir='ltr'>
-        {lang === 'ar' || lang === 'he' ? (
-          ''
+      <ProductDetailsWrapper className="product-card" dir="ltr">
+        {lang === "ar" || lang === "he" ? (
+          ""
         ) : (
           <ProductPreview>
             <BackButton>
               <Button
-                title='Back'
-                intlButtonId='backBtn'
-                iconPosition='left'
-                size='small'
+                title="Back"
+                intlButtonId="backBtn"
+                iconPosition="left"
+                size="small"
                 style={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #f1f1f1',
-                  color: '#77798c',
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #f1f1f1",
+                  color: "#77798c",
                 }}
                 icon={<LongArrowLeft />}
                 onClick={Router.back}
               />
             </BackButton>
 
-            <CarouselWithCustomDots
+            {/* <CarouselWithCustomDots
               items={product.gallery}
               deviceType={deviceType}
-            />
+            /> */}
           </ProductPreview>
         )}
 
-        <ProductInfo dir={lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr'}>
+        <ProductInfo dir={lang === "ar" || lang === "he" ? "rtl" : "ltr"}>
           <ProductTitle>{product.title}</ProductTitle>
           <ProductWeight>{product.unit}</ProductWeight>
           <ProductDescription>
@@ -117,7 +117,7 @@ const ProductDetails: React.FunctionComponent<ProdutDetailsProps> = ({
                   {product.price}
                 </SalePrice>
               ) : (
-                ''
+                ""
               )}
 
               <ProductPrice>
@@ -129,13 +129,13 @@ const ProductDetails: React.FunctionComponent<ProdutDetailsProps> = ({
             <ProductCartBtn>
               {quantity <= 0 ? (
                 <Button
-                  title='Add to Cart'
-                  intlButtonId='addToCartButton'
-                  iconPosition='left'
-                  size='small'
-                  className='cart-button'
+                  title="Add to Cart"
+                  intlButtonId="addToCartButton"
+                  iconPosition="left"
+                  size="small"
+                  className="cart-button"
                   icon={<CartIcon />}
-                  onClick={e => handleClick(e)}
+                  onClick={(e) => handleClick(e)}
                 />
               ) : (
                 <InputIncDec
@@ -164,44 +164,44 @@ const ProductDetails: React.FunctionComponent<ProdutDetailsProps> = ({
                       }
                     </Link>
                   ))
-                : ''}
+                : ""}
             </MetaSingle>
           </ProductMeta>
         </ProductInfo>
 
-        {lang === 'ar' || lang === 'he' ? (
+        {lang === "ar" || lang === "he" ? (
           <ProductPreview>
             <BackButton>
               <Button
-                title='Back'
-                intlButtonId='backBtn'
-                iconPosition='left'
-                size='small'
+                title="Back"
+                intlButtonId="backBtn"
+                iconPosition="left"
+                size="small"
                 style={{
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #f1f1f1',
-                  color: '#77798c',
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #f1f1f1",
+                  color: "#77798c",
                 }}
                 icon={<LongArrowLeft />}
                 onClick={Router.back}
               />
             </BackButton>
 
-            <CarouselWithCustomDots
+            {/* <CarouselWithCustomDots
               items={product.gallery}
               deviceType={deviceType}
-            />
+            /> */}
           </ProductPreview>
         ) : (
-          ''
+          ""
         )}
       </ProductDetailsWrapper>
 
       <RelatedItems>
         <h2>
           <FormattedMessage
-            id='intlReletedItems'
-            defaultMessage='Related Items'
+            id="intlReletedItems"
+            defaultMessage="Related Items"
           />
         </h2>
         <Products

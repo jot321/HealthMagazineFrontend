@@ -398,7 +398,7 @@ export const SocialPanel = ({
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Shares Section
 
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState("");
   const [shareClicked, setShareClicked] = useState(false);
   const [shares_, setShares] = useState(sharesFromParent);
   const [incrementShares] = useMutation(INCREMENT_SHARES);
@@ -518,7 +518,7 @@ export const SocialPanel = ({
 
   return (
     <Container>
-      <div class="card__action">
+      <div className="card__action">
         {/* <div class="card__author">
                 <div class="card__author-content">
                 <div class="card__author-content_image"></div>
@@ -530,9 +530,9 @@ export const SocialPanel = ({
                 </div>
               </div> */}
 
-        <div class="card__metrics">
+        <div className="card__metrics">
           <ShareButton className="heart-icon" onClick={onShareButtonClick}>
-            {<div class="share-number">{shares_}</div>}
+            {<div className="share-number">{shares_}</div>}
           </ShareButton>
 
           {loveClicked ? (
@@ -540,11 +540,11 @@ export const SocialPanel = ({
               className="heart-icon"
               onClick={onLoveButtonClick}
             >
-              {<div class="love-number">{love_}</div>}
+              {<div className="love-number">{love_}</div>}
             </LoveButtonActivated>
           ) : (
             <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
-              {<div class="love-number">{love_}</div>}
+              {<div className="love-number">{love_}</div>}
             </LoveButton>
           )}
 
@@ -553,14 +553,14 @@ export const SocialPanel = ({
               className="heart-icon"
               onClick={onBookmarkButtonActivatedClick}
             >
-              {<div class="love-number">{bookmark_}</div>}
+              {<div className="love-number">{bookmark_}</div>}
             </BookmarkButtonActivated>
           ) : (
             <BookmarkButton
               className="heart-icon"
               onClick={onBookmarkButtonClick}
             >
-              {<div class="love-number">{bookmark_}</div>}
+              {<div className="love-number">{bookmark_}</div>}
             </BookmarkButton>
           )}
         </div>

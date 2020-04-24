@@ -3,24 +3,18 @@ import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 import Categories from "components/Categories/Categories";
-import Carousel from "components/Carousel/Carousel";
 import Banner from "containers/Banner/Banner";
-import Information from "containers/Information/Information";
 import RandomizedFeed from "containers/Information/RandomizedFeed";
 import {
   MainContentArea,
   SidebarSection,
   ContentSection,
-  OfferSection,
-  MobileCarouselDropdown,
 } from "styled/pages.style";
 // Static Data Import Here
-import OFFERS from "data/offers";
 import BannerImg from "image/wellness_banner.png";
 import NavBarItems from "constants/storeType";
-import LocationModal from "containers/LocationModal/LocationModal";
 import { getCookie } from "components/helpers/session";
-import { openModal, Modal } from "@redq/reuse-modal";
+import { Modal } from "@redq/reuse-modal";
 
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
@@ -57,7 +51,7 @@ function HomePage({ deviceType }) {
         </title>
         <meta
           name="description"
-          content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting | Diabetes | Blood Pressure | Thyroid | PCOD. Join a growing wellness communities in India and more information on your lifestyle needs."
+          content="Expert Health Articles, Tips and Videos. Join growing communities in India and get healthcare discussion, resources and advice. Join discussions on Fitness, Diet & Nutrition, Chronic Conditions, Parenting, Mental Wellness and more."
         />
         <link rel="canonical" href="https://urbannuskha.in" />
       </Head>
@@ -72,38 +66,21 @@ function HomePage({ deviceType }) {
 
         {deviceType.desktop ? (
           <>
-            {/* <MobileCarouselDropdown> */}
-            {/* <StoreNav items={NavBarItems.HomePage} /> */}
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            {/* </MobileCarouselDropdown> */}
-            {/* <OfferSection>
-              <div style={{ margin: '0 -10px' }}>
-                <Carousel deviceType={deviceType} data={OFFERS} />
-              </div>
-            </OfferSection> */}
             <MainContentArea>
               {/* <SidebarSection>
                 <Sidebar type={PAGE_TYPE} deviceType={deviceType} />
               </SidebarSection> */}
               <ContentSection>
                 <div ref={targetRef}>
-                  {/* <Masonry breakpointCols={3} className="my-masonry-grid" columnClassName="my-masonry-grid_column"> */}
-                  {/* array of JSX items */}
                   <RandomizedFeed deviceType={deviceType} />
-                  {/* </Masonry> */}
                 </div>
               </ContentSection>
             </MainContentArea>
           </>
         ) : (
           <MainContentArea>
-            {/* <StoreNav items={NavBarItems.HomePage} /> */}
             {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
-            {/* <OfferSection>
-              <div style={{ margin: '0 -10px' }}>
-                <Carousel deviceType={deviceType} data={OFFERS} />
-              </div>
-            </OfferSection> */}
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
                 <RandomizedFeed deviceType={deviceType} />

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import gql from "graphql-tag";
 import styled from "styled-components";
+
 import { VideoPlaylistCard } from "components/InformationCard/VideoCard";
 
 import HashLoader from "react-spinners/HashLoader";
@@ -23,6 +25,8 @@ import {
   GENERAL_TOP_CATEGORY,
   PAIN_TOP_CATEGORY,
   CHRONIC_TOP_CATEGORY,
+  SKIN_HAIR_TOP_CATEGORY,
+  SEXUAL_TOP_CATEGORY,
 } from "constants/categories";
 
 import { Waypoint } from "react-waypoint";
@@ -48,6 +52,12 @@ const TagWrapper = styled.div`
 `;
 
 const Tag = styled.div`
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  text-decoration: none;
   border-radius: 7px;
   display: inline-block;
   margin-right: 10px;
@@ -62,6 +72,7 @@ const Tag = styled.div`
   padding-right: 0.5rem;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
+  margin-left: 3px;
 `;
 
 type ProductsProps = {
@@ -99,7 +110,8 @@ export const Information: React.FC<ProductsProps> = ({
     );
   }
 
-  if (videoPlaylistsFeed.error) return <div>{videoPlaylistsFeed.error.message}</div>;
+  if (videoPlaylistsFeed.error)
+    return <div>{videoPlaylistsFeed.error.message}</div>;
 
   if (
     !videoPlaylistsFeed.data ||
@@ -120,7 +132,9 @@ export const Information: React.FC<ProductsProps> = ({
     toggleLoading(true);
     videoPlaylistsFeed.fetchMore({
       variables: {
-        offset: Number(videoPlaylistsFeed.data.getVideoPlaylistNames.messages.length),
+        offset: Number(
+          videoPlaylistsFeed.data.getVideoPlaylistNames.messages.length
+        ),
         fetchLimit: 5,
       },
       updateQuery: (prev: any, { fetchMoreResult }) => {
@@ -142,21 +156,52 @@ export const Information: React.FC<ProductsProps> = ({
     });
   };
 
-  const onClickCategory = (category) => {
-    setVideoCategory(category);
+  // Top Level Category Links
+  const VideoCategoryLink = (topLevelCategory, title) => {
+    const onClickCategory = (category) => {
+      setVideoCategory(category);
+    };
+
+    return (
+      <Tag
+        onClick={() => {
+          onClickCategory(topLevelCategory);
+        }}
+      >
+        <Link
+          href={"/videos"}
+          as={"/videos/" + topLevelCategory}
+          shallow={true}
+        >
+          <a>{title}</a>
+        </Link>
+      </Tag>
+    );
   };
 
   return (
     <>
       <div>
         <TagWrapper>
-          <Tag onClick={() => onClickCategory(DIET_TOP_CATEGORY)}>Diet & Nutrition</Tag>
-          <Tag onClick={() => onClickCategory(FITNESS_TOP_CATEGORY)}>Fitness</Tag>
-          <Tag onClick={() => onClickCategory(PAIN_TOP_CATEGORY)}>Relieve Pain</Tag>
-          <Tag onClick={() => onClickCategory(WEIGHT_TOP_CATEGORY)}>Weight Management</Tag>
-          <Tag onClick={() => onClickCategory(MENTAL_TOP_CATEGORY)}>Mental Wellness</Tag>
-          <Tag onClick={() => onClickCategory(GENERAL_TOP_CATEGORY)}>General Health</Tag>
-          <Tag onClick={() => onClickCategory(CHRONIC_TOP_CATEGORY)}>Diseases</Tag>
+          {/* {VideoCategoryLink(DIET_TOP_CATEGORY, "Diet & Nutrition")}
+          {VideoCategoryLink(SKIN_HAIR_TOP_CATEGORY, "Skin & Hair Care")}
+          {VideoCategoryLink(FITNESS_TOP_CATEGORY, "Fitness")}
+          {VideoCategoryLink(WEIGHT_TOP_CATEGORY, "Weight Loss")}
+          {VideoCategoryLink(PAIN_TOP_CATEGORY, "Relieve Pain")}
+          {VideoCategoryLink(MENTAL_TOP_CATEGORY, "Mind Wellbeing")}
+          {VideoCategoryLink(GENERAL_TOP_CATEGORY, "General Wellness")}
+          {VideoCategoryLink(CHRONIC_TOP_CATEGORY, "Chronic Condiitions")}
+          {VideoCategoryLink(SEXUAL_TOP_CATEGORY, "Sexual Wellness")} */}
+
+          {VideoCategoryLink(DIET_TOP_CATEGORY, "Nutrition")}
+          {VideoCategoryLink(MENTAL_TOP_CATEGORY, "Mind")}
+          {VideoCategoryLink(FITNESS_TOP_CATEGORY, "Fitness")}
+          {VideoCategoryLink(SKIN_HAIR_TOP_CATEGORY, "Skin & Hair")}
+          {VideoCategoryLink(WEIGHT_TOP_CATEGORY, "Weight Loss")}
+          {VideoCategoryLink(PAIN_TOP_CATEGORY, "Pain")}
+          {VideoCategoryLink(GENERAL_TOP_CATEGORY, "Wellness")}
+          {VideoCategoryLink(CHRONIC_TOP_CATEGORY, "Chronic")}
+          {VideoCategoryLink(SEXUAL_TOP_CATEGORY, "Sexual")}
         </TagWrapper>
 
         <ProductsRow>
@@ -170,7 +215,11 @@ export const Information: React.FC<ProductsProps> = ({
                   return (
                     <ProductsColDivided key={index}>
                       <ProductCardWrapper>
-                        <Fade duration={800} delay={index * 10} style={{ height: "100%" }}>
+                        <Fade
+                          duration={100}
+                          delay={0}
+                          style={{ height: "100%" }}
+                        >
                           <VideoPlaylistCard
                             CMS_ID={data_.CMS_ID}
                             title={data_.name}

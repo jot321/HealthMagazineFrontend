@@ -7,7 +7,7 @@ const StoreNavWrapper = styled.div`
   z-index: 1;
   position: sticky;
   background-color: #fff;
-  height: 55px;
+  height: 42px;
   z-index: 1001;
   top: 48px;
   left: 0px;
@@ -17,13 +17,13 @@ export const StoreNavLinks = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
-  height: 80px;
+  height: 40px;
   overflow-y: hidden;
   overflow-x: auto;
-  padding-top: 15px;
-  padding-bottom: 25px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   .store-nav-link {
     margin-right: 10px;
 

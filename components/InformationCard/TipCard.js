@@ -225,7 +225,7 @@ export const TipCard = ({
       <Container>
         <div className="wrapper">
           <div className="card">
-            <div class="card__content">
+            <div className="card__content">
               <CardArticleArea>
                 <h2>{title}</h2>
                 <h3
@@ -235,11 +235,11 @@ export const TipCard = ({
 
                 {/* ---------------------------------------------------------------- */}
                 {/* CATEGORIES && TAGS */}
-                <div class="card__tags">
+                <div className="card__tags">
                   {categories.length > 0 &&
-                    categories.map((category) => {
+                    categories.map((category, index) => {
                       return (
-                        <div class="card__meta">
+                        <div className="card__meta" key={index}>
                           <a
                             href={
                               "/tipcategory/" +
@@ -254,9 +254,9 @@ export const TipCard = ({
                       );
                     })}
                   {visibleTags.length > 0 &&
-                    visibleTags.map((tag) => {
+                    visibleTags.map((tag, index) => {
                       return (
-                        <div class="card__meta">
+                        <div className="card__meta" key={index}>
                           <a href={"/tipcategory/" + tag + "?tag=" + tag}>
                             {tag}
                           </a>

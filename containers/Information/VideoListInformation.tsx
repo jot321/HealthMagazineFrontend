@@ -103,6 +103,7 @@ export const Information: React.FC<ProductsProps> = ({ loadMore = true }) => {
   //   };
 
   const data_ = JSON.parse(videosList.data.getVideosFromPlaylist);
+  console.log(data_);
 
   return (
     <>

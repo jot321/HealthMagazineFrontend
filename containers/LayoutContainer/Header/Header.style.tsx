@@ -1,8 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
 
-// import { styled } from 'baseui';
-
 const positionAnim = keyframes`
   from {
     position: fixed;
@@ -26,7 +24,7 @@ const hideSearch = keyframes`
 `;
 
 export const SearchWrapper = styled.div`
-  padding: 5px 10px;
+  padding: 5px 5px;
   cursor: pointer;
   color: ${themeGet("colors.darkBold", "#0D1136")};
   svg {

@@ -228,14 +228,6 @@ const Container = styled.div`
   }
 `;
 
-export const CoachSocialIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
-`;
-
 const Button = styled.div`
   height: 40px;
   width: 90px;
@@ -246,6 +238,28 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 25px;
+`;
+
+export const CoachCover = styled.div`
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  // background-image: linear-gradient(
+  //     to bottom,
+  //     rgba(0, 0, 0, 0) 0%,
+  //     rgba(0, 0, 0, 0) 70%,
+  //     #222 100%
+  //   ),
+  //   url(https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/799f604bcdd94b58a68a421e4ff6d0e4.jpg);
+`;
+
+export const CoachSocialIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
 `;
 
 export const CoachDescription = ({ text }) => {
@@ -297,22 +311,25 @@ export const CoachCategoryTitle = ({ title }) => {
   );
 };
 
-export const CoachEvent = ({ title }) => {
+export const CoachEvent = ({ title, imageUrl = null, bookLink = null }) => {
   return (
     <div>
       <Container>
         <div className="wrapper">
           <div className="card">
-            <div class="card__image">
-              <img
-                src={
-                  "https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/95b5f9949623434c92c9964b5bfb4e50.jpg"
-                }
-                alt="image"
-              />
-            </div>
+            {imageUrl && (
+              <div className="card__image">
+                <img src={imageUrl} alt="image" />
+              </div>
+            )}
             <h2>{title}</h2>
-            <Button>BOOK</Button>
+            <Button
+              onClick={() => {
+                window.location = bookLink;
+              }}
+            >
+              BOOK
+            </Button>
           </div>
         </div>
       </Container>

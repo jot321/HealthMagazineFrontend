@@ -26,7 +26,6 @@ import localIl from "data/translation/he.json";
 // External CSS import here
 import "rc-table/assets/index.css";
 import "rc-collapse/assets/index.css";
-import "react-multi-carousel/lib/styles.css";
 import "@redq/reuse-modal/lib/index.css";
 import { GlobalStyle } from "styled/global.style";
 

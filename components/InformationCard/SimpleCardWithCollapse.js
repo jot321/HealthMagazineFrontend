@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
 import {
@@ -272,36 +273,40 @@ export const SimpleCardWithCollapse = ({
       <Container>
         <div className="wrapper">
           <div className="card">
-            <div class="card__image" onClick={onClickExpand}>
+            <div className="card__image" onClick={onClickExpand}>
               <img src={imageUrl} alt="image" />
             </div>
 
-            <div class="card__content">
+            <div className="card__content">
               <CardArticleArea>
                 <h2 onClick={onClickExpand}>{title}</h2>
 
                 {/* ---------------------------------------------------------------- */}
                 {/* CATEGORIES && TAGS */}
-                <div class="card__tags">
+                <div className="card__tags">
                   {categories.length > 0 &&
-                    categories.map((category) => {
+                    categories.map((category, index) => {
                       return (
-                        <div class="card__meta">
-                          <a
-                            href={
-                              "/category/" + category + "?category=" + category
-                            }
+                        <div className="card__meta" key={index}>
+                          <Link
+                            href={"/category/?category=" + category}
+                            as={"/category/" + category}
                           >
-                            {category}
-                          </a>
+                            <a>{category}</a>
+                          </Link>
                         </div>
                       );
                     })}
                   {visibleTags.length > 0 &&
-                    visibleTags.map((tag) => {
+                    visibleTags.map((tag, index) => {
                       return (
-                        <div class="card__meta">
-                          <a href={"/category/" + tag + "?tag=" + tag}>{tag}</a>
+                        <div className="card__meta" key={index}>
+                          <Link
+                            href={"/category/?tag=" + tag}
+                            as={"/category/" + tag}
+                          >
+                            <a>{tag}</a>
+                          </Link>
                         </div>
                       );
                     })}
@@ -321,9 +326,9 @@ export const SimpleCardWithCollapse = ({
 
                 {longTextExpanded && listicles.length > 0 && (
                   <ExpandedListicles>
-                    {listicles.map((listicle) => {
+                    {listicles.map((listicle, index) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <h3>{listicle.listicleItemHeader}</h3>
                           <p>{listicle.listicleItemDescription}</p>
                         </div>
@@ -334,13 +339,13 @@ export const SimpleCardWithCollapse = ({
 
                 {longTextExpanded && (
                   <ActionButton onClick={onClickContract}>
-                    <a class="card__readmore">CLOSE</a>
+                    <a className="card__readmore">CLOSE</a>
                   </ActionButton>
                 )}
 
                 {!longTextExpanded && (
                   <ActionButton onClick={onClickExpand}>
-                    <a class="card__readmore">READ MORE</a>
+                    <a className="card__readmore">READ MORE</a>
                   </ActionButton>
                 )}
               </CardArticleArea>

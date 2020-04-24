@@ -14,8 +14,8 @@ function LiveListingsPage({ deviceType }) {
   const targetRef = React.useRef(null);
 
   const showVideosFromPlaylist = router.query.vpid != undefined;
-
-  const urlVideoCategory = router.query.slug.toString();
+  const urlVideoCategory =
+    router.query.slug == null ? "" : router.query.slug.toString();
 
   return (
     <>

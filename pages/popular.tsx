@@ -13,10 +13,10 @@ function HomePage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Popular health information from exports and community</title>
+        <title>Popular health information from experts and community</title>
         <meta
           name="description"
-          content="Get expert tips and videos | Weight Loss | Skin Care | Hair Loss | Workout | Diet | Parenting | Diabetes | Blood Pressure | Thyroid | PCOD. Join a growing wellness communities in India and more information on your lifestyle needs."
+          content="Expert Health Articles, Tips and Videos. Join growing communities in India and get healthcare discussion, resources and advice. Join discussions on Fitness, Diet & Nutrition, Chronic Conditions, Parenting, Mental Wellness and more."
         />
         <link rel="canonical" href="https://urbannuskha.in/popular" />
       </Head>

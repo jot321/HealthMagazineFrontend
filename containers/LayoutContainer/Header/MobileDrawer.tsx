@@ -112,7 +112,7 @@ const MobileDrawer: React.FunctionComponent = () => {
 
   return (
     <Drawer
-      width="100%"
+      width="80%"
       drawerHandler={
         <HamburgerIcon>
           <span />
@@ -173,14 +173,14 @@ const MobileDrawer: React.FunctionComponent = () => {
 
           {isAuthenticated && (
             <UesrOptionMenu>
-              <DrawerMenuItem>
+              {/* <DrawerMenuItem>
                 <NavLink
                   href="/profile"
                   label="Your Account Settings"
                   className="drawer_menu_item"
                   intlId="navlinkAccountSettings"
                 />
-              </DrawerMenuItem>
+              </DrawerMenuItem> */}
               <DrawerMenuItem>
                 <div onClick={handleLogout} className="drawer_menu_item">
                   <span className="logoutBtn">

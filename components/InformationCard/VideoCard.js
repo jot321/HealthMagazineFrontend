@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
 import {
@@ -7,8 +8,9 @@ import {
   createVideosWhatsappTextMessageWebShare,
 } from "./helpers";
 
-import ReactPlayer from "react-player";
+import { sentenceToSlug } from "helper/slug";
 
+import ReactPlayer from "react-player";
 import { SocialPanel } from "./ParentCard";
 
 const Container = styled.div`
@@ -96,7 +98,7 @@ const Container = styled.div`
     h4 {
       line-height: 1.2;
       font-weight: 500;
-      font-size: 1.1rem;
+      font-size: 1rem;
 
       color: #fff;
       text-transform: capitalize;
@@ -268,35 +270,17 @@ const CardArticleArea = styled.article`
   }
 `;
 
-const PlaylistShareButton = styled.div`
-  height: 40px;
-  width: 200px;
-  background-color: #ea9085;
-  color: #fff;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 25px;
-  padding: 1rem;
-  margin-left: 1rem;
-`;
-
-const onClickSharePlaylist = () => {
-  console.log("Share this playlist");
-};
-
 export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
   return (
     <div>
       <Container>
         <h2>{title}</h2>
         {byline && <h3>{byline}</h3>}
-        {/* <PlaylistShareButton>SHARE PLAYLIST</PlaylistShareButton> */}
         <br></br>
-        {videoLinks.map((videoLink) => {
+        {videoLinks.map((videoLink, index) => {
           return (
             <VideoPlayerCard
+              key={index}
               url={videoLink.videoLink}
               CMS_ID={videoLink.properties.CMS_ID}
               likes={videoLink.properties.likes}
@@ -326,7 +310,7 @@ export const VideoPlayerCard = ({
       <Container>
         <div className="video__wrapper">
           <div className="video__card">
-            <div class="card__image">
+            <div className="card__image">
               <ReactPlayer
                 url={url}
                 width="100%"
@@ -353,23 +337,22 @@ export const VideoPlayerCard = ({
 };
 
 export const VideoPlaylistCard = ({ CMS_ID, title, image }) => {
-  const targetRef = React.useRef(null);
-
-  const viewVideosClick = () => {
-    window.location.href = "?vpid=" + CMS_ID;
-  };
-
   return (
-    <div ref={targetRef}>
+    <div>
       <Container image={image}>
         <div className="wrapper">
-          <div className="card" onClick={viewVideosClick}>
-            <div class="card__content">
-              <CardArticleArea>
-                <h4>{title}</h4>
-              </CardArticleArea>
+          <Link
+            href={"/videos?vpid=" + CMS_ID}
+            as={"/videos/" + sentenceToSlug(title)}
+          >
+            <div className="card">
+              <div className="card__content">
+                <CardArticleArea>
+                  <h4>{title}</h4>
+                </CardArticleArea>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </Container>
     </div>
