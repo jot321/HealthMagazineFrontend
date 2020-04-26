@@ -166,6 +166,8 @@ const Profile: NextPage<{}> = () => {
                   key={index}
                   title={class_.title}
                   text={class_.description}
+                  price={class_.price}
+                  paymentLink={class_.paymentLink}
                   timing={class_.timings}
                 ></CoachCourse>
               );

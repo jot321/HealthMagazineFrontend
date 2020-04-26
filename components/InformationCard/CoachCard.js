@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
-import {
-  createWhatsappTipTextMessage,
-  createWhatsappTipTextMessageWebShare,
-  createWhatsappTipLinkMessageWebAPIShare,
-} from "./helpers";
+import { MdWatchLater } from "react-icons/md";
+import { FaRupeeSign } from "react-icons/fa";
 
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
@@ -47,11 +43,17 @@ const Container = styled.div`
     }
 
     h4 {
-      padding-left: 0.5rem;
       margin-top: 1rem;
       font-weight: 400;
       font-size: 1rem;
-      border-left: 2px solid #ea9085;
+      display: flex;
+    }
+
+    h5 {
+      margin-top: 1rem;
+      font-weight: 400;
+      font-size: 1rem;
+      display: flex;
     }
   }
 
@@ -230,14 +232,19 @@ const Container = styled.div`
 
 const Button = styled.div`
   height: 40px;
-  width: 90px;
+  width: 100px;
   background-color: #ea9085;
   color: #fff;
   font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 25px;
+  float: right;
+`;
+
+const PaymentSection = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const CoachCover = styled.div`
@@ -245,13 +252,6 @@ export const CoachCover = styled.div`
   min-height: 300px;
   display: flex;
   justify-content: center;
-  // background-image: linear-gradient(
-  //     to bottom,
-  //     rgba(0, 0, 0, 0) 0%,
-  //     rgba(0, 0, 0, 0) 70%,
-  //     #222 100%
-  //   ),
-  //   url(https://healthmagazinephotos.s3.ap-south-1.amazonaws.com/799f604bcdd94b58a68a421e4ff6d0e4.jpg);
 `;
 
 export const CoachSocialIcon = styled.div`
@@ -276,7 +276,13 @@ export const CoachDescription = ({ text }) => {
   );
 };
 
-export const CoachCourse = ({ title, text, timing = null }) => {
+export const CoachCourse = ({
+  title,
+  text,
+  price,
+  paymentLink,
+  timing = null,
+}) => {
   return (
     <div>
       <Container>
@@ -286,10 +292,29 @@ export const CoachCourse = ({ title, text, timing = null }) => {
             <h3>{text}</h3>
             {timing && (
               <div>
-                <h4>{timing}</h4>
+                <h4>
+                  <MdWatchLater size={20} />
+                  {" " + timing}
+                </h4>
               </div>
             )}
-            <Button>ENROLL</Button>
+
+            <PaymentSection>
+              <div>
+                <h5>
+                  <FaRupeeSign size={20} />
+                  {price + " to join"}
+                </h5>
+              </div>
+
+              <Button
+                onClick={() => {
+                  window.location = paymentLink;
+                }}
+              >
+                GET TICKET
+              </Button>
+            </PaymentSection>
           </div>
         </div>
       </Container>
