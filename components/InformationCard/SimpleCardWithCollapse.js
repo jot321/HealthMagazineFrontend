@@ -288,10 +288,7 @@ export const SimpleCardWithCollapse = ({
                     categories.map((category, index) => {
                       return (
                         <div className="card__meta" key={index}>
-                          <Link
-                            href={"/category/?category=" + category}
-                            as={"/category/" + category}
-                          >
+                          <Link href={"/category?category=" + category}>
                             <a>{category}</a>
                           </Link>
                         </div>
@@ -301,10 +298,7 @@ export const SimpleCardWithCollapse = ({
                     visibleTags.map((tag, index) => {
                       return (
                         <div className="card__meta" key={index}>
-                          <Link
-                            href={"/category/?tag=" + tag}
-                            as={"/category/" + tag}
-                          >
+                          <Link href={"/category?tag=" + tag}>
                             <a>{tag}</a>
                           </Link>
                         </div>

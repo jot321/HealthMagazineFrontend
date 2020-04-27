@@ -168,13 +168,7 @@ export const Information: React.FC<ProductsProps> = ({
           onClickCategory(topLevelCategory);
         }}
       >
-        <Link
-          href={"/videos"}
-          as={"/videos/" + topLevelCategory}
-          shallow={true}
-        >
-          <a>{title}</a>
-        </Link>
+        {title}
       </Tag>
     );
   };
@@ -183,16 +177,6 @@ export const Information: React.FC<ProductsProps> = ({
     <>
       <div>
         <TagWrapper>
-          {/* {VideoCategoryLink(DIET_TOP_CATEGORY, "Diet & Nutrition")}
-          {VideoCategoryLink(SKIN_HAIR_TOP_CATEGORY, "Skin & Hair Care")}
-          {VideoCategoryLink(FITNESS_TOP_CATEGORY, "Fitness")}
-          {VideoCategoryLink(WEIGHT_TOP_CATEGORY, "Weight Loss")}
-          {VideoCategoryLink(PAIN_TOP_CATEGORY, "Relieve Pain")}
-          {VideoCategoryLink(MENTAL_TOP_CATEGORY, "Mind Wellbeing")}
-          {VideoCategoryLink(GENERAL_TOP_CATEGORY, "General Wellness")}
-          {VideoCategoryLink(CHRONIC_TOP_CATEGORY, "Chronic Condiitions")}
-          {VideoCategoryLink(SEXUAL_TOP_CATEGORY, "Sexual Wellness")} */}
-
           {VideoCategoryLink(DIET_TOP_CATEGORY, "Nutrition")}
           {VideoCategoryLink(MENTAL_TOP_CATEGORY, "Mind")}
           {VideoCategoryLink(FITNESS_TOP_CATEGORY, "Fitness")}

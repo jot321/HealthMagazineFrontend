@@ -156,51 +156,6 @@ export const Information: React.FC<ProductsProps> = ({
   };
 
   // -----------------------------------------------------------
-  // QUICK VIEW MODAL SECTION
-  // -----------------------------------------------------------
-  // const handleModalClose = () => {
-  //   const href = `${router.pathname}`;
-  //   const as = "/";
-  //   router.push(href, as, { shallow: true });
-  //   closeModal();
-  // };
-
-  // const handleQuickViewModal = React.useCallback(
-  //   (modalProps: any, deviceType: any, onModalClose: any) => {
-  //     if (router.pathname === "/product/[slug]") {
-  //       const as = `/product/${modalProps.slug}`;
-  //       router.push(router.pathname, as);
-  //       return;
-  //     }
-  //     openModal({
-  //       show: true,
-  //       overlayClassName: "quick-view-overlay",
-  //       closeOnClickOutside: false,
-  //       component: QuickView,
-  //       componentProps: { modalProps, deviceType, onModalClose },
-  //       closeComponent: "div",
-  //       config: {
-  //         enableResizing: false,
-  //         disableDragging: true,
-  //         className: "quick-view-modal",
-  //         width: 900,
-  //         y: 30,
-  //         height: "auto",
-  //         transition: {
-  //           mass: 1,
-  //           tension: 0,
-  //           friction: 0
-  //         }
-  //       }
-  //     });
-  //     const href = `${router.pathname}?${modalProps.slug}`;
-  //     const as = `/product/${modalProps.slug}`;
-  //     router.push(href, as, { shallow: true });
-  //   },
-  //   []
-  // );
-
-  // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
   const handleLoadMore = () => {

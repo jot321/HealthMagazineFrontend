@@ -341,10 +341,7 @@ export const VideoPlaylistCard = ({ CMS_ID, title, image }) => {
     <div>
       <Container image={image}>
         <div className="wrapper">
-          <Link
-            href={"/videos?vpid=" + CMS_ID}
-            as={"/videos/" + sentenceToSlug(title)}
-          >
+          <Link href={"/videos?vpid=" + CMS_ID}>
             <div className="card">
               <div className="card__content">
                 <CardArticleArea>

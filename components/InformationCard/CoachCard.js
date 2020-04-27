@@ -294,7 +294,7 @@ export const CoachCourse = ({
               <div>
                 <h4>
                   <MdWatchLater size={20} />
-                  {" " + timing}
+                  {"  " + timing}
                 </h4>
               </div>
             )}
