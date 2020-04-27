@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 import {
   createWhatsappTipTextMessage,
@@ -11,9 +12,8 @@ import { convertToRichText } from "helper/textStyleDisplay";
 
 import { SocialPanel } from "./ParentCard";
 
-const cardFont = "'IBM Plex Sans'";
-
 const Container = styled.div`
+  font-family: "'IBM Plex Sans'";
   a {
     text-decoration: none;
   }
@@ -40,7 +40,7 @@ const Container = styled.div`
   }
 
   .card {
-    border-left: 4px solid #ea9085;
+    border-left: 6px solid #ea9085;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
@@ -49,14 +49,6 @@ const Container = styled.div`
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    font-family: ${cardFont};
-
-    h2,
-    p,
-    a,
-    h4 {
-      font-family: ${cardFont};
-    }
   }
 
   .card__image {
@@ -117,74 +109,6 @@ const Container = styled.div`
       }
     }
   }
-
-  .card__action {
-    margin-top: -50px;
-    overflow: hidden;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    padding-bottom: 1.3rem;
-    padding-top: 1rem;
-  }
-
-  .card__author {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    float: left;
-    font-size: 0.8em;
-  }
-
-  .card__metrics {
-    float: right;
-  }
-
-  .card__author img,
-  .card__author-content {
-    display: flex;
-
-    .card__author-content_image {
-      width: 30px;
-      height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/pen.png")
-        no-repeat center;
-      background-size: 100% 100%;
-    }
-
-    a {
-      padding: 8px;
-      color: black;
-    }
-  }
-
-  .card__author img {
-    border-radius: 50%;
-    margin-right: 0.6em;
-  }
-
-  .card__share {
-    float: right;
-    position: relative;
-    padding-left: 1em;
-  }
-
-  .card__factchecked {
-    color: black;
-    display: flex;
-
-    .card__factchecked_image {
-      width: 30px;
-      height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/warranty.png")
-        no-repeat center;
-      background-size: 100% 100%;
-    }
-
-    h4 {
-      padding: 8px;
-      font-weight: 400;
-    }
-  }
 `;
 
 const CardArticleArea = styled.article`
@@ -228,10 +152,6 @@ export const TipCard = ({
             <div className="card__content">
               <CardArticleArea>
                 <h2>{title}</h2>
-                <h3
-                  dangerouslySetInnerHTML={{ __html: convertToRichText(text) }}
-                ></h3>
-                <br></br>
 
                 {/* ---------------------------------------------------------------- */}
                 {/* CATEGORIES && TAGS */}
@@ -240,16 +160,9 @@ export const TipCard = ({
                     categories.map((category, index) => {
                       return (
                         <div className="card__meta" key={index}>
-                          <a
-                            href={
-                              "/tipcategory/" +
-                              category +
-                              "?category=" +
-                              category
-                            }
-                          >
-                            {category}
-                          </a>
+                          <Link href={"/category?category=" + category}>
+                            <a>{category}</a>
+                          </Link>
                         </div>
                       );
                     })}
@@ -257,13 +170,18 @@ export const TipCard = ({
                     visibleTags.map((tag, index) => {
                       return (
                         <div className="card__meta" key={index}>
-                          <a href={"/tipcategory/" + tag + "?tag=" + tag}>
-                            {tag}
-                          </a>
+                          <Link href={"/category?tag=" + tag}>
+                            <a>{tag}</a>
+                          </Link>
                         </div>
                       );
                     })}
                 </div>
+                <h3
+                  dangerouslySetInnerHTML={{
+                    __html: convertToRichText(text),
+                  }}
+                ></h3>
               </CardArticleArea>
             </div>
 

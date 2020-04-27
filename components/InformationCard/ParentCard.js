@@ -12,8 +12,11 @@ const shareIcon = require("../../image/icons/share.png");
 const bookmarkIcon = require("../../image/icons/bookmark.png");
 const bookmarkActivatedIcon = require("../../image/icons/bookmark_activated.png");
 
-const cardFont = "'IBM Plex Sans'";
+// CSS styling for the buttons
+
 const Container = styled.div`
+  font-family: "'IBM Plex Sans'";
+
   a {
     text-decoration: none;
   }
@@ -49,14 +52,6 @@ const Container = styled.div`
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    font-family: ${cardFont};
-
-    h2,
-    p,
-    a,
-    h4 {
-      font-family: ${cardFont};
-    }
   }
 
   .card__image {
@@ -119,11 +114,11 @@ const Container = styled.div`
   }
 
   .card__action {
-    margin-top: -50px;
+    margin-top: -20px;
     overflow: hidden;
     padding-right: 1rem;
     padding-left: 1rem;
-    padding-bottom: 1.3rem;
+    padding-bottom: 1rem;
     padding-top: 1rem;
   }
 
@@ -137,6 +132,14 @@ const Container = styled.div`
 
   .card__metrics {
     float: right;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .item__wrapper {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
   }
 
   .card__author img,
@@ -187,7 +190,8 @@ const Container = styled.div`
   }
 `;
 
-export const LoveButton = styled.div`
+const LoveButton = styled.div`
+  margin: auto;
   float: right;
   position: relative;
   display: inline-block;
@@ -195,21 +199,10 @@ export const LoveButton = styled.div`
   height: 50px;
   background: url(${loveIcon}) no-repeat center;
   background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    // color: #505050;
-    color: #fe4540;
-  }
 `;
 
-export const LoveButtonActivated = styled.div`
+const LoveButtonActivated = styled.div`
+  margin: auto;
   float: right;
   position: relative;
   display: inline-block;
@@ -217,20 +210,24 @@ export const LoveButtonActivated = styled.div`
   height: 50px;
   background: url(${loveIcon}) no-repeat center;
   background-size: 70% 70%;
+`;
 
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #fe4540;
+const LoveButtonNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #fe4540;
+
+  .number {
+    font-weight: 700;
+    white-space: break-spaces;
   }
 `;
 
-export const ShareButton = styled.a`
+const ShareButton = styled.a`
+  margin: auto;
   float: right;
   position: relative;
   display: inline-block;
@@ -238,42 +235,24 @@ export const ShareButton = styled.a`
   height: 50px;
   background: url(${shareIcon}) no-repeat center;
   background-size: 70% 70%;
+`;
 
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    // color: #505050;
-    color: #74b980;
+const ShareButtonNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #74b980;
+
+  .number {
+    font-weight: 700;
+    white-space: break-spaces;
   }
 `;
 
-export const ShareButtonActivated = styled.div`
-  float: right;
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: url(${shareIcon}) no-repeat center;
-  background-size: 70% 70%;
-
-  .share-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #74b980;
-  }
-`;
-
-export const BookmarkButton = styled.div`
+const BookmarkButton = styled.div`
+  margin: auto;
   float: right;
   position: relative;
   display: inline-block;
@@ -281,20 +260,10 @@ export const BookmarkButton = styled.div`
   height: 50px;
   background: url(${bookmarkIcon}) no-repeat center;
   background-size: 70% 70%;
-
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #9aceff;
-  }
 `;
 
-export const BookmarkButtonActivated = styled.div`
+const BookmarkButtonActivated = styled.div`
+  margin: auto;
   float: right;
   position: relative;
   display: inline-block;
@@ -302,18 +271,37 @@ export const BookmarkButtonActivated = styled.div`
   height: 50px;
   background: url(${bookmarkActivatedIcon}) no-repeat center;
   background-size: 70% 70%;
+`;
 
-  .love-number {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 50px;
-    margin-top: 48px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: #75daad;
+const BookmarkButtonNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #9aceff;
+
+  .number {
+    font-weight: 700;
+    white-space: break-spaces;
   }
 `;
+
+const BookmarkButtonNumberActivated = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #75daad;
+
+  .number {
+    font-weight: 700;
+    white-space: break-spaces;
+  }
+`;
+
+// Actions logic for the buttons
 
 const CHECK_IF_POST_BOOKMARKED = gql`
   query($userId: ID!, $CMS_ID: String!) {
@@ -531,37 +519,47 @@ export const SocialPanel = ({
               </div> */}
 
         <div className="card__metrics">
-          <ShareButton className="heart-icon" onClick={onShareButtonClick}>
-            {<div className="share-number">{shares_}</div>}
-          </ShareButton>
+          <div className="item__wrapper">
+            <ShareButton onClick={onShareButtonClick}></ShareButton>
+            <ShareButtonNumber>
+              <span className="number">{shares_ + " "}</span> Shares
+            </ShareButtonNumber>
+          </div>
 
           {loveClicked ? (
-            <LoveButtonActivated
-              className="heart-icon"
-              onClick={onLoveButtonClick}
-            >
-              {<div className="love-number">{love_}</div>}
-            </LoveButtonActivated>
+            <div className="item__wrapper">
+              <LoveButtonActivated
+                onClick={onLoveButtonClick}
+              ></LoveButtonActivated>
+              <LoveButtonNumber>
+                <span className="number">{love_ + " "}</span> Likes
+              </LoveButtonNumber>
+            </div>
           ) : (
-            <LoveButton className="heart-icon" onClick={onLoveButtonClick}>
-              {<div className="love-number">{love_}</div>}
-            </LoveButton>
+            <div className="item__wrapper">
+              <LoveButton onClick={onLoveButtonClick}></LoveButton>
+              <LoveButtonNumber>
+                <span className="number">{love_ + " "}</span> Likes
+              </LoveButtonNumber>
+            </div>
           )}
 
           {bookmarkClicked ? (
-            <BookmarkButtonActivated
-              className="heart-icon"
-              onClick={onBookmarkButtonActivatedClick}
-            >
-              {<div className="love-number">{bookmark_}</div>}
-            </BookmarkButtonActivated>
+            <div className="item__wrapper">
+              <BookmarkButtonActivated
+                onClick={onBookmarkButtonActivatedClick}
+              ></BookmarkButtonActivated>
+              <BookmarkButtonNumberActivated>
+                <span className="number">{bookmark_ + " "}</span> Saves
+              </BookmarkButtonNumberActivated>
+            </div>
           ) : (
-            <BookmarkButton
-              className="heart-icon"
-              onClick={onBookmarkButtonClick}
-            >
-              {<div className="love-number">{bookmark_}</div>}
-            </BookmarkButton>
+            <div className="item__wrapper">
+              <BookmarkButton onClick={onBookmarkButtonClick}></BookmarkButton>
+              <BookmarkButtonNumber>
+                <span className="number">{bookmark_ + " "}</span> Saves
+              </BookmarkButtonNumber>
+            </div>
           )}
         </div>
       </div>

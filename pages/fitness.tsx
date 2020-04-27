@@ -4,7 +4,6 @@ import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 import Information from "containers/Information/Information";
 import { MainContentArea, ContentSection } from "styled/pages.style";
-// Static Data Import Here
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 

@@ -128,23 +128,12 @@ const Container = styled.div`
     }
   }
 
-  .card__readmore {
-    color: #ea9085;
-    display: flex;
-    justify-content: left;
-  }
-
   .card__content {
     display: flex;
     flex-direction: column-reverse;
     position: relative;
     padding: 1rem;
     min-height: 240px;
-  }
-
-  .long-summary {
-    color: #aaa;
-    display: none;
   }
 
   .card:hover {
@@ -180,74 +169,6 @@ const Container = styled.div`
         font-size: 0.75rem;
         text-transform: capitalize;
       }
-    }
-  }
-
-  .card__action {
-    // margin-top: -30px;
-    overflow: hidden;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    padding-bottom: 1.3rem;
-    padding-top: 1rem;
-  }
-
-  .card__author {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    float: left;
-    font-size: 0.8em;
-  }
-
-  .card__metrics {
-    float: right;
-  }
-
-  .card__author img,
-  .card__author-content {
-    display: flex;
-
-    .card__author-content_image {
-      width: 30px;
-      height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/pen.png")
-        no-repeat center;
-      background-size: 100% 100%;
-    }
-
-    a {
-      padding: 8px;
-      color: black;
-    }
-  }
-
-  .card__author img {
-    border-radius: 50%;
-    margin-right: 0.6em;
-  }
-
-  .card__share {
-    float: right;
-    position: relative;
-    padding-left: 1em;
-  }
-
-  .card__factchecked {
-    color: black;
-    display: flex;
-
-    .card__factchecked_image {
-      width: 30px;
-      height: 30px;
-      background: url("https://img.icons8.com/color/100/000000/warranty.png")
-        no-repeat center;
-      background-size: 100% 100%;
-    }
-
-    h4 {
-      padding: 8px;
-      font-weight: 400;
     }
   }
 `;
