@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import gql from "graphql-tag";
 import styled from "styled-components";
 
@@ -30,11 +29,12 @@ import {
 } from "constants/categories";
 
 import { Waypoint } from "react-waypoint";
+import { sentenceToSlug } from "helper/slug";
 
 const GET_VIDEO_PLAYLISTS = gql`
   query($toplevelcategory: String, $offset: Int, $fetchLimit: Int) {
     getVideoPlaylistNames(
-      toplevelcategory: $toplevelcategory
+      topLevelCategorySlug: $toplevelcategory
       offset: $offset
       fetchLimit: $fetchLimit
     ) {
@@ -61,10 +61,11 @@ const Tag = styled.div`
   border-radius: 7px;
   display: inline-block;
   margin-right: 10px;
-  background-color: #ea9085;
-  color: #fff;
+  color: #ea9085;
+  background-color: #fff;
+  border: 1px solid #ea9085;
 
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
@@ -73,6 +74,11 @@ const Tag = styled.div`
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   margin-left: 3px;
+
+  &.active {
+    background-color: #ea9085;
+    color: #fff;
+  }
 `;
 
 type ProductsProps = {
@@ -158,15 +164,12 @@ export const Information: React.FC<ProductsProps> = ({
 
   // Top Level Category Links
   const VideoCategoryLink = (topLevelCategory, title) => {
-    const onClickCategory = (category) => {
-      setVideoCategory(category);
-    };
-
     return (
       <Tag
         onClick={() => {
-          onClickCategory(topLevelCategory);
+          setVideoCategory(topLevelCategory);
         }}
+        className={videoCategory === topLevelCategory ? "active" : ""}
       >
         {title}
       </Tag>
@@ -177,15 +180,22 @@ export const Information: React.FC<ProductsProps> = ({
     <>
       <div>
         <TagWrapper>
-          {VideoCategoryLink(DIET_TOP_CATEGORY, "Nutrition")}
-          {VideoCategoryLink(MENTAL_TOP_CATEGORY, "Mind")}
-          {VideoCategoryLink(FITNESS_TOP_CATEGORY, "Fitness")}
-          {VideoCategoryLink(SKIN_HAIR_TOP_CATEGORY, "Skin & Hair")}
-          {VideoCategoryLink(WEIGHT_TOP_CATEGORY, "Weight Loss")}
-          {VideoCategoryLink(PAIN_TOP_CATEGORY, "Pain")}
-          {VideoCategoryLink(GENERAL_TOP_CATEGORY, "Wellness")}
-          {VideoCategoryLink(CHRONIC_TOP_CATEGORY, "Chronic")}
-          {VideoCategoryLink(SEXUAL_TOP_CATEGORY, "Sexual")}
+          {VideoCategoryLink("", "All")}
+          {VideoCategoryLink(sentenceToSlug(DIET_TOP_CATEGORY), "Nutrition")}
+          {VideoCategoryLink(sentenceToSlug(MENTAL_TOP_CATEGORY), "Mind")}
+          {VideoCategoryLink(sentenceToSlug(FITNESS_TOP_CATEGORY), "Fitness")}
+          {VideoCategoryLink(sentenceToSlug(PAIN_TOP_CATEGORY), "Pain")}
+          {VideoCategoryLink(
+            sentenceToSlug(SKIN_HAIR_TOP_CATEGORY),
+            "Skin & Hair"
+          )}
+          {VideoCategoryLink(
+            sentenceToSlug(WEIGHT_TOP_CATEGORY),
+            "Weight Loss"
+          )}
+          {VideoCategoryLink(sentenceToSlug(GENERAL_TOP_CATEGORY), "Wellness")}
+          {VideoCategoryLink(sentenceToSlug(CHRONIC_TOP_CATEGORY), "Chronic")}
+          {VideoCategoryLink(sentenceToSlug(SEXUAL_TOP_CATEGORY), "Sexual")}
         </TagWrapper>
 
         <ProductsRow>
@@ -208,6 +218,9 @@ export const Information: React.FC<ProductsProps> = ({
                             CMS_ID={data_.CMS_ID}
                             title={data_.name}
                             image={data_.image}
+                            topLevelCategorySlug={
+                              properties_.top_level_category_slug
+                            }
                           />
                         </Fade>
                       </ProductCardWrapper>

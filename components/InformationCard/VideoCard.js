@@ -8,8 +8,6 @@ import {
   createVideosWhatsappTextMessageWebShare,
 } from "./helpers";
 
-import { sentenceToSlug } from "helper/slug";
-
 import ReactPlayer from "react-player";
 import { SocialPanel } from "./ParentCard";
 
@@ -66,8 +64,8 @@ const Container = styled.div`
 
   .video__wrapper {
     width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -119,7 +117,7 @@ const Container = styled.div`
     background-color: #eee;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     img {
       width: 100%;
@@ -257,12 +255,19 @@ export const VideoPlayerCard = ({
   );
 };
 
-export const VideoPlaylistCard = ({ CMS_ID, title, image }) => {
+export const VideoPlaylistCard = ({
+  CMS_ID,
+  title,
+  image,
+  topLevelCategorySlug,
+}) => {
   return (
     <div>
       <Container image={image}>
         <div className="wrapper">
-          <Link href={"/videos?vpid=" + CMS_ID}>
+          <Link
+            href={"/videos?vpid=" + CMS_ID + "&tlc=" + topLevelCategorySlug}
+          >
             <div className="card">
               <div className="card__content">
                 <CardArticleArea>
