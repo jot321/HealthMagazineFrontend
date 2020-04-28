@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
@@ -8,8 +8,6 @@ import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 
 function HomePage({ deviceType }) {
-  const targetRef = React.useRef(null);
-
   return (
     <>
       <Head>
@@ -21,7 +19,7 @@ function HomePage({ deviceType }) {
           <>
             <MainContentArea>
               <ContentSection>
-                <div ref={targetRef}>
+                <div>
                   <Information deviceType={deviceType} />
                 </div>
               </ContentSection>
@@ -30,7 +28,7 @@ function HomePage({ deviceType }) {
         ) : (
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
-              <div ref={targetRef}>
+              <div>
                 <Information deviceType={deviceType} />
               </div>
             </ContentSection>

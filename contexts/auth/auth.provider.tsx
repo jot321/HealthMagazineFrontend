@@ -4,7 +4,7 @@ import { AuthContext } from "./auth.context";
 const isBrowser = typeof window !== "undefined";
 const INITIAL_STATE = {
   isAuthenticated: isBrowser && !!localStorage.getItem("user_id"),
-  currentForm: "signIn"
+  currentForm: "signIn",
 };
 
 function reducer(state: any, action: any) {
@@ -14,32 +14,32 @@ function reducer(state: any, action: any) {
     case "SIGNIN_UN":
       return {
         ...state,
-        currentForm: "UNSignIn"
+        currentForm: "UNSignIn",
       };
     case "SIGNIN":
       return {
         ...state,
-        currentForm: "signIn"
+        currentForm: "signIn",
       };
     case "SIGNIN_SUCCESS":
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     case "SIGN_OUT":
       return {
         ...state,
-        isAuthenticated: false
+        isAuthenticated: false,
       };
     case "SIGNUP":
       return {
         ...state,
-        currentForm: "signUp"
+        currentForm: "signUp",
       };
     case "FORGOTPASS":
       return {
         ...state,
-        currentForm: "forgotPass"
+        currentForm: "forgotPass",
       };
     default:
       return state;

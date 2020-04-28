@@ -11,6 +11,9 @@ import {
 import ReactPlayer from "react-player";
 import { SocialPanel } from "./ParentCard";
 
+import { sentenceToSlug } from "helper/slug";
+import { trackPageView } from "analytics";
+
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
   a {
@@ -261,6 +264,10 @@ export const VideoPlaylistCard = ({
   image,
   topLevelCategorySlug,
 }) => {
+  const onPlaylistClick = (playlistName) => {
+    trackPageView(playlistName);
+  };
+
   return (
     <div>
       <Container image={image}>
@@ -268,7 +275,17 @@ export const VideoPlaylistCard = ({
           <Link
             href={"/videos?vpid=" + CMS_ID + "&tlc=" + topLevelCategorySlug}
           >
-            <div className="card">
+            <div
+              className="card"
+              onClick={() => {
+                onPlaylistClick(
+                  "/videos/" +
+                    topLevelCategorySlug +
+                    "/" +
+                    sentenceToSlug(title)
+                );
+              }}
+            >
               <div className="card__content">
                 <CardArticleArea>
                   <h4>{title}</h4>

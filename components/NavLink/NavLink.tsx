@@ -4,6 +4,8 @@ import Link from "next/link";
 import { withRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
 
+import { trackPageView } from "analytics";
+
 type NavLinkProps = {
   router: any;
   href: string;
@@ -23,13 +25,6 @@ const Icon = styled.span`
 `;
 
 const HeaderText = styled.span``;
-
-const FAIcon = styled.span`
-  margin-right: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 const NavLink: React.SFC<NavLinkProps> = ({
   href,
@@ -54,27 +49,37 @@ const NavLink: React.SFC<NavLinkProps> = ({
     highlightNavLink = true;
   }
 
-  return (
-    <div onClick={onClick} className={className ? className : ""}>
-      <Link href={href}>
-        <a
-          className={highlightNavLink ? " current-page" : ""}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          {icon ? <Icon className={iconClass}>{icon}</Icon> : ""}
+  const onClickNavLink = () => {
+    trackPageView(href);
+  };
 
-          <HeaderText className="label">
-            {intlId ? (
-              <FormattedMessage
-                id={intlId ? intlId : "defaultNavLinkId"}
-                defaultMessage={label}
-              />
-            ) : (
-              label
-            )}
-          </HeaderText>
-        </a>
-      </Link>
+  return (
+    <div
+      onClick={() => {
+        onClickNavLink();
+      }}
+    >
+      <div onClick={onClick} className={className ? className : ""}>
+        <Link href={href}>
+          <a
+            className={highlightNavLink ? " current-page" : ""}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {icon ? <Icon className={iconClass}>{icon}</Icon> : ""}
+
+            <HeaderText className="label">
+              {intlId ? (
+                <FormattedMessage
+                  id={intlId ? intlId : "defaultNavLinkId"}
+                  defaultMessage={label}
+                />
+              ) : (
+                label
+              )}
+            </HeaderText>
+          </a>
+        </Link>
+      </div>
     </div>
   );
 };

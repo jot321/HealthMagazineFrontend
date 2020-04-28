@@ -11,6 +11,8 @@ import {
 import { convertToRichText } from "helper/textStyleDisplay";
 
 import { SocialPanel } from "./ParentCard";
+import { trackPageView } from "analytics";
+import { sentenceToSlug } from "helper/slug";
 
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
@@ -144,6 +146,10 @@ export const TipCard = ({
   shares,
   bookmarks,
 }) => {
+  const onClickCategory = (pagePath) => {
+    trackPageView(pagePath);
+  };
+
   return (
     <div>
       <Container>
@@ -159,7 +165,15 @@ export const TipCard = ({
                   {categories.length > 0 &&
                     categories.map((category, index) => {
                       return (
-                        <div className="card__meta" key={index}>
+                        <div
+                          onClick={() => {
+                            onClickCategory(
+                              "/category/" + sentenceToSlug(category)
+                            );
+                          }}
+                          className="card__meta"
+                          key={index}
+                        >
                           <Link href={"/category?category=" + category}>
                             <a>{category}</a>
                           </Link>
@@ -169,7 +183,13 @@ export const TipCard = ({
                   {visibleTags.length > 0 &&
                     visibleTags.map((tag, index) => {
                       return (
-                        <div className="card__meta" key={index}>
+                        <div
+                          onClick={() => {
+                            onClickCategory("/category/" + sentenceToSlug(tag));
+                          }}
+                          className="card__meta"
+                          key={index}
+                        >
                           <Link href={"/category?tag=" + tag}>
                             <a>{tag}</a>
                           </Link>

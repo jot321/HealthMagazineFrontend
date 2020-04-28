@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 
 import { VideoPlaylistCard } from "components/InformationCard/VideoCard";
-
 import HashLoader from "react-spinners/HashLoader";
 
 import {
@@ -30,6 +29,7 @@ import {
 
 import { Waypoint } from "react-waypoint";
 import { sentenceToSlug } from "helper/slug";
+import { trackPageView } from "analytics";
 
 const GET_VIDEO_PLAYLISTS = gql`
   query($toplevelcategory: String, $offset: Int, $fetchLimit: Int) {
@@ -168,6 +168,7 @@ export const Information: React.FC<ProductsProps> = ({
       <Tag
         onClick={() => {
           setVideoCategory(topLevelCategory);
+          trackPageView("/videos/" + topLevelCategory);
         }}
         className={videoCategory === topLevelCategory ? "active" : ""}
       >

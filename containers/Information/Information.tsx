@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import gql from "graphql-tag";
-import { openModal, closeModal } from "@redq/reuse-modal";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
 
@@ -19,9 +17,9 @@ import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
-import { Waypoint } from "react-waypoint";
+import { trackPageView } from "analytics";
 
-const QuickView = dynamic(() => import("../QuickView/QuickView"));
+import { Waypoint } from "react-waypoint";
 
 const GET_HOME_FEED = gql`
   query getFeed(

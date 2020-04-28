@@ -10,10 +10,12 @@ import {
 
 import { SocialPanel } from "./ParentCard";
 
-const cardFont = "'IBM Plex Sans'";
-const veryLightGray = "#222";
+import { trackPageView } from "analytics";
+import { sentenceToSlug } from "helper/slug";
 
 const Container = styled.div`
+  font-family: "'IBM Plex Sans'";
+
   a {
     text-decoration: none;
   }
@@ -46,14 +48,6 @@ const Container = styled.div`
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08),
       0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    font-family: ${cardFont};
-
-    h2,
-    p,
-    a,
-    h4 {
-      font-family: ${cardFont};
-    }
   }
 
   .card__image {
@@ -144,14 +138,16 @@ const ActionButton = styled.div`
 `;
 
 const ExpandedLongText = styled.p`
+  font-family: "IBM Plex Sans";
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 15px;
   white-space: pre-line;
-  color: ${veryLightGray};
+  color: "#222";
 `;
 
 const ExpandedListicles = styled.div`
+  font-family: "IBM Plex Sans";
   margin-top: 20px;
   font-size: 16px;
   margin-bottom: 15px;
@@ -161,12 +157,11 @@ const ExpandedListicles = styled.div`
     display: inline;
     border-bottom: 2px solid #ea9085;
     font-weight: 600;
-    font-family: ${cardFont};
   }
 
   p {
     padding-top: 10px;
-    color: ${veryLightGray};
+    color: #222;
     padding-bottom: 10px;
     font-weight: 400;
     white-space: pre-line;
@@ -193,11 +188,16 @@ export const SimpleCardWithCollapse = ({
 
   const onClickExpand = () => {
     setLongTextExpanded(!longTextExpanded);
+    trackPageView("/article/" + sentenceToSlug(title));
   };
 
   const onClickContract = () => {
     setLongTextExpanded(!longTextExpanded);
     targetRef.current.scrollIntoView();
+  };
+
+  const onClickCategory = (pagePath) => {
+    trackPageView(pagePath);
   };
 
   return (
@@ -219,7 +219,15 @@ export const SimpleCardWithCollapse = ({
                   {categories.length > 0 &&
                     categories.map((category, index) => {
                       return (
-                        <div className="card__meta" key={index}>
+                        <div
+                          onClick={() => {
+                            onClickCategory(
+                              "/category/" + sentenceToSlug(category)
+                            );
+                          }}
+                          className="card__meta"
+                          key={index}
+                        >
                           <Link href={"/category?category=" + category}>
                             <a>{category}</a>
                           </Link>
@@ -229,7 +237,13 @@ export const SimpleCardWithCollapse = ({
                   {visibleTags.length > 0 &&
                     visibleTags.map((tag, index) => {
                       return (
-                        <div className="card__meta" key={index}>
+                        <div
+                          onClick={() => {
+                            onClickCategory("/category/" + sentenceToSlug(tag));
+                          }}
+                          className="card__meta"
+                          key={index}
+                        >
                           <Link href={"/category?tag=" + tag}>
                             <a>{tag}</a>
                           </Link>
