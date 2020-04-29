@@ -14,8 +14,13 @@ function LiveListingsPage({ deviceType }) {
   const targetRef = React.useRef(null);
 
   const showVideosFromPlaylist = router.query.vpid != undefined;
-  const urlVideoCategory =
+  let urlVideoCategory =
     router.query.slug == null ? "" : router.query.slug.toString();
+
+  // Hack to bypass facebook ads algo
+  if (router.query.slug == "intimate-health") {
+    urlVideoCategory = "sexual-health";
+  }
 
   return (
     <>
