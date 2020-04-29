@@ -1,32 +1,25 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import gql from "graphql-tag";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import { TrainerCard } from "components/InformationCard/TrainerCard";
 import HashLoader from "react-spinners/HashLoader";
+
+import { CoachEvent } from "components/InformationCard/CoachCard";
 
 import {
   ProductsRow,
   ProductsCol,
   LoaderWrapper,
   LoaderItem,
-  ProductCardWrapper
+  ProductCardWrapper,
 } from "./Information.style";
 import { useQuery } from "@apollo/react-hooks";
-import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
 import { Waypoint } from "react-waypoint";
 
-const QuickView = dynamic(() => import("../QuickView/QuickView"));
-
-const GET_PROFESSIONALS = gql`
+const GET_EVENTS = gql`
   query {
-    getProfessionals {
-      messages
-      hasMore
-    }
+    getEvents
   }
 `;
 
@@ -41,23 +34,11 @@ type ProductsProps = {
 
 export const LiveSessionsInformation: React.FC<ProductsProps> = ({
   deviceType,
-  loadMore = true
+  loadMore = true,
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
   const targetRef = React.useRef(null);
-
-  // Scroll the top of the content area any time we search or click a tag
-  // React.useEffect(() => {
-  //   if (router.query.sortByLikes === "true" || router.query.dailyPicks === "true") {
-  //     if (targetRef.current) {
-  //       window.scrollTo({
-  //         top: targetRef.current.offsetTop - 110,
-  //         behavior: "smooth"
-  //       });
-  //     }
-  //   }
-  // }, [router.query]);
 
   // -----------------------------------------------------------
   // -----------------------------------------------------------
@@ -65,7 +46,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
   // -----------------------------------------------------------
   // -----------------------------------------------------------
 
-  const trainersFeed = useQuery(GET_PROFESSIONALS);
+  const trainersFeed = useQuery(GET_EVENTS);
 
   // -----------------------------------------------------------
   // LOADING AND ERROR SECTION
@@ -84,60 +65,13 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
 
   if (
     !trainersFeed.data ||
-    !trainersFeed.data.getProfessionals ||
-    trainersFeed.data.getProfessionals.length === 0
+    !trainersFeed.data.getEvents ||
+    trainersFeed.data.getEvents.length === 0
   ) {
     return <NoResultFound />;
   }
 
-  const parsedTrainersFeed = JSON.parse(
-    trainersFeed.data.getProfessionals.messages
-  );
-
-  // -----------------------------------------------------------
-  // QUICK VIEW MODAL SECTION
-  // -----------------------------------------------------------
-  // const handleModalClose = () => {
-  //   const href = `${router.pathname}`;
-  //   const as = "/";
-  //   router.push(href, as, { shallow: true });
-  //   closeModal();
-  // };
-
-  // const handleQuickViewModal = React.useCallback(
-  //   (modalProps: any, deviceType: any, onModalClose: any) => {
-  //     if (router.pathname === "/product/[slug]") {
-  //       const as = `/product/${modalProps.slug}`;
-  //       router.push(router.pathname, as);
-  //       return;
-  //     }
-  //     openModal({
-  //       show: true,
-  //       overlayClassName: "quick-view-overlay",
-  //       closeOnClickOutside: false,
-  //       component: QuickView,
-  //       componentProps: { modalProps, deviceType, onModalClose },
-  //       closeComponent: "div",
-  //       config: {
-  //         enableResizing: false,
-  //         disableDragging: true,
-  //         className: "quick-view-modal",
-  //         width: 900,
-  //         y: 30,
-  //         height: "auto",
-  //         transition: {
-  //           mass: 1,
-  //           tension: 0,
-  //           friction: 0
-  //         }
-  //       }
-  //     });
-  //     const href = `${router.pathname}?${modalProps.slug}`;
-  //     const as = `/product/${modalProps.slug}`;
-  //     router.push(href, as, { shallow: true });
-  //   },
-  //   []
-  // );
+  const parsedTrainersFeed = JSON.parse(trainersFeed.data.getEvents);
 
   // -----------------------------------------------------------
   // LOAD MORE SECTION
@@ -172,31 +106,28 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
     <>
       <div ref={targetRef}>
         <ProductsRow>
-          {parsedTrainersFeed.map((element: any, index: number) => {
-            return (
-              <ProductsCol key={index}>
-                <ProductCardWrapper>
-                  <Fade
-                    duration={800}
-                    delay={index * 10}
-                    style={{ height: "100%" }}
-                  >
-                    <TrainerCard
-                      deviceType={deviceType}
-                      name={element.name}
-                      byline={element.description}
-                      experience={element.experience}
-                      timings={element.timings}
-                      categories={element.categories}                      
-                      courses={element.courses}
-                      imageUrl={element.image}
-                      facebookLink={element.facebookLink}
-                      instagramLink={element.instagramLink}
-                    />
-                  </Fade>
-                </ProductCardWrapper>
-              </ProductsCol>
-            );
+          {parsedTrainersFeed.map((record, index) => {
+            return record.events.map((event) => {
+              return (
+                <ProductsCol key={index}>
+                  <ProductCardWrapper>
+                    <CoachEvent
+                      key={index}
+                      title={event.title}
+                      imageUrl={event.eventPhoto}
+                      bookLink={event.detailsLink}
+                      price={event.price}
+                      timing={event.time}
+                      profile={{
+                        name: record.firstName + " " + record.lastName,
+                        slug: record.slug,
+                        photo: record.profilePhoto,
+                      }}
+                    ></CoachEvent>
+                  </ProductCardWrapper>
+                </ProductsCol>
+              );
+            });
           })}
         </ProductsRow>
       </div>

@@ -33,6 +33,8 @@ import HashLoader from "react-spinners/HashLoader";
 import NoResultFound from "components/NoResult/NoResult";
 import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/fa";
 import { useRouter } from "next/router";
+import StoreNav from "components/StoreNav/StoreNav";
+import NavBarItems from "constants/storeType";
 
 const GET_COACH_PROFILE = gql`
   query($slug: String) {
@@ -45,7 +47,7 @@ const GET_COACH_PROFILE = gql`
 
 const Profile: NextPage<{}> = () => {
   const router = useRouter();
-  const { data, loading, error, fetchMore } = useQuery(GET_COACH_PROFILE, {
+  const { data, loading, error } = useQuery(GET_COACH_PROFILE, {
     variables: {
       slug: router.query.slug,
     },
@@ -83,6 +85,7 @@ const Profile: NextPage<{}> = () => {
   const carouselPhotos = coachProfileData.carouselPhotos;
   const facebookLink = coachProfileData.facebookLink;
   const instagramLink = coachProfileData.instagramLink;
+  const websiteLink = coachProfileData.websiteLink;
   const classes = coachProfileData.classes;
   const events = coachProfileData.events;
 
@@ -92,6 +95,7 @@ const Profile: NextPage<{}> = () => {
         <title>Coach {name}</title>
         <meta name="Description" content="Coach profile" />
       </Head>
+      <StoreNav items={NavBarItems.HomePage} />
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <MobileOnlyContainer>
@@ -125,15 +129,33 @@ const Profile: NextPage<{}> = () => {
                     },
                   }}
                 >
-                  <CoachSocialIcon>
-                    <FaInstagram size={28} />
-                  </CoachSocialIcon>
-                  <CoachSocialIcon>
-                    <FaFacebook size={28} />
-                  </CoachSocialIcon>
-                  <CoachSocialIcon>
-                    <FaDesktop size={28} />
-                  </CoachSocialIcon>
+                  {instagramLink != "" && (
+                    <CoachSocialIcon
+                      onClick={() => {
+                        window.open(instagramLink);
+                      }}
+                    >
+                      <FaInstagram size={28} />
+                    </CoachSocialIcon>
+                  )}
+                  {facebookLink != "" && (
+                    <CoachSocialIcon
+                      onClick={() => {
+                        window.open(facebookLink);
+                      }}
+                    >
+                      <FaFacebook size={28} />
+                    </CoachSocialIcon>
+                  )}
+                  {websiteLink != "" && (
+                    <CoachSocialIcon
+                      onClick={() => {
+                        window.open(websiteLink);
+                      }}
+                    >
+                      <FaDesktop size={28} />
+                    </CoachSocialIcon>
+                  )}
                 </Block>
               </InfoBar>
             </Container>
@@ -183,6 +205,8 @@ const Profile: NextPage<{}> = () => {
                   title={event.title}
                   imageUrl={event.eventPhoto}
                   bookLink={event.detailsLink}
+                  price={event.price}
+                  timing={event.time}
                 ></CoachEvent>
               );
             })}

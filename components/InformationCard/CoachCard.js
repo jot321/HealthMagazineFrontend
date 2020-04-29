@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MdWatchLater } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
+import { CoachAvatarSmall } from "components/PageStyles/Profile.styled";
 
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
@@ -43,22 +44,22 @@ const Container = styled.div`
     }
 
     h4 {
-      margin-top: 1rem;
       font-weight: 400;
       font-size: 1rem;
       display: flex;
+      margin-left: 5px;
     }
 
     h5 {
-      margin-top: 1rem;
       font-weight: 400;
       font-size: 1rem;
       display: flex;
+      margin-left: 5px;
     }
   }
 
   .card_with_border {
-    border-left: 2px solid #ea9085;
+    border-left: 6px solid #ea9085;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
@@ -232,7 +233,7 @@ const Container = styled.div`
 
 const Button = styled.div`
   height: 40px;
-  width: 100px;
+  width: 110px;
   background-color: #ea9085;
   color: #fff;
   font-weight: 500;
@@ -240,11 +241,39 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   float: right;
+  border-radius: 4px;
 `;
 
 const PaymentSection = styled.div`
   display: flex;
   justify-content: space-between;
+
+  h7 {
+    font-weight: 400;
+    font-size: 1rem;
+    display: flex;
+    margin-left: 5px;
+  }
+`;
+
+const AvatarSection = styled.div`
+  display: flex;
+  padding: 1px;
+
+  h6 {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-left: 10px;
+    border-bottom: 2px solid #ea9085;
+  }
+`;
+
+const ItemWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const CoachCover = styled.div`
@@ -290,29 +319,27 @@ export const CoachCourse = ({
           <div className="card">
             <h2>{title}</h2>
             <h3>{text}</h3>
+            <br></br>
             {timing && (
-              <div>
-                <h4>
-                  <MdWatchLater size={20} />
-                  {"  " + timing}
-                </h4>
-              </div>
+              <ItemWrapper>
+                <MdWatchLater size={20} />
+                <h4>{"  " + timing}</h4>
+              </ItemWrapper>
             )}
 
             <PaymentSection>
-              <div>
-                <h5>
-                  <FaRupeeSign size={20} />
-                  {price + " to join"}
-                </h5>
-              </div>
+              <ItemWrapper>
+                <FaRupeeSign size={20} />
+                <h5>{price + " to join"}</h5>
+              </ItemWrapper>
 
               <Button
                 onClick={() => {
-                  window.location = paymentLink;
+                  // window.location.href = paymentLink;
+                  window.open(paymentLink);
                 }}
               >
-                GET TICKET
+                ENQUIRE
               </Button>
             </PaymentSection>
           </div>
@@ -336,7 +363,20 @@ export const CoachCategoryTitle = ({ title }) => {
   );
 };
 
-export const CoachEvent = ({ title, imageUrl = null, bookLink = null }) => {
+export const CoachEvent = ({
+  title,
+  imageUrl = null,
+  bookLink = null,
+  price,
+  timing = null,
+  profile = null,
+}) => {
+  const localTime = new Date(timing);
+
+  const onClickAvatar = (slug) => {
+    window.location.href = "/coach/" + slug;
+  };
+
   return (
     <div>
       <Container>
@@ -347,14 +387,55 @@ export const CoachEvent = ({ title, imageUrl = null, bookLink = null }) => {
                 <img src={imageUrl} alt="image" />
               </div>
             )}
+
             <h2>{title}</h2>
-            <Button
-              onClick={() => {
-                window.location = bookLink;
-              }}
-            >
-              BOOK
-            </Button>
+            {profile && (
+              <div>
+                <AvatarSection
+                  onClick={() => {
+                    onClickAvatar(profile.slug);
+                  }}
+                >
+                  <CoachAvatarSmall
+                    src={profile.photo}
+                    alt={profile.name}
+                  ></CoachAvatarSmall>
+                  <h6>{profile.name}</h6>
+                </AvatarSection>
+                <br></br>
+              </div>
+            )}
+
+            {timing && (
+              <ItemWrapper>
+                <MdWatchLater size={20} />
+                <h4>
+                  {"  " +
+                    localTime.toDateString() +
+                    " " +
+                    localTime.toLocaleString("en-US", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                </h4>
+              </ItemWrapper>
+            )}
+
+            <PaymentSection>
+              <ItemWrapper>
+                <FaRupeeSign size={20} />
+                <h7>{price + " to join"}</h7>
+              </ItemWrapper>
+
+              <Button
+                onClick={() => {
+                  window.location.href = bookLink;
+                }}
+              >
+                GET TICKET
+              </Button>
+            </PaymentSection>
           </div>
         </div>
       </Container>

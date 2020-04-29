@@ -17,8 +17,6 @@ import { useQuery } from "@apollo/react-hooks";
 import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
 
-import { trackPageView } from "analytics";
-
 import { Waypoint } from "react-waypoint";
 
 const GET_HOME_FEED = gql`
@@ -198,7 +196,7 @@ export const Information: React.FC<ProductsProps> = ({
                       <ProductCardWrapper>
                         <Fade
                           duration={800}
-                          delay={index * 10}
+                          delay={0}
                           style={{ height: "100%" }}
                         >
                           <SimpleCardWithCollapse

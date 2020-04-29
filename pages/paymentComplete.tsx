@@ -1,6 +1,8 @@
 import React from "react";
 import { NextPage } from "next";
 import Head from "next/head";
+import StoreNav from "components/StoreNav/StoreNav";
+import NavBarItems from "constants/storeType";
 
 import styled from "styled-components";
 
@@ -55,6 +57,7 @@ const PaymentCompletePage: NextPage<{}> = () => {
         <title>Urban Nuskha</title>
         <meta name="Description" content="Payment Complete" />
       </Head>
+      <StoreNav items={NavBarItems.HomePage} />
 
       <Container>
         <div className="wrapper">

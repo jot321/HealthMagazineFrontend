@@ -176,7 +176,7 @@ export const TipsFeed: React.FC<ProductsProps> = ({
                     <ProductCardWrapper>
                       <Fade
                         duration={800}
-                        delay={index * 10}
+                        delay={10}
                         style={{ height: "100%" }}
                       >
                         <TipCard

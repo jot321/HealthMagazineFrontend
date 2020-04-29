@@ -59,6 +59,21 @@ export const CoachAvatar = styled("img", {
   },
 });
 
+export const CoachAvatarSmall = styled("img", {
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  objectFit: "cover",
+  "@media only screen and (max-width: 991px)": {
+    width: "30px",
+    height: "30px",
+  },
+  "@media only screen and (max-width: 480px)": {
+    width: "30px",
+    height: "30px",
+  },
+});
+
 export const UserName = styled("h3", ({ $theme }) => ({
   ...$theme.typography.font450,
   color: $theme.colors.primaryA,
@@ -103,26 +118,3 @@ export const MenuList = styled("li", (props: any) => ({
 export const Strong = styled("strong", ({ $theme }) => ({
   color: $theme.colors.primary,
 }));
-
-export const AlignItems = styled("div", ({ $theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  ...$theme.typography.font350,
-  color: $theme.colors.primary,
-}));
-
-export const List = styled("ul", {
-  maxHeight: "449px",
-  overflow: "hidden",
-  overflowY: "scroll",
-  width: "calc(100% + 35px)",
-  paddingRight: "35px",
-});
-
-export const ListItem = styled("li", {
-  listStyle: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "8px 0 12px",
-});

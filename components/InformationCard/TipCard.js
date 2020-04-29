@@ -89,13 +89,13 @@ const Container = styled.div`
     margin-bottom: 1rem;
 
     .card__meta {
-      border-radius: 6px;
+      border-radius: 4px;
       display: inline-block;
       float: left;
       margin-right: 10px;
       background-color: #f4dada;
 
-      padding: 1px;
+      padding: 2px;
       margin-bottom: 5px;
       font-weight: 500;
       font-size: x-small;
@@ -132,7 +132,7 @@ const CardArticleArea = styled.article`
 
   h3 {
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 1.03rem;
   }
 `;
 

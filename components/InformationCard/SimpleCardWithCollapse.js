@@ -86,13 +86,13 @@ const Container = styled.div`
     margin-bottom: 1rem;
 
     .card__meta {
-      border-radius: 3px;
+      border-radius: 4px;
       display: inline-block;
       float: left;
       margin-right: 10px;
       background-color: #f4dada;
 
-      padding: 1px;
+      padding: 2px;
       margin-bottom: 5px;
       font-weight: 500;
       font-size: x-small;
@@ -125,7 +125,7 @@ const CardArticleArea = styled.article`
 
 const Description = styled.p`
   color: #222;
-  font-size: 16px;
+  font-size: 1.03rem;
   font-weight: 400px;
 `;
 
@@ -139,7 +139,7 @@ const ActionButton = styled.div`
 
 const ExpandedLongText = styled.p`
   font-family: "IBM Plex Sans";
-  font-size: 16px;
+  font-size: 1.03rem;
   font-weight: 400;
   margin-bottom: 15px;
   white-space: pre-line;
@@ -149,7 +149,7 @@ const ExpandedLongText = styled.p`
 const ExpandedListicles = styled.div`
   font-family: "IBM Plex Sans";
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 1.03rem;
   margin-bottom: 15px;
   white-space: pre-line;
 

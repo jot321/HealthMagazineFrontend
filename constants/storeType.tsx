@@ -10,6 +10,7 @@ import {
   TipsIcon,
   PopularIcon,
   HomeIcon,
+  LiveIcon,
 } from "components/AllSvgIcon";
 
 export default {
@@ -19,17 +20,17 @@ export default {
       icon: <HomeIcon />,
       label: "Home",
     },
-    // {
-    //   link: "/featured",
-    //   icon: "",
-    //   label: "Featured",
-    //   identifier: "top-picks"
-    // },
     {
       link: "/videos",
       icon: <YoutubeVideoIcon />,
       label: "Videos",
       identifier: "videos",
+    },
+    {
+      link: "/live",
+      icon: <LiveIcon />,
+      label: "Live",
+      identifier: "live",
     },
     {
       link: "/popular",
@@ -43,27 +44,6 @@ export default {
       label: "Tips",
       identifier: "tips",
     },
-    // {
-    //   link: "/live",
-    //   icon: "",
-    //   label: "Live",
-    //   identifier: "live",
-    // },
-    // {
-    //   link: CHRONIC_PAGE,
-    //   icon: "",
-    //   label: "Chronic Conditions"
-    // },
-    // {
-    //   link: SKIN_HAIR_PAGE,
-    //   icon: "",
-    //   label: "Skin & Hair Care"
-    // },
-    // {
-    //   link: WEIGHT_PAGE,
-    //   icon: "",
-    //   label: "Weight Management"
-    // }
   ],
   ChronicPage: [
     {
