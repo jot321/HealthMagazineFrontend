@@ -2,15 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "components/Container/Container";
-import {
-  ProductsRow,
-  ProductsCol,
-  ProductCardWrapper,
-} from "containers/Information/Information.style";
-import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
-import { TipCard } from "components/InformationCard/TipCard";
-import { VideoPlayerCard } from "components/InformationCard/VideoCard";
-import Fade from "react-reveal/Fade";
+import { ProductsRow } from "containers/Information/Information.style";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { withApollo } from "helper/apollo";
@@ -25,13 +17,7 @@ import {
   Strong,
 } from "components/PageStyles/Profile.styled";
 
-const InformationType = {
-  LISTICLE: 1,
-  SHORT_ARTICLE: 2,
-  IMAGE_ARTICLE: 3,
-  TIP: 4,
-  VIDEOLINK: 6,
-};
+import { outputCardScafollding } from "containers/Information/contentScaffolding";
 
 const GET_BOOKMARKED_POSTS = gql`
   query($userId: ID!) {
@@ -125,104 +111,7 @@ const Profile: NextPage<{}> = () => {
               const data_ = JSON.parse(element.message);
               const properties_ = JSON.parse(element.properties);
 
-              switch (properties_.type) {
-                case InformationType.LISTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            listicles={data_.listicleItems}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.SHORT_ARTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.TIP:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <TipCard
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            text={data_.text}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.VIDEOLINK:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <VideoPlayerCard
-                            url={data_.videoLink}
-                            CMS_ID={data_.CMS_ID}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                            playlistTitle={data_.playlistTitle}
-                            playlistId={data_.playlistId}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-              }
+              return outputCardScafollding(data_, properties_, index);
             })}
           </ProductsRow>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Wrapper, Container, Heading, SubHeading } from "./SignInOutForm.style";
 import { AuthContext } from "contexts/auth/auth.context";
 import { FormattedMessage } from "react-intl";
@@ -26,10 +26,26 @@ export default function SignInModal() {
           email: $email
           image_url: $image_url
         }
-      )
+      ) {
+        systemId
+        expert
+      }
     }
   `;
-  const [addOrUpdateUser] = useMutation(ADD_OR_UPDATE_USER);
+
+  const [addOrUpdateUser] = useMutation(ADD_OR_UPDATE_USER, {
+    onError(err) {
+      console.log(err);
+    },
+    onCompleted(docs) {
+      if (docs.addOrUpdateUser.systemId) {
+        localStorage.setItem("user_system_id", docs.addOrUpdateUser.systemId);
+        localStorage.setItem("user_is_expert", docs.addOrUpdateUser.expert);
+      } else {
+        console.log("Not able to fetch the user system details");
+      }
+    },
+  });
 
   const loginCallback = (details) => {
     if (typeof window !== "undefined") {

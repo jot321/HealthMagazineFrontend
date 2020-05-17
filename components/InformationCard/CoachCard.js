@@ -4,6 +4,9 @@ import { MdWatchLater } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
 import { CoachAvatarSmall } from "components/PageStyles/Profile.styled";
 
+import { trackPageView } from "analytics";
+import { sentenceToSlug } from "helper/slug";
+
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
   a {
@@ -335,7 +338,6 @@ export const CoachCourse = ({
 
               <Button
                 onClick={() => {
-                  // window.location.href = paymentLink;
                   window.open(paymentLink);
                 }}
               >
@@ -430,7 +432,8 @@ export const CoachEvent = ({
 
               <Button
                 onClick={() => {
-                  window.location.href = bookLink;
+                  trackPageView("/getTicket/" + sentenceToSlug(title));
+                  window.open(bookLink);
                 }}
               >
                 GET TICKET

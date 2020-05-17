@@ -20,23 +20,22 @@ const Container = styled.div`
     text-decoration: none;
   }
 
+  h3 {
+    padding: 10px;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #000;
+    text-transform: capitalize;
+  }
+
   h2 {
-    border-left: 4px solid #ea9085;
+    border-left: 4px solid #e43f5a;
     padding: 1rem;
     line-height: 1.2;
     font-weight: 500;
     font-size: 1.4rem;
     margin-left: 1rem;
-
-    color: #000;
-    text-transform: capitalize;
-  }
-
-  h3 {
-    padding: 1rem;
-    line-height: 1.2;
-    font-weight: 400;
-    font-size: 1.2rem;
 
     color: #000;
     text-transform: capitalize;
@@ -92,10 +91,8 @@ const Container = styled.div`
     margin-bottom: 1.6rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    h2,
     p,
     a,
-    h2,
     h4 {
       line-height: 1.2;
       font-weight: 500;
@@ -113,6 +110,17 @@ const Container = styled.div`
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
+
+    h3 {
+      padding: 10px;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #000;
+      text-transform: capitalize;
+      border-left: 6px solid #e43f5a;
+    }
   }
 
   .card__image {
@@ -203,6 +211,7 @@ export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
           return (
             <VideoPlayerCard
               key={index}
+              title={videoLink.title}
               url={videoLink.videoLink}
               CMS_ID={videoLink.properties.CMS_ID}
               likes={videoLink.properties.likes}
@@ -220,10 +229,12 @@ export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
 
 export const VideoPlayerCard = ({
   url,
+  title,
   CMS_ID,
   likes,
   shares,
   bookmarks,
+  comments,
   playlistTitle,
   playlistId,
 }) => {
@@ -240,16 +251,18 @@ export const VideoPlayerCard = ({
                 playsinline={true}
               />
             </div>
+            {title != null && <h3>{title}</h3>}
             <SocialPanel
               CMS_ID={CMS_ID}
               likesFromParent={likes}
               sharesFromParent={shares}
               bookmarkFromParent={bookmarks}
+              commentsFromParent={comments}
               webShareAPIShareText={createVideosWhatsappTextMessageWebShare(
                 playlistTitle
               )}
               shareText={createVideosWhatsappTextMessage(playlistTitle)}
-              shareUrl={createVideosWhatsappLinkMessageWebAPIShare(playlistId)}
+              shareUrl={createVideosWhatsappLinkMessageWebAPIShare(CMS_ID)}
             />
           </div>
         </div>

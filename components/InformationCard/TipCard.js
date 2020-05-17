@@ -19,6 +19,7 @@ const Container = styled.div`
   a {
     text-decoration: none;
   }
+
   h2 {
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -42,7 +43,7 @@ const Container = styled.div`
   }
 
   .card {
-    border-left: 6px solid #ea9085;
+    // border-left: 6px solid #e43f5a;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
@@ -93,7 +94,7 @@ const Container = styled.div`
       display: inline-block;
       float: left;
       margin-right: 10px;
-      background-color: #f4dada;
+      background-color: #e43f5a;
 
       padding: 2px;
       margin-bottom: 5px;
@@ -103,7 +104,7 @@ const Container = styled.div`
       line-height: 1.5;
 
       a {
-        color: #15131d;
+        color: #fff;
         padding: 0 5px;
         letter-spacing: 1px;
         font-size: 0.9rem;
@@ -127,12 +128,12 @@ const CardArticleArea = styled.article`
 
   h2 {
     font-weight: 00;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
   h3 {
     font-weight: 400;
-    font-size: 1.03rem;
+    font-size: 1.08rem;
   }
 `;
 
@@ -145,6 +146,7 @@ export const TipCard = ({
   likes,
   shares,
   bookmarks,
+  comments,
 }) => {
   const onClickCategory = (pagePath) => {
     trackPageView(pagePath);
@@ -210,12 +212,13 @@ export const TipCard = ({
               likesFromParent={likes}
               sharesFromParent={shares}
               bookmarkFromParent={bookmarks}
+              commentsFromParent={comments}
               webShareAPIShareText={createWhatsappTipTextMessageWebShare(
                 title,
                 text
               )}
               shareText={createWhatsappTipTextMessage(title, text)}
-              shareUrl={createWhatsappTipLinkMessageWebAPIShare()}
+              shareUrl={createWhatsappTipLinkMessageWebAPIShare(CMS_ID)}
             />
           </div>
         </div>

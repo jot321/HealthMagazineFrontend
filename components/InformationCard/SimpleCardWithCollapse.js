@@ -28,6 +28,14 @@ const Container = styled.div`
     text-transform: capitalize;
   }
 
+  h4 {
+    text-transform: uppercase;
+    font-weight: 400;
+    border-bottom: 2px solid #e43f5a;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
   .wrapper {
     width: 100%;
 
@@ -68,6 +76,10 @@ const Container = styled.div`
     padding: 1rem;
   }
 
+  a.card__readmore {
+    font-weight: 700;
+  }
+
   .long-summary {
     color: #aaa;
     display: none;
@@ -90,7 +102,7 @@ const Container = styled.div`
       display: inline-block;
       float: left;
       margin-right: 10px;
-      background-color: #f4dada;
+      background-color: #e43f5a;
 
       padding: 2px;
       margin-bottom: 5px;
@@ -100,7 +112,7 @@ const Container = styled.div`
       line-height: 1.5;
 
       a {
-        color: #15131d;
+        color: #fff;
         padding: 0 5px;
         letter-spacing: 1px;
         font-size: 0.9rem;
@@ -111,6 +123,9 @@ const Container = styled.div`
 `;
 
 const CardArticleArea = styled.article`
+  h2 {
+    font-size: 1.6rem;
+  }
   a {
     text-decoration: none;
     transition: all 0.5s ease;
@@ -125,13 +140,13 @@ const CardArticleArea = styled.article`
 
 const Description = styled.p`
   color: #222;
-  font-size: 1.03rem;
+  font-size: 1.08rem;
   font-weight: 400px;
 `;
 
 const ActionButton = styled.div`
   a {
-    color: #ea9085;
+    color: #e43f5a;
     display: flex;
     justify-content: left;
   }
@@ -139,7 +154,7 @@ const ActionButton = styled.div`
 
 const ExpandedLongText = styled.p`
   font-family: "IBM Plex Sans";
-  font-size: 1.03rem;
+  font-size: 1.08rem;
   font-weight: 400;
   margin-bottom: 15px;
   white-space: pre-line;
@@ -171,15 +186,18 @@ const ExpandedListicles = styled.div`
 export const SimpleCardWithCollapse = ({
   CMS_ID,
   title,
-  byline,
-  description,
+  byline = null,
+  description = null,
   listicles = [],
+  externalLinkData = null,
   categories,
   visibleTags,
   imageUrl,
+  isImageArticle = false,
   likes,
   shares,
   bookmarks,
+  comments,
 }) => {
   const targetRef = React.useRef(null);
 
@@ -187,8 +205,14 @@ export const SimpleCardWithCollapse = ({
   const [longTextExpanded, setLongTextExpanded] = useState(false);
 
   const onClickExpand = () => {
-    setLongTextExpanded(!longTextExpanded);
-    trackPageView("/article/" + sentenceToSlug(title));
+    if (!isImageArticle) {
+      if (externalLinkData != null) {
+        window.open(externalLinkData.link);
+      } else {
+        setLongTextExpanded(!longTextExpanded);
+        trackPageView("/article/" + sentenceToSlug(title));
+      }
+    }
   };
 
   const onClickContract = () => {
@@ -211,6 +235,7 @@ export const SimpleCardWithCollapse = ({
 
             <div className="card__content">
               <CardArticleArea>
+                {externalLinkData != null && <h4>{externalLinkData.source}</h4>}
                 <h2 onClick={onClickExpand}>{title}</h2>
 
                 {/* ---------------------------------------------------------------- */}
@@ -234,6 +259,7 @@ export const SimpleCardWithCollapse = ({
                         </div>
                       );
                     })}
+
                   {visibleTags.length > 0 &&
                     visibleTags.map((tag, index) => {
                       return (
@@ -255,7 +281,9 @@ export const SimpleCardWithCollapse = ({
                 {/* ---------------------------------------------------------------- */}
                 {/* DESCRIPTION */}
 
-                <Description onClick={onClickExpand}>{byline}</Description>
+                {!isImageArticle && (
+                  <Description onClick={onClickExpand}>{byline}</Description>
+                )}
                 <br></br>
 
                 {/* ---------------------------------------------------------------- */}
@@ -277,13 +305,13 @@ export const SimpleCardWithCollapse = ({
                   </ExpandedListicles>
                 )}
 
-                {longTextExpanded && (
+                {!isImageArticle && longTextExpanded && (
                   <ActionButton onClick={onClickContract}>
                     <a className="card__readmore">CLOSE</a>
                   </ActionButton>
                 )}
 
-                {!longTextExpanded && (
+                {!isImageArticle && !longTextExpanded && (
                   <ActionButton onClick={onClickExpand}>
                     <a className="card__readmore">READ MORE</a>
                   </ActionButton>
@@ -296,6 +324,7 @@ export const SimpleCardWithCollapse = ({
               likesFromParent={likes}
               sharesFromParent={shares}
               bookmarkFromParent={bookmarks}
+              commentsFromParent={comments}
               webShareAPIShareText={createWhatsappTextMessageWebShare(
                 title,
                 byline

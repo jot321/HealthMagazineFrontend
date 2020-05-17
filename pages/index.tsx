@@ -2,19 +2,22 @@ import React from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
-import Categories from "components/Categories/Categories";
-import Banner from "containers/Banner/Banner";
 import RandomizedFeed from "containers/Information/RandomizedFeed";
-import {
-  MainContentArea,
-  SidebarSection,
-  ContentSection,
-} from "styled/pages.style";
+import { MainContentArea, ContentSection } from "styled/pages.style";
 // Static Data Import Here
-import BannerImg from "image/wellness_banner.png";
 import NavBarItems from "constants/storeType";
-import { getCookie } from "components/helpers/session";
 import { Modal } from "@redq/reuse-modal";
+
+import {
+  OneTileWrapper,
+  OneTileCard,
+  TwoTileCard,
+  TwoTileWrapper,
+} from "components/Tile/Tile";
+
+const fitnessCover = require("image/categories/fitness_cover.jpg");
+const dietCover = require("image/categories/diet_cover.jpg");
+const mindCover = require("image/categories/mind_cover.jpg");
 
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
@@ -57,20 +60,41 @@ function HomePage({ deviceType }) {
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
-        <Banner
-          intlTitleId="groceriesTitle"
-          intlDescriptionId="groceriesSubTitle"
-          imageUrl={BannerImg}
-        />
-        <Categories />
+        <br />
+        {/* <OneTileWrapper>
+          <OneTileCard image={fitnessCover}>
+            <div className="card"></div>
+          </OneTileCard>
+        </OneTileWrapper>
+        <br />
+
+        <OneTileWrapper>
+          <OneTileCard image={dietCover}>
+            <div className="card"></div>
+          </OneTileCard>
+        </OneTileWrapper>
+        <br />
+
+        <OneTileWrapper>
+          <OneTileCard image={mindCover}>
+            <div className="card"></div>
+          </OneTileCard>
+        </OneTileWrapper>
+        <br /> */}
+
+        <TwoTileWrapper>
+          <TwoTileCard color={"#e43f5a"}>
+            <h1>FIT</h1>
+          </TwoTileCard>
+          <TwoTileCard color={"#00bd56"}>
+            <h1>DIET</h1>
+          </TwoTileCard>
+        </TwoTileWrapper>
+        <br />
 
         {deviceType.desktop ? (
           <>
-            {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             <MainContentArea>
-              {/* <SidebarSection>
-                <Sidebar type={PAGE_TYPE} deviceType={deviceType} />
-              </SidebarSection> */}
               <ContentSection>
                 <div ref={targetRef}>
                   <RandomizedFeed deviceType={deviceType} />
@@ -80,7 +104,6 @@ function HomePage({ deviceType }) {
           </>
         ) : (
           <MainContentArea>
-            {/* <Sidebar type={PAGE_TYPE} deviceType={deviceType} /> */}
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>
                 <RandomizedFeed deviceType={deviceType} />
@@ -88,7 +111,6 @@ function HomePage({ deviceType }) {
             </ContentSection>
           </MainContentArea>
         )}
-        {/* <CartPopUp deviceType={deviceType} /> */}
       </Modal>
     </>
   );

@@ -22,9 +22,12 @@ import {
   DrawerMenu,
   DrawerMenuItem,
   UesrOptionMenu,
+  VerifiedImage,
 } from "./Header.style";
 
 import { CREATORS_LANDING_PAGE } from "constants/navigation";
+
+const verifiedIcon = require("image/icons/verified.png");
 
 const DrawerMenuItems = [
   {
@@ -61,6 +64,8 @@ const MobileDrawer: React.FunctionComponent = () => {
       localStorage.removeItem("user_name");
       localStorage.removeItem("user_email");
       localStorage.removeItem("user_imageUrl");
+      localStorage.removeItem("user_is_expert");
+      localStorage.removeItem("user_system_id");
 
       authDispatch({ type: "SIGN_OUT" });
 
@@ -139,6 +144,10 @@ const MobileDrawer: React.FunctionComponent = () => {
                     alt="user_avatar"
                   />
                 </UserAvatar>
+
+                {localStorage.getItem("user_is_expert") === "true" && (
+                  <VerifiedImage src={verifiedIcon}></VerifiedImage>
+                )}
                 <UserDetails>
                   <h3>{localStorage.getItem("user_name")}</h3>
                   <span>{localStorage.getItem("user_email")}</span>

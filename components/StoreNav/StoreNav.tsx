@@ -20,6 +20,7 @@ const StoreNav: React.FunctionComponent<StoreNavProps> = ({
             href={item.link}
             label={item.label}
             icon={item.icon}
+            iconPic={item.iconPic}
             key={index}
             identifier={item.identifier}
           />

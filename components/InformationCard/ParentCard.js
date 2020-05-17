@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
@@ -7,10 +9,12 @@ import { openModal } from "@redq/reuse-modal";
 import AuthenticationForm from "containers/SignInOutForm/Form";
 import { useQuery } from "@apollo/react-hooks";
 
-const loveIcon = require("../../image/icons/love.png");
-const shareIcon = require("../../image/icons/share.png");
-const bookmarkIcon = require("../../image/icons/bookmark.png");
-const bookmarkActivatedIcon = require("../../image/icons/bookmark_activated.png");
+import { trackPageView } from "analytics";
+
+const loveIcon = require("../../image/icons/love_new.png");
+const shareIcon = require("../../image/icons/share_new.png");
+const bookmarkIcon = require("../../image/icons/bookmark_new.png");
+const bookmarkActivatedIcon = require("../../image/icons/bookmark_activated_new.png");
 
 // CSS styling for the buttons
 
@@ -116,10 +120,10 @@ const Container = styled.div`
   .card__action {
     margin-top: -20px;
     overflow: hidden;
-    padding-right: 1rem;
-    padding-left: 1rem;
     padding-bottom: 1rem;
-    padding-top: 1rem;
+    padding-top: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .card__author {
@@ -131,15 +135,15 @@ const Container = styled.div`
   }
 
   .card__metrics {
-    float: right;
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-evenly;
   }
 
   .item__wrapper {
-    width: 70px;
+    width: 25%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .card__author img,
@@ -195,8 +199,8 @@ const LoveButton = styled.div`
   float: right;
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url(${loveIcon}) no-repeat center;
   background-size: 70% 70%;
 `;
@@ -206,16 +210,17 @@ const LoveButtonActivated = styled.div`
   float: right;
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url(${loveIcon}) no-repeat center;
   background-size: 70% 70%;
 `;
 
 const LoveButtonNumber = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 50px;
   font-size: 0.8em;
   font-weight: 400;
   color: #fe4540;
@@ -231,16 +236,17 @@ const ShareButton = styled.a`
   float: right;
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url(${shareIcon}) no-repeat center;
   background-size: 70% 70%;
 `;
 
 const ShareButtonNumber = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 50px;
   font-size: 0.8em;
   font-weight: 400;
   color: #74b980;
@@ -256,8 +262,8 @@ const BookmarkButton = styled.div`
   float: right;
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url(${bookmarkIcon}) no-repeat center;
   background-size: 70% 70%;
 `;
@@ -267,19 +273,20 @@ const BookmarkButtonActivated = styled.div`
   float: right;
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: url(${bookmarkActivatedIcon}) no-repeat center;
   background-size: 70% 70%;
 `;
 
 const BookmarkButtonNumber = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 50px;
   font-size: 0.8em;
   font-weight: 400;
-  color: #9aceff;
+  color: #4dcfe0;
 
   .number {
     font-weight: 700;
@@ -289,8 +296,9 @@ const BookmarkButtonNumber = styled.div`
 
 const BookmarkButtonNumberActivated = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 50px;
   font-size: 0.8em;
   font-weight: 400;
   color: #75daad;
@@ -298,6 +306,160 @@ const BookmarkButtonNumberActivated = styled.div`
   .number {
     font-weight: 700;
     white-space: break-spaces;
+  }
+`;
+
+const CommentWrapper = styled.div`
+  p.question_opinion {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+    padding-top: 5px;
+  }
+
+  span.question_option_button {
+    padding: 2px;
+    background-color: #eeeeee;
+    color: #e43f5a;
+    border-radius: 7px;
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    white-space: break-spaces;
+
+    span.number {
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: contents;
+    }
+  }
+
+  span.question_option_button_activated {
+    padding: 2px;
+    background-color: #eeeeee;
+    border: 2px solid;
+    color: #e43f5a;
+    border-radius: 7px;
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    white-space: break-spaces;
+
+    span.number {
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: contents;
+    }
+  }
+
+  form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  input.add_opinion_question {
+    width: 80%;
+    height: 70px;
+    border: 2px solid #e43f5a;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 1rem;
+
+    ::placeholder {
+      color: #f3d4d4;
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  }
+
+  button {
+    height: 70px;
+    border: 2px solid #e43f5a;
+    background-color: #e43f5a;
+    color: #fff;
+    font-weight: 600;
+    width: 16%;
+    font-size: 1rem;
+    padding: 3px;
+  }
+
+  p.error_input {
+    margin-left: 10px;
+    font-size: 12px;
+    color: red;
+  }
+
+  .signup_popup {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
+    padding-top: 5px;
+
+    .button {
+      padding: 2px;
+      background-color: #eeeeee;
+      color: #e43f5a;
+      border-radius: 7px;
+      padding: 3px;
+      padding-left: 7px;
+      padding-right: 7px;
+      min-width: 150px;
+      display: flex;
+      justify-content: center;
+      font-weight: 500;
+      white-space: break-spaces;
+    }
+  }
+`;
+
+const Comment = styled.div`
+  height: 100%;
+  background-color: #fef6fb;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 10px;
+  margin-top: 2px;
+  font-size: 0.9rem;
+
+  p.user_name {
+    font-weight: 500;
+    padding-bottom: 5px;
+    color: #000;
+  }
+
+  p.content {
+    font-weight: 500;
+    color: #393e46;
+  }
+
+  .comment_social {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 15px;
+  }
+
+  .comment_like {
+    display: flex;
+    align-items: center;
+    color: #fe4540;
+    width: 60px;
+  }
+
+  .comment_share {
+    display: flex;
+    align-items: center;
+    color: #74b980;
+    width: 30px;
   }
 `;
 
@@ -314,6 +476,7 @@ const INCREMENT_LIKES = gql`
     incrementLikes(id: $CMS_ID)
   }
 `;
+
 const DECREMENT_LIKES = gql`
   mutation decrementLikes($CMS_ID: ID!) {
     decrementLikes(id: $CMS_ID)
@@ -350,19 +513,73 @@ const DECREMENT_BOOKMARKS = gql`
   }
 `;
 
+const ADD_COMMENT = gql`
+  mutation addComment(
+    $userId: String!
+    $CMS_ID: String!
+    $content: String!
+    $writtenByExpert: Boolean
+  ) {
+    addExpertComment(
+      userId: $userId
+      CMS_ID: $CMS_ID
+      content: $content
+      writtenByExpert: $writtenByExpert
+    )
+  }
+`;
+
+const INCREMENT_COMMENT_LIKE = gql`
+  mutation incrementExpertCommentLikes($CMS_ID: String!, $CommentId: String!) {
+    incrementExpertCommentLikes(CMS_ID: $CMS_ID, CommentId: $CommentId)
+  }
+`;
+
+const defaultCommentsData = {
+  comments: [],
+  expertCommentsCount: 0,
+  discussionsCount: 0,
+  topComments: [],
+};
+
 export const SocialPanel = ({
   CMS_ID,
   likesFromParent,
   sharesFromParent,
   bookmarkFromParent,
+  commentsFromParent = defaultCommentsData,
   webShareAPIShareText,
   shareText,
   shareUrl,
 }) => {
+  const router = useRouter();
+  const discussions = commentsFromParent.comments.filter((comment) => {
+    return !comment.writtenByExpert;
+  });
+
+  const expertDiscussions = commentsFromParent.comments.filter((comment) => {
+    return comment.writtenByExpert;
+  });
+
+  const [commentsShown, setCommentsShown] = useState(
+    router.query.selectedCommentsSection === "discussions"
+      ? discussions
+      : expertDiscussions
+  );
+
+  const [selectedCommentsSection, setSelectedCommentsSection] = useState(
+    router.query.selectedCommentsSection === "discussions"
+      ? "discussions"
+      : "experts"
+  );
+
   const {
     authState: { isAuthenticated },
     authDispatch,
   } = useContext(AuthContext);
+
+  const showCompleteVersion =
+    router.query.completeVersion === "true" ? true : false;
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
@@ -379,6 +596,7 @@ export const SocialPanel = ({
   };
 
   const onLoveButtonActivatedClick = () => {
+    setLove(love_ - 1);
     setLoveClicked(false);
     decrementLikes({ variables: { CMS_ID } });
   };
@@ -387,15 +605,19 @@ export const SocialPanel = ({
   // Shares Section
 
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userSystemId, setUserSystemId] = useState("");
+  const [userIsExpert, setUserIsExpert] = useState(false);
+
   const [shareClicked, setShareClicked] = useState(false);
   const [shares_, setShares] = useState(sharesFromParent);
   const [incrementShares] = useMutation(INCREMENT_SHARES);
 
-  useEffect(() => {
-    setUserId(localStorage.getItem("user_id"));
-  }, []);
-
   const onShareButtonClick = () => {
+    console.log(shareText);
+    console.log(shareUrl);
+    console.log(webShareAPIShareText);
+
     setShares(shares_ + 1);
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
@@ -419,7 +641,6 @@ export const SocialPanel = ({
         });
     } else {
       try {
-        console.log("Whatsapp App share");
         window.location.href = "whatsapp://send?text=" + combinedShareMsg;
       } catch {
         window.location.href =
@@ -465,6 +686,7 @@ export const SocialPanel = ({
   const [decrementBookmarks] = useMutation(DECREMENT_BOOKMARKS);
 
   const onBookmarkButtonClick = () => {
+    trackPageView("/triedSave");
     // Authenticate if not already logged in
     if (!isAuthenticated) {
       authDispatch({
@@ -504,20 +726,136 @@ export const SocialPanel = ({
     setBookmarkClicked(false);
   };
 
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // Comments Section
+
+  const [addComment] = useMutation(ADD_COMMENT);
+  const [incrementExpertCommentLikes] = useMutation(INCREMENT_COMMENT_LIKE);
+
+  const [showSignUpPopUp, setShowSignUpPopUp] = useState(false);
+  const [commentContent, setCommentContent] = useState("");
+
+  const { handleSubmit, register, errors } = useForm();
+
+  const postInstantComment = (content, user) => {
+    commentsShown.unshift({
+      content: content,
+      likes: 0,
+      replies: [],
+      shares: 0,
+      userName: user,
+    });
+  };
+
+  const onSubmit = (values) => {
+    if (!isAuthenticated) {
+      setCommentContent(values.comment);
+      setShowSignUpPopUp(true);
+    } else {
+      postInstantComment(values.comment, userName);
+
+      addComment({
+        variables: {
+          userId: userSystemId,
+          CMS_ID: CMS_ID,
+          content: values.comment,
+          writtenByExpert: userIsExpert,
+        },
+      });
+
+      if (userIsExpert) {
+        commentsFromParent.expertCommentsCount =
+          commentsFromParent.expertCommentsCount + 1;
+      } else {
+        commentsFromParent.discussionsCount =
+          commentsFromParent.discussionsCount + 1;
+      }
+    }
+  };
+
+  const onClickSignUpButton = () => {
+    authDispatch({
+      type: "SIGNIN_UN",
+    });
+
+    openModal({
+      show: true,
+      overlayClassName: "quick-view-overlay",
+      closeOnClickOutside: true,
+      component: AuthenticationForm,
+      closeComponent: "",
+      config: {
+        enableResizing: false,
+        disableDragging: true,
+        className: "quick-view-modal",
+        width: 458,
+        height: "auto",
+      },
+    });
+  };
+
+  const onClickPostAsAGuest = () => {
+    postInstantComment(commentContent, "Guest");
+    setShowSignUpPopUp(false);
+    addComment({
+      variables: {
+        userId: "GUEST",
+        CMS_ID: CMS_ID,
+        content: commentContent,
+      },
+    });
+
+    commentsFromParent.discussionsCount =
+      commentsFromParent.discussionsCount + 1;
+  };
+
+  const onClickCommentLike = (commentId) => {
+    incrementExpertCommentLikes({
+      variables: {
+        CMS_ID: CMS_ID,
+        CommentId: commentId,
+      },
+    });
+  };
+
+  const onClickOpenExpertComments = () => {
+    if (!showCompleteVersion) {
+      router.push(
+        "/article?a_id=" +
+          CMS_ID +
+          "&completeVersion=true&selectedCommentsSection=experts"
+      );
+    } else {
+      setSelectedCommentsSection("experts");
+    }
+    setCommentsShown(expertDiscussions);
+  };
+
+  const onClickOpenAskOrDiscuss = () => {
+    if (!showCompleteVersion) {
+      router.push(
+        "/article?a_id=" +
+          CMS_ID +
+          "&completeVersion=true&selectedCommentsSection=discussions"
+      );
+    } else {
+      setSelectedCommentsSection("discussions");
+    }
+    setCommentsShown(discussions);
+  };
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("user_id"));
+    setUserName(localStorage.getItem("user_name"));
+    setUserSystemId(localStorage.getItem("user_system_id"));
+    setUserIsExpert(
+      localStorage.getItem("user_is_expert") === "true" ? true : false
+    );
+  });
+
   return (
     <Container>
       <div className="card__action">
-        {/* <div class="card__author">
-                <div class="card__author-content">
-                <div class="card__author-content_image"></div>
-                <a href="#">John Doe</a>
-              </div>
-                <div class="card__factchecked">
-                  <div class="card__factchecked_image"></div>
-                  <h4>Fact Checked</h4>
-                </div>
-              </div> */}
-
         <div className="card__metrics">
           <div className="item__wrapper">
             <ShareButton onClick={onShareButtonClick}></ShareButton>
@@ -529,7 +867,7 @@ export const SocialPanel = ({
           {loveClicked ? (
             <div className="item__wrapper">
               <LoveButtonActivated
-                onClick={onLoveButtonClick}
+                onClick={onLoveButtonActivatedClick}
               ></LoveButtonActivated>
               <LoveButtonNumber>
                 <span className="number">{love_ + " "}</span> Likes
@@ -563,6 +901,151 @@ export const SocialPanel = ({
           )}
         </div>
       </div>
+
+      {
+        <CommentWrapper>
+          <p className="question_opinion">
+            <span
+              className={`${
+                showCompleteVersion === true &&
+                selectedCommentsSection === "discussions"
+                  ? "question_option_button_activated"
+                  : "question_option_button"
+              }`}
+              onClick={onClickOpenAskOrDiscuss}
+            >
+              {"Ask or Discuss  "}
+              <span className="number">
+                {commentsFromParent.discussionsCount}
+              </span>
+            </span>
+            <span
+              className={`${
+                showCompleteVersion === true &&
+                selectedCommentsSection === "experts"
+                  ? "question_option_button_activated"
+                  : "question_option_button"
+              }`}
+              onClick={onClickOpenExpertComments}
+            >
+              {"Expert Opinions  "}
+              <span className="number">
+                {commentsFromParent.expertCommentsCount}
+              </span>
+            </span>
+          </p>
+
+          {showCompleteVersion && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                name="comment"
+                className="add_opinion_question"
+                placeholder="Ask a question or start a discussion!!!"
+                ref={register({
+                  validate: (value) =>
+                    value !== "" || "Please enter a comment!!!",
+                })}
+              />
+
+              <button type="submit">POST</button>
+              <p className="error_input">
+                {errors.comment && errors.comment.message}
+              </p>
+            </form>
+          )}
+
+          {showSignUpPopUp && (
+            <div className="signup_popup">
+              <div className="button" onClick={onClickSignUpButton}>
+                Sign In
+              </div>
+              <div
+                className="button"
+                onClick={() => {
+                  onClickPostAsAGuest();
+                }}
+              >
+                Post as a guest
+              </div>
+            </div>
+          )}
+
+          {showCompleteVersion &&
+            commentsShown.map((comment) => {
+              return (
+                <Comment>
+                  <p className="user_name">{comment.userName}</p>
+                  <p className="content">{comment.content}</p>
+
+                  <div className="comment_social">
+                    <div className="comment_share">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "10px",
+                        }}
+                        src={shareIcon}
+                      ></img>
+                    </div>
+                    <div className="comment_like">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "10px",
+                        }}
+                        src={loveIcon}
+                        onClick={() => {
+                          onClickCommentLike(comment._id);
+                          comment.likes = comment.likes + 1;
+                        }}
+                      ></img>
+                      {comment.likes}
+                    </div>
+                  </div>
+                </Comment>
+              );
+            })}
+
+          {!showCompleteVersion &&
+            commentsFromParent.topComments.map((comment) => {
+              return (
+                <Comment>
+                  <p className="user_name">{comment.userName}</p>
+                  <p className="content">{comment.content}</p>
+                  <div className="comment_social">
+                    <div className="comment_share">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "10px",
+                        }}
+                        src={shareIcon}
+                      ></img>
+                    </div>
+                    <div className="comment_like">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "10px",
+                        }}
+                        src={loveIcon}
+                        onClick={() => {
+                          onClickCommentLike(comment._id);
+                          comment.likes = comment.likes + 1;
+                        }}
+                      ></img>
+                      {comment.likes}
+                    </div>
+                  </div>
+                </Comment>
+              );
+            })}
+        </CommentWrapper>
+      }
     </Container>
   );
 };

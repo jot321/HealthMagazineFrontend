@@ -11,6 +11,9 @@ import {
   PopularIcon,
   HomeIcon,
   LiveIcon,
+  MindNavIcon,
+  DietNavIcon,
+  FitNavIcon,
 } from "components/AllSvgIcon";
 
 export default {

@@ -38,12 +38,9 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
 
   // -----------------------------------------------------------
-  // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
-  // -----------------------------------------------------------
   // -----------------------------------------------------------
 
   const trainersFeed = useQuery(GET_EVENTS);
@@ -104,7 +101,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
 
   return (
     <>
-      <div ref={targetRef}>
+      <div>
         <ProductsRow>
           {parsedTrainersFeed.map((record, index) => {
             return record.events.map((event) => {

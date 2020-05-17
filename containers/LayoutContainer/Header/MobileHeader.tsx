@@ -20,7 +20,6 @@ import {
 import { FormattedMessage } from "react-intl";
 import SearchBox from "components/SearchBox/SearchBox";
 import { SearchContext } from "contexts/search/search.context";
-const NewLogoImage = require("image/logo/logo_no_bkg.svg");
 
 import { HOME_PAGE } from "constants/navigation";
 import LanguageContext from "contexts/language/language.context";
@@ -36,6 +35,8 @@ import {
   ESFlag,
   SAFlag,
 } from "components/AllSvgIcon";
+
+const NewLogoImage = require("image/logo/logo_no_bkg.svg");
 
 type MobileHeaderProps = {
   className?: string;

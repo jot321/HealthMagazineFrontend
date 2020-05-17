@@ -9,18 +9,21 @@ import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 import { useRouter } from "next/router";
 
-function LiveListingsPage({ deviceType }) {
+import {
+  OneTileWrapper,
+  OneTileCard,
+  TwoTileWrapper,
+  TwoTileCard,
+  ThreeTileWrapper,
+  ThreeTileCard,
+} from "components/Tile/Tile";
+
+function VideosPage({ deviceType }) {
   const router = useRouter();
-  const targetRef = React.useRef(null);
 
   const showVideosFromPlaylist = router.query.vpid != undefined;
   let urlVideoCategory =
     router.query.slug == null ? "" : router.query.slug.toString();
-
-  // Hack to bypass facebook ads algo
-  if (router.query.slug == "intimate-health") {
-    urlVideoCategory = "sexual-health";
-  }
 
   return (
     <>
@@ -28,17 +31,46 @@ function LiveListingsPage({ deviceType }) {
         <title>Curated Health Playlists</title>
         <link
           rel="canonical"
-          href={"https://urbannuskha.in/videos" + urlVideoCategory}
+          href={"https://urbannuskha.in/videos/" + urlVideoCategory}
         />
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
 
+        {/* <OneTileWrapper>
+          <OneTileCard>BANNER</OneTileCard>
+        </OneTileWrapper>
+        <br />
+
+        <h2>WORKOUTS</h2>
+        <ThreeTileWrapper>
+          <ThreeTileCard>FIT</ThreeTileCard>
+          <ThreeTileCard>DIET</ThreeTileCard>
+          <ThreeTileCard>MIND</ThreeTileCard>
+        </ThreeTileWrapper>
+        <br />
+
+        <h2>GOALS</h2>
+        <ThreeTileWrapper>
+          <ThreeTileCard>FIT</ThreeTileCard>
+          <ThreeTileCard>DIET</ThreeTileCard>
+          <ThreeTileCard>MIND</ThreeTileCard>
+        </ThreeTileWrapper>
+        <br />
+
+        <h2>MOTIVATION</h2>
+        <ThreeTileWrapper>
+          <ThreeTileCard>FIT</ThreeTileCard>
+          <ThreeTileCard>DIET</ThreeTileCard>
+          <ThreeTileCard>MIND</ThreeTileCard>
+        </ThreeTileWrapper>
+        <br /> */}
+
         {deviceType.desktop ? (
           <>
             <MainContentArea>
               <ContentSection>
-                <div ref={targetRef}>
+                <div>
                   {showVideosFromPlaylist ? (
                     <VideoListInformation />
                   ) : (
@@ -51,7 +83,7 @@ function LiveListingsPage({ deviceType }) {
         ) : (
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
-              <div ref={targetRef}>
+              <div>
                 {showVideosFromPlaylist ? (
                   <VideoListInformation />
                 ) : (
@@ -66,4 +98,4 @@ function LiveListingsPage({ deviceType }) {
   );
 }
 
-export default withApollo(LiveListingsPage);
+export default withApollo(VideosPage);

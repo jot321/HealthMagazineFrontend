@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import gql from "graphql-tag";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import { TipCard } from "components/InformationCard/TipCard";
+import { useQuery } from "@apollo/react-hooks";
 
 import HashLoader from "react-spinners/HashLoader";
-
-import {
-  ProductsRow,
-  ProductsCol,
-  LoaderWrapper,
-  LoaderItem,
-  ProductCardWrapper,
-} from "./Information.style";
-import { useQuery } from "@apollo/react-hooks";
-import Fade from "react-reveal/Fade";
 import NoResultFound from "components/NoResult/NoResult";
-
 import { Waypoint } from "react-waypoint";
+
+import { ProductsRow, LoaderWrapper, LoaderItem } from "./Information.style";
+import { outputCardScafollding } from "./contentScaffolding";
 
 const GET_TIPS = gql`
   query($offset: Int, $fetchLimit: Int, $category: String, $tag: String) {
@@ -58,12 +48,9 @@ export const TipsFeed: React.FC<ProductsProps> = ({
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
 
   // -----------------------------------------------------------
-  // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
-  // -----------------------------------------------------------
   // -----------------------------------------------------------
 
   let searchKey_ = null;
@@ -125,13 +112,6 @@ export const TipsFeed: React.FC<ProductsProps> = ({
     return <NoResultFound />;
   }
 
-  const InformationType = {
-    LISTICLE: 1,
-    SHORT_ARTICLE: 2,
-    IMAGE_ARTICLE: 3,
-    TIP: 4,
-  };
-
   // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
@@ -163,38 +143,13 @@ export const TipsFeed: React.FC<ProductsProps> = ({
 
   return (
     <>
-      <div ref={targetRef}>
+      <div>
         <ProductsRow>
           {tipsFeed.data.getTips.messages.map((element: any, index: number) => {
             const data_ = JSON.parse(element.message);
             const properties_ = JSON.parse(element.properties);
 
-            switch (properties_.type) {
-              case InformationType.TIP:
-                return (
-                  <ProductsCol key={index}>
-                    <ProductCardWrapper>
-                      <Fade
-                        duration={800}
-                        delay={10}
-                        style={{ height: "100%" }}
-                      >
-                        <TipCard
-                          CMS_ID={data_.CMS_ID}
-                          title={data_.title}
-                          text={data_.text}
-                          categories={data_.sub_category_names}
-                          visibleTags={data_.visible_tags_names}
-                          likes={properties_.likes}
-                          shares={properties_.shares}
-                          bookmarks={properties_.bookmarks}
-                        />
-                      </Fade>
-                    </ProductCardWrapper>
-                  </ProductsCol>
-                );
-                break;
-            }
+            return outputCardScafollding(data_, properties_, index);
           })}
         </ProductsRow>
       </div>

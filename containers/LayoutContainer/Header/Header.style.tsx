@@ -721,4 +721,11 @@ export const TypeIcon = styled.div`
   min-width: 16px;
 `;
 
+export const VerifiedImage = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-top: -20px;
+  margin-right: 10px;
+`;
+
 export default HeaderWrapper;

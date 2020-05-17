@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import gql from "graphql-tag";
-import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
-import { TipCard } from "components/InformationCard/TipCard";
+import { useQuery } from "@apollo/react-hooks";
 
 import HashLoader from "react-spinners/HashLoader";
-
-import {
-  ProductsRow,
-  ProductsCol,
-  LoaderWrapper,
-  LoaderItem,
-  ProductCardWrapper,
-} from "./Information.style";
-import { useQuery } from "@apollo/react-hooks";
-import Fade from "react-reveal/Fade";
+import { Waypoint } from "react-waypoint";
 import NoResultFound from "components/NoResult/NoResult";
 
-import { Waypoint } from "react-waypoint";
+import { ProductsRow, LoaderWrapper, LoaderItem } from "./Information.style";
+import { outputCardScafollding } from "./contentScaffolding";
 
 const GET_HOME_FEED = gql`
   query getFeed(
@@ -61,6 +52,7 @@ type ProductsProps = {
   loadPopular?: boolean;
   loadFeatured?: boolean;
   topLevelCategory?: string;
+  articleId?: string;
 };
 
 export const Information: React.FC<ProductsProps> = ({
@@ -69,21 +61,20 @@ export const Information: React.FC<ProductsProps> = ({
   loadPopular = false,
   loadFeatured = false,
   topLevelCategory = "",
+  articleId = null,
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
 
   // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
-  // -----------------------------------------------------------
   // -----------------------------------------------------------
 
   let searchKey_ = null;
   let toplevelcategory_ = null;
   let category_ = null;
   let tag_ = null;
-  let articleId_ = null;
+  let articleId_ = articleId;
   let sortByLikes_ = false;
   let dailyPicks_ = false;
 
@@ -144,13 +135,6 @@ export const Information: React.FC<ProductsProps> = ({
     return <NoResultFound />;
   }
 
-  const InformationType = {
-    LISTICLE: 1,
-    SHORT_ARTICLE: 2,
-    IMAGE_ARTICLE: 3,
-    TIP: 4,
-  };
-
   // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
@@ -182,89 +166,14 @@ export const Information: React.FC<ProductsProps> = ({
 
   return (
     <>
-      <div ref={targetRef}>
+      <div>
         <ProductsRow>
           {homeFeed.data.getHomeFeed.messages.map(
             (element: any, index: number) => {
               const data_ = JSON.parse(element.message);
               const properties_ = JSON.parse(element.properties);
 
-              switch (properties_.type) {
-                case InformationType.LISTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={0}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            listicles={data_.listicleItems}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.SHORT_ARTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.TIP:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <TipCard
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            text={data_.text}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-              }
+              return outputCardScafollding(data_, properties_, index);
             }
           )}
         </ProductsRow>

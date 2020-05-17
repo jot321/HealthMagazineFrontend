@@ -66,7 +66,7 @@ const PaymentCompletePage: NextPage<{}> = () => {
             <h3>
               Thanks for making the purchase. We will send you the link for the
               class 30 mins before the class. You can connect to us at
-              9902276965 for any queries.
+              9606468504 for any queries.
             </h3>
           </div>
         </div>

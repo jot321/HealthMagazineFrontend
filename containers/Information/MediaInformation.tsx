@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
-import styled from "styled-components";
 
 import { VideoPlaylistCard } from "components/InformationCard/VideoCard";
 import HashLoader from "react-spinners/HashLoader";
@@ -31,6 +30,8 @@ import { Waypoint } from "react-waypoint";
 import { sentenceToSlug } from "helper/slug";
 import { trackPageView } from "analytics";
 
+import { TagWrapper, Tag } from "./contentScaffolding";
+
 const GET_VIDEO_PLAYLISTS = gql`
   query($toplevelcategory: String, $offset: Int, $fetchLimit: Int) {
     getVideoPlaylistNames(
@@ -44,40 +45,6 @@ const GET_VIDEO_PLAYLISTS = gql`
       }
       hasMore
     }
-  }
-`;
-
-const TagWrapper = styled.div`
-  margin-top: 10px;
-`;
-
-const Tag = styled.div`
-  a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-  text-decoration: none;
-  border-radius: 7px;
-  display: inline-block;
-  margin-right: 10px;
-  color: #ea9085;
-  background-color: #fff;
-  border: 1px solid #ea9085;
-
-  margin-bottom: 7px;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  margin-left: 3px;
-
-  &.active {
-    background-color: #ea9085;
-    color: #fff;
   }
 `;
 

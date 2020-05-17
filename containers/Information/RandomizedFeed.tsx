@@ -1,25 +1,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import gql from "graphql-tag";
-import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
-import { TipCard } from "components/InformationCard/TipCard";
-
-import HashLoader from "react-spinners/HashLoader";
-
-import {
-  ProductsRow,
-  ProductsCol,
-  LoaderWrapper,
-  LoaderItem,
-  ProductCardWrapper,
-} from "./Information.style";
-
 import { useQuery } from "@apollo/react-hooks";
-import Fade from "react-reveal/Fade";
-import NoResultFound from "components/NoResult/NoResult";
 
+import NoResultFound from "components/NoResult/NoResult";
+import HashLoader from "react-spinners/HashLoader";
 import { Waypoint } from "react-waypoint";
+
+import { ProductsRow, LoaderWrapper, LoaderItem } from "./Information.style";
+import { outputCardScafollding } from "./contentScaffolding";
 
 const GET_RANDOM_ARTICLEIDS = gql`
   query getArticleIds {
@@ -54,12 +43,9 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
-  const targetRef = React.useRef(null);
 
   // -----------------------------------------------------------
-  // -----------------------------------------------------------
   // DATA FETCHING - QUERY SECTION
-  // -----------------------------------------------------------
   // -----------------------------------------------------------
 
   const [iteration, setIteration] = useState(1);
@@ -102,13 +88,6 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
     return <NoResultFound />;
   }
 
-  const InformationType = {
-    LISTICLE: 1,
-    SHORT_ARTICLE: 2,
-    IMAGE_ARTICLE: 3,
-    TIP: 4,
-  };
-
   // -----------------------------------------------------------
   // LOAD MORE SECTION
   // -----------------------------------------------------------
@@ -143,89 +122,14 @@ export const RandomizedFeed: React.FC<ProductsProps> = ({
 
   return (
     <>
-      <div ref={targetRef}>
+      <div>
         <ProductsRow>
           {articlesData.data.getArticleInformationFromArrayofIds.map(
             (element: any, index: number) => {
               const data_ = JSON.parse(element.message);
               const properties_ = JSON.parse(element.properties);
 
-              switch (properties_.type) {
-                case InformationType.LISTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            listicles={data_.listicleItems}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.SHORT_ARTICLE:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <SimpleCardWithCollapse
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            byline={data_.byline}
-                            description={data_.description}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            imageUrl={data_.attachedImage}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-                case InformationType.TIP:
-                  return (
-                    <ProductsCol key={index}>
-                      <ProductCardWrapper>
-                        <Fade
-                          duration={800}
-                          delay={index * 10}
-                          style={{ height: "100%" }}
-                        >
-                          <TipCard
-                            CMS_ID={data_.CMS_ID}
-                            title={data_.title}
-                            text={data_.text}
-                            categories={data_.sub_category_names}
-                            visibleTags={data_.visible_tags_names}
-                            likes={properties_.likes}
-                            shares={properties_.shares}
-                            bookmarks={properties_.bookmarks}
-                          />
-                        </Fade>
-                      </ProductCardWrapper>
-                    </ProductsCol>
-                  );
-              }
+              return outputCardScafollding(data_, properties_, index);
             }
           )}
         </ProductsRow>

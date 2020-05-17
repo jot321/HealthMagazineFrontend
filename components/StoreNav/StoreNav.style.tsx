@@ -24,8 +24,15 @@ export const StoreNavLinks = styled.div`
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+
   .store-nav-link {
     margin-right: 10px;
+    min-width: 70px;
 
     a {
       display: flex;

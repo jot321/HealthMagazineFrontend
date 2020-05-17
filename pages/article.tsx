@@ -1,18 +1,21 @@
 import React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 
-// import Information from "containers/Information/Information";
-import RandomizedFeed from "containers/Information/RandomizedFeed";
+import Information from "containers/Information/Information";
 
 import { MainContentArea, ContentSection } from "styled/pages.style";
-// Static Data Import Here
+
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 
 function HomePage({ deviceType }) {
-  const targetRef = React.useRef(null);
+  const router = useRouter();
+
+  const articleId =
+    router.query.a_id != null ? router.query.a_id.toString() : null;
 
   return (
     <>
@@ -25,8 +28,8 @@ function HomePage({ deviceType }) {
           <>
             <MainContentArea>
               <ContentSection>
-                <div ref={targetRef}>
-                  <RandomizedFeed deviceType={deviceType} />
+                <div>
+                  <Information deviceType={deviceType} articleId={articleId} />
                 </div>
               </ContentSection>
             </MainContentArea>
@@ -34,8 +37,8 @@ function HomePage({ deviceType }) {
         ) : (
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
-              <div ref={targetRef}>
-                <RandomizedFeed deviceType={deviceType} />
+              <div>
+                <Information deviceType={deviceType} articleId={articleId} />
               </div>
             </ContentSection>
           </MainContentArea>
