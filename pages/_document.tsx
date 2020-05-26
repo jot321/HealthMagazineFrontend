@@ -46,6 +46,10 @@ export default class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,300,400,500,600,700&display=swap"
             rel="stylesheet"
           ></link>
+          {/* <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
+          ></link> */}
 
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {process.env.NODE_ENV === "production" && (

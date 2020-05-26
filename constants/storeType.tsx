@@ -48,6 +48,41 @@ export default {
       identifier: "tips",
     },
   ],
+  GroupPage: [
+    {
+      link: HOME_PAGE,
+      label: "Back",
+    },
+    {
+      link: HOME_PAGE,
+      icon: <HomeIcon />,
+      label: "Home",
+    },
+    {
+      link: "/videos",
+      icon: <YoutubeVideoIcon />,
+      label: "Videos",
+      identifier: "videos",
+    },
+    {
+      link: "/live",
+      icon: <LiveIcon />,
+      label: "Live",
+      identifier: "live",
+    },
+    {
+      link: "/popular",
+      icon: <PopularIcon />,
+      label: "Popular",
+      identifier: "popular",
+    },
+    {
+      link: "/tips",
+      icon: <TipsIcon />,
+      label: "Tips",
+      identifier: "tips",
+    },
+  ],
   ChronicPage: [
     {
       link: HOME_PAGE,

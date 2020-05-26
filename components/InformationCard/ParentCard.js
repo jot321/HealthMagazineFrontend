@@ -860,7 +860,7 @@ export const SocialPanel = ({
           <div className="item__wrapper">
             <ShareButton onClick={onShareButtonClick}></ShareButton>
             <ShareButtonNumber>
-              <span className="number">{shares_ + " "}</span> Shares
+              <span className="number">{shares_}</span> Shares
             </ShareButtonNumber>
           </div>
 
@@ -870,14 +870,14 @@ export const SocialPanel = ({
                 onClick={onLoveButtonActivatedClick}
               ></LoveButtonActivated>
               <LoveButtonNumber>
-                <span className="number">{love_ + " "}</span> Likes
+                <span className="number">{love_}</span> Likes
               </LoveButtonNumber>
             </div>
           ) : (
             <div className="item__wrapper">
               <LoveButton onClick={onLoveButtonClick}></LoveButton>
               <LoveButtonNumber>
-                <span className="number">{love_ + " "}</span> Likes
+                <span className="number">{love_}</span> Likes
               </LoveButtonNumber>
             </div>
           )}
@@ -888,14 +888,14 @@ export const SocialPanel = ({
                 onClick={onBookmarkButtonActivatedClick}
               ></BookmarkButtonActivated>
               <BookmarkButtonNumberActivated>
-                <span className="number">{bookmark_ + " "}</span> Saves
+                <span className="number">{bookmark_}</span> Saves
               </BookmarkButtonNumberActivated>
             </div>
           ) : (
             <div className="item__wrapper">
               <BookmarkButton onClick={onBookmarkButtonClick}></BookmarkButton>
               <BookmarkButtonNumber>
-                <span className="number">{bookmark_ + " "}</span> Saves
+                <span className="number">{bookmark_}</span> Saves
               </BookmarkButtonNumber>
             </div>
           )}

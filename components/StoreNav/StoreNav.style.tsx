@@ -52,7 +52,7 @@ export const StoreNavLinks = styled.div`
 
       &.current-page {
         color: ${themeGet("colors.primary", "#009E7F")};
-        background-color: #f8f8f8;
+        background-color: #f0f0f0;
       }
     }
   }

@@ -43,7 +43,6 @@ const Container = styled.div`
   }
 
   .card {
-    // border-left: 6px solid #e43f5a;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
@@ -141,6 +140,7 @@ export const TipCard = ({
   CMS_ID,
   title,
   text,
+  groups,
   categories,
   visibleTags,
   likes,
@@ -200,10 +200,12 @@ export const TipCard = ({
                     })}
                 </div>
                 <h3
-                  dangerouslySetInnerHTML={{
-                    __html: convertToRichText(text),
-                  }}
-                ></h3>
+                // dangerouslySetInnerHTML={{
+                //   __html: convertToRichText(text),
+                // }}
+                >
+                  {text}
+                </h3>
               </CardArticleArea>
             </div>
 

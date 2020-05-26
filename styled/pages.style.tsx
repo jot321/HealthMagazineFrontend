@@ -131,7 +131,7 @@ const Heading = styled.h2`
   display: inline-block;
 `;
 
-export const ProductsRow = styled.div`
+const ProductsRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 30px;
@@ -182,6 +182,68 @@ const ProductsCol = styled.div`
   }
 `;
 
+const GroupTopBar = styled.div`
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .title_area {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 10px;
+  }
+
+  .content_categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    padding-top: 10px;
+  }
+
+  .category_button {
+    padding: 8px 15px;
+    font-weight: 500;
+
+    border-radius: 10px;
+  }
+
+  .active {
+    background-color: #e4e4e4;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+`;
+
+const SubmitButton = styled.div`
+  padding: 10px;
+  position: fixed;
+  bottom: 10px;
+  z-index: 1000;
+  right: 10px;
+`;
+
+const ShowMoreGroups = styled.div`
+  display: flex;
+  justify-content: center;
+
+  p {
+    padding: 5px 25px;
+    border-radius: 10px;
+    background-color: #eee;
+    color: #e43f5a;
+    font-weight: 600;
+  }
+`;
+
 export {
   OfferPageWrapper,
   HeaderSection,
@@ -191,4 +253,8 @@ export {
   OfferSection,
   Heading,
   ProductsCol,
+  ProductsRow,
+  GroupTopBar,
+  SubmitButton,
+  ShowMoreGroups,
 };

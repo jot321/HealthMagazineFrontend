@@ -6,13 +6,14 @@ import { VideoPlayerCard } from "components/InformationCard/VideoCard";
 
 import Fade from "react-reveal/Fade";
 
-const InformationType = {
+export const InformationType = {
   LISTICLE: 1,
   SHORT_ARTICLE: 2,
   IMAGE_ARTICLE: 3,
   TIP: 4,
   VIDEOLINK: 6,
   EXTERNAL_LINK: 7,
+  QUESTION: 8,
 };
 
 export const TagWrapper = styled.div`
@@ -117,8 +118,36 @@ export const outputCardScafollding = (data_, properties_, index) => {
                 CMS_ID={data_.CMS_ID}
                 title={data_.title}
                 text={data_.text}
+                groups={properties_.groups}
                 categories={data_.sub_category_names}
                 visibleTags={data_.visible_tags_names}
+                likes={properties_.likes}
+                shares={properties_.shares}
+                bookmarks={properties_.bookmarks}
+                comments={{
+                  comments: properties_.expertComments,
+                  expertCommentsCount: properties_.expertCommentsCount,
+                  discussionsCount: properties_.discussionsCount,
+                  topComments: properties_.topComments,
+                }}
+              />
+            </Fade>
+          </ProductCardWrapper>
+        </ProductsCol>
+      );
+
+    case InformationType.QUESTION:
+      return (
+        <ProductsCol key={index}>
+          <ProductCardWrapper>
+            <Fade duration={800} delay={10} style={{ height: "100%" }}>
+              <TipCard
+                CMS_ID={data_.CMS_ID}
+                title={data_.title}
+                text={data_.text}
+                groups={properties_.groups}
+                categories={properties_.sub_category_names}
+                visibleTags={properties_.visible_tags_names}
                 likes={properties_.likes}
                 shares={properties_.shares}
                 bookmarks={properties_.bookmarks}

@@ -11,16 +11,6 @@ import { openModal } from "@redq/reuse-modal";
 import AuthenticationForm from "containers/SignInOutForm/Form";
 import { useRouter } from "next/router";
 
-import styled from "styled-components";
-
-const SubmitTipButton = styled.div`
-  padding: 10px;
-  position: fixed;
-  bottom: 10px;
-  z-index: 1000;
-  right: 10px;
-`;
-
 function HomePage({ deviceType }) {
   const router = useRouter();
   const targetRef = React.useRef(null);
@@ -86,9 +76,6 @@ function HomePage({ deviceType }) {
           </MainContentArea>
         )}
       </Modal>
-      {/* <SubmitTipButton onClick={onClickSubmitTip}>
-        <img src="https://img.icons8.com/cotton/64/000000/add--v2.png" />
-      </SubmitTipButton> */}
     </>
   );
 }

@@ -21,6 +21,7 @@ const GET_HOME_FEED = gql`
     $category: String
     $tag: String
     $articleId: String
+    $contentType: Int
   ) {
     getHomeFeed(
       sortByLikes: $sortByLikes
@@ -32,6 +33,7 @@ const GET_HOME_FEED = gql`
       category: $category
       tag: $tag
       articleId: $articleId
+      contentType: $contentType
     ) {
       messages {
         message
@@ -53,6 +55,7 @@ type ProductsProps = {
   loadFeatured?: boolean;
   topLevelCategory?: string;
   articleId?: string;
+  contentType?: number;
 };
 
 export const Information: React.FC<ProductsProps> = ({
@@ -62,6 +65,7 @@ export const Information: React.FC<ProductsProps> = ({
   loadFeatured = false,
   topLevelCategory = "",
   articleId = null,
+  contentType = null,
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
@@ -71,12 +75,9 @@ export const Information: React.FC<ProductsProps> = ({
   // -----------------------------------------------------------
 
   let searchKey_ = null;
-  let toplevelcategory_ = null;
   let category_ = null;
   let tag_ = null;
   let articleId_ = articleId;
-  let sortByLikes_ = false;
-  let dailyPicks_ = false;
 
   if (router.query.searchKey) {
     searchKey_ = String(router.query.searchKey);
@@ -88,27 +89,17 @@ export const Information: React.FC<ProductsProps> = ({
     articleId_ = String(router.query.articleId);
   }
 
-  if (topLevelCategory) {
-    toplevelcategory_ = topLevelCategory;
-  }
-
-  if (loadPopular) {
-    sortByLikes_ = true;
-  }
-  if (loadFeatured) {
-    dailyPicks_ = true;
-  }
-
   const homeFeed = useQuery(GET_HOME_FEED, {
     variables: {
       articleId: articleId_,
       searchKey: searchKey_,
-      toplevelcategory: toplevelcategory_,
+      toplevelcategory: topLevelCategory,
       category: category_,
       tag: tag_,
-      sortByLikes: sortByLikes_,
-      dailyPicks: dailyPicks_,
+      sortByLikes: loadPopular,
+      dailyPicks: loadFeatured,
       fetchLimit: 6,
+      contentType: contentType,
     },
   });
 

@@ -1,5 +1,7 @@
 import React from "react";
 import Head from "next/head";
+import styled from "styled-components";
+import { useRouter } from "next/router";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 import RandomizedFeed from "containers/Information/RandomizedFeed";
@@ -19,8 +21,24 @@ const fitnessCover = require("image/categories/fitness_cover.jpg");
 const dietCover = require("image/categories/diet_cover.jpg");
 const mindCover = require("image/categories/mind_cover.jpg");
 
+const downArrow = require("image/down-arrow.png");
+
+import { Shake } from "reshake";
+const ClickNudge = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  p {
+    padding: 10px;
+    font-weight: 500;
+  }
+`;
+
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
+  const router = useRouter();
 
   // React.useEffect(() => {
   //   const modalTimer = setTimeout(() => {
@@ -61,33 +79,63 @@ function HomePage({ deviceType }) {
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
         <br />
-        {/* <OneTileWrapper>
-          <OneTileCard image={fitnessCover}>
-            <div className="card"></div>
-          </OneTileCard>
-        </OneTileWrapper>
-        <br />
 
-        <OneTileWrapper>
-          <OneTileCard image={dietCover}>
-            <div className="card"></div>
-          </OneTileCard>
-        </OneTileWrapper>
-        <br />
-
-        <OneTileWrapper>
-          <OneTileCard image={mindCover}>
-            <div className="card"></div>
-          </OneTileCard>
-        </OneTileWrapper>
-        <br /> */}
+        <Shake
+          h={0}
+          v={50}
+          r={0}
+          dur={800}
+          int={54.6}
+          max={100}
+          fixed={true}
+          fixedStop={true}
+          freez={false}
+        >
+          <ClickNudge>
+            <p>Tap on the squares</p>
+            <img
+              style={{ width: "20px", height: "20px" }}
+              src={downArrow}
+            ></img>
+          </ClickNudge>
+        </Shake>
 
         <TwoTileWrapper>
-          <TwoTileCard color={"#e43f5a"}>
+          <TwoTileCard
+            color={"#e43f5a"}
+            onClick={() => {
+              router.push("/fitness");
+            }}
+          >
             <h1>FIT</h1>
           </TwoTileCard>
-          <TwoTileCard color={"#00bd56"}>
+          <TwoTileCard
+            color={"#00bd56"}
+            onClick={() => {
+              router.push("/diet");
+            }}
+          >
             <h1>DIET</h1>
+          </TwoTileCard>
+        </TwoTileWrapper>
+        <br />
+
+        <TwoTileWrapper>
+          <TwoTileCard
+            color={"#28c3d4"}
+            onClick={() => {
+              router.push("/mental");
+            }}
+          >
+            <h1>MIND</h1>
+          </TwoTileCard>
+          <TwoTileCard
+            color={"#ffe277"}
+            onClick={() => {
+              router.push("/general");
+            }}
+          >
+            <h1>GENERAL</h1>
           </TwoTileCard>
         </TwoTileWrapper>
         <br />

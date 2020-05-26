@@ -8,6 +8,8 @@ import {
   createVideosWhatsappTextMessageWebShare,
 } from "./helpers";
 
+import { BreakLine } from "./CardParts";
+
 import ReactPlayer from "react-player";
 import { SocialPanel } from "./ParentCard";
 
@@ -20,11 +22,11 @@ const Container = styled.div`
     text-decoration: none;
   }
 
-  h3 {
-    padding: 10px;
+  h5 {
+    padding: 20px;
+    font-size: 1.1rem;
     line-height: 1.2;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    font-weight: 400;
     color: #000;
     text-transform: capitalize;
   }
@@ -110,25 +112,22 @@ const Container = styled.div`
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
     overflow: hidden;
-
-    h3 {
-      padding: 10px;
-      font-size: 1.6rem;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      font-weight: 500;
-      color: #000;
-      text-transform: capitalize;
-      border-left: 6px solid #e43f5a;
-    }
   }
 
   .card__image {
     min-height: 100px;
-    background-color: #eee;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     margin-bottom: 20px;
+
+    h3 {
+      padding: 20px;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      font-weight: 500;
+      color: #000;
+      text-transform: capitalize;
+    }
 
     img {
       width: 100%;
@@ -205,7 +204,7 @@ export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
     <div>
       <Container>
         <h2>{title}</h2>
-        {byline && <h3>{byline}</h3>}
+        {byline && <h5>{byline}</h5>}
         <br></br>
         {videoLinks.map((videoLink, index) => {
           return (
@@ -244,6 +243,13 @@ export const VideoPlayerCard = ({
         <div className="video__wrapper">
           <div className="video__card">
             <div className="card__image">
+              {title != null && (
+                <div>
+                  <h3>{title}</h3>
+                  <BreakLine />
+                </div>
+              )}
+
               <ReactPlayer
                 url={url}
                 width="100%"
@@ -251,7 +257,6 @@ export const VideoPlayerCard = ({
                 playsinline={true}
               />
             </div>
-            {title != null && <h3>{title}</h3>}
             <SocialPanel
               CMS_ID={CMS_ID}
               likesFromParent={likes}

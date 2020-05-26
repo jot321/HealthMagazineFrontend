@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
-import Information from "containers/Information/Information";
-import { MainContentArea, ContentSection } from "styled/pages.style";
 import NavBarItems from "constants/storeType";
+import {
+  FITNESS_TOP_CATEGORY_SLUG,
+  FITNESS_TOP_CATEGORY,
+} from "constants/categories";
+
+import { CategoryPage } from "containers/Information/CategoryPage";
 import { Modal } from "@redq/reuse-modal";
 
-import { FITNESS_TOP_CATEGORY } from "constants/categories";
-
 function HomePage({ deviceType }) {
-  const targetRef = React.useRef(null);
-
   return (
     <>
       <Head>
@@ -31,31 +31,13 @@ function HomePage({ deviceType }) {
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
 
-        {deviceType.desktop ? (
-          <>
-            <MainContentArea>
-              <ContentSection>
-                <div ref={targetRef}>
-                  <Information
-                    deviceType={deviceType}
-                    topLevelCategory={FITNESS_TOP_CATEGORY}
-                  />
-                </div>
-              </ContentSection>
-            </MainContentArea>
-          </>
-        ) : (
-          <MainContentArea>
-            <ContentSection style={{ width: "100%" }}>
-              <div ref={targetRef}>
-                <Information
-                  deviceType={deviceType}
-                  topLevelCategory={FITNESS_TOP_CATEGORY}
-                />
-              </div>
-            </ContentSection>
-          </MainContentArea>
-        )}
+        <CategoryPage
+          deviceType={deviceType}
+          pageTitle={"FITNESS"}
+          categoryName={FITNESS_TOP_CATEGORY}
+          categorySlug={FITNESS_TOP_CATEGORY_SLUG}
+          categoryColor={"#e43f5a"}
+        ></CategoryPage>
       </Modal>
     </>
   );
