@@ -31,7 +31,8 @@ function HomePage({ deviceType }) {
           pageTitle={"MENTAL WELL BEING"}
           categoryName={MENTAL_TOP_CATEGORY}
           categorySlug={MENTAL_TOP_CATEGORY_SLUG}
-          categoryColor={"#28c3d4"}
+          // categoryColor={"#28c3d4"}
+          categoryColor={"#e43f5a"}
         ></CategoryPage>
       </Modal>
     </>

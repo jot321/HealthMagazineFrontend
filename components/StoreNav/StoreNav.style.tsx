@@ -17,10 +17,10 @@ export const StoreNavLinks = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-start;
-  height: 40px;
+  justify-content: center;
+  height: 35px;
   overflow-y: hidden;
   overflow-x: auto;
-  padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;

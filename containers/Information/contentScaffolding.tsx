@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ProductsCol, ProductCardWrapper } from "./Information.style";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
+import { QuestionCard } from "components/InformationCard/QuestionCard";
 import { VideoPlayerCard } from "components/InformationCard/VideoCard";
 
 import Fade from "react-reveal/Fade";
@@ -63,8 +64,9 @@ export const outputCardScafollding = (data_, properties_, index) => {
                 byline={data_.byline}
                 description={data_.description}
                 listicles={data_.listicleItems}
-                categories={data_.sub_category_names}
-                visibleTags={data_.visible_tags_names}
+                groups={properties_.groups}
+                categories={properties_.sub_category_names}
+                visibleTags={properties_.visible_tags_names}
                 imageUrl={data_.attachedImage}
                 likes={properties_.likes}
                 shares={properties_.shares}
@@ -91,8 +93,9 @@ export const outputCardScafollding = (data_, properties_, index) => {
                 title={data_.title}
                 byline={data_.byline}
                 description={data_.description}
-                categories={data_.sub_category_names}
-                visibleTags={data_.visible_tags_names}
+                groups={properties_.groups}
+                categories={properties_.sub_category_names}
+                visibleTags={properties_.visible_tags_names}
                 imageUrl={data_.attachedImage}
                 likes={properties_.likes}
                 shares={properties_.shares}
@@ -140,25 +143,25 @@ export const outputCardScafollding = (data_, properties_, index) => {
       return (
         <ProductsCol key={index}>
           <ProductCardWrapper>
-            <Fade duration={800} delay={10} style={{ height: "100%" }}>
-              <TipCard
-                CMS_ID={data_.CMS_ID}
-                title={data_.title}
-                text={data_.text}
-                groups={properties_.groups}
-                categories={properties_.sub_category_names}
-                visibleTags={properties_.visible_tags_names}
-                likes={properties_.likes}
-                shares={properties_.shares}
-                bookmarks={properties_.bookmarks}
-                comments={{
-                  comments: properties_.expertComments,
-                  expertCommentsCount: properties_.expertCommentsCount,
-                  discussionsCount: properties_.discussionsCount,
-                  topComments: properties_.topComments,
-                }}
-              />
-            </Fade>
+            {/* <Fade duration={800} delay={10} style={{ height: "100%" }}> */}
+            <QuestionCard
+              CMS_ID={data_.CMS_ID}
+              title={data_.title}
+              text={data_.text}
+              groups={properties_.groups}
+              categories={properties_.sub_category_names}
+              visibleTags={properties_.visible_tags_names}
+              likes={properties_.likes}
+              shares={properties_.shares}
+              bookmarks={properties_.bookmarks}
+              comments={{
+                comments: properties_.expertComments,
+                expertCommentsCount: properties_.expertCommentsCount,
+                discussionsCount: properties_.discussionsCount,
+                topComments: properties_.topComments,
+              }}
+            />
+            {/* </Fade> */}
           </ProductCardWrapper>
         </ProductsCol>
       );
@@ -176,8 +179,9 @@ export const outputCardScafollding = (data_, properties_, index) => {
                   link: data_.link,
                   source: data_.source,
                 }}
-                categories={data_.sub_category_names}
-                visibleTags={data_.visible_tags_names}
+                groups={properties_.groups}
+                categories={properties_.sub_category_names}
+                visibleTags={properties_.visible_tags_names}
                 imageUrl={data_.image}
                 likes={properties_.likes}
                 shares={properties_.shares}
@@ -203,6 +207,7 @@ export const outputCardScafollding = (data_, properties_, index) => {
                 title={data_.title}
                 url={data_.videoLink}
                 CMS_ID={data_.CMS_ID}
+                groups={properties_.groups}
                 likes={properties_.likes}
                 shares={properties_.shares}
                 bookmarks={properties_.bookmarks}
@@ -228,8 +233,9 @@ export const outputCardScafollding = (data_, properties_, index) => {
               <SimpleCardWithCollapse
                 CMS_ID={data_.CMS_ID}
                 title={data_.title}
-                categories={data_.sub_category_names}
-                visibleTags={data_.visible_tags_names}
+                groups={properties_.groups}
+                categories={properties_.sub_category_names}
+                visibleTags={properties_.visible_tags_names}
                 imageUrl={data_.image}
                 isImageArticle={true}
                 likes={properties_.likes}

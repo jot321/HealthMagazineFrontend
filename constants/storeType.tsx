@@ -23,18 +23,12 @@ export default {
       icon: <HomeIcon />,
       label: "Home",
     },
-    {
-      link: "/videos",
-      icon: <YoutubeVideoIcon />,
-      label: "Videos",
-      identifier: "videos",
-    },
-    {
-      link: "/live",
-      icon: <LiveIcon />,
-      label: "Live",
-      identifier: "live",
-    },
+    // {
+    //   link: "/videos",
+    //   icon: <YoutubeVideoIcon />,
+    //   label: "Videos",
+    //   identifier: "videos",
+    // },
     {
       link: "/popular",
       icon: <PopularIcon />,
@@ -42,10 +36,11 @@ export default {
       identifier: "popular",
     },
     {
-      link: "/tips",
-      icon: <TipsIcon />,
-      label: "Tips",
-      identifier: "tips",
+      link: "/live",
+      // icon: <LiveIcon />,
+      icon: <YoutubeVideoIcon />,
+      label: "Live",
+      identifier: "live",
     },
   ],
   GroupPage: [

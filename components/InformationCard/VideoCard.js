@@ -8,16 +8,20 @@ import {
   createVideosWhatsappTextMessageWebShare,
 } from "./helpers";
 
-import { BreakLine } from "./CardParts";
-
 import ReactPlayer from "react-player";
 import { SocialPanel } from "./ParentCard";
 
 import { sentenceToSlug } from "helper/slug";
 import { trackPageView } from "analytics";
+import { getGroupNameFromSlug } from "constants/groups_mapping";
 
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
+
+  margin: 0;
+  padding: 0;
+  margin-bottom: -15px;
+
   a {
     text-decoration: none;
   }
@@ -120,15 +124,6 @@ const Container = styled.div`
     border-top-right-radius: 2px;
     margin-bottom: 20px;
 
-    h3 {
-      padding: 20px;
-      font-size: 1.6rem;
-      line-height: 1.2;
-      font-weight: 500;
-      color: #000;
-      text-transform: capitalize;
-    }
-
     img {
       width: 100%;
       max-width: 100%;
@@ -137,6 +132,24 @@ const Container = styled.div`
   }
 
   .card__content {
+    display: flex;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 1.4rem;
+
+    flex-direction: column;
+
+    h3 {
+      font-size: 1.4rem;
+      line-height: 1.2;
+      font-weight: 500;
+      color: #000;
+      text-transform: capitalize;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .card__content_playlist {
     display: flex;
     flex-direction: column-reverse;
     position: relative;
@@ -154,15 +167,16 @@ const Container = styled.div`
   .card__tags {
     display: inline-block;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     .card__meta {
+      border-radius: 4px;
       display: inline-block;
       float: left;
       margin-right: 10px;
-      background-color: #f4dada;
+      background-color: #e43f5a;
 
-      padding: 1px;
+      padding: 2px;
       margin-bottom: 5px;
       font-weight: 500;
       font-size: x-small;
@@ -170,11 +184,10 @@ const Container = styled.div`
       line-height: 1.5;
 
       a {
-        color: #15131d;
-        text-transform: uppercase;
+        color: #fff;
         padding: 0 5px;
         letter-spacing: 1px;
-        font-size: 0.75rem;
+        font-size: 0.9rem;
         text-transform: capitalize;
       }
     }
@@ -230,6 +243,7 @@ export const VideoPlayerCard = ({
   url,
   title,
   CMS_ID,
+  groups,
   likes,
   shares,
   bookmarks,
@@ -242,14 +256,34 @@ export const VideoPlayerCard = ({
       <Container>
         <div className="video__wrapper">
           <div className="video__card">
-            <div className="card__image">
+            <div className="card__content">
               {title != null && (
                 <div>
                   <h3>{title}</h3>
-                  <BreakLine />
                 </div>
               )}
 
+              <div className="card__tags">
+                {groups.length > 0 &&
+                  groups.slice(0, 3).map((group, index) => {
+                    return (
+                      <div
+                        onClick={() => {
+                          trackPageView("/group/" + sentenceToSlug(group));
+                        }}
+                        className="card__meta"
+                        key={index}
+                      >
+                        <Link href={"/group?q=" + group}>
+                          <a>{getGroupNameFromSlug(group)}</a>
+                        </Link>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+
+            <div className="card__image">
               <ReactPlayer
                 url={url}
                 width="100%"
@@ -257,6 +291,7 @@ export const VideoPlayerCard = ({
                 playsinline={true}
               />
             </div>
+
             <SocialPanel
               CMS_ID={CMS_ID}
               likesFromParent={likes}
@@ -264,9 +299,9 @@ export const VideoPlayerCard = ({
               bookmarkFromParent={bookmarks}
               commentsFromParent={comments}
               webShareAPIShareText={createVideosWhatsappTextMessageWebShare(
-                playlistTitle
+                title
               )}
-              shareText={createVideosWhatsappTextMessage(playlistTitle)}
+              shareText={createVideosWhatsappTextMessage(title)}
               shareUrl={createVideosWhatsappLinkMessageWebAPIShare(CMS_ID)}
             />
           </div>
@@ -304,7 +339,7 @@ export const VideoPlaylistCard = ({
                 );
               }}
             >
-              <div className="card__content">
+              <div className="card__content_playlist">
                 <CardArticleArea>
                   <h4>{title}</h4>
                 </CardArticleArea>

@@ -10,11 +10,14 @@ import AuthenticationForm from "containers/SignInOutForm/Form";
 import { useQuery } from "@apollo/react-hooks";
 
 import { trackPageView } from "analytics";
+import { moreInfoText } from "./helpers";
 
 const loveIcon = require("../../image/icons/love_new.png");
 const shareIcon = require("../../image/icons/share_new.png");
 const bookmarkIcon = require("../../image/icons/bookmark_new.png");
 const bookmarkActivatedIcon = require("../../image/icons/bookmark_activated_new.png");
+const verifiedIcon = require("image/icons/verified.png");
+const commentIcon = require("image/icons/comment.png");
 
 // CSS styling for the buttons
 
@@ -118,12 +121,67 @@ const Container = styled.div`
   }
 
   .card__action {
-    margin-top: -20px;
     overflow: hidden;
     padding-bottom: 1rem;
-    padding-top: 40px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+  }
+
+  .panel_social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .question_option_button {
+    padding: 2px;
+    background-color: #eeeeee;
+    color: #e43f5a;
+    border-radius: 7px;
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    white-space: break-spaces;
+    margin-right: 10px;
+
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    align-items: center;
+
+    span.number {
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: contents;
+    }
+  }
+
+  .question_option_button_activated {
+    padding: 2px;
+    background-color: #d4d7dd;
+    color: #e43f5a;
+    border-radius: 7px;
+    padding: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    white-space: break-spaces;
+    margin-right: 10px;
+
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    align-items: center;
+
+    span.number {
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: contents;
+    }
   }
 
   .card__author {
@@ -144,6 +202,68 @@ const Container = styled.div`
     width: 25%;
     display: flex;
     flex-direction: row;
+  }
+
+  .card__metrics_small {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+  }
+
+  .item__wrapper_small {
+    width: 25%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .comment_social {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .panel_like {
+    display: flex;
+    align-items: center;
+    color: #fe4540;
+    width: 100%;
+    margin-left: 10px;
+    min-width: 40px;
+    padding: 1px 10px;
+
+    .number {
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+  }
+
+  .panel_share {
+    display: flex;
+    align-items: center;
+    color: #74b980;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 40px;
+
+    .number {
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+  }
+
+  .panel_bookmark {
+    display: flex;
+    align-items: center;
+    color: #4dcfe0;
+    width: 30px;
+
+    .number {
+      font-size: 0.8rem;
+      border-radius: 5px;
+      background-color: #ededed;
+      padding: 5px;
+      font-weight: 600;
+    }
   }
 
   .card__author img,
@@ -340,8 +460,7 @@ const CommentWrapper = styled.div`
 
   span.question_option_button_activated {
     padding: 2px;
-    background-color: #eeeeee;
-    border: 2px solid;
+    background-color: #d4d7dd;
     color: #e43f5a;
     border-radius: 7px;
     padding: 3px;
@@ -431,10 +550,21 @@ const Comment = styled.div`
   margin-top: 2px;
   font-size: 0.9rem;
 
-  p.user_name {
-    font-weight: 500;
+  .user_name {
+    display: flex;
+    align-items: center;
     padding-bottom: 5px;
-    color: #000;
+
+    p {
+      font-weight: 500;
+      color: #000;
+    }
+
+    img {
+      width: 12px;
+      height: 12px;
+      margin-left: 5px;
+    }
   }
 
   p.content {
@@ -460,6 +590,12 @@ const Comment = styled.div`
     align-items: center;
     color: #74b980;
     width: 30px;
+  }
+
+  .comment_text {
+    width: 100%;
+    align-items: center;
+    color: #fe4540;
   }
 `;
 
@@ -551,6 +687,7 @@ export const SocialPanel = ({
   webShareAPIShareText,
   shareText,
   shareUrl,
+  isAnswer = false,
 }) => {
   const router = useRouter();
   const discussions = commentsFromParent.comments.filter((comment) => {
@@ -613,16 +750,42 @@ export const SocialPanel = ({
   const [shares_, setShares] = useState(sharesFromParent);
   const [incrementShares] = useMutation(INCREMENT_SHARES);
 
-  const onShareButtonClick = () => {
-    console.log(shareText);
-    console.log(shareUrl);
-    console.log(webShareAPIShareText);
-
+  const onShareButtonClick = (attachedComment = null) => {
     setShares(shares_ + 1);
     setShareClicked(true);
     incrementShares({ variables: { CMS_ID } });
 
-    const combinedShareMsg = shareText + process.env.DOMAIN_NAME + shareUrl;
+    // This is for the web share navigation
+    if (attachedComment) {
+      webShareAPIShareText =
+        webShareAPIShareText + "\n" + attachedComment + "\n\n" + moreInfoText();
+    } else {
+      webShareAPIShareText = webShareAPIShareText + "\n\n" + moreInfoText();
+    }
+
+    // This is for older sharing mechanisms
+    let combinedShareMsg;
+    if (attachedComment) {
+      combinedShareMsg =
+        shareText +
+        "%0A" +
+        attachedComment +
+        "%0A%0A" +
+        moreInfoText() +
+        process.env.DOMAIN_NAME +
+        shareUrl;
+    } else {
+      combinedShareMsg =
+        shareText +
+        "%0A%0A" +
+        moreInfoText() +
+        process.env.DOMAIN_NAME +
+        shareUrl;
+    }
+
+    console.log(shareUrl);
+    console.log(webShareAPIShareText);
+    console.log(combinedShareMsg);
 
     if (navigator.share) {
       navigator
@@ -687,7 +850,7 @@ export const SocialPanel = ({
 
   const onBookmarkButtonClick = () => {
     trackPageView("/triedSave");
-    // Authenticate if not already logged in
+
     if (!isAuthenticated) {
       authDispatch({
         type: "SIGNIN_UN",
@@ -856,8 +1019,119 @@ export const SocialPanel = ({
   return (
     <Container>
       <div className="card__action">
-        <div className="card__metrics">
-          <div className="item__wrapper">
+        {/* Social Panel */}
+        <div className="panel_social">
+          <div style={{ display: "flex", "flex-direction": "row" }}>
+            <div
+              className={`${
+                showCompleteVersion === true &&
+                selectedCommentsSection === "experts"
+                  ? "question_option_button_activated"
+                  : "question_option_button"
+              }`}
+              onClick={onClickOpenExpertComments}
+            >
+              {isAnswer ? "Answers  " : "Discuss  "}
+              <img
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  marginRight: "7px",
+                }}
+                src={verifiedIcon}
+              ></img>
+              <span className="number">
+                {commentsFromParent.expertCommentsCount}
+              </span>
+            </div>
+
+            <div
+              className={`${
+                showCompleteVersion === true &&
+                selectedCommentsSection === "discussions"
+                  ? "question_option_button_activated"
+                  : "question_option_button"
+              }`}
+              onClick={onClickOpenAskOrDiscuss}
+            >
+              <img
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  marginRight: "7px",
+                }}
+                src={commentIcon}
+              ></img>
+              {isAnswer ? "  " : "  "}
+              <span className="number">
+                {commentsFromParent.discussionsCount}
+              </span>
+            </div>
+
+            {/* Saves Button */}
+            <div
+              className="panel_bookmark"
+              onClick={() => {
+                if (bookmarkClicked) {
+                  onBookmarkButtonActivatedClick();
+                } else {
+                  onBookmarkButtonClick();
+                }
+              }}
+            >
+              <span className="number">{"SAVE"}</span>
+            </div>
+          </div>
+
+          {/* Shares Button */}
+          <div style={{ display: "flex", "flex-direction": "row-reverse" }}>
+            <div
+              className="panel_share"
+              onClick={() => {
+                onShareButtonClick();
+              }}
+            >
+              <img
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "5px",
+                }}
+                src={shareIcon}
+              ></img>
+              <span className="number">{shares_}</span>
+            </div>
+
+            {/* Likes Button */}
+            <div
+              className="panel_like"
+              onClick={() => {
+                if (loveClicked) {
+                  onLoveButtonActivatedClick();
+                } else {
+                  onLoveButtonClick();
+                }
+              }}
+            >
+              <img
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  marginRight: "5px",
+                }}
+                src={loveIcon}
+              ></img>
+              <span className="number">{love_}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------------- */}
+        {/* Old bigger Social Panel */}
+        {/* ------------------------------------------------------------------- */}
+
+        {/* <div className="card__metrics_small">
+          <div className="item__wrapper_small">
             <ShareButton onClick={onShareButtonClick}></ShareButton>
             <ShareButtonNumber>
               <span className="number">{shares_}</span> Shares
@@ -865,7 +1139,7 @@ export const SocialPanel = ({
           </div>
 
           {loveClicked ? (
-            <div className="item__wrapper">
+            <div className="item__wrapper_small">
               <LoveButtonActivated
                 onClick={onLoveButtonActivatedClick}
               ></LoveButtonActivated>
@@ -874,7 +1148,7 @@ export const SocialPanel = ({
               </LoveButtonNumber>
             </div>
           ) : (
-            <div className="item__wrapper">
+            <div className="item__wrapper_small">
               <LoveButton onClick={onLoveButtonClick}></LoveButton>
               <LoveButtonNumber>
                 <span className="number">{love_}</span> Likes
@@ -883,7 +1157,7 @@ export const SocialPanel = ({
           )}
 
           {bookmarkClicked ? (
-            <div className="item__wrapper">
+            <div className="item__wrapper_small">
               <BookmarkButtonActivated
                 onClick={onBookmarkButtonActivatedClick}
               ></BookmarkButtonActivated>
@@ -892,19 +1166,19 @@ export const SocialPanel = ({
               </BookmarkButtonNumberActivated>
             </div>
           ) : (
-            <div className="item__wrapper">
+            <div className="item__wrapper_small">
               <BookmarkButton onClick={onBookmarkButtonClick}></BookmarkButton>
               <BookmarkButtonNumber>
                 <span className="number">{bookmark_}</span> Saves
               </BookmarkButtonNumber>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
 
       {
         <CommentWrapper>
-          <p className="question_opinion">
+          {/* <p className="question_opinion">
             <span
               className={`${
                 showCompleteVersion === true &&
@@ -914,7 +1188,7 @@ export const SocialPanel = ({
               }`}
               onClick={onClickOpenAskOrDiscuss}
             >
-              {"Ask or Discuss  "}
+              {"Replies  "}
               <span className="number">
                 {commentsFromParent.discussionsCount}
               </span>
@@ -933,7 +1207,7 @@ export const SocialPanel = ({
                 {commentsFromParent.expertCommentsCount}
               </span>
             </span>
-          </p>
+          </p> */}
 
           {showCompleteVersion && (
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -974,7 +1248,10 @@ export const SocialPanel = ({
             commentsShown.map((comment) => {
               return (
                 <Comment>
-                  <p className="user_name">{comment.userName}</p>
+                  <div className="user_name">
+                    <p>{comment.userName}</p>
+                    {comment.writtenByExpert && <img src={verifiedIcon}></img>}
+                  </div>
                   <p className="content">{comment.content}</p>
 
                   <div className="comment_social">
@@ -986,6 +1263,9 @@ export const SocialPanel = ({
                           marginRight: "10px",
                         }}
                         src={shareIcon}
+                        onClick={() => {
+                          onShareButtonClick(comment.content);
+                        }}
                       ></img>
                     </div>
                     <div className="comment_like">
@@ -1012,7 +1292,10 @@ export const SocialPanel = ({
             commentsFromParent.topComments.map((comment) => {
               return (
                 <Comment>
-                  <p className="user_name">{comment.userName}</p>
+                  <div className="user_name">
+                    <p>{comment.userName}</p>
+                    {comment.writtenByExpert && <img src={verifiedIcon}></img>}
+                  </div>
                   <p className="content">{comment.content}</p>
                   <div className="comment_social">
                     <div className="comment_share">
@@ -1023,6 +1306,9 @@ export const SocialPanel = ({
                           marginRight: "10px",
                         }}
                         src={shareIcon}
+                        onClick={() => {
+                          onShareButtonClick(comment.content);
+                        }}
                       ></img>
                     </div>
                     <div className="comment_like">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";

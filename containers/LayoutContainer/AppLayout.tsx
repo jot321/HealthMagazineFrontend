@@ -12,7 +12,7 @@ const MobileHeader = dynamic(() => import("./Header/MobileHeader"), {
 });
 
 const LayoutWrapper = styled.div`
-  background-color: #f7f7f7;
+  background-color: #fff;
   padding-left: calc(50% - 37.5rem);
   padding-right: calc(50% - 37.5rem);
 

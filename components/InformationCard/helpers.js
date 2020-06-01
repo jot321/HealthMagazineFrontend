@@ -32,17 +32,39 @@ export const createWhatsappLinkMessageWebAPIShare = (CMS_ID) => {
   );
 };
 
+export const moreInfoText = () => {
+  return "For more information, visit:";
+};
+
 // ----------------------------------------------------------------
 // TIPS PAGE
 export const createWhatsappTipTextMessage = (title, text) => {
-  return "*" + title + "*%0A%0A" + text + "%0A%0AFor more tips, visit:%0A";
+  return "*" + title + "*%0A%0A" + text + "%0A%0A";
 };
 
 export const createWhatsappTipTextMessageWebShare = (title, text) => {
-  return "*" + title + "*\n\n" + text + "\n\nFor more tips, visit:\n";
+  return "*" + title + "*\n\n" + text + "\n\n";
 };
 
 export const createWhatsappTipLinkMessageWebAPIShare = (CMS_ID) => {
+  return (
+    "/article?a_id=" +
+    CMS_ID +
+    "&completeVersion=true&selectedCommentsSection=discussions"
+  );
+};
+
+// ----------------------------------------------------------------
+// QUESTIONS PAGE
+export const createWhatsappQuestionTextMessage = (title, text) => {
+  return "*" + title + "*%0A%0A" + text + "%0A%0A";
+};
+
+export const createWhatsappQuestionTextMessageWebShare = (title, text) => {
+  return "*" + title + "*\n\n" + text + "\n\n";
+};
+
+export const createWhatsappQuestionLinkMessageWebAPIShare = (CMS_ID) => {
   return (
     "/article?a_id=" +
     CMS_ID +

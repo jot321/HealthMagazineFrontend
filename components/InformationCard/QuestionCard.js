@@ -3,12 +3,10 @@ import styled from "styled-components";
 import Link from "next/link";
 
 import {
-  createWhatsappTipTextMessage,
-  createWhatsappTipTextMessageWebShare,
-  createWhatsappTipLinkMessageWebAPIShare,
+  createWhatsappQuestionTextMessage,
+  createWhatsappQuestionTextMessageWebShare,
+  createWhatsappQuestionLinkMessageWebAPIShare,
 } from "./helpers";
-
-import { convertToRichText } from "helper/textStyleDisplay";
 
 import { SocialPanel } from "./ParentCard";
 import { trackPageView } from "analytics";
@@ -28,11 +26,9 @@ const Container = styled.div`
 
   h2 {
     line-height: 1.2;
-    margin-bottom: 1rem;
     font-weight: 500;
 
     color: #000;
-    // text-transform: capitalize;
   }
 
   .wrapper {
@@ -139,10 +135,11 @@ const CardArticleArea = styled.article`
   h3 {
     font-weight: 400;
     font-size: 1rem;
+    margin-top: 20px;
   }
 `;
 
-export const TipCard = ({
+export const QuestionCard = ({
   CMS_ID,
   title,
   text,
@@ -155,16 +152,16 @@ export const TipCard = ({
   comments,
 }) => {
   return (
-    <div>
-      <Container>
-        <div className="wrapper">
-          <div className="card">
-            <div className="card__content">
-              <CardArticleArea>
-                <h2>{title}</h2>
-                {/* ---------------------------------------------------------------- */}
-                {/* CATEGORIES && TAGS */}
-                <div className="card__tags">
+    // <div>
+    <Container>
+      <div className="wrapper">
+        <div className="card">
+          <div className="card__content">
+            <CardArticleArea>
+              <h2>{title}</h2>
+              {/* ---------------------------------------------------------------- */}
+              {/* CATEGORIES && TAGS */}
+              {/* <div className="card__tags">
                   {groups.length > 0 &&
                     groups.slice(0, 3).map((group, index) => {
                       return (
@@ -181,69 +178,28 @@ export const TipCard = ({
                         </div>
                       );
                     })}
-
-                  {/* {categories.length > 0 &&
-                    categories.map((category, index) => {
-                      return (
-                        <div
-                          onClick={() => {
-                            onClickCategory(
-                              "/category/" + sentenceToSlug(category)
-                            );
-                          }}
-                          className="card__meta"
-                          key={index}
-                        >
-                          <Link href={"/category?category=" + category}>
-                            <a>{category}</a>
-                          </Link>
-                        </div>
-                      );
-                    })} */}
-
-                  {/* {visibleTags.length > 0 &&
-                    visibleTags.map((tag, index) => {
-                      return (
-                        <div
-                          onClick={() => {
-                            onClickCategory("/category/" + sentenceToSlug(tag));
-                          }}
-                          className="card__meta"
-                          key={index}
-                        >
-                          <Link href={"/category?tag=" + tag}>
-                            <a>{tag}</a>
-                          </Link>
-                        </div>
-                      );
-                    })} */}
-                </div>
-                <h3
-                // dangerouslySetInnerHTML={{
-                //   __html: convertToRichText(text),
-                // }}
-                >
-                  {text}
-                </h3>
-              </CardArticleArea>
-            </div>
-
-            <SocialPanel
-              CMS_ID={CMS_ID}
-              likesFromParent={likes}
-              sharesFromParent={shares}
-              bookmarkFromParent={bookmarks}
-              commentsFromParent={comments}
-              webShareAPIShareText={createWhatsappTipTextMessageWebShare(
-                title,
-                text
-              )}
-              shareText={createWhatsappTipTextMessage(title, text)}
-              shareUrl={createWhatsappTipLinkMessageWebAPIShare(CMS_ID)}
-            />
+                </div> */}
+              <h3>{text}</h3>
+            </CardArticleArea>
           </div>
+
+          <SocialPanel
+            CMS_ID={CMS_ID}
+            likesFromParent={likes}
+            sharesFromParent={shares}
+            bookmarkFromParent={bookmarks}
+            commentsFromParent={comments}
+            webShareAPIShareText={createWhatsappQuestionTextMessageWebShare(
+              title,
+              text
+            )}
+            shareText={createWhatsappQuestionTextMessage(title, text)}
+            shareUrl={createWhatsappQuestionLinkMessageWebAPIShare(CMS_ID)}
+            isAnswer={true}
+          />
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
+    // </div>
   );
 };

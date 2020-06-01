@@ -213,7 +213,7 @@ const GroupTopBar = styled.div`
   }
 
   .active {
-    background-color: #e4e4e4;
+    background-color: #eee;
   }
 
   h1 {
@@ -239,7 +239,7 @@ const ShowMoreGroups = styled.div`
     padding: 5px 25px;
     border-radius: 10px;
     background-color: #eee;
-    color: #e43f5a;
+    color: ${(props) => props.color};
     font-weight: 600;
   }
 `;

@@ -54,7 +54,7 @@ export const ProductsCol = styled.div`
   max-width: 33.33333%;
   padding-left: 10px;
   padding-right: 10px;
-  padding-bottom: 30px;
+  // padding-bottom: 15px;
 
   @media (min-width: 1301px) and (max-width: 1500px) {
     flex: 0 0 33.3333333%;

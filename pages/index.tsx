@@ -6,7 +6,6 @@ import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 import RandomizedFeed from "containers/Information/RandomizedFeed";
 import { MainContentArea, ContentSection } from "styled/pages.style";
-// Static Data Import Here
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 
@@ -17,13 +16,14 @@ import {
   TwoTileWrapper,
 } from "components/Tile/Tile";
 
-const fitnessCover = require("image/categories/fitness_cover.jpg");
-const dietCover = require("image/categories/diet_cover.jpg");
-const mindCover = require("image/categories/mind_cover.jpg");
-
 const downArrow = require("image/down-arrow.png");
+const banner = require("image/categories/banner.jpg");
 
-import { Shake } from "reshake";
+const fitCover = require("image/categories/fit.jpg");
+const dietCover = require("image/categories/diet.jpg");
+const mindCover = require("image/categories/mind.jpg");
+const wellCover = require("image/categories/well.jpg");
+
 const ClickNudge = styled.div`
   display: flex;
   justify-content: center;
@@ -78,69 +78,53 @@ function HomePage({ deviceType }) {
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
-        <br />
 
-        <Shake
-          h={0}
-          v={50}
-          r={0}
-          dur={800}
-          int={54.6}
-          max={100}
-          fixed={true}
-          fixedStop={true}
-          freez={false}
-        >
-          <ClickNudge>
-            <p>Tap on the squares</p>
-            <img
-              style={{ width: "20px", height: "20px" }}
-              src={downArrow}
-            ></img>
-          </ClickNudge>
-        </Shake>
+        <OneTileWrapper>
+          <OneTileCard image={banner}></OneTileCard>
+        </OneTileWrapper>
+
+        <ClickNudge>
+          <p>Select your community</p>
+          <img style={{ width: "20px", height: "20px" }} src={downArrow}></img>
+        </ClickNudge>
 
         <TwoTileWrapper>
           <TwoTileCard
-            color={"#e43f5a"}
+            // color={"#e43f5a"}
+            image={fitCover}
             onClick={() => {
               router.push("/fitness");
             }}
-          >
-            <h1>FIT</h1>
-          </TwoTileCard>
+          ></TwoTileCard>
           <TwoTileCard
-            color={"#00bd56"}
+            // color={"#00bd56"}
+            image={dietCover}
             onClick={() => {
               router.push("/diet");
             }}
-          >
-            <h1>DIET</h1>
-          </TwoTileCard>
+          ></TwoTileCard>
         </TwoTileWrapper>
         <br />
 
         <TwoTileWrapper>
           <TwoTileCard
-            color={"#28c3d4"}
+            // color={"#28c3d4"}
+            image={mindCover}
             onClick={() => {
               router.push("/mental");
             }}
-          >
-            <h1>MIND</h1>
-          </TwoTileCard>
+          ></TwoTileCard>
           <TwoTileCard
-            color={"#ffe277"}
+            // color={"#721b65"}
+            image={wellCover}
             onClick={() => {
               router.push("/general");
             }}
-          >
-            <h1>GENERAL</h1>
-          </TwoTileCard>
+          ></TwoTileCard>
         </TwoTileWrapper>
         <br />
 
-        {deviceType.desktop ? (
+        {/* {deviceType.desktop ? (
           <>
             <MainContentArea>
               <ContentSection>
@@ -158,7 +142,7 @@ function HomePage({ deviceType }) {
               </div>
             </ContentSection>
           </MainContentArea>
-        )}
+        )} */}
       </Modal>
     </>
   );

@@ -11,6 +11,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { Modal, openModal } from "@redq/reuse-modal";
 import { AuthContext } from "contexts/auth/auth.context";
 import AuthenticationForm from "containers/SignInOutForm/Form";
+import NavBarItems from "constants/storeType";
+import StoreNav from "components/StoreNav/StoreNav";
 
 import { topCategoryToGroupMapping } from "constants/groups_mapping";
 import { topLevelCategorySlugNameMap } from "constants/categories";
@@ -20,6 +22,16 @@ const FormWrapper = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding: 10px;
+
+    h6{
+      font-weight: 500;
+      font-size: 01rem;
+      padding: 5px;
+      margin-left: 15px;
+
+      margin-top: 10px;
+    }
   }
 
   .anon_checkbox{
@@ -34,6 +46,7 @@ const FormWrapper = styled.div`
     padding: 15px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     p.category{
       padding: 5px 15px;
@@ -77,10 +90,11 @@ const FormWrapper = styled.div`
     background-color: #e43f5a;
     color: #fff;
     font-weight: 600;
-    width: 50%;
+    width: 48%;
     font-size: 1rem;
     padding: 3px;
     margin: auto;
+    border-radius: 16px;
   }
 
     h1, h3, h4 {
@@ -90,6 +104,12 @@ const FormWrapper = styled.div`
       padding: 10px;
       color: #e43f5a;
       text-align: center;
+    }
+
+    h1{
+      font-weight: 600;
+      font-size: 1.7rem;
+      white-space: break-spaces;
     }
 
     h2{
@@ -111,14 +131,38 @@ const FormWrapper = styled.div`
 `;
 
 const ADD_QUESTION = gql`
-  mutation addQuestion($title: String!, $topLevelCategory: String!) {
-    addQuestion(title: $title, topLevelCategory: $topLevelCategory)
+  mutation addQuestion(
+    $title: String!
+    $text: String
+    $topLevelCategory: String!
+    $group: String!
+  ) {
+    addQuestion(
+      title: $title
+      text: $text
+      topLevelCategory: $topLevelCategory
+      group: $group
+    )
   }
 `;
 
-const ExampleHookForm: NextPage<{}> = () => {
-  const [selectedGroup, setSelectedGroup] = useState(null);
+const UserInputForm: NextPage<{}> = ({}) => {
+  const router = useRouter();
+
+  const topLevelCategorySlug =
+    router.query.topLevelCategory !== null
+      ? router.query.topLevelCategory.toString()
+      : "";
+
+  const groupSlugFromUrl =
+    router.query.groupSlug !== undefined
+      ? router.query.groupSlug.toString()
+      : null;
+
+  const [selectedGroup, setSelectedGroup] = useState(groupSlugFromUrl);
   const [groupNotSelectedError, setGroupNotSelectedError] = useState(null);
+  const [postAnon, setPostAnon] = useState(false);
+
   const { handleSubmit, register, errors } = useForm();
   const {
     authState: { isAuthenticated },
@@ -126,10 +170,6 @@ const ExampleHookForm: NextPage<{}> = () => {
   } = useContext<any>(AuthContext);
 
   const [addQuestion] = useMutation(ADD_QUESTION);
-  const topLevelCategorySlug =
-    useRouter().query.topLevelCategory !== null
-      ? useRouter().query.topLevelCategory.toString()
-      : "";
 
   const onClickSelectGroup = (groupSlug) => {
     setSelectedGroup(groupSlug);
@@ -141,40 +181,48 @@ const ExampleHookForm: NextPage<{}> = () => {
       return;
     }
 
-    if (values.anonymous === true) {
+    if (postAnon === true) {
       addQuestion({
         variables: {
           title: values.question,
+          text: values.extra_details,
           topLevelCategory: topLevelCategorySlugNameMap[topLevelCategorySlug],
+          group: selectedGroup,
         },
       });
-    } else if (isAuthenticated === true) {
-      addQuestion({
-        variables: {
-          title: values.question,
-          topLevelCategory: topLevelCategorySlugNameMap[topLevelCategorySlug],
-        },
-      });
+      router.push("/group?q=" + selectedGroup + "&contentType=8");
     } else {
-      authDispatch({
-        type: "SIGNIN_UN",
-      });
-
-      openModal({
-        show: true,
-        overlayClassName: "quick-view-overlay",
-        closeOnClickOutside: true,
-        component: AuthenticationForm,
-        closeComponent: "",
-        config: {
-          enableResizing: false,
-          disableDragging: true,
-          className: "quick-view-modal",
-          width: 458,
-          height: "auto",
+      addQuestion({
+        variables: {
+          title: values.question,
+          text: values.extra_details,
+          topLevelCategory: topLevelCategorySlugNameMap[topLevelCategorySlug],
+          group: selectedGroup,
         },
       });
+      router.push("/group?q=" + selectedGroup + "&contentType=8");
     }
+  };
+
+  const onClickSignInUser = () => {
+    authDispatch({
+      type: "SIGNIN_UN",
+    });
+
+    openModal({
+      show: true,
+      overlayClassName: "quick-view-overlay",
+      closeOnClickOutside: true,
+      component: AuthenticationForm,
+      closeComponent: "",
+      config: {
+        enableResizing: false,
+        disableDragging: true,
+        className: "quick-view-modal",
+        width: 458,
+        height: "auto",
+      },
+    });
   };
 
   return (
@@ -186,17 +234,18 @@ const ExampleHookForm: NextPage<{}> = () => {
           content="Let the community and experts help in answering your health query."
         />
       </Head>
+      <StoreNav items={NavBarItems.HomePage} />
 
       <Modal>
         <FormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Ask a question!</h1>
+            <h1>{"Please ask your query !!!"}</h1>
             <h3>
-              You can ask a question any question on your mind. We would get it
-              answered from an expert. People from the community can also chip
-              in and answer your question.
+              Ask away !!! We would get it answered from an expert. People from
+              the community can also help you.
             </h3>
             <div className="input_wrapper">
+              <h6>Please type your question</h6>
               <input
                 name="question"
                 className="add_opinion_question"
@@ -211,10 +260,19 @@ const ExampleHookForm: NextPage<{}> = () => {
                 {errors.comment && errors.comment.message}
               </p>
 
+              <h6>Please enter any other details (Optional)</h6>
+              <input
+                name="extra_details"
+                className="add_opinion_question"
+                placeholder="Please type"
+                ref={register}
+              />
+
               <div className="select_group">
-                <h4>Select a group to add question:</h4>
-                {topCategoryToGroupMapping[topLevelCategorySlug].map(
-                  (element) => {
+                <h4>Select a group to add question</h4>
+                {topCategoryToGroupMapping[topLevelCategorySlug]
+                  .slice(0, -1)
+                  .map((element) => {
                     return (
                       <p
                         className={`category ${
@@ -227,19 +285,47 @@ const ExampleHookForm: NextPage<{}> = () => {
                         {element.name}
                       </p>
                     );
-                  }
-                )}
+                  })}
               </div>
 
               <p className="error_input">{groupNotSelectedError}</p>
 
-              <div className="anon_checkbox">
-                <input name="anonymous" type="checkbox" ref={register} />
-                <h2>Post anonymously</h2>
-              </div>
-
               <br />
-              <button type="submit">POST</button>
+              {!isAuthenticated && (
+                <div style={{ display: "flex" }}>
+                  <button
+                    onClick={() => {
+                      onClickSignInUser();
+                    }}
+                  >
+                    Sign in
+                  </button>
+
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setPostAnon(true);
+                    }}
+                  >
+                    Ask as Guest
+                  </button>
+                </div>
+              )}
+
+              {isAuthenticated && (
+                <div style={{ display: "flex " }}>
+                  <button type="submit">Post</button>
+
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setPostAnon(true);
+                    }}
+                  >
+                    Ask anonymously
+                  </button>
+                </div>
+              )}
             </div>
           </form>
         </FormWrapper>
@@ -248,4 +334,4 @@ const ExampleHookForm: NextPage<{}> = () => {
   );
 };
 
-export default withApollo(ExampleHookForm);
+export default withApollo(UserInputForm);

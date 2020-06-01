@@ -17,6 +17,7 @@ const GET_HOME_FEED = gql`
     $offset: Int
     $fetchLimit: Int
     $searchKey: String
+    $group: String
     $toplevelcategory: String
     $category: String
     $tag: String
@@ -29,6 +30,7 @@ const GET_HOME_FEED = gql`
       offset: $offset
       fetchLimit: $fetchLimit
       searchKey: $searchKey
+      group: $group
       toplevelcategory: $toplevelcategory
       category: $category
       tag: $tag
@@ -53,6 +55,7 @@ type ProductsProps = {
   loadMore?: boolean;
   loadPopular?: boolean;
   loadFeatured?: boolean;
+  group?: string;
   topLevelCategory?: string;
   articleId?: string;
   contentType?: number;
@@ -63,6 +66,7 @@ export const Information: React.FC<ProductsProps> = ({
   loadMore = true,
   loadPopular = false,
   loadFeatured = false,
+  group = "",
   topLevelCategory = "",
   articleId = null,
   contentType = null,
@@ -93,6 +97,7 @@ export const Information: React.FC<ProductsProps> = ({
     variables: {
       articleId: articleId_,
       searchKey: searchKey_,
+      group: group,
       toplevelcategory: topLevelCategory,
       category: category_,
       tag: tag_,
@@ -101,6 +106,7 @@ export const Information: React.FC<ProductsProps> = ({
       fetchLimit: 6,
       contentType: contentType,
     },
+    fetchPolicy: "network-only",
   });
 
   // -----------------------------------------------------------

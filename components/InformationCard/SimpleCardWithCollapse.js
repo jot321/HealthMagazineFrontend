@@ -12,9 +12,14 @@ import { SocialPanel } from "./ParentCard";
 
 import { trackPageView } from "analytics";
 import { sentenceToSlug } from "helper/slug";
+import { getGroupNameFromSlug } from "constants/groups_mapping";
 
 const Container = styled.div`
   font-family: "'IBM Plex Sans'";
+
+  margin: 0;
+  padding: 0;
+  margin-bottom: -15px;
 
   a {
     text-decoration: none;
@@ -95,7 +100,6 @@ const Container = styled.div`
   .card__tags {
     display: inline-block;
     width: 100%;
-    margin-bottom: 1rem;
 
     .card__meta {
       border-radius: 4px;
@@ -124,7 +128,7 @@ const Container = styled.div`
 
 const CardArticleArea = styled.article`
   h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   a {
     text-decoration: none;
@@ -140,11 +144,13 @@ const CardArticleArea = styled.article`
 
 const Description = styled.p`
   color: #222;
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 400px;
 `;
 
 const ActionButton = styled.div`
+  display: flex;
+  justify-content: center;
   a {
     color: #e43f5a;
     display: flex;
@@ -154,7 +160,7 @@ const ActionButton = styled.div`
 
 const ExpandedLongText = styled.p`
   font-family: "IBM Plex Sans";
-  font-size: 1.08rem;
+  font-size: 1rem;
   font-weight: 400;
   margin-bottom: 15px;
   white-space: pre-line;
@@ -190,6 +196,7 @@ export const SimpleCardWithCollapse = ({
   description = null,
   listicles = [],
   externalLinkData = null,
+  groups,
   categories,
   visibleTags,
   imageUrl,
@@ -220,10 +227,6 @@ export const SimpleCardWithCollapse = ({
     targetRef.current.scrollIntoView();
   };
 
-  const onClickCategory = (pagePath) => {
-    trackPageView(pagePath);
-  };
-
   return (
     <div ref={targetRef}>
       <Container>
@@ -241,37 +244,18 @@ export const SimpleCardWithCollapse = ({
                 {/* ---------------------------------------------------------------- */}
                 {/* CATEGORIES && TAGS */}
                 <div className="card__tags">
-                  {categories.length > 0 &&
-                    categories.map((category, index) => {
+                  {groups.length > 0 &&
+                    groups.map((group, index) => {
                       return (
                         <div
                           onClick={() => {
-                            onClickCategory(
-                              "/category/" + sentenceToSlug(category)
-                            );
+                            trackPageView("/group/" + sentenceToSlug(group));
                           }}
                           className="card__meta"
                           key={index}
                         >
-                          <Link href={"/category?category=" + category}>
-                            <a>{category}</a>
-                          </Link>
-                        </div>
-                      );
-                    })}
-
-                  {visibleTags.length > 0 &&
-                    visibleTags.map((tag, index) => {
-                      return (
-                        <div
-                          onClick={() => {
-                            onClickCategory("/category/" + sentenceToSlug(tag));
-                          }}
-                          className="card__meta"
-                          key={index}
-                        >
-                          <Link href={"/category?tag=" + tag}>
-                            <a>{tag}</a>
+                          <Link href={"/group?q=" + group}>
+                            <a>{getGroupNameFromSlug(group)}</a>
                           </Link>
                         </div>
                       );

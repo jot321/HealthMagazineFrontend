@@ -31,7 +31,8 @@ function HomePage({ deviceType }) {
           pageTitle={"DIET & NUTRITION"}
           categoryName={DIET_TOP_CATEGORY}
           categorySlug={DIET_TOP_CATEGORY_SLUG}
-          categoryColor={"#00bd56"}
+          // categoryColor={"#06623b"}
+          categoryColor={"#e43f5a"}
         ></CategoryPage>
       </Modal>
     </>

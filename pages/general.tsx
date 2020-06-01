@@ -26,7 +26,8 @@ function HomePage({ deviceType }) {
           pageTitle={"GENERAL WELLNESS"}
           categoryName={GENERAL_TOP_CATEGORY}
           categorySlug={GENERAL_TOP_CATEGORY_SLUG}
-          categoryColor={"#ffe277"}
+          // categoryColor={"#721b65"}
+          categoryColor={"#e43f5a"}
         ></CategoryPage>
       </Modal>
     </>

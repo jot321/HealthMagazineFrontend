@@ -24,13 +24,12 @@ export const TwoTileCard = styled.div`
   -ms-user-select: none;
   user-select: none;
 
-  background-color: ${(props) => props.color};
+  background-image: url(${(props) => props.image});
 
   border-radius: 6px;
 
   background-size: cover;
   margin-bottom: 1.6rem;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
 
   h1 {
@@ -48,8 +47,7 @@ export const TwoTileCard = styled.div`
 export const GroupTileWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  place-content: flex-start;
+  justify-content: center;
 `;
 
 export const GroupTileCard = styled.div`
@@ -199,12 +197,10 @@ export const OneTileWrapper = styled.div`
 
 export const OneTileCard = styled.div`
   width: 100%;
-  padding-left: 5px;
-  padding-right: 5px;
 
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 95px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 350px;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -213,27 +209,9 @@ export const OneTileCard = styled.div`
   -ms-user-select: none;
   user-select: none;
 
-  .card {
-    height: 100%;
-    border-radius: 6px;
-    background-image: url(${(props) => props.image});
+  background-image: url(${(props) => props.image});
 
-    background-size: cover;
-    margin-bottom: 1.6rem;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    h2,
-    p,
-    a,
-    h2,
-    h4 {
-      line-height: 1.2;
-      font-weight: 500;
-      font-size: 1rem;
-
-      color: #fff;
-      text-transform: capitalize;
-      margin-bottom: -0.5rem;
-    }
-  }
+  background-size: cover;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 `;
