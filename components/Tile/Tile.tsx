@@ -71,14 +71,14 @@ export const GroupTileCard = styled.div`
   border-radius: 6px;
 
   background-size: cover;
-  margin-bottom: 1.6rem;
+  margin-bottom: 0.6rem;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
 
   h1 {
     line-height: 1.2;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 15px;
 
     padding: 15px;
 

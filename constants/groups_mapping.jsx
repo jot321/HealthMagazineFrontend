@@ -70,8 +70,20 @@ export const topCategoryToGroupMapping = {
       name: "Healthy Recipes",
     },
     {
+      slug: "protein-rich",
+      name: "Protein Rich",
+    },
+    {
+      slug: "nutrient-facts",
+      name: "Nutrient Facts",
+    },
+    {
       slug: "healthy-breakfast",
       name: "Healthy Breakfast",
+    },
+    {
+      slug: "diet-plans",
+      name: "Diet Plans",
     },
     {
       slug: "healthy-snacks",
@@ -106,24 +118,12 @@ export const topCategoryToGroupMapping = {
       name: "Supplements",
     },
     {
-      slug: "nutrient-facts",
-      name: "Nutrient Facts",
-    },
-    {
       slug: "keto-diet",
       name: "Keto Diet",
     },
     {
       slug: "low-carb-diet",
       name: "Low Carb Diet",
-    },
-    {
-      slug: "protein-rich",
-      name: "Protein Rich",
-    },
-    {
-      slug: "diet-plans",
-      name: "Diet Plans",
     },
     {
       slug: "celeb-diet",

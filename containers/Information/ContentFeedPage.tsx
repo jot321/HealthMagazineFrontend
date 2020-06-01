@@ -10,6 +10,8 @@ import {
 } from "styled/pages.style";
 import { InformationType } from "containers/Information/contentScaffolding";
 
+import { trackPageView } from "analytics";
+
 const SubmitButtonImage = require("image/add.png");
 
 const AddQuestionButton = styled.div`
@@ -49,6 +51,7 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(null);
+              trackPageView("/" + categorySlug);
             }}
             className={`category_button ${contentType == null ? "active" : ""}`}
           >
@@ -57,6 +60,7 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.TIP);
+              trackPageView("/" + categorySlug + "/tips");
             }}
             className={`category_button ${
               contentType == InformationType.TIP ? "active" : ""
@@ -67,6 +71,7 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.QUESTION);
+              trackPageView("/" + categorySlug + "/qnas");
             }}
             className={`category_button ${
               contentType == InformationType.QUESTION ? "active" : ""
@@ -77,6 +82,7 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.VIDEOLINK);
+              trackPageView("/" + categorySlug + "/videos");
             }}
             className={`category_button ${
               contentType == InformationType.VIDEOLINK ? "active" : ""
@@ -97,6 +103,7 @@ export const ContentFeedPage = ({
         >
           <AddQuestionButton
             onClick={() => {
+              trackPageView("/submit");
               if (group) {
                 router.push(
                   "/submit?topLevelCategory=" +
@@ -144,6 +151,7 @@ export const ContentFeedPage = ({
 
       <SubmitButton
         onClick={() => {
+          trackPageView("/submit");
           if (group) {
             router.push(
               "/submit?topLevelCategory=" + categorySlug + "&groupSlug=" + group

@@ -16,6 +16,8 @@ import {
   TwoTileWrapper,
 } from "components/Tile/Tile";
 
+import { trackPageView } from "analytics";
+
 const downArrow = require("image/down-arrow.png");
 const banner = require("image/categories/banner.jpg");
 
@@ -94,6 +96,7 @@ function HomePage({ deviceType }) {
             image={fitCover}
             onClick={() => {
               router.push("/fitness");
+              trackPageView("/fitness");
             }}
           ></TwoTileCard>
           <TwoTileCard
@@ -101,6 +104,7 @@ function HomePage({ deviceType }) {
             image={dietCover}
             onClick={() => {
               router.push("/diet");
+              trackPageView("/diet");
             }}
           ></TwoTileCard>
         </TwoTileWrapper>
@@ -112,6 +116,7 @@ function HomePage({ deviceType }) {
             image={mindCover}
             onClick={() => {
               router.push("/mental");
+              trackPageView("/mental");
             }}
           ></TwoTileCard>
           <TwoTileCard
@@ -119,6 +124,7 @@ function HomePage({ deviceType }) {
             image={wellCover}
             onClick={() => {
               router.push("/general");
+              trackPageView("/general");
             }}
           ></TwoTileCard>
         </TwoTileWrapper>

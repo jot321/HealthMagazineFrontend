@@ -6,6 +6,8 @@ import { topCategoryToGroupMapping } from "constants/groups_mapping";
 
 import { ContentFeedPage } from "./ContentFeedPage";
 
+import { trackPageView } from "analytics";
+
 export const CategoryPage = ({
   deviceType,
   pageTitle,
@@ -14,7 +16,7 @@ export const CategoryPage = ({
   categoryColor,
 }) => {
   const router = useRouter();
-  const [groupShowCount, setGroupShowCount] = useState(6);
+  const [groupShowCount, setGroupShowCount] = useState(8);
 
   return (
     <div>
@@ -32,6 +34,7 @@ export const CategoryPage = ({
                 color={categoryColor}
                 onClick={() => {
                   router.push("/group?q=" + element.slug);
+                  trackPageView("/group/" + element.slug);
                 }}
               >
                 <h1>{element.name}</h1>
@@ -43,6 +46,7 @@ export const CategoryPage = ({
         <ShowMoreGroups
           onClick={() => {
             setGroupShowCount(-1);
+            trackPageView("/moregroups");
           }}
           color={categoryColor}
         >
