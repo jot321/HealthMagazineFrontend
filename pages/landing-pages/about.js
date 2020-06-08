@@ -135,53 +135,53 @@ function AboutUsPage() {
   return (
     <Wrapper>
       <HeadingSection>
-        <h2>A place for health experts to realize their potential.</h2>
+        <h2>Urban Nuskha </h2>
         <br />
-        <h4>
-          The internet should reward quality thinking, not clickbait. That's why
-          we have created a new home for health and wellness professionals.
-          Connect to curious souls, who are looking for guidance from people
-          like you.
-        </h4>
-        <br />
-        <img src={require("image/writer1.svg")}></img>
+        <h4>Know More Live Healthier</h4>
+        {/* <br />
+        <img src={require("image/writer1.svg")}></img> */}
       </HeadingSection>
       <FeaturesSection>
         <FeaturesList>
           <FeaturesItem>
             <h2>
-              We are looking to collaborate with experts in the field of
-              fitness, nutrition, mind and sexual wellbeing
+              Life can be hectic, we are here to help you through the maze
             </h2>
           </FeaturesItem>
           <br />
 
           <FeaturesItem>
-            <h2>Create a Verified Account</h2>
-          </FeaturesItem>
-          <br />
-
-          <FeaturesItem>
-            <h2>Make your profile and add your details</h2>
-          </FeaturesItem>
-          <br />
-
-          <FeaturesItem>
             <h2>
-              List your classes and sessions, in which users can participate
+              Lifestyle community on Fitness, Nutrition and Mind Wellbeing
             </h2>
           </FeaturesItem>
           <br />
 
           <FeaturesItem>
-            <h2>Interact with users through QnA, Videos and Tips</h2>
+            <h2>
+              Ask Questions, Connect with Experts, Participate in Online
+              Sessions
+            </h2>
           </FeaturesItem>
           <br />
 
           <FeaturesItem>
             <h2>
-              We are an invite only platform, please fill the below form and our
-              team will get in touch with you.
+              Get Tips and Videos on Workouts, Recipes, Meditation and overall
+              wellness for you and your family
+            </h2>
+          </FeaturesItem>
+          <br />
+
+          <FeaturesItem>
+            <h2>Save what you like and make it a part of your daily routine</h2>
+          </FeaturesItem>
+          <br />
+
+          <FeaturesItem>
+            <h2>
+              Share verified content on fitness and wellness with your friends
+              and family and be better together
             </h2>
           </FeaturesItem>
           <br />
