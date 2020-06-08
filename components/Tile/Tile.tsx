@@ -10,12 +10,20 @@ export const TwoTileCard = styled.div`
   flex-direction: column-reverse;
 
   width: 100%;
-  padding-left: 5px;
-  padding-right: 5px;
 
   margin-left: 10px;
   margin-right: 10px;
-  height: 150px;
+
+  min-height: 100px;
+  background-color: #eee;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -23,8 +31,6 @@ export const TwoTileCard = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
-  background-image: url(${(props) => props.image});
 
   border-radius: 6px;
 
@@ -200,7 +206,6 @@ export const OneTileCard = styled.div`
 
   margin-left: 5px;
   margin-right: 5px;
-  height: 350px;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -208,6 +213,17 @@ export const OneTileCard = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  min-height: 100px;
+  background-color: #eee;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
 
   background-image: url(${(props) => props.image});
 

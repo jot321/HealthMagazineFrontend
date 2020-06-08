@@ -82,51 +82,57 @@ function HomePage({ deviceType }) {
         <StoreNav items={NavBarItems.HomePage} />
 
         <OneTileWrapper>
-          <OneTileCard image={banner}></OneTileCard>
+          <OneTileCard>
+            <img src={banner}></img>
+          </OneTileCard>
         </OneTileWrapper>
 
         <ClickNudge>
           <p>Select your community</p>
-          <img style={{ width: "20px", height: "20px" }} src={downArrow}></img>
+          {/* <img style={{ width: "20px", height: "20px" }} src={downArrow}></img> */}
         </ClickNudge>
 
         <TwoTileWrapper>
           <TwoTileCard
-            // color={"#e43f5a"}
             image={fitCover}
             onClick={() => {
               router.push("/fitness");
               trackPageView("/fitness");
             }}
-          ></TwoTileCard>
+          >
+            <img src={fitCover}></img>
+          </TwoTileCard>
           <TwoTileCard
-            // color={"#00bd56"}
             image={dietCover}
             onClick={() => {
               router.push("/diet");
               trackPageView("/diet");
             }}
-          ></TwoTileCard>
+          >
+            <img src={dietCover}></img>
+          </TwoTileCard>
         </TwoTileWrapper>
         <br />
 
         <TwoTileWrapper>
           <TwoTileCard
-            // color={"#28c3d4"}
             image={mindCover}
             onClick={() => {
               router.push("/mental");
               trackPageView("/mental");
             }}
-          ></TwoTileCard>
+          >
+            <img src={mindCover}></img>
+          </TwoTileCard>
           <TwoTileCard
-            // color={"#721b65"}
             image={wellCover}
             onClick={() => {
               router.push("/general");
               trackPageView("/general");
             }}
-          ></TwoTileCard>
+          >
+            <img src={wellCover}></img>
+          </TwoTileCard>
         </TwoTileWrapper>
         <br />
 
