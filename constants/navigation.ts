@@ -23,3 +23,4 @@ export const FEATURED_PAGE = "/featured";
 export const TIPS_PAGE = "/tips";
 
 export const CREATORS_LANDING_PAGE = "/landing-pages/creators";
+export const ABOUT_US_LANDING_PAGE = "/landing-pages/about";

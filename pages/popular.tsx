@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { withApollo } from "helper/apollo";
 import StoreNav from "components/StoreNav/StoreNav";
 import Information from "containers/Information/Information";
@@ -14,7 +15,14 @@ import { InformationType } from "containers/Information/contentScaffolding";
 
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
-  const [contentType, setContentType] = useState(null);
+  const router = useRouter();
+
+  const contentTypeFromUrl =
+    router.query.contentType !== undefined
+      ? Number(router.query.contentType)
+      : null;
+
+  const [contentType, setContentType] = useState(contentTypeFromUrl);
 
   const onClickSelectContentType = (type) => {
     setContentType(type);

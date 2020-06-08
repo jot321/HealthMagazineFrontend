@@ -131,7 +131,7 @@ const ApplyWithUsButton = styled.div`
 
 const FeaturesItem = styled.div``;
 
-function CommunityLandingPage() {
+function AboutUsPage() {
   return (
     <Wrapper>
       <HeadingSection>
@@ -239,4 +239,4 @@ function CommunityLandingPage() {
   );
 }
 
-export default withApollo(CommunityLandingPage);
+export default withApollo(AboutUsPage);

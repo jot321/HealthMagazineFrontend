@@ -25,7 +25,10 @@ import {
   VerifiedImage,
 } from "./Header.style";
 
-import { CREATORS_LANDING_PAGE } from "constants/navigation";
+import {
+  CREATORS_LANDING_PAGE,
+  ABOUT_US_LANDING_PAGE,
+} from "constants/navigation";
 
 const verifiedIcon = require("image/icons/verified.png");
 
@@ -39,8 +42,14 @@ const DrawerMenuItems = [
   {
     id: 2,
     intlLabelId: "forWriters",
-    label: "For Creators",
+    label: "For Experts",
     href: CREATORS_LANDING_PAGE,
+  },
+  {
+    id: 2,
+    intlLabelId: "aboutUs",
+    label: "About Us",
+    href: ABOUT_US_LANDING_PAGE,
   },
 ];
 
