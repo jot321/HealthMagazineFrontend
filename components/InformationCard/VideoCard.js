@@ -290,7 +290,7 @@ export const VideoPlayerCard = ({
                 controls={true}
                 playsinline={true}
                 onStart={() => {
-                  trackPageView("/videos/" + url);
+                  trackPageView("/videos/" + sentenceToSlug(title));
                 }}
               />
             </div>
