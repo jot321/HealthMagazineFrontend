@@ -564,6 +564,12 @@ const Comment = styled.div`
       width: 12px;
       height: 12px;
       margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    .check_profile {
+      color: #0a97b0;
+      font-size: 0.8rem;
     }
   }
 
@@ -1007,6 +1013,10 @@ export const SocialPanel = ({
     setCommentsShown(discussions);
   };
 
+  const onClickSeeProfile = (slug) => {
+    router.push("/coach/" + slug);
+  };
+
   useEffect(() => {
     setUserId(localStorage.getItem("user_id"));
     setUserName(localStorage.getItem("user_name"));
@@ -1251,6 +1261,16 @@ export const SocialPanel = ({
                   <div className="user_name">
                     <p>{comment.userName}</p>
                     {comment.writtenByExpert && <img src={verifiedIcon}></img>}
+                    {comment.slug != "" && comment.slug != null && (
+                      <p
+                        className="check_profile"
+                        onClick={() => {
+                          onClickSeeProfile(comment.slug);
+                        }}
+                      >
+                        {"See Profile"}
+                      </p>
+                    )}
                   </div>
                   <p className="content">{comment.content}</p>
 
@@ -1290,11 +1310,22 @@ export const SocialPanel = ({
 
           {!showCompleteVersion &&
             commentsFromParent.topComments.map((comment) => {
+              console.log(comment);
               return (
                 <Comment>
                   <div className="user_name">
                     <p>{comment.userName}</p>
                     {comment.writtenByExpert && <img src={verifiedIcon}></img>}
+                    {comment.slug != "" && comment.slug != null && (
+                      <p
+                        className="check_profile"
+                        onClick={() => {
+                          onClickSeeProfile(comment.slug);
+                        }}
+                      >
+                        {"See Profile"}
+                      </p>
+                    )}
                   </div>
                   <p className="content">{comment.content}</p>
                   <div className="comment_social">

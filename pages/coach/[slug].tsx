@@ -129,7 +129,7 @@ const Profile: NextPage<{}> = () => {
                     },
                   }}
                 >
-                  {instagramLink != "" && (
+                  {instagramLink != "" && instagramLink != null && (
                     <CoachSocialIcon
                       onClick={() => {
                         window.open(instagramLink);
@@ -138,7 +138,7 @@ const Profile: NextPage<{}> = () => {
                       <FaInstagram size={28} />
                     </CoachSocialIcon>
                   )}
-                  {facebookLink != "" && (
+                  {facebookLink != "" && facebookLink != null && (
                     <CoachSocialIcon
                       onClick={() => {
                         window.open(facebookLink);
@@ -147,7 +147,7 @@ const Profile: NextPage<{}> = () => {
                       <FaFacebook size={28} />
                     </CoachSocialIcon>
                   )}
-                  {websiteLink != "" && (
+                  {websiteLink != "" && websiteLink != null && (
                     <CoachSocialIcon
                       onClick={() => {
                         window.open(websiteLink);
@@ -164,21 +164,23 @@ const Profile: NextPage<{}> = () => {
           <Container>
             <CoachDescription text={description}></CoachDescription>
 
-            <Carousel
-              autoplay={true}
-              heightMode={"current"}
-              defaultControlsConfig={{
-                nextButtonText: ">",
-                prevButtonText: "<",
-                pagingDotsStyle: {
-                  fill: "#ea9085",
-                },
-              }}
-            >
-              {carouselPhotos.map((photo) => {
-                return <img src={photo} />;
-              })}
-            </Carousel>
+            {carouselPhotos.length > 0 && (
+              <Carousel
+                autoplay={true}
+                heightMode={"current"}
+                defaultControlsConfig={{
+                  nextButtonText: ">",
+                  prevButtonText: "<",
+                  pagingDotsStyle: {
+                    fill: "#ea9085",
+                  },
+                }}
+              >
+                {carouselPhotos.map((photo) => {
+                  return <img src={photo} />;
+                })}
+              </Carousel>
+            )}
             <br></br>
 
             {classes.length > 0 && <CoachCategoryTitle title="CLASSES" />}

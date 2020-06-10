@@ -13,6 +13,9 @@ import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
 import { InformationType } from "containers/Information/contentScaffolding";
 
+// import { trackPageView } from "analytics";
+// const SubmitButtonImage = require("image/add.png");
+
 function HomePage({ deviceType }) {
   const targetRef = React.useRef(null);
   const router = useRouter();
@@ -113,6 +116,27 @@ function HomePage({ deviceType }) {
             </ContentSection>
           </MainContentArea>
         )}
+
+        {/* <SubmitButton
+          onClick={() => {
+            trackPageView("/submit");
+            if (group) {
+              router.push(
+                "/submit?topLevelCategory=" +
+                  categorySlug +
+                  "&groupSlug=" +
+                  group
+              );
+            } else {
+              router.push("/submit?topLevelCategory=" + categorySlug);
+            }
+          }}
+        >
+          <img
+            style={{ width: "50px", height: "50px" }}
+            src={SubmitButtonImage}
+          />
+        </SubmitButton> */}
       </Modal>
     </>
   );

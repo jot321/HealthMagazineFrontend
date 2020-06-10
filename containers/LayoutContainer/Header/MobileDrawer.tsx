@@ -157,6 +157,7 @@ const MobileDrawer: React.FunctionComponent = () => {
                 {localStorage.getItem("user_is_expert") === "true" && (
                   <VerifiedImage src={verifiedIcon}></VerifiedImage>
                 )}
+
                 <UserDetails>
                   <h3>{localStorage.getItem("user_name")}</h3>
                   <span>{localStorage.getItem("user_email")}</span>
