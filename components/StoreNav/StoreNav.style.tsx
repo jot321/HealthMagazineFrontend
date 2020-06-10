@@ -7,7 +7,7 @@ const StoreNavWrapper = styled.div`
   z-index: 1;
   position: sticky;
   background-color: #fff;
-  height: 42px;
+  height: 35px;
   z-index: 1001;
   top: 48px;
   left: 0px;

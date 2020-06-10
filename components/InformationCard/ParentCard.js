@@ -569,7 +569,7 @@ const Comment = styled.div`
 
     .check_profile {
       color: #0a97b0;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
   }
 
@@ -788,10 +788,6 @@ export const SocialPanel = ({
         process.env.DOMAIN_NAME +
         shareUrl;
     }
-
-    console.log(shareUrl);
-    console.log(webShareAPIShareText);
-    console.log(combinedShareMsg);
 
     if (navigator.share) {
       navigator

@@ -10,6 +10,7 @@ import {
   MENTAL_TOP_CATEGORY_SLUG,
 } from "constants/categories";
 
+import { ShareLoveComponent } from "styled/pages.style";
 import { CategoryPage } from "containers/Information/CategoryPage";
 
 function HomePage({ deviceType }) {
@@ -34,6 +35,7 @@ function HomePage({ deviceType }) {
           // categoryColor={"#28c3d4"}
           categoryColor={"#e43f5a"}
         ></CategoryPage>
+        <ShareLoveComponent />
       </Modal>
     </>
   );

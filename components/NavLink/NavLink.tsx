@@ -25,9 +25,7 @@ const Icon = styled.span`
   justify-content: center;
 `;
 
-const HeaderText = styled.span`
-  margin-top: 5px;
-`;
+const HeaderText = styled.span``;
 
 const NavLink: React.SFC<NavLinkProps> = ({
   href,

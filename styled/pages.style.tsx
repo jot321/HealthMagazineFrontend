@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { themeGet } from "@styled-system/theme-get";
+const ShareLoveImage = require("image/icons/love_new.png");
 
 export const MobileCarouselDropdown = styled.div`
   // @media (min-width: 990px) {
@@ -224,12 +225,68 @@ const GroupTopBar = styled.div`
 `;
 
 const SubmitButton = styled.div`
-  padding: 10px;
+  padding: 1px;
   position: fixed;
   bottom: 10px;
   z-index: 1000;
-  right: 10px;
+  right: 5px;
 `;
+
+const ShareLoveButton = styled.div`
+  padding: 4px;
+  position: fixed;
+  bottom: 100px;
+  z-index: 1000;
+  right: 5px;
+
+  p {
+    font-size: 0.6rem;
+    text-align: center;
+    font-weight: 500;
+    width: 30px;
+  }
+`;
+
+const ShareLoveComponent = () => {
+  const onClickShareLoveButton = () => {
+    let navigatorVar: any;
+    navigatorVar = window.navigator;
+
+    const combinedShareMsg =
+      "Check out expert health information @ Urban Nuskha - https://urbannuskha.in";
+
+    if (navigatorVar.share) {
+      navigatorVar
+        .share({
+          title: "Urban Nuskha",
+          text: "Check out expert health information @ Urban Nuskha",
+          url: "https://urbannuskha.in",
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
+        .catch(() => {
+          console.log("Navigator Share available not working.");
+          window.location.href =
+            "https://api.whatsapp.com/send?text=" + combinedShareMsg;
+        });
+    } else {
+      try {
+        window.location.href = "whatsapp://send?text=" + combinedShareMsg;
+      } catch {
+        window.location.href =
+          "https://api.whatsapp.com/send?text=" + combinedShareMsg;
+      }
+    }
+  };
+
+  return (
+    <ShareLoveButton onClick={onClickShareLoveButton}>
+      <img style={{ width: "30px", height: "30px" }} src={ShareLoveImage} />
+      <p>SHARE LOVE</p>
+    </ShareLoveButton>
+  );
+};
 
 const ShowMoreGroups = styled.div`
   display: flex;
@@ -257,4 +314,5 @@ export {
   GroupTopBar,
   SubmitButton,
   ShowMoreGroups,
+  ShareLoveComponent,
 };

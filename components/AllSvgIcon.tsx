@@ -6575,8 +6575,8 @@ export const FurnitureIcon = ({
 };
 
 export const YoutubeVideoIcon = ({
-  width = "20px",
-  height = "20px",
+  width = "17px",
+  height = "17px",
   color = "currentColor",
 }) => {
   return (
@@ -6584,7 +6584,7 @@ export const YoutubeVideoIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      viewBox="0 -80 600 600"
+      viewBox="0 -40 600 600"
     >
       <g id="bed" transform="translate(0 20)">
         <g id="Group_2" data-name="Group 2" transform="translate(0 32)">
@@ -6631,8 +6631,8 @@ export const TipsIcon = ({
 };
 
 export const PopularIcon = ({
-  width = "20px",
-  height = "20px",
+  width = "17px",
+  height = "17px",
   color = "currentColor",
 }) => {
   return (
@@ -6659,8 +6659,8 @@ export const PopularIcon = ({
 };
 
 export const HomeIcon = ({
-  width = "20px",
-  height = "20px",
+  width = "17px",
+  height = "17px",
   color = "currentColor",
 }) => {
   return (

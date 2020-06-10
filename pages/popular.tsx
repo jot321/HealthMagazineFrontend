@@ -8,6 +8,7 @@ import {
   MainContentArea,
   ContentSection,
   GroupTopBar,
+  ShareLoveComponent,
 } from "styled/pages.style";
 import NavBarItems from "constants/storeType";
 import { Modal } from "@redq/reuse-modal";
@@ -137,6 +138,8 @@ function HomePage({ deviceType }) {
             src={SubmitButtonImage}
           />
         </SubmitButton> */}
+
+        <ShareLoveComponent />
       </Modal>
     </>
   );

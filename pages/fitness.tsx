@@ -8,6 +8,7 @@ import {
   FITNESS_TOP_CATEGORY,
 } from "constants/categories";
 
+import { ShareLoveComponent } from "styled/pages.style";
 import { CategoryPage } from "containers/Information/CategoryPage";
 import { Modal } from "@redq/reuse-modal";
 
@@ -38,6 +39,7 @@ function HomePage({ deviceType }) {
           categorySlug={FITNESS_TOP_CATEGORY_SLUG}
           categoryColor={"#e43f5a"}
         ></CategoryPage>
+        <ShareLoveComponent />
       </Modal>
     </>
   );
