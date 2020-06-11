@@ -29,7 +29,7 @@ function HomePage({ deviceType }) {
 
         <CategoryPage
           deviceType={deviceType}
-          pageTitle={"MENTAL WELL BEING"}
+          pageTitle={"Mental Wellness"}
           categoryName={MENTAL_TOP_CATEGORY}
           categorySlug={MENTAL_TOP_CATEGORY_SLUG}
           // categoryColor={"#28c3d4"}

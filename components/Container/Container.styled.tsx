@@ -1,20 +1,16 @@
-import { styled } from "baseui";
+import styled from "styled-components";
 
-export const ContainerArea = styled("div", {
+export const ContainerArea = styled.div`
   width: "100%",
-  maxWidth: "1070px",
-  paddingLeft: "5px",
-  paddingRight: "5px",
+  max-width: "1070px",
+  padding-left: "5px",
+  padding-right: "5px",
   margin: "0 auto",
   position: "relative",
   zIndex: 1,
+`;
 
-  "@media screen and (max-width: 1200px)": {
-    maxWidth: "970px",
-  },
-});
-
-export const CoachPageMobileOnlyContainer = styled("div", {
+export const CoachPageMobileOnlyContainer = styled.div`
   width: "100%",
-  maxWidth: "500px",
-});
+  max-width: "500px",
+`;

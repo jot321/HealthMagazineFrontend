@@ -37,7 +37,21 @@ export const CategoryPage = ({
                   trackPageView("/group/" + element.slug);
                 }}
               >
-                <h1>{element.name}</h1>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <h1>{element.name}</h1>
+                  {element.image != undefined && (
+                    <img
+                      style={{ width: "45px", height: "45px" }}
+                      src={element.image}
+                    ></img>
+                  )}
+                </div>
               </GroupTileCard>
             );
           })}

@@ -231,3 +231,61 @@ export const OneTileCard = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
 `;
+
+export const OneTileCardBackground = styled.div`
+  width: 100%;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  height: 300px;
+  background-position: center;
+  background-color: #fff;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 60%,
+      #222 100%
+    ),
+    url(${(props) => props.image});
+
+  background-size: cover;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column-reverse;
+
+  .user_name {
+    display: inline-block;
+    flex-direction: column;
+    top: 220px;
+    padding: 15px;
+
+    p.name {
+      color: #fff;
+      font-size: 30px;
+      font-weight: 400;
+    }
+
+    p.role {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
+
+  .social_panel {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+`;

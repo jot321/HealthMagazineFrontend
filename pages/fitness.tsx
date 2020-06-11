@@ -34,7 +34,7 @@ function HomePage({ deviceType }) {
 
         <CategoryPage
           deviceType={deviceType}
-          pageTitle={"FITNESS"}
+          pageTitle={"Fitness"}
           categoryName={FITNESS_TOP_CATEGORY}
           categorySlug={FITNESS_TOP_CATEGORY_SLUG}
           categoryColor={"#e43f5a"}

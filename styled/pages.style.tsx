@@ -193,7 +193,7 @@ const GroupTopBar = styled.div`
     height: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 
     padding: 10px;
   }
@@ -202,8 +202,6 @@ const GroupTopBar = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-
-    padding-top: 10px;
   }
 
   .category_button {
@@ -220,7 +218,6 @@ const GroupTopBar = styled.div`
   h1 {
     font-size: 20px;
     font-weight: 500;
-    text-transform: capitalize;
   }
 `;
 
@@ -291,6 +288,7 @@ const ShareLoveComponent = () => {
 const ShowMoreGroups = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
 
   p {
     padding: 5px 25px;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MdWatchLater } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
-import { CoachAvatarSmall } from "components/PageStyles/Profile.styled";
+// import { CoachAvatarSmall } from "components/PageStyles/ProfileComponents.styled";
 
 import { trackPageView } from "analytics";
 import { sentenceToSlug } from "helper/slug";
@@ -15,8 +15,6 @@ const Container = styled.div`
 
   .wrapper {
     width: 100%;
-    padding-left: 5px;
-    padding-right: 5px;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -62,7 +60,6 @@ const Container = styled.div`
   }
 
   .card_with_border {
-    border-left: 6px solid #ea9085;
     background-color: #fff;
     margin-bottom: 1.6rem;
     border-radius: 2px;
@@ -398,11 +395,11 @@ export const CoachEvent = ({
                     onClickAvatar(profile.slug);
                   }}
                 >
-                  <CoachAvatarSmall
+                  {/* <CoachAvatarSmall
                     src={profile.photo}
                     alt={profile.name}
-                  ></CoachAvatarSmall>
-                  <h6>{profile.name}</h6>
+                  ></CoachAvatarSmall> */}
+                  By<h6>{profile.name}</h6>
                 </AvatarSection>
                 <br></br>
               </div>

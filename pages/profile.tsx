@@ -6,17 +6,6 @@ import { ProductsRow } from "containers/Information/Information.style";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { withApollo } from "helper/apollo";
-import {
-  PageTitle,
-  InfoBar,
-  UserAvatar,
-  UserName,
-  UserRole,
-  Menu,
-  MenuList,
-  Strong,
-} from "components/PageStyles/Profile.styled";
-
 import { outputCardScafollding } from "containers/Information/contentScaffolding";
 
 const GET_BOOKMARKED_POSTS = gql`
@@ -54,10 +43,7 @@ const Profile: NextPage<{}> = () => {
     fetchPolicy: "network-only",
   });
 
-  const [active, setActive] = useState("posts");
-
   const name = userDetails.name;
-  const role = userDetails.role;
   const avatar = userDetails.avatar;
 
   let bookmarkedPosts = [];
@@ -78,31 +64,11 @@ const Profile: NextPage<{}> = () => {
         <meta name="Description" content="Inst profile page" />
       </Head>
 
-      <PageTitle>
-        <Container>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <UserAvatar src={avatar} alt={name} />
-          </div>
-
-          <InfoBar>
-            <div>
-              <UserName>{name}</UserName>
-              <UserRole>{role}</UserRole>
-            </div>
-
-            <Menu className="profile-menu">
-              <MenuList
-                className={active === "posts" ? "active" : ""}
-                onClick={() => {
-                  setActive("posts");
-                }}
-              >
-                Saved Posts <Strong>{bookmarkedPosts.length}</Strong>
-              </MenuList>
-            </Menu>
-          </InfoBar>
-        </Container>
-      </PageTitle>
+      <div>
+        <img src={avatar}></img>
+        {name}
+        {"Saved Posts " + bookmarkedPosts.length}
+      </div>
 
       <Container>
         <div ref={targetRef}>

@@ -29,7 +29,7 @@ function HomePage({ deviceType }) {
 
         <CategoryPage
           deviceType={deviceType}
-          pageTitle={"DIET & NUTRITION"}
+          pageTitle={"Diet and Nutrition"}
           categoryName={DIET_TOP_CATEGORY}
           categorySlug={DIET_TOP_CATEGORY_SLUG}
           // categoryColor={"#06623b"}

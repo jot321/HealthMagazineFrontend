@@ -8,10 +8,6 @@ import { StickyProvider } from "contexts/app/app.provider";
 import { SearchProvider } from "contexts/search/search.provider";
 import LanguageProvider from "contexts/language/language.provider";
 
-import { Provider as StyletronProvider } from "styletron-react";
-import { BaseProvider, LightTheme, DarkTheme } from "baseui";
-import { styletron, debug } from "../styletron";
-
 import AppLayout from "containers/LayoutContainer/AppLayout";
 import { useDeviceType } from "helper/useDeviceType";
 
@@ -49,26 +45,22 @@ export default function ExtendedApp({
 
   return (
     <ThemeProvider theme={theme}>
-      <StyletronProvider value={styletron} debug={debug} debugAfterHydration>
-        <BaseProvider theme={{ ...LightTheme, direction: "ltr" }}>
-          <LanguageProvider messages={messages}>
-            {/* <CartProvider> */}
-            <SearchProvider query={query}>
-              {/* <StickyProvider> */}
-              <AuthProvider>
-                <>
-                  <AppLayout deviceType={deviceType}>
-                    <Component {...pageProps} deviceType={deviceType} />
-                  </AppLayout>
-                  <GlobalStyle />
-                </>
-              </AuthProvider>
-              {/* </StickyProvider> */}
-            </SearchProvider>
-            {/* </CartProvider> */}
-          </LanguageProvider>
-        </BaseProvider>
-      </StyletronProvider>
+      <LanguageProvider messages={messages}>
+        {/* <CartProvider> */}
+        <SearchProvider query={query}>
+          {/* <StickyProvider> */}
+          <AuthProvider>
+            <>
+              <AppLayout deviceType={deviceType}>
+                <Component {...pageProps} deviceType={deviceType} />
+              </AppLayout>
+              <GlobalStyle />
+            </>
+          </AuthProvider>
+          {/* </StickyProvider> */}
+        </SearchProvider>
+        {/* </CartProvider> */}
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
