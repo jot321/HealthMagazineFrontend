@@ -724,6 +724,106 @@ export const SocialPanel = ({
   const showCompleteVersion =
     router.query.completeVersion === "true" ? true : false;
 
+  const CommentsContainerLongView = () => {
+    return (
+      <div style={{ display: "flex", "flex-direction": "row" }}>
+        <div
+          className={`${
+            showCompleteVersion === true &&
+            selectedCommentsSection === "experts"
+              ? "question_option_button_activated"
+              : "question_option_button"
+          }`}
+          onClick={onClickOpenExpertComments}
+        >
+          {isAnswer ? "Answers  " : "Discuss  "}
+          <img
+            style={{
+              width: "15px",
+              height: "15px",
+              marginRight: "7px",
+            }}
+            src={verifiedIcon}
+          ></img>
+          <span className="number">
+            {commentsFromParent.expertCommentsCount}
+          </span>
+        </div>
+
+        <div
+          className={`${
+            showCompleteVersion === true &&
+            selectedCommentsSection === "discussions"
+              ? "question_option_button_activated"
+              : "question_option_button"
+          }`}
+          onClick={onClickOpenAskOrDiscuss}
+        >
+          <img
+            style={{
+              width: "15px",
+              height: "15px",
+              marginRight: "7px",
+            }}
+            src={commentIcon}
+          ></img>
+          {isAnswer ? "  " : "  "}
+          <span className="number">{commentsFromParent.discussionsCount}</span>
+        </div>
+      </div>
+    );
+  };
+  const CommentsContainer = () => {
+    return (
+      <div style={{ display: "flex", "flex-direction": "row" }}>
+        <div
+          className={`${
+            showCompleteVersion === true &&
+            selectedCommentsSection === "experts"
+              ? "question_option_button_activated"
+              : "question_option_button"
+          }`}
+          onClick={onClickOpenExpertComments}
+        >
+          <img
+            style={{
+              width: "15px",
+              height: "15px",
+              marginRight: "7px",
+            }}
+            src={commentIcon}
+          ></img>
+          {isAnswer ? "Answers  " : "Discuss  "}
+          <span className="number">
+            {commentsFromParent.expertCommentsCount +
+              commentsFromParent.discussionsCount}
+          </span>
+        </div>
+
+        {/* <div
+          className={`${
+            showCompleteVersion === true &&
+            selectedCommentsSection === "discussions"
+              ? "question_option_button_activated"
+              : "question_option_button"
+          }`}
+          onClick={onClickOpenAskOrDiscuss}
+        >
+          <img
+            style={{
+              width: "15px",
+              height: "15px",
+              marginRight: "7px",
+            }}
+            src={commentIcon}
+          ></img>
+          {isAnswer ? "  " : "  "}
+          <span className="number">{commentsFromParent.discussionsCount}</span>
+        </div> */}
+      </div>
+    );
+  };
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // Loves Section
 
@@ -1028,51 +1128,8 @@ export const SocialPanel = ({
         {/* Social Panel */}
         <div className="panel_social">
           <div style={{ display: "flex", "flex-direction": "row" }}>
-            <div
-              className={`${
-                showCompleteVersion === true &&
-                selectedCommentsSection === "experts"
-                  ? "question_option_button_activated"
-                  : "question_option_button"
-              }`}
-              onClick={onClickOpenExpertComments}
-            >
-              {isAnswer ? "Answers  " : "Discuss  "}
-              <img
-                style={{
-                  width: "15px",
-                  height: "15px",
-                  marginRight: "7px",
-                }}
-                src={verifiedIcon}
-              ></img>
-              <span className="number">
-                {commentsFromParent.expertCommentsCount}
-              </span>
-            </div>
-
-            <div
-              className={`${
-                showCompleteVersion === true &&
-                selectedCommentsSection === "discussions"
-                  ? "question_option_button_activated"
-                  : "question_option_button"
-              }`}
-              onClick={onClickOpenAskOrDiscuss}
-            >
-              <img
-                style={{
-                  width: "15px",
-                  height: "15px",
-                  marginRight: "7px",
-                }}
-                src={commentIcon}
-              ></img>
-              {isAnswer ? "  " : "  "}
-              <span className="number">
-                {commentsFromParent.discussionsCount}
-              </span>
-            </div>
+            {!showCompleteVersion && <CommentsContainer />}
+            {showCompleteVersion && <CommentsContainerLongView />}
 
             {/* Saves Button */}
             <div
