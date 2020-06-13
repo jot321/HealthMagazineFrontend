@@ -11,9 +11,6 @@ import {
   PopularIcon,
   HomeIcon,
   LiveIcon,
-  MindNavIcon,
-  DietNavIcon,
-  FitNavIcon,
 } from "components/AllSvgIcon";
 
 export default {
@@ -30,17 +27,17 @@ export default {
     //   identifier: "videos",
     // },
     {
-      link: "/popular",
-      icon: <PopularIcon />,
-      label: "Popular",
-      identifier: "popular",
-    },
-    {
       link: "/live",
       // icon: <LiveIcon />,
       icon: <YoutubeVideoIcon />,
       label: "Live",
       identifier: "live",
+    },
+    {
+      link: "/popular",
+      icon: <PopularIcon />,
+      label: "Popular",
+      identifier: "popular",
     },
   ],
   GroupPage: [

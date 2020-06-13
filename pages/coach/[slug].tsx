@@ -50,9 +50,7 @@ const CoachTopic = {
 
 const Profile: NextPage<{}> = () => {
   const router = useRouter();
-
   const [selectedTopic, setSelectedTopic] = useState(CoachTopic.INFORMATION);
-
   const { data, loading, error } = useQuery(GET_COACH_PROFILE, {
     variables: {
       slug: router.query.slug,
@@ -109,7 +107,10 @@ const Profile: NextPage<{}> = () => {
             <OneTileWrapper>
               <OneTileCardBackground image={avatar}>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                 >
                   <div className="user_name">
                     <p className="name">{name}</p>
@@ -194,6 +195,7 @@ const Profile: NextPage<{}> = () => {
                 </div>
               </div>
             </GroupTopBar>
+
             {selectedTopic == CoachTopic.INFORMATION && (
               <CoachDescription text={description}></CoachDescription>
             )}

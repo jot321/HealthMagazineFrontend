@@ -20,11 +20,21 @@ export const CategoryPage = ({
 
   return (
     <div>
-      <GroupTopBar>
+      {/* <GroupTopBar>
         <div className="title_area">
           <h1>{pageTitle}</h1>
         </div>
-      </GroupTopBar>
+      </GroupTopBar> */}
+      <h1
+        style={{
+          padding: "20px",
+          fontSize: "20px",
+          fontWeight: 400,
+          borderLeft: "5px solid #e43f5a",
+        }}
+      >
+        {pageTitle}
+      </h1>
       <GroupTileWrapper>
         {topCategoryToGroupMapping[categorySlug]
           .slice(0, groupShowCount)

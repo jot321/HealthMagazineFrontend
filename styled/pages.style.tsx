@@ -188,12 +188,20 @@ const GroupTopBar = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
+  background-color: #fff;
 
   .title_area {
     height: 50px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  .group_title_area {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
 
     padding: 10px;
   }
@@ -213,6 +221,8 @@ const GroupTopBar = styled.div`
 
   .active {
     background-color: #eee;
+    color: #e43f5a;
+    font-weight: 600;
   }
 
   h1 {

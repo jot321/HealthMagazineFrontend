@@ -341,136 +341,221 @@ export const topCategoryToGroupMapping = {
 };
 
 const groupSlugNameMap = {
-  cardio: { name: "Cardio", topLevelCategory: FITNESS_TOP_CATEGORY_SLUG },
+  cardio: {
+    name: "Cardio",
+    topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: CardioImage,
+  },
   "weight-training": {
     name: "Strength",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: StrengthImage,
   },
-  dance: { name: "Dance", topLevelCategory: FITNESS_TOP_CATEGORY_SLUG },
-  hiit: { name: "HIIT", topLevelCategory: FITNESS_TOP_CATEGORY_SLUG },
-  yoga: { name: "Yoga", topLevelCategory: FITNESS_TOP_CATEGORY_SLUG },
+  dance: {
+    name: "Dance",
+    topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: DanceImage,
+  },
+  hiit: {
+    name: "HIIT",
+    topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: HIITImage,
+  },
+  yoga: {
+    name: "Yoga",
+    topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: YogaImage,
+  },
   flexibility: {
     name: "Flexibility",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: FlexibilityImage,
   },
   "senior-fitness": {
     name: "Senior Fitness",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: SeniorFitnessImage,
   },
   "female-fitness": {
     name: "Female Fitness",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: FemaleFitnessImage,
   },
   "junior-fitness": {
     name: "Junior Fitness",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: JuniorFitnessFitnessImage,
   },
   motivation: {
     name: "Motivation",
     topLevelCategory: FITNESS_TOP_CATEGORY_SLUG,
+    image: MotivationFitnessImage,
   },
   "diet-for-fitness": {
     name: "Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: DietForFitnessFitnessImage,
   },
   "weight-loss": {
     name: "Weight Loss",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: WeightLossFitnessImage,
   },
   "weight-gain": {
     name: "Weight Gain",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: WeightGainFitnessImage,
   },
   "healthy-recipes": {
     name: "Healthy Recipes",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: HealthyRecipesImage,
   },
   "healthy-breakfast": {
     name: "Healthy Breakfast",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: HealthyBreakfastImage,
   },
   "healthy-snacks": {
     name: "Healthy Snacks",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: HealthySnacksImage,
   },
   "healthy-juices": {
     name: "Healthy Juices",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: HealthyJuicesImage,
   },
   "healthy-desserts": {
     name: "Healthy Desserts",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: HealthyDessertsImage,
   },
   "senior-diet": {
     name: "Senior Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: SeniorDietImage,
   },
   "junior-diet": {
     name: "Junior Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: JuniorDietImage,
   },
   "south-indian": {
     name: "South Indian",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: SouthIndianImage,
   },
   "north-indian": {
     name: "North Indian",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: NorthIndianImage,
   },
   supplements: {
     name: "Supplements",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: SupplementsImage,
   },
   "nutrient-facts": {
     name: "Nutrient Facts",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: NutrientFactsImage,
   },
-  "keto-diet": { name: "Keto Diet", topLevelCategory: DIET_TOP_CATEGORY_SLUG },
+  "keto-diet": {
+    name: "Keto Diet",
+    topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: KetoDietImage,
+  },
   "low-carb-diet": {
     name: "Low Carb Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: LowCarbDietImage,
   },
   "protein-rich": {
     name: "Protein Rich",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: ProteinRichImage,
   },
   "diet-plans": {
     name: "Diet Plans",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: DietPlansImage,
   },
   "celeb-diet": {
     name: "Celeb Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: CelebDietImage,
   },
   "diabetes-diet": {
     name: "Diabetes Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: DiabetesDietImage,
   },
   "thyroid-diet": {
     name: "Thyroid Diet",
     topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: ThyroidDietImage,
   },
-  ayurveda: { name: "Ayurveda", topLevelCategory: DIET_TOP_CATEGORY_SLUG },
-  music: { name: "Music", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
+  ayurveda: {
+    name: "Ayurveda",
+    topLevelCategory: DIET_TOP_CATEGORY_SLUG,
+    image: AyurvedaImage,
+  },
+  music: {
+    name: "Music",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: MusicImage,
+  },
   meditation: {
     name: "Meditation",
     topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: MeditationImage,
   },
-  addiction: { name: "Addiction", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
-  stress: { name: "Stress", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
-  yoga: { name: "Yoga", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
-  anxiety: { name: "Anxiety", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
+  addiction: {
+    name: "Addiction",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: AddictionImage,
+  },
+  stress: {
+    name: "Stress",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: StressImage,
+  },
+  yoga: {
+    name: "Yoga",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: YogaImage,
+  },
+  anxiety: {
+    name: "Anxiety",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: AnxietyImage,
+  },
   depression: {
     name: "Depression",
     topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: DepressionImage,
   },
   "self-improvement": {
     name: "Self Improvement",
     topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: SelfImprovementImage,
   },
-  sleep: { name: "Sleep", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
-  parenting: { name: "Parenting", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
-  gurus: { name: "Gurus", topLevelCategory: MENTAL_TOP_CATEGORY_SLUG },
+  sleep: {
+    name: "Sleep",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: SleepImage,
+  },
+  parenting: {
+    name: "Parenting",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: ParentingImage,
+  },
+  gurus: {
+    name: "Gurus",
+    topLevelCategory: MENTAL_TOP_CATEGORY_SLUG,
+    image: GurusImage,
+  },
   sexual: { name: "Sexual", topLevelCategory: GENERAL_TOP_CATEGORY_SLUG },
   immunity: { name: "Immunity", topLevelCategory: GENERAL_TOP_CATEGORY_SLUG },
   "skin-and-hair-care": {
@@ -546,5 +631,13 @@ export const getGroupTopLevelCategoryFromSlug = (groupSlug) => {
     return "";
   } else {
     return groupSlugNameMap[groupSlug].topLevelCategory;
+  }
+};
+
+export const getGroupImageFromSlug = (groupSlug) => {
+  if (groupSlugNameMap[groupSlug] === undefined) {
+    return "";
+  } else {
+    return groupSlugNameMap[groupSlug].image;
   }
 };

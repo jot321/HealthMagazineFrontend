@@ -289,3 +289,59 @@ export const OneTileCardBackground = styled.div`
     padding: 10px;
   }
 `;
+
+export const TwoTileCardBackground = styled.div`
+  width: 100%;
+  height: 120px;
+  // border-radius: 10px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  background-position: center;
+
+  // background-image: linear-gradient(
+  //     to bottom,
+  //     rgba(0, 0, 0, 0) 0%,
+  //     rgba(0, 0, 0, 0) 60%,
+  //     #222 100%
+  //   ),
+  //   url(${(props) => props.image});
+
+  background-image: url(${(props) => props.image});
+
+  background-size: cover;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column-reverse;
+
+  .user_name {
+    display: inline-block;
+    padding: 15px;
+
+    p.name {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p.role {
+      color: #fff;
+      font-size: 10px;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
+
+  .social_panel {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+`;

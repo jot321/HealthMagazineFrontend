@@ -10,6 +10,7 @@ import { ContentFeedPage } from "containers/Information/ContentFeedPage";
 import {
   getGroupNameFromSlug,
   getGroupTopLevelCategoryFromSlug,
+  getGroupImageFromSlug,
 } from "constants/groups_mapping";
 
 function HomePage({ deviceType }) {
@@ -34,7 +35,13 @@ function HomePage({ deviceType }) {
         <StoreNav items={NavBarItems.HomePage} />
 
         <GroupTopBar>
-          <div className="title_area">
+          <div className="group_title_area">
+            {
+              <img
+                style={{ width: "70px", height: "70px" }}
+                src={getGroupImageFromSlug(groupSlug)}
+              ></img>
+            }
             <h1>{getGroupNameFromSlug(groupSlug)}</h1>
           </div>
         </GroupTopBar>

@@ -13,10 +13,22 @@ function LiveListingsPage({ deviceType }) {
   return (
     <>
       <Head>
-        <title>Live Fitness/Wellness sessions</title>
+        <title>
+          Connect with experts in fitness, diet and mental wellness.
+        </title>
       </Head>
       <Modal>
         <StoreNav items={NavBarItems.HomePage} />
+        <h1
+          style={{
+            padding: "20px",
+            fontSize: "20px",
+            fontWeight: 400,
+            borderLeft: "5px solid #e43f5a",
+          }}
+        >
+          Connect with lifestyle coaches
+        </h1>
 
         {deviceType.desktop ? (
           <>

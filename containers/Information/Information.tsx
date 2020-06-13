@@ -106,7 +106,6 @@ export const Information: React.FC<ProductsProps> = ({
       fetchLimit: 6,
       contentType: contentType,
     },
-    fetchPolicy: "network-only",
   });
 
   // -----------------------------------------------------------

@@ -1363,7 +1363,6 @@ export const SocialPanel = ({
 
           {!showCompleteVersion &&
             commentsFromParent.topComments.map((comment) => {
-              console.log(comment);
               return (
                 <Comment>
                   <div className="user_name">
