@@ -13,6 +13,9 @@ import {
   CoachEvent,
   CoachSocialIcon,
   CoachCover,
+  ConnectWithExpertButton,
+  ShareProfileButton,
+  ShareProfileComponent,
 } from "components/InformationCard/CoachCard";
 
 import {
@@ -82,6 +85,7 @@ const Profile: NextPage<{}> = () => {
   const coachProfileData = JSON.parse(data.getProfessionals.messages)[0];
 
   const name = coachProfileData.firstName + " " + coachProfileData.lastName;
+  const slug = coachProfileData.slug;
   const role =
     coachProfileData.length == 0 ? "" : coachProfileData.categories[0];
   const avatar = coachProfileData.profilePhoto;
@@ -109,41 +113,59 @@ const Profile: NextPage<{}> = () => {
                 <div
                   style={{
                     display: "flex",
+                    flexDirection: "column-reverse",
+                    height: "300px",
                     justifyContent: "space-between",
                   }}
                 >
-                  <div className="user_name">
-                    <p className="name">{name}</p>
-                    <p className="role">{role}</p>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div className="user_name">
+                      <p className="name">{name}</p>
+                      <p className="role">{role}</p>
+                    </div>
+                    <div className={"social_panel"}>
+                      {instagramLink != "" && instagramLink != null && (
+                        <CoachSocialIcon
+                          onClick={() => {
+                            window.open(instagramLink);
+                          }}
+                        >
+                          <FaInstagram size={28} color={"#fff"} />
+                        </CoachSocialIcon>
+                      )}
+                      {facebookLink != "" && facebookLink != null && (
+                        <CoachSocialIcon
+                          onClick={() => {
+                            window.open(facebookLink);
+                          }}
+                        >
+                          <FaFacebook size={28} color={"#fff"} />
+                        </CoachSocialIcon>
+                      )}
+                      {websiteLink != "" && websiteLink != null && (
+                        <CoachSocialIcon
+                          onClick={() => {
+                            window.open(websiteLink);
+                          }}
+                        >
+                          <FaDesktop size={28} color={"#fff"} />
+                        </CoachSocialIcon>
+                      )}
+                    </div>
                   </div>
-                  <div className={"social_panel"}>
-                    {instagramLink != "" && instagramLink != null && (
-                      <CoachSocialIcon
-                        onClick={() => {
-                          window.open(instagramLink);
-                        }}
-                      >
-                        <FaInstagram size={28} color={"#fff"} />
-                      </CoachSocialIcon>
-                    )}
-                    {facebookLink != "" && facebookLink != null && (
-                      <CoachSocialIcon
-                        onClick={() => {
-                          window.open(facebookLink);
-                        }}
-                      >
-                        <FaFacebook size={28} color={"#fff"} />
-                      </CoachSocialIcon>
-                    )}
-                    {websiteLink != "" && websiteLink != null && (
-                      <CoachSocialIcon
-                        onClick={() => {
-                          window.open(websiteLink);
-                        }}
-                      >
-                        <FaDesktop size={28} color={"#fff"} />
-                      </CoachSocialIcon>
-                    )}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      padding: "10px",
+                    }}
+                  >
+                    {ShareProfileComponent(name, slug)}
                   </div>
                 </div>
               </OneTileCardBackground>
@@ -197,7 +219,20 @@ const Profile: NextPage<{}> = () => {
             </GroupTopBar>
 
             {selectedTopic == CoachTopic.INFORMATION && (
-              <CoachDescription text={description}></CoachDescription>
+              <div>
+                <CoachDescription text={description}></CoachDescription>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <ConnectWithExpertButton
+                    onClick={() => {
+                      window.location.href =
+                        "https://urban-nuskha.typeform.com/to/Xqyxo9#expert_name=" +
+                        slug;
+                    }}
+                  >
+                    Connect
+                  </ConnectWithExpertButton>
+                </div>
+              </div>
             )}
 
             {/* {carouselPhotos.length > 0 && (

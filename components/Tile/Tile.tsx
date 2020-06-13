@@ -242,7 +242,6 @@ export const OneTileCardBackground = styled.div`
   -ms-user-select: none;
   user-select: none;
 
-  height: 300px;
   background-position: center;
   background-color: #fff;
   border-top-left-radius: 2px;
@@ -293,7 +292,6 @@ export const OneTileCardBackground = styled.div`
 export const TwoTileCardBackground = styled.div`
   width: 100%;
   height: 120px;
-  // border-radius: 10px;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;

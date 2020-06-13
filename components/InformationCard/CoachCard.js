@@ -84,12 +84,12 @@ const Container = styled.div`
       margin-top: 1rem;
       font-weight: 400;
       font-size: 1rem;
-      border-left: 2px solid #ea9085;
+      border-left: 2px solid #e43f5a;
     }
   }
 
   .categorytitle {
-    border-left: 6px solid #ea9085;
+    border-left: 6px solid #e43f5a;
     margin-bottom: 1rem;
     border-radius: 2px;
     overflow: hidden;
@@ -234,7 +234,7 @@ const Container = styled.div`
 const Button = styled.div`
   height: 40px;
   width: 110px;
-  background-color: #ea9085;
+  background-color: #e43f5a;
   color: #fff;
   font-weight: 500;
   display: flex;
@@ -267,7 +267,7 @@ const AvatarSection = styled.div`
     font-weight: 500;
     font-size: 1rem;
     margin-left: 10px;
-    border-bottom: 2px solid #ea9085;
+    border-bottom: 2px solid #e43f5a;
   }
 `;
 
@@ -290,6 +290,76 @@ export const CoachSocialIcon = styled.div`
   margin-right: 5px;
   margin-top: 10px;
 `;
+
+export const ConnectWithExpertButton = styled.div`
+  width: 200px;
+  font-size: 13px;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: #e43f5a;
+  color: #fff;
+  font-size: 20px;
+`;
+
+export const ShareProfileButton = styled.div`
+  width: 80px;
+  font-size: 13px;
+  padding: 5px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: #00bd56;
+  color: #fff;
+  font-size: 15px;
+`;
+
+export const ShareProfileComponent = (name, slug) => {
+  const onClickShareProfile = (slug) => {
+    const navigatorVar = window.navigator;
+
+    const combinedShareMsg =
+      "Check out " +
+      name +
+      "'s profile @ Urban Nuskha. - https://urbannuskha.in/coach/" +
+      slug;
+
+    if (navigatorVar.share) {
+      navigatorVar
+        .share({
+          title: "Urban Nuskha",
+          text: "Check out " + name + "'s profile @ Urban Nuskha. ",
+          url: "https://urbannuskha.in/coach/" + slug,
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
+        .catch(() => {
+          console.log("Navigator Share available not working.");
+          window.location.href =
+            "https://api.whatsapp.com/send?text=" + combinedShareMsg;
+        });
+    } else {
+      try {
+        window.location.href = "whatsapp://send?text=" + combinedShareMsg;
+      } catch {
+        window.location.href =
+          "https://api.whatsapp.com/send?text=" + combinedShareMsg;
+      }
+    }
+  };
+
+  return (
+    <ShareProfileButton
+      onClick={() => {
+        onClickShareProfile(slug);
+      }}
+    >
+      SHARE
+    </ShareProfileButton>
+  );
+};
 
 export const CoachDescription = ({ text }) => {
   return (
