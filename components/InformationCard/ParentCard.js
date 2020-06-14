@@ -312,6 +312,17 @@ const Container = styled.div`
       font-weight: 400;
     }
   }
+
+  .back_button {
+    text-align: center;
+    padding: 15px;
+    background-color: #e43f5a;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 10px;
+    width: 60%;
+    margin: auto;
+  }
 `;
 
 const LoveButton = styled.div`
@@ -723,6 +734,8 @@ export const SocialPanel = ({
 
   const showCompleteVersion =
     router.query.completeVersion === "true" ? true : false;
+
+  const showBackButton = router.query.backButton === "true" ? true : false;
 
   const CommentsContainerLongView = () => {
     return (
@@ -1272,6 +1285,17 @@ export const SocialPanel = ({
             </span>
           </p> */}
 
+          {showBackButton && (
+            <div
+              className="back_button"
+              onClick={() => {
+                router.back();
+              }}
+            >
+              GO BACK
+            </div>
+          )}
+
           {showCompleteVersion && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
@@ -1415,6 +1439,38 @@ export const SocialPanel = ({
             })}
         </CommentWrapper>
       }
+    </Container>
+  );
+};
+
+export const CompactSocialPanel = ({ shares = 10, loves = 7 }) => {
+  return (
+    <Container>
+      <div style={{ display: "flex", "flex-direction": "row-reverse" }}>
+        <div className="panel_share">
+          <img
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "5px",
+            }}
+            src={shareIcon}
+          ></img>
+          <span className="number">{shares}</span>
+        </div>
+
+        <div className="panel_like">
+          <img
+            style={{
+              width: "20px",
+              height: "20px",
+              marginRight: "5px",
+            }}
+            src={loveIcon}
+          ></img>
+          <span className="number">{loves}</span>
+        </div>
+      </div>
     </Container>
   );
 };

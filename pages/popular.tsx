@@ -90,21 +90,22 @@ function HomePage({ deviceType }) {
           </div>
         </GroupTopBar>
 
-        {deviceType.desktop ? (
-          <>
-            <MainContentArea>
-              <ContentSection>
-                <div ref={targetRef}>
-                  <Information
-                    deviceType={deviceType}
-                    loadPopular={true}
-                    contentType={contentType}
-                  />
-                </div>
-              </ContentSection>
-            </MainContentArea>
-          </>
-        ) : (
+        {contentType == InformationType.VIDEOLINK && (
+          <MainContentArea>
+            <ContentSection style={{ width: "100%" }}>
+              <div ref={targetRef}>
+                <Information
+                  deviceType={deviceType}
+                  loadPopular={true}
+                  contentType={contentType}
+                  compactVideoView={true}
+                />
+              </div>
+            </ContentSection>
+          </MainContentArea>
+        )}
+
+        {contentType != InformationType.VIDEOLINK && (
           <MainContentArea>
             <ContentSection style={{ width: "100%" }}>
               <div ref={targetRef}>

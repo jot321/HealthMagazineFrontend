@@ -161,21 +161,12 @@ export const Information: React.FC<ProductsProps> = ({
       },
     });
   };
-  console.log(compactVideoView);
 
   return (
     <>
       <div>
         {compactVideoView == true && (
           <ProductsRow>
-            <iframe
-              id="ytplayer"
-              // type="text/html"
-              width="640"
-              height="360"
-              src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1"
-              // frameborder="0"
-            ></iframe>
             {homeFeed.data.getHomeFeed.messages.map(
               (element: any, index: number) => {
                 const data_ = JSON.parse(element.message);

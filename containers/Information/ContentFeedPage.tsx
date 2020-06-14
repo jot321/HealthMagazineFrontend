@@ -129,7 +129,7 @@ export const ContentFeedPage = ({
                 group={group}
                 topLevelCategory={categoryName}
                 contentType={contentType}
-                compactVideoView={false}
+                compactVideoView={true}
               />
             </div>
           </ContentSection>

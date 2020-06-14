@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import {
@@ -250,6 +251,9 @@ export const VideoPlayerCard = ({
   playlistTitle,
   playlistId,
 }) => {
+  const router = useRouter();
+  const singleArticle = router.query.a_id != undefined ? true : false;
+
   return (
     <div>
       <Container>
@@ -284,12 +288,12 @@ export const VideoPlayerCard = ({
 
             <div className="card__image">
               <ReactPlayer
+                playing
                 url={url}
                 width="100%"
-                height={"260px"}
                 controls={true}
-                light={true}
                 playsinline={true}
+                light={!singleArticle}
                 onStart={() => {
                   trackPageView("/videos/" + sentenceToSlug(title));
                 }}

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import {
   ProductsCol,
@@ -8,8 +9,8 @@ import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWit
 import { TipCard } from "components/InformationCard/TipCard";
 import { QuestionCard } from "components/InformationCard/QuestionCard";
 import { VideoPlayerCard } from "components/InformationCard/VideoCard";
+import { CompactSocialPanel } from "components/InformationCard/ParentCard";
 
-import ReactPlayer from "react-player";
 import Fade from "react-reveal/Fade";
 
 export const InformationType = {
@@ -57,23 +58,23 @@ export const Tag = styled.div`
 `;
 
 const ExpertUnitWrapper = styled.div`
-  padding: 8px;
   .topbar {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 2px;
-    margin-bottom: 5px;
+    padding: 8px;
   }
   .user_name {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 
     p.name {
       color: #000;
       font-weight: 500;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 500;
       text-transform: capitalize;
     }
   }
@@ -321,38 +322,50 @@ export const outputCardScafollding = (data_, properties_, index) => {
 };
 
 export const compactVideoFeed = (data_, properties_, index) => {
+  const router = useRouter();
+  const videoId = data_.videoLink.match(
+    /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/
+  )[1];
+
+  const thumbmailLink = "https://img.youtube.com/vi/" + videoId + "/0.jpg";
+
   return (
     <ProductsColDivided key={index}>
-      <div style={{ padding: "5px" }}>
+      <div style={{ padding: "3px" }}>
         <div
           style={{
             height: "100%",
             backgroundColor: "#fff",
             display: "flex",
-            // padding: "3px",
             flexDirection: "column",
           }}
         >
-          {/* <ReactPlayer
-            url={data_.videoLink}
-            width="100%"
-            height="120px"
-            controls={true}
-            playsinline={true}
-            light={true}
-            onStart={() => {
-              // trackPageView("/videos/" + sentenceToSlug(title));
+          <ExpertUnitWrapper
+            image={thumbmailLink}
+            onClick={() => {
+              router.push(
+                "/article?a_id=" +
+                  data_.CMS_ID +
+                  "&completeVersion=true&backButton=true"
+              );
             }}
-          /> */}
-          {/* <img
-            style={{ objectFit: "contain" }}
-            src="https://img.youtube.com/vi/GhYgETY6Kao/mqdefault.jpg"
-          ></img> */}
-          <ExpertUnitWrapper>
+          >
+            <img
+              style={{
+                width: "100%",
+                height: "100%",
+                clip: "rect(0px,60px,200px,0px)",
+              }}
+              src={"https://img.youtube.com/vi/" + videoId + "/mqdefault.jpg"}
+            ></img>
             <div className="topbar">
               <div className="user_name">
                 <p className="name">{data_.title}</p>
               </div>
+              <CompactSocialPanel
+                loves={properties_.likes}
+                shares={properties_.shares}
+              />
             </div>
             {/* <p className="byline">{data.byline}</p> */}
             {/* {data.offer != undefined && (

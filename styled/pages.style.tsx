@@ -204,7 +204,6 @@ const GroupTopBar = styled.div`
   h2 {
     font-size: 20px;
     font-weight: 400;
-    border-left: 5px solid #e43f5a;
   }
 
   .group_title_area {
