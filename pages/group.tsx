@@ -38,11 +38,16 @@ function HomePage({ deviceType }) {
           <div className="group_title_area">
             {
               <img
-                style={{ width: "70px", height: "70px" }}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginLeft: "20px",
+                  marginRight: "20px",
+                }}
                 src={getGroupImageFromSlug(groupSlug)}
               ></img>
             }
-            <h1>{getGroupNameFromSlug(groupSlug)}</h1>
+            <h2>{getGroupNameFromSlug(groupSlug)}</h2>
           </div>
         </GroupTopBar>
 

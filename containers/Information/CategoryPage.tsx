@@ -25,7 +25,10 @@ export const CategoryPage = ({
           <h1>{pageTitle}</h1>
         </div>
       </GroupTopBar> */}
-      <h1
+      <GroupTopBar>
+        <h1>{pageTitle}</h1>
+      </GroupTopBar>
+      {/* <h1
         style={{
           padding: "20px",
           fontSize: "20px",
@@ -34,7 +37,7 @@ export const CategoryPage = ({
         }}
       >
         {pageTitle}
-      </h1>
+      </h1> */}
       <GroupTileWrapper>
         {topCategoryToGroupMapping[categorySlug]
           .slice(0, groupShowCount)

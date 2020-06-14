@@ -8,7 +8,7 @@ import { Waypoint } from "react-waypoint";
 import NoResultFound from "components/NoResult/NoResult";
 
 import { ProductsRow, LoaderWrapper, LoaderItem } from "./Information.style";
-import { outputCardScafollding } from "./contentScaffolding";
+import { outputCardScafollding, compactVideoFeed } from "./contentScaffolding";
 
 const GET_HOME_FEED = gql`
   query getFeed(
@@ -59,6 +59,7 @@ type ProductsProps = {
   topLevelCategory?: string;
   articleId?: string;
   contentType?: number;
+  compactVideoView?: boolean;
 };
 
 export const Information: React.FC<ProductsProps> = ({
@@ -70,6 +71,7 @@ export const Information: React.FC<ProductsProps> = ({
   topLevelCategory = "",
   articleId = null,
   contentType = null,
+  compactVideoView = false,
 }) => {
   const router = useRouter();
   const [loadingMore, toggleLoading] = useState(false);
@@ -159,20 +161,44 @@ export const Information: React.FC<ProductsProps> = ({
       },
     });
   };
+  console.log(compactVideoView);
 
   return (
     <>
       <div>
-        <ProductsRow>
-          {homeFeed.data.getHomeFeed.messages.map(
-            (element: any, index: number) => {
-              const data_ = JSON.parse(element.message);
-              const properties_ = JSON.parse(element.properties);
+        {compactVideoView == true && (
+          <ProductsRow>
+            <iframe
+              id="ytplayer"
+              // type="text/html"
+              width="640"
+              height="360"
+              src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1"
+              // frameborder="0"
+            ></iframe>
+            {homeFeed.data.getHomeFeed.messages.map(
+              (element: any, index: number) => {
+                const data_ = JSON.parse(element.message);
+                const properties_ = JSON.parse(element.properties);
 
-              return outputCardScafollding(data_, properties_, index);
-            }
-          )}
-        </ProductsRow>
+                return compactVideoFeed(data_, properties_, index);
+              }
+            )}
+          </ProductsRow>
+        )}
+
+        {compactVideoView == false && (
+          <ProductsRow>
+            {homeFeed.data.getHomeFeed.messages.map(
+              (element: any, index: number) => {
+                const data_ = JSON.parse(element.message);
+                const properties_ = JSON.parse(element.properties);
+
+                return outputCardScafollding(data_, properties_, index);
+              }
+            )}
+          </ProductsRow>
+        )}
       </div>
 
       {loadMore && homeFeed.data.getHomeFeed.hasMore && (

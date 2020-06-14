@@ -236,7 +236,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
                 onClick={() => {
                   setSelectedTopCategory(null);
                 }}
-                className={`category_button ${
+                className={`category_button_level_2 ${
                   selectedTopCategory == null ? "active" : ""
                 }`}
               >
@@ -246,7 +246,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
                 onClick={() => {
                   setSelectedTopCategory(FITNESS_TOP_CATEGORY);
                 }}
-                className={`category_button ${
+                className={`category_button_level_2 ${
                   selectedTopCategory == FITNESS_TOP_CATEGORY ? "active" : ""
                 }`}
               >
@@ -256,7 +256,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
                 onClick={() => {
                   setSelectedTopCategory(DIET_TOP_CATEGORY);
                 }}
-                className={`category_button ${
+                className={`category_button_level_2 ${
                   selectedTopCategory == DIET_TOP_CATEGORY ? "active" : ""
                 }`}
               >
@@ -266,7 +266,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
                 onClick={() => {
                   setSelectedTopCategory(MENTAL_TOP_CATEGORY);
                 }}
-                className={`category_button ${
+                className={`category_button_level_2 ${
                   selectedTopCategory == MENTAL_TOP_CATEGORY ? "active" : ""
                 }`}
               >
@@ -336,6 +336,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
             })}
           </ProductsRow>
         )}
+
         {selectedTopic == ExpertsTopic.EVENTS && (
           <ProductsRow>
             {parsedTrainersFeed.map((record, index) => {

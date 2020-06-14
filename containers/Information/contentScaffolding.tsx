@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import { ProductsCol, ProductCardWrapper } from "./Information.style";
+import {
+  ProductsCol,
+  ProductCardWrapper,
+  ProductsColDivided,
+} from "./Information.style";
 import { SimpleCardWithCollapse } from "components/InformationCard/SimpleCardWithCollapse";
 import { TipCard } from "components/InformationCard/TipCard";
 import { QuestionCard } from "components/InformationCard/QuestionCard";
 import { VideoPlayerCard } from "components/InformationCard/VideoCard";
 
+import ReactPlayer from "react-player";
 import Fade from "react-reveal/Fade";
 
 export const InformationType = {
@@ -48,6 +53,63 @@ export const Tag = styled.div`
   &.active {
     background-color: #ea9085;
     color: #fff;
+  }
+`;
+
+const ExpertUnitWrapper = styled.div`
+  padding: 8px;
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    margin-bottom: 5px;
+  }
+  .user_name {
+    display: flex;
+    align-items: center;
+
+    p.name {
+      color: #000;
+      font-weight: 500;
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+  }
+  p.role {
+    color: #000;
+    font-size: 10px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  .social_panel {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  p.offer {
+    margin-left: 3px;
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 2px;
+  }
+  p.know_more {
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 6px;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 6px;
+    background-color: #e43f5a;
+    color: #fff;
+  }
+
+  p.byline {
+    font-size: 13px;
   }
 `;
 
@@ -256,4 +318,56 @@ export const outputCardScafollding = (data_, properties_, index) => {
     default:
       console.log(properties_.type);
   }
+};
+
+export const compactVideoFeed = (data_, properties_, index) => {
+  return (
+    <ProductsColDivided key={index}>
+      <div style={{ padding: "5px" }}>
+        <div
+          style={{
+            height: "100%",
+            backgroundColor: "#fff",
+            display: "flex",
+            // padding: "3px",
+            flexDirection: "column",
+          }}
+        >
+          {/* <ReactPlayer
+            url={data_.videoLink}
+            width="100%"
+            height="120px"
+            controls={true}
+            playsinline={true}
+            light={true}
+            onStart={() => {
+              // trackPageView("/videos/" + sentenceToSlug(title));
+            }}
+          /> */}
+          {/* <img
+            style={{ objectFit: "contain" }}
+            src="https://img.youtube.com/vi/GhYgETY6Kao/mqdefault.jpg"
+          ></img> */}
+          <ExpertUnitWrapper>
+            <div className="topbar">
+              <div className="user_name">
+                <p className="name">{data_.title}</p>
+              </div>
+            </div>
+            {/* <p className="byline">{data.byline}</p> */}
+            {/* {data.offer != undefined && (
+              <div>
+                <p className="offer">{data.offer}</p>
+                <p className="know_more">{"Know More"}</p>
+              </div>
+            )}
+
+            {data.offer == undefined && (
+              <p className="know_more">{"Know More"}</p>
+            )} */}
+          </ExpertUnitWrapper>
+        </div>
+      </div>
+    </ProductsColDivided>
+  );
 };

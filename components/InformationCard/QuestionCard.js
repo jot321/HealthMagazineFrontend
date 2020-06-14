@@ -179,7 +179,7 @@ export const QuestionCard = ({
                       );
                     })}
                 </div> */}
-              <h3>{text}</h3>
+              {text != "" && <h3>{text}</h3>}
             </CardArticleArea>
           </div>
 

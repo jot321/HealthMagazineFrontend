@@ -75,7 +75,7 @@ function HomePage({ deviceType }) {
                 contentType == InformationType.QUESTION ? "active" : ""
               }`}
             >
-              QnAs
+              QnA
             </div>
             <div
               onClick={() => {

@@ -9,7 +9,6 @@ import {
   SubmitButton,
 } from "styled/pages.style";
 import { InformationType } from "containers/Information/contentScaffolding";
-
 import { trackPageView } from "analytics";
 
 const SubmitButtonImage = require("image/add.png");
@@ -77,7 +76,7 @@ export const ContentFeedPage = ({
               contentType == InformationType.QUESTION ? "active" : ""
             }`}
           >
-            QnAs
+            QnA
           </div>
           <div
             onClick={() => {
@@ -121,20 +120,23 @@ export const ContentFeedPage = ({
         </div>
       )}
 
-      {deviceType.desktop ? (
+      {contentType == InformationType.VIDEOLINK && (
         <MainContentArea>
-          <ContentSection>
+          <ContentSection style={{ width: "100%" }}>
             <div>
               <Information
                 deviceType={deviceType}
                 group={group}
                 topLevelCategory={categoryName}
                 contentType={contentType}
+                compactVideoView={false}
               />
             </div>
           </ContentSection>
         </MainContentArea>
-      ) : (
+      )}
+
+      {contentType != InformationType.VIDEOLINK && (
         <MainContentArea>
           <ContentSection style={{ width: "100%" }}>
             <div>

@@ -190,17 +190,27 @@ const GroupTopBar = styled.div`
   flex-direction: column;
   background-color: #fff;
 
-  .title_area {
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  h1 {
+    font-size: 20px;
+    font-weight: 500;
     padding: 10px;
   }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 400;
+    border-left: 5px solid #e43f5a;
+  }
+
   .group_title_area {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     padding: 10px;
@@ -217,17 +227,26 @@ const GroupTopBar = styled.div`
     font-weight: 500;
 
     border-radius: 10px;
+    font-weight: 400;
+    border-radius: 10px;
+    text-transform: uppercase;
+  }
+
+  .category_button_level_2 {
+    padding: 8px 15px;
+    font-weight: 500;
+
+    border-radius: 10px;
+    font-weight: 500;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
   }
 
   .active {
     background-color: #eee;
     color: #e43f5a;
     font-weight: 600;
-  }
-
-  h1 {
-    font-size: 20px;
-    font-weight: 500;
   }
 `;
 

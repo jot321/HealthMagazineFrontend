@@ -145,7 +145,6 @@ const Container = styled.div`
       font-weight: 500;
       color: #000;
       text-transform: capitalize;
-      margin-bottom: 1rem;
     }
   }
 
@@ -263,7 +262,7 @@ export const VideoPlayerCard = ({
                 </div>
               )}
 
-              <div className="card__tags">
+              {/* <div className="card__tags">
                 {groups.length > 0 &&
                   groups.slice(0, 3).map((group, index) => {
                     return (
@@ -280,14 +279,16 @@ export const VideoPlayerCard = ({
                       </div>
                     );
                   })}
-              </div>
+              </div> */}
             </div>
 
             <div className="card__image">
               <ReactPlayer
                 url={url}
                 width="100%"
+                height={"260px"}
                 controls={true}
+                light={true}
                 playsinline={true}
                 onStart={() => {
                   trackPageView("/videos/" + sentenceToSlug(title));
