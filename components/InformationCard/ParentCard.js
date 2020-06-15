@@ -251,6 +251,25 @@ const Container = styled.div`
     }
   }
 
+  .panel_views {
+    display: flex;
+    align-items: center;
+    color: #1f4068;
+    width: 100%;
+    white-space: break-spaces;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 3px 10px;
+    background-color: #ddf3f5;
+    border-radius: 8px;
+    height: 20px;
+
+    .number {
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+  }
+
   .panel_bookmark {
     display: flex;
     align-items: center;
@@ -1443,11 +1462,28 @@ export const SocialPanel = ({
   );
 };
 
-export const CompactSocialPanel = ({ shares = 10, loves = 7 }) => {
+export const CompactSocialPanel = ({ views, shares, loves }) => {
   return (
     <Container>
       <div style={{ display: "flex", flexDirection: "row-reverse" }}>
-        <div className="panel_share">
+        <div className="panel_like">
+          <img
+            style={{
+              width: "15px",
+              height: "15px",
+              marginRight: "5px",
+            }}
+            src={loveIcon}
+          ></img>
+          <span className="number">{loves}</span>
+        </div>
+
+        <div className="panel_views">
+          <div className="number">{views + " "}</div>
+          <div style={{ width: "32px", textAlign: "center" }}>{" Views"}</div>
+        </div>
+
+        {/* <div className="panel_share">
           <img
             style={{
               width: "20px",
@@ -1457,19 +1493,7 @@ export const CompactSocialPanel = ({ shares = 10, loves = 7 }) => {
             src={shareIcon}
           ></img>
           <span className="number">{shares}</span>
-        </div>
-
-        <div className="panel_like">
-          <img
-            style={{
-              width: "20px",
-              height: "20px",
-              marginRight: "5px",
-            }}
-            src={loveIcon}
-          ></img>
-          <span className="number">{loves}</span>
-        </div>
+        </div> */}
       </div>
     </Container>
   );

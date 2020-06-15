@@ -274,6 +274,7 @@ export const outputCardScafollding = (data_, properties_, index) => {
                 groups={properties_.groups}
                 likes={properties_.likes}
                 shares={properties_.shares}
+                views={properties_.views}
                 bookmarks={properties_.bookmarks}
                 comments={{
                   comments: properties_.expertComments,
@@ -364,6 +365,7 @@ export const compactVideoFeed = (data_, properties_, index) => {
                 <p className="name">{data_.title}</p>
               </div>
               <CompactSocialPanel
+                views={properties_.views}
                 loves={properties_.likes}
                 shares={properties_.shares}
               />

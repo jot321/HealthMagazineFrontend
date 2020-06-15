@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 
 import {
   createVideosWhatsappLinkMessageWebAPIShare,
@@ -212,6 +214,12 @@ const CardArticleArea = styled.article`
   }
 `;
 
+const INCREMENT_VIEWS = gql`
+  mutation incrementViews($CMS_ID: ID!) {
+    incrementViews(id: $CMS_ID)
+  }
+`;
+
 export const VideoPageWrapper = ({ CMS_ID, title, byline, videoLinks }) => {
   return (
     <div>
@@ -247,12 +255,14 @@ export const VideoPlayerCard = ({
   likes,
   shares,
   bookmarks,
+  views,
   comments,
   playlistTitle,
   playlistId,
 }) => {
   const router = useRouter();
   const singleArticle = router.query.a_id != undefined ? true : false;
+  const [incrementViews] = useMutation(INCREMENT_VIEWS);
 
   return (
     <div>
@@ -295,6 +305,7 @@ export const VideoPlayerCard = ({
                 playsinline={true}
                 light={!singleArticle}
                 onStart={() => {
+                  incrementViews({ variables: { CMS_ID } });
                   trackPageView("/videos/" + sentenceToSlug(title));
                 }}
               />
