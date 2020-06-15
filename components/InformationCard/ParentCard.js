@@ -1480,7 +1480,7 @@ export const CompactSocialPanel = ({ views, shares, loves }) => {
 
         <div className="panel_views">
           <div className="number">{views + " "}</div>
-          <div style={{ width: "32px", textAlign: "center" }}>{" Views"}</div>
+          <div style={{ width: "35px", textAlign: "center" }}>{" Views"}</div>
         </div>
 
         {/* <div className="panel_share">
