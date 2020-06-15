@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
-import HashLoader from "react-spinners/HashLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import { Waypoint } from "react-waypoint";
 import NoResultFound from "components/NoResult/NoResult";
 
@@ -117,7 +117,7 @@ export const Information: React.FC<ProductsProps> = ({
     return (
       <LoaderWrapper>
         <LoaderItem>
-          <HashLoader size={50} color={"#ea9085"} />
+          <BeatLoader size={15} color={"#ea9085"} />
         </LoaderItem>
       </LoaderWrapper>
     );
@@ -198,7 +198,7 @@ export const Information: React.FC<ProductsProps> = ({
       {loadingMore && (
         <LoaderWrapper>
           <LoaderItem>
-            <HashLoader size={50} color={"#ea9085"} />
+            <BeatLoader size={15} color={"#ea9085"} />
           </LoaderItem>
         </LoaderWrapper>
       )}

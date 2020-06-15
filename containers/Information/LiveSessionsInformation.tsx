@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import gql from "graphql-tag";
-import HashLoader from "react-spinners/HashLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 
 import { CoachEvent } from "components/InformationCard/CoachCard";
 
@@ -142,7 +142,7 @@ export const LiveSessionsInformation: React.FC<ProductsProps> = ({
     return (
       <LoaderWrapper>
         <LoaderItem>
-          <HashLoader size={50} color={"#ea9085"} />
+          <BeatLoader size={15} color={"#ea9085"} />
         </LoaderItem>
       </LoaderWrapper>
     );

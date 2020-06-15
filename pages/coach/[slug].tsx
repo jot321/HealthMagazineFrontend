@@ -9,12 +9,9 @@ import { withApollo } from "helper/apollo";
 import {
   CoachDescription,
   CoachCourse,
-  CoachCategoryTitle,
   CoachEvent,
   CoachSocialIcon,
-  CoachCover,
   ConnectWithExpertButton,
-  ShareProfileButton,
   ShareProfileComponent,
 } from "components/InformationCard/CoachCard";
 
@@ -26,7 +23,7 @@ import {
 import { GroupTopBar } from "styled/pages.style";
 
 import Carousel from "nuka-carousel";
-import HashLoader from "react-spinners/HashLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 import NoResultFound from "components/NoResult/NoResult";
 import { FaInstagram, FaFacebook, FaDesktop } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -66,7 +63,7 @@ const Profile: NextPage<{}> = () => {
     return (
       <LoaderWrapper>
         <LoaderItem>
-          <HashLoader size={50} color={"#ea9085"} />
+          <BeatLoader size={15} color={"#ea9085"} />
         </LoaderItem>
       </LoaderWrapper>
     );

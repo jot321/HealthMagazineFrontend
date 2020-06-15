@@ -76,6 +76,7 @@ const ExpertUnitWrapper = styled.div`
       font-size: 15px;
       font-weight: 500;
       text-transform: capitalize;
+      text-align: center;
     }
   }
   p.role {

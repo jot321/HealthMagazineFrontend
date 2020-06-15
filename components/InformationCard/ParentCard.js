@@ -788,7 +788,7 @@ export const SocialPanel = ({
   };
   const CommentsContainer = () => {
     return (
-      <div style={{ display: "flex", "flex-direction": "row" }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <div
           className={`${
             showCompleteVersion === true &&
@@ -1140,7 +1140,7 @@ export const SocialPanel = ({
       <div className="card__action">
         {/* Social Panel */}
         <div className="panel_social">
-          <div style={{ display: "flex", "flex-direction": "row" }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
             {!showCompleteVersion && <CommentsContainer />}
             {showCompleteVersion && <CommentsContainerLongView />}
 
@@ -1160,7 +1160,7 @@ export const SocialPanel = ({
           </div>
 
           {/* Shares Button */}
-          <div style={{ display: "flex", "flex-direction": "row-reverse" }}>
+          <div style={{ display: "flex", flexDirection: "row-reverse" }}>
             <div
               className="panel_share"
               onClick={() => {
@@ -1332,9 +1332,9 @@ export const SocialPanel = ({
           )}
 
           {showCompleteVersion &&
-            commentsShown.map((comment) => {
+            commentsShown.map((comment, index) => {
               return (
-                <Comment>
+                <Comment key={index}>
                   <div className="user_name">
                     <p>{comment.userName}</p>
                     {comment.writtenByExpert && <img src={verifiedIcon}></img>}
@@ -1386,9 +1386,9 @@ export const SocialPanel = ({
             })}
 
           {!showCompleteVersion &&
-            commentsFromParent.topComments.map((comment) => {
+            commentsFromParent.topComments.map((comment, index) => {
               return (
-                <Comment>
+                <Comment key={index}>
                   <div className="user_name">
                     <p>{comment.userName}</p>
                     {comment.writtenByExpert && <img src={verifiedIcon}></img>}
@@ -1446,7 +1446,7 @@ export const SocialPanel = ({
 export const CompactSocialPanel = ({ shares = 10, loves = 7 }) => {
   return (
     <Container>
-      <div style={{ display: "flex", "flex-direction": "row-reverse" }}>
+      <div style={{ display: "flex", flexDirection: "row-reverse" }}>
         <div className="panel_share">
           <img
             style={{

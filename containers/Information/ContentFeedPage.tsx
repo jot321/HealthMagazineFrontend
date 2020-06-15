@@ -50,6 +50,12 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(null);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                },
+              });
               trackPageView("/" + categorySlug);
             }}
             className={`category_button ${contentType == null ? "active" : ""}`}
@@ -59,6 +65,13 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.TIP);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  contentType: InformationType.TIP,
+                },
+              });
               trackPageView("/" + categorySlug + "/tips");
             }}
             className={`category_button ${
@@ -70,6 +83,13 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.QUESTION);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  contentType: InformationType.QUESTION,
+                },
+              });
               trackPageView("/" + categorySlug + "/qnas");
             }}
             className={`category_button ${
@@ -81,6 +101,13 @@ export const ContentFeedPage = ({
           <div
             onClick={() => {
               onClickSelectContentType(InformationType.VIDEOLINK);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  contentType: InformationType.VIDEOLINK,
+                },
+              });
               trackPageView("/" + categorySlug + "/videos");
             }}
             className={`category_button ${

@@ -50,6 +50,12 @@ function HomePage({ deviceType }) {
             <div
               onClick={() => {
                 onClickSelectContentType(null);
+                router.push({
+                  pathname: router.pathname,
+                  query: {
+                    ...router.query,
+                  },
+                });
               }}
               className={`category_button ${
                 contentType == null ? "active" : ""
@@ -60,6 +66,13 @@ function HomePage({ deviceType }) {
             <div
               onClick={() => {
                 onClickSelectContentType(InformationType.TIP);
+                router.push({
+                  pathname: router.pathname,
+                  query: {
+                    ...router.query,
+                    contentType: InformationType.TIP,
+                  },
+                });
               }}
               className={`category_button ${
                 contentType == InformationType.TIP ? "active" : ""
@@ -69,6 +82,13 @@ function HomePage({ deviceType }) {
             </div>
             <div
               onClick={() => {
+                router.push({
+                  pathname: router.pathname,
+                  query: {
+                    ...router.query,
+                    contentType: InformationType.QUESTION,
+                  },
+                });
                 onClickSelectContentType(InformationType.QUESTION);
               }}
               className={`category_button ${
@@ -80,6 +100,13 @@ function HomePage({ deviceType }) {
             <div
               onClick={() => {
                 onClickSelectContentType(InformationType.VIDEOLINK);
+                router.push({
+                  pathname: router.pathname,
+                  query: {
+                    ...router.query,
+                    contentType: InformationType.VIDEOLINK,
+                  },
+                });
               }}
               className={`category_button ${
                 contentType == InformationType.VIDEOLINK ? "active" : ""
