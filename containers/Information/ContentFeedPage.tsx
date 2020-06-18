@@ -35,7 +35,7 @@ export const ContentFeedPage = ({
   const contentTypeFromUrl =
     router.query.contentType !== undefined
       ? Number(router.query.contentType)
-      : null;
+      : InformationType.VIDEOLINK;
 
   const [contentType, setContentType] = useState(contentTypeFromUrl);
 
@@ -47,7 +47,7 @@ export const ContentFeedPage = ({
     <div>
       <GroupTopBar>
         <div className="content_categories">
-          <div
+          {/* <div
             onClick={() => {
               onClickSelectContentType(null);
               router.push({
@@ -61,6 +61,24 @@ export const ContentFeedPage = ({
             className={`category_button ${contentType == null ? "active" : ""}`}
           >
             All
+          </div> */}
+          <div
+            onClick={() => {
+              onClickSelectContentType(InformationType.VIDEOLINK);
+              router.push({
+                pathname: router.pathname,
+                query: {
+                  ...router.query,
+                  contentType: InformationType.VIDEOLINK,
+                },
+              });
+              trackPageView("/" + categorySlug + "/videos");
+            }}
+            className={`category_button ${
+              contentType == InformationType.VIDEOLINK ? "active" : ""
+            }`}
+          >
+            Videos
           </div>
           <div
             onClick={() => {
@@ -97,24 +115,6 @@ export const ContentFeedPage = ({
             }`}
           >
             QnA
-          </div>
-          <div
-            onClick={() => {
-              onClickSelectContentType(InformationType.VIDEOLINK);
-              router.push({
-                pathname: router.pathname,
-                query: {
-                  ...router.query,
-                  contentType: InformationType.VIDEOLINK,
-                },
-              });
-              trackPageView("/" + categorySlug + "/videos");
-            }}
-            className={`category_button ${
-              contentType == InformationType.VIDEOLINK ? "active" : ""
-            }`}
-          >
-            Videos
           </div>
         </div>
       </GroupTopBar>
